@@ -1,0 +1,78 @@
+import { Component } from '@angular/core';
+import firebase from 'firebase';
+import { AlertController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
+
+
+@Component({
+  selector: 'page-edit-csv-field',
+  templateUrl: 'edit-csv-field.html',
+})
+export class EditCsvFieldPage {
+
+  products:any;
+  campid:any;
+  anArray:any=[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
+
+    this.campid = navParams.get("campid");
+    
+  }
+  Add(){
+    this.anArray.push({'value':'','action':''}); 
+    }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EditCsvFieldPage');
+    let currentuser=firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.campid).onSnapshot((doc) => {
+      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      console.log(source, " data: "); 
+      this.products =  doc.data().CSVfield ; 
+      console.log("csv ",this.products) ;
+      this.anArray=this.products 
+  });
+  }
+
+  savefield()
+  {
+     let Mainheader =this.anArray;
+    console.log(Mainheader); 
+   
+    let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
+    .collection('leads').doc('3954116f-d868-4de9-b9f5-c57d44c5dd3f')
+    .set(Object.assign({
+  
+     leads:this.anArray
+    
+     }  
+   )) 
+
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
+    .update({
+      CSVfield:Mainheader
+    })
+    let alert = this.alertCtrl.create({
+      title: 'Sucess',
+      subTitle: ' Field Updated Successfully .. ',
+      buttons: [
+        {text: 'OK',
+                handler: data => {
+                  this.navCtrl.push(HomePage)
+                }
+                
+              },
+             
+            ]
+            });
+    alert.present();
+    
+  }
+
+
+
+
+}

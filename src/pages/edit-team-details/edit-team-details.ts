@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,  NavController, NavParams } from 'ionic-angular';
 import { AngularFirestore} from '@angular/fire/firestore';
 
-@IonicPage()
+
 @Component({
   selector: 'page-edit-team-details',
   templateUrl: 'edit-team-details.html',

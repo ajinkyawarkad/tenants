@@ -10,13 +10,23 @@
   </ion-header>
   
   <ion-content class="content">
+  
+    
+    
+
   <div class="contaier">
+
   <ion-slides #slides style="width:99%">
   
   <ion-slide style="height: 91%;">
+  
+        <h5>Setup your sales campaigns</h5>
+        <p style="color: darkred;">This is step 1</p>
+     
+    
   <ion-list>
   <ion-item>
-  <ion-input type="text" required placeholder="Name" [(ngModel)]="camp.name" ></ion-input>
+  <ion-textarea type="text" required placeholder="Name" [(ngModel)]="camp.name" ></ion-textarea>
   </ion-item>
   <br />
   
@@ -41,38 +51,47 @@
   </ion-item>
   <br />
   
-  <ion-item>
+  <!-- <ion-item>
   <ion-label>
   Allow Manager to Edit
   </ion-label>
   <ion-checkbox checked="true"></ion-checkbox>
-  </ion-item >
+  </ion-item > -->
   
   </ion-list>
   <button ion-button type="button" (click)="slideToSlide()">Save & Next</button>
   
   </ion-slide>
   
-  <ion-slide >
-  
-  <table style="margin-top:-5%;">
-  <tr style="height: 41px;font-size:15px;">
+  <ion-slide style="height: 100%;overflow: auto; overflow-x: hidden; ">
+    <div class="upper">
+    <h5>Setup your sale status</h5>
+    <p style="color: darkred;">This is final step </p>
+    </div>
+
+    
+  <table >
+   
+  <tr style="height: 28px;font-size:15px;">
   <th >Status</th>
   <th>Action</th>
   </tr>
   <tr style="height: 31px;font-size:15px;">
   
-  <td> <ion-input placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
-  <td><select type="text" [(ngModel)]="sts.action1">
+  <td> 
+    <ion-input style="height: 30px;" placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
+  <td><select (click)="checkAlert($event)"  type="text" [(ngModel)]="sts.action1">
   <option>None</option>
   <option>Inform Manager</option>
   <option >Remove client from profile</option>
   </select>
+ 
   </td>
+  
   </tr>
   <tr style="height: 31px;font-size:15px;">
-  <td> <ion-input placeholder="Not Interested" [(ngModel)]="sts.sts2" type="text" name="pname[]"></ion-input></td>
-  <td><select type="text" [(ngModel)]="sts.action2" >
+  <td> <ion-input style="height: 30px;"  placeholder="Not Interested" [(ngModel)]="sts.sts2" type="text" name="pname[]"></ion-input></td>
+  <td><select (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action2" >
   <option>None</option>
   <option>Inform Manager</option>
   <option >Remove client from profile</option>
@@ -82,10 +101,10 @@
   
   <tr *ngFor="let att of anArray; let idx = index;">
   <td>
-  <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
+  <ion-input style="height: 30px;" placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
   </td>
   <td >
-  <select type="text" [(ngModel)]="anArray[idx].action">
+  <select (click)="checkAlert($event)" type="text"  [(ngModel)]="anArray[idx].action">
   <option>None</option>
   <option>Inform Manager</option>
   <option >Remove client from profile</option>
@@ -99,15 +118,13 @@
   <div style="float:left;">
   <button ion-button (click)="Add()">Add More</button>
   </div>
-  <br>
-  
-  <div>
+
   <div style="float:right;">
   <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
   <button ion-button id="nextBtn" (click)= "insertUser(camp,prod);" >Save</button>
   <button ion-button id="nextBtn" (click)= "temp()" >Temp</button>
   </div>
-  </div>
+  
   
   </ion-slide>
   </ion-slides>

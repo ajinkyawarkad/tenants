@@ -8,63 +8,79 @@
 </ion-header>
 
 
-<ion-content no-bounce> 
- 
-  <h5 style="margin-left: 20px;">Select file to upload data</h5>
+<ion-content no-bounce>  
+  <!-- Item Dividers in a List -->
+  <ion-list>
+    <ion-item-divider>
+      <ion-label>
+        Option 1
+      </ion-label>
+    </ion-item-divider>
+
+
+    <h6 style="margin-left: 20px;">Select file to upload data</h6>
   <div class="form-group" style="margin-left: 20px;">
          <input type="file" (change)="onFileSelect($event.target)"  id="myfile" accept=".csv">
+         
     </div>
+    <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit"  (click)="upload()"> Upload</button> 
+
+    <p style="margin-left: 20px;font-weight: bold;">OR</p>
+
+
+    <ion-item-divider>
+      <ion-label>
+        Option 2
+      </ion-label>
+    </ion-item-divider>
+  
+    <h6 style="margin-left: 20px;">Add your Field</h6>
+    
+
+    <table class="data-table"  class="myTable">
+    
+      <tr>
+        <th>Field</th>
+        <th>Unique</th>	
+        <th>Mobile</th>
+        <th></th>
+      </tr>
+    
+      <tbody>
+     
+  
+        <tr *ngFor="let att of anArray; let idx = index"> 
+          <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
+          <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
+          <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td>
+        
+          <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
+   
+          </tr >
+       
+        </tbody>
+  
+       
+      </table>
+  
+    <br>
+  
+    <button ion-button  style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
+    
+    <button  ion-button type="submit" (click)="savefield()"> Save</button>
+     <!-- <button ion-button  color="success" (click)="save1()"> Create Lead </button>  -->
+      
+    
+   
+  </ion-list>
+
+
+ 
+  
+   
 
    
-    <p style="margin-left: 20px;">OR</p>
-    <h5 style="margin-left: 20px;">Add your Field</h5>
-    
-
-  <table class="data-table"  class="myTable">
-	
-		<tr>
-			<th>Field</th>
-			<th>Unique</th>	
-      <th>Mobile</th>
-      <th></th>
-		</tr>
-	
-    <tbody>
-     
-      
-      <!-- <tr >
-        <td> <ion-input type="text" placeholder="Enter Field " disabled="true" ></ion-input></td>
-        <td><ion-checkbox   disabled="true"></ion-checkbox></td>
-        <td><ion-checkbox   disabled="true"></ion-checkbox></td>
-        <td><ion-checkbox   disabled="true"></ion-checkbox></td>
-        <td></td>
-      </tr> -->
-
-      <tr *ngFor="let att of anArray; let idx = index"> 
-        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
-        <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
-        <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td>
-      
-        <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
- 
-        </tr >
-       
-       
-
-       
-       
-      </tbody>
-
-     
-    </table>
-
-  <br>
-
-  <button ion-button  style="background-color: #bbbbbb;" (click)="Add()">Add More</button>
-  <br>
-   <button ion-button type="submit" color="secondary" (click)="upload()"> Upload & Exit </button> 
-   <button ion-button  color="success" (click)="save1()"> Create Lead </button> 
-    
+   
   
 
 </ion-content>

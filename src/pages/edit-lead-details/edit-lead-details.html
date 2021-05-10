@@ -12,17 +12,33 @@
   <div class="contaier">
 
     <table >
+      <tr > 
+        <td><ion-label>Action</ion-label></td> 
+        <td><ion-input ></ion-input></td>  
+      </tr>  
+
+      <tr > 
+        <td><ion-label>Status</ion-label></td> 
+        <td><ion-input ></ion-input></td>  
+      </tr> 
+
+      <tr > 
+        <td><ion-label>Remark</ion-label></td> 
+        <td><ion-input ></ion-input></td>  
+      </tr> 
+       
+  
+   </table>
+
+   <br>
+
+    <table >
       <tr *ngFor="let produ of value.leads; let i = index;"> 
         <td><ion-input [(ngModel)]="produ.value"  style="font-weight: bold;"></ion-input></td> 
         <td><ion-input [(ngModel)]="produ.action"></ion-input></td>  
       </tr>  
-  <!--      
-      <tr>
-        <td style="font-weight: bold;">Handler</td>
-        <td><ion-input [(ngModel)]="value.sr"></ion-input></td>
-      </tr>
-    -->
-    
+       
+  
    </table>
 
    
@@ -30,7 +46,7 @@
     <ion-list>
    
      
-          <button ion-button round full color="primary" (click)="update()">
+          <button ion-button color="primary" (click)="update()">
             Save Changes
         </button>
        </ion-list>

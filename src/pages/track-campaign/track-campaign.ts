@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
  import { AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ArchivedCampaignsDetailsPage } from '../archived-campaigns-details/archived-campaigns-details';
 import { EditCampaignsDetailsPage } from '../edit-campaigns-details/edit-campaigns-details';
 import { LeadsDetailsPage } from '../leads-details/leads-details';
 
@@ -19,7 +18,7 @@ interface Users {
   manager:string; 
 }
 
-@IonicPage()
+
 @Component({
   selector: "page-track-campaign",
     templateUrl: "track-campaign.html",
@@ -295,9 +294,7 @@ column: string = 'name';
       .delete();
   }
 
-  gotoAchived() {
-    this.navCtrl.push(ArchivedCampaignsDetailsPage);
-  }
+ 
   leads(product) {
     this.navCtrl.push(LeadsDetailsPage, {
       product: product,

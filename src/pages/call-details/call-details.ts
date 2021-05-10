@@ -1,25 +1,68 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { Console } from "@angular/core/src/console";
+import firebase, { firestore } from "firebase";
+import { NavController, NavParams } from "ionic-angular";
+import { empty, Observable } from "rxjs";
 
-/**
- * Generated class for the CallDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+interface Users {
+  name: string;
+  manager: string;
+}
 
-@IonicPage()
 @Component({
-  selector: 'page-call-details',
-  templateUrl: 'call-details.html',
+  selector: "page-call-details",
+  templateUrl: "call-details.html",
 })
 export class CallDetailsPage {
+  uid: any;
+  campid: any;
 
+  productss: Observable<Users[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.campid = navParams.get("campid");
+    console.log("camp id", this.campid);
+
+    this.uid = navParams.get("uid");
+    console.log("lead id", this.uid);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CallDetailsPage');
-  }
+    console.log("ionViewDidLoad CallDetailsPage");
 
+    let cu = firebase.auth().currentUser.uid;
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc("COM#" + cu)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .collection("leads")
+      .doc(this.uid)
+      .collection("History")
+      .doc("Activity1")
+      .get()
+      .then((doc) => {
+        if (doc.data()) {
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc("COM#" + cu)
+            .collection("Campaigns")
+            .doc(this.campid)
+            .collection("leads")
+            .doc(this.uid)
+            .collection("History")
+            .doc("Activity1")
+            .onSnapshot((doc) => {
+              var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+              console.log(source, " data: ");
+              this.productss = doc.data().data;
+
+              console.log("shjshj",this.productss)
+            });
+        }else{
+          console.log('DATA EMPTY')
+        }
+      });
+  }
 }

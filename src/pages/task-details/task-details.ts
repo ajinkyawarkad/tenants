@@ -1,3 +1,4 @@
+//Updated
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Leadd, Leadref } from '../../models/user';
@@ -12,15 +13,11 @@ import { uuid } from 'uuidv4';
 import { Observable } from 'rxjs';
 import * as $ from "jquery";
 
-
-
 interface Lead {
   status:string; 
   action:string;
 }
 
-
-@IonicPage()
 @Component({
   selector: 'page-task-details',
   templateUrl: 'task-details.html',
@@ -33,6 +30,9 @@ export class TaskDetailsPage {
   id:any;
   data:any;
   data1:any;
+  arr:any=[]
+  act;
+  select;
  //refid:any;
   leadref = {} as Leadref;
   leadd = {} as Leadd;
@@ -63,6 +63,7 @@ export class TaskDetailsPage {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: "); 
         this.products =  doc.data().status ;
+        this.arr=this.products;
          console.log(this.products) ;
  
     });
@@ -70,31 +71,28 @@ export class TaskDetailsPage {
   }
 
   ionViewDidLoad() {
+    
   
   }
 
-  Getselected(selected_value)
-  {
-  console.log("selector: ",selected_value);
-  if( "Inform Manager")
-  {
-    console.log("Message sent")
-    let currentuser = firebase.auth().currentUser
-    
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +
-    '/'+this.value.cid+'/'+'leads messages'+'/'+this.id)
-    .set(Object.assign({
-    id: this.id,
-    message:"status upated to "+selected_value+" "+"by" +" "+this.value.sr
-    }
-    ))
-    
+  Getselected(selected_value) {
+    let temp=[];
+    console.log("SELECT",selected_value)
+    this.select=selected_value
+    let action;
+      for (var s in this.arr){
+        if (this.arr[s].status == selected_value){
+          temp.push(this.arr[s])
+          action=this.arr[s].action
+          
+        }
+      }
+      
+     
+      this.act=action
+      console.log("TEMO",this.act)
 
-  }
-  else
-  {
-    console.log("Message not send..")
-  }
+  
   }
 
 
@@ -114,8 +112,70 @@ export class TaskDetailsPage {
     datetime:leadd.datetime1,
     status: leadd.selected_value,
     remark: leadd.remark
-    }
+    },{merge:true}
     ))
+    console.log("ACT IS ",this.act)
+    console.log('SELECT',this.select)
+  
+    switch (this.act){
+      case "Inform Manager":
+        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +
+        '/'+this.value.cid+'/'+'leads messages'+'/'+this.id)
+        .set(Object.assign({
+              id: this.id,
+              message:"status upated to "+this.select+" "+"by" +" "+currentuser.displayName
+        }
+        ))
+        break;
+      case "Remove client from profile":
+        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.id).delete();
+        console.log("DELETED", this.id)
+        break;
+
+
+
+      
+    }
+    
+
+    
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).collection('leads').doc(this.id).collection('History')
+    .doc('Activity1').set({
+     data:firebase.firestore.FieldValue.arrayUnion({
+       Time: new Date(),
+       Action:leadd.action,
+       Handler:currentuser.displayName,
+       FollowUp:leadd.datetime1,
+       Remark:leadd.remark,
+       link:"https://google.com"
+
+     }) 
+    },{merge:true})
+    var b = new Date().getMonth()+1;
+
+    var c = new Date().getFullYear();
+    var a = new Date().getDate();
+
+    let date = a+'-'+b+'-'+c;
+    let dat='';
+    dat=date;
+    
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Admin').doc(currentuser.uid).collection('Report').
+    doc(dat).set(
+      {
+        data:firebase.firestore.FieldValue.arrayUnion({
+        Time: new Date(),
+       Action:leadd.action,
+      
+       FollowUp:leadd.datetime1,
+       Remark:leadd.remark,
+       name:this.id,
+       link:"https://google.com"
+      })
+       
+      },{merge:true}
+    )
+    
     
    
     let alert = this.alertCtrl.create({ 

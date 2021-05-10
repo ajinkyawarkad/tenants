@@ -2,8 +2,60 @@ page-edit-campaigns-details {
 	ion-content
 	{
 		font-family: 'roboto';
+		//font-size: 13px;	
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin-top: 6.6rem;
+		margin-bottom: 1rem;
+		font-weight: 500;
+		line-height: 0.2;
+	}
+
+	.upper{
+		margin-top: -12.4rem;
+    margin-bottom: 5rem;
+	}
+	
+	select{
+		width: 100%;
+		border: none;
+		height: 28px;
+		margin-bottom: -9px;
 		font-size: 15px;	
 	}
+	text-input-md {
+		margin: 8px 8px;
+		padding: 0;
+		width: calc(100% - 8px - 8px);
+		font-size:15px;
+		
+	}
+	table {
+		border-collapse: collapse;
+		width: 101%;
+	  }
+	  
+	  td, th {
+		border: 1px solid #dddddd;
+		text-align: center;
+		padding: 1px;
+	  }
+	  form, input, optgroup, select {
+		margin: 0;
+		font: inherit;
+		color: inherit;
+		margin-top: -18px;
+		margin-bottom: -2px;
+		font-size: 15px;
+	}
+	ion-input, ion-textarea {
+		height: 34px;
+		top: -4px;
+	}
+	//   tr:nth-child(even) {
+	// 	background-color: #dddddd;
+	//   }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	.contaier {
@@ -28,7 +80,7 @@ page-edit-campaigns-details {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		
+		height: 95%;
 	}
 	.list-md {
 		margin: 21px 20px 15px;
@@ -57,7 +109,7 @@ page-edit-campaigns-details {
 		left: 50%;
 		margin-right: 80%;
 		transform: translate(-50%, -50%);
-		height:auto;
+		height:95%;
 	}
 }
 
@@ -73,7 +125,7 @@ page-edit-campaigns-details {
 		left: 50%;
 		margin-right: 80%;
 		transform: translate(-50%, -50%);
-		height:auto;
+		height:95%;
 	}
 }
 
@@ -89,9 +141,11 @@ page-edit-campaigns-details {
 		left: 50%;
 		margin-right: 80%;
 		transform: translate(-50%, -50%);
+		height:80%;
 	}
 }
 	
+
 
 
 }

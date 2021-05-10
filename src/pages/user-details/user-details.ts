@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController, LoadingController} from 'ionic-angular';
+import {  NavController, NavParams ,AlertController, LoadingController} from 'ionic-angular';
 import { EditTeamDetailsPage } from '../edit-team-details/edit-team-details';
 import { UserLicensesPage } from '../user-licenses/user-licenses';
 
@@ -24,7 +24,7 @@ email:string;
 role:string;
 }
 
-@IonicPage()
+
 @Component({
 selector: 'page-user-details',
 templateUrl: 'user-details.html',

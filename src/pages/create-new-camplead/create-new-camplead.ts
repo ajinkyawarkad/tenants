@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,  NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import firebase from 'firebase';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';
 import { data } from 'jquery';
 import { LeadsDetailsPage } from '../leads-details/leads-details';
+import { HomePage } from '../home/home';
 
 
 interface Camps {
@@ -15,7 +16,7 @@ interface Camps {
      
  }
 
-@IonicPage()
+
 @Component({
   selector: 'page-create-new-camplead',
   templateUrl: 'create-new-camplead.html',
@@ -38,7 +39,7 @@ export class CreateNewCampleadPage {
 
 
    this.value = this.navParams.get('item');  
-   console.log(this.value);
+   console.log("camp id",this.value);
   }
 n
   ionViewDidLoad() {
@@ -66,11 +67,13 @@ n
   
   insertLead(data){
    
-     this.storage.get('cuid').then((val) => {
-      // console.log('id is', val);
-       let uuid1 = uuid()
-       console.log(uuid);
-     
+    this.storage.get('cuid').then((val) => {
+      console.log('id is', val);
+      let uuid1 = uuid()
+      console.log("uuid",uuid);
+      console.log("camp id",this.value.cid);
+      console.log("data",data)
+    
      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
      .collection('leads').doc(uuid1)
      .set(Object.assign({
@@ -79,33 +82,36 @@ n
       SR_id:data.id,
       SR_name:data.name+" "+data.last,
       uid:uuid1 
-    
-      } 
-    ))
-    
+      }  
+    )) .then(()=>{
      let alert = this.alertCtrl.create({
        title: 'Success',
-       subTitle: 'added',
+       subTitle: 'Lead added Successfully',
        //scope: id,
        buttons: [{text: 'OK',
                  handler: data => {
-                 
+                 this.navCtrl.push(HomePage);
                   } 
-               }]
+               }
+              
+              ]
              });
      alert.present();
-     }).catch((err) => {
-       console.log(err); 
-       let alert = this.alertCtrl.create({
-         
-         //title: 'Error',
-         subTitle:  err ,
-         buttons: [{text: 'OK',
-                   handler: data => {
-                   } 
-                 }]
-               });
-       alert.present();
-     });
-   }
+    })
+   
+ 
+    }).catch((err) => {
+      console.log(err); 
+      let alert = this.alertCtrl.create({
+        //title: 'Error',
+        subTitle:  'Problem in adding Lead' ,
+        buttons: [{text: 'OK',
+                  handler: data => {
+                  } 
+                }]
+              });
+      alert.present();
+    });
+  }
+
 }

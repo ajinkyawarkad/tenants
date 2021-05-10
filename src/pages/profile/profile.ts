@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -8,8 +8,6 @@ import { LoginPage } from '../login/login';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 
-
-@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',

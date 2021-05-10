@@ -13,8 +13,8 @@
   <table >
     <tr *ngFor="let product of products; let idx = index; ">
       <!-- <td > <ion-label> {{product.value}}</ion-label></td> -->
-      <td><ion-input [(ngModel)]="products[idx].value"></ion-input></td> 
-      <td><ion-input [(ngModel)]="products[idx].action"></ion-input></td> 
+      <td><ion-input  [(ngModel)]="products[idx].value"></ion-input></td> 
+      <td><ion-input clearInput [(ngModel)]="products[idx].action"></ion-input></td> 
      
     </tr>  
  </table>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,  MenuController, NavController, NavParams,AlertController  } from 'ionic-angular';
+import {   MenuController, NavController, NavParams,AlertController  } from 'ionic-angular';
 import { User } from '../../models/user';
 
 import { HomePage } from '../home/home';
@@ -10,7 +10,7 @@ import firebase from 'firebase';
 import { Storage } from '@ionic/storage';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',

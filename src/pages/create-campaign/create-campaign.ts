@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import {
-  IonicPage,
+ 
   NavController,
   NavParams,
   AlertController,
@@ -31,7 +31,6 @@ interface Camps {
   role: string;
 }
 
-@IonicPage()
 @Component({
   selector: "page-create-campaign",
   templateUrl: "create-campaign.html",
@@ -41,6 +40,7 @@ export class CreateCampaignPage {
   slideOpts;
   public form: FormGroup;
   createSuccess = false;
+ 
   camp = {} as Camp;
   sts = {} as Sts;
   uuid1 = uuid();
@@ -67,11 +67,26 @@ export class CreateCampaignPage {
     this.navCtrl.push(CreateLeadProfilePage);
   }
 
+ 
+
+   checkAlert(evt) {
+    var val = evt.target.value;
+    if (val === "Remove client from profile") {
+      alert('this will remove client profile permently');
+    }
+  }
   goTo() {
     console.log(this.anArray);
   }
   Add() {
-    this.anArray.push({ status: "", action: "" });
+    if(this.anArray.length < 8)
+    {
+      this.anArray.push({ status: "", action: "" });
+    }
+    else
+    {
+      alert("you reached to limit.. ")
+    }
   }
   remove(idx) {
     this.anArray.splice(idx, 1);
@@ -116,7 +131,7 @@ export class CreateCampaignPage {
     let y=[];
     for(var z in ids){
       x.push(ids[z].id)
-      y.push(ids[z].name)
+      y.push(ids[z].name+" "+ids[z].last)
 
 
     }
@@ -185,13 +200,10 @@ export class CreateCampaignPage {
 
 
           }
-          
-
-
-
+     
         let alert = this.alertCtrl.create({
           title: "Success",
-          subTitle: "added",
+          subTitle: "Compaign Added Successfully. Now You Can Add Leads",
           //scope: id,
           buttons: [
             {

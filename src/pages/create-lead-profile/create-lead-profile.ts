@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,  NavController, NavParams } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../create-campaigns-lead/create-campaigns-lead';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { Http } from '@angular/http';
@@ -13,7 +13,7 @@ import { Camp } from '../../models/user';
 import { v4 as uuid } from 'uuid';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
 
-@IonicPage()
+
 @Component({
   selector: 'page-create-lead-profile',
   templateUrl: 'create-lead-profile.html',
@@ -95,6 +95,42 @@ export class CreateLeadProfilePage {
     console.log(this.anArray);    
   }
 
+
+  savefield()
+  {
+     let Mainheader =this.anArray;
+    console.log(Mainheader); 
+   
+    let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+    .update({
+      CSVfield:Mainheader
+    })
+    let alert = this.alertCtrl.create({
+      title: 'Sucess',
+      subTitle: ' Field Added Successfully .. Now you can add lead ',
+      buttons: [
+        {text: 'OK',
+                handler: data => {
+                  this.navCtrl.push(CreateNewCampleadPage, 
+                    {
+                    item:this.value
+                    });
+                } 
+              },
+              {
+                text: "Cancel",
+                role: "cancel",
+                handler: () => {
+                  console.log("Cancel clicked");
+                  this.navCtrl.push(HomePage);
+                },
+              },
+            ]
+            });
+    alert.present();
+    
+  }
 
   upload(isChecked: boolean){
     

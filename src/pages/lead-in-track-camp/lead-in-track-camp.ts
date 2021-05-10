@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 
 import { Observable } from 'rxjs';
 import { Lead } from '../../models/user';
 import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';
 import { updateIdentifier } from 'typescript';
+import { HomePage } from '../home/home';
+import { LeadsDetailsPage } from '../leads-details/leads-details';
 
 
 interface Camps {
   name:string;
     
 }
-@IonicPage()
+
 @Component({
   selector: 'page-lead-in-track-camp',
   templateUrl: 'lead-in-track-camp.html',
@@ -31,7 +33,7 @@ export class LeadInTrackCampPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
     private storage: Storage) {
     this.value = navParams.get('product');
-    console.log(this.value.cid);
+    console.log("cid",this.value.cid);
   }
 
   ionViewDidLoad() {
@@ -40,7 +42,7 @@ export class LeadInTrackCampPage {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       console.log(source, " data: "); 
       this.products =  doc.data().CSVfield ; 
-      console.log(this.products) ;
+      console.log("csv ",this.products) ;
       this.anArray=this.products 
   });
 
@@ -49,9 +51,9 @@ export class LeadInTrackCampPage {
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 console.log(source, " data: ");
 this.productss = doc.data().Users ;
-console.log(this.productss) ;
+console.log("SR",this.productss) ;
 });
-
+ 
     console.log('ionViewDidLoad LeadInTrackCampPage');
   }
 
@@ -61,8 +63,9 @@ console.log(this.productss) ;
      this.storage.get('cuid').then((val) => {
        console.log('id is', val);
        let uuid1 = uuid()
-       console.log(uuid);
-       console.log(data);
+       console.log("uuid",uuid);
+       console.log("camp id",this.value.cid);
+       console.log("data",data)
      
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
@@ -73,27 +76,28 @@ console.log(this.productss) ;
        SR_name:data.name+" "+data.last,
        uid:uuid1 
        }  
-     ))
+     )) .then(()=>{
+      let alert = this.alertCtrl.create({
+        title: 'Success',
+        subTitle: 'Lead added Successfully',
+        //scope: id,
+        buttons: [{text: 'OK',
+                  handler: data => {
+                  this.navCtrl.push(HomePage);
+                   } 
+                }
+               
+               ]
+              });
+      alert.present();
+     })
     
-     let alert = this.alertCtrl.create({
-       title: 'Success',
-       subTitle: 'added',
-       //scope: id,
-       buttons: [{text: 'OK',
-                 handler: data => {
-               //    this.navCtrl.push(CreateLeadProfilePage,
-               //     {
-               //       item:uuid1
-               //       });
-                  } 
-               }]
-             });
-     alert.present();
+  
      }).catch((err) => {
        console.log(err); 
        let alert = this.alertCtrl.create({
          //title: 'Error',
-         subTitle:  err ,
+         subTitle:  'Problem in adding Lead' ,
          buttons: [{text: 'OK',
                    handler: data => {
                    } 

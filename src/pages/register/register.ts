@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import {  NavController, NavParams ,AlertController} from 'ionic-angular';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -8,7 +8,7 @@ import { AuthserviceProvider } from '../../providers/authservice/authservice';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
+
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
@@ -54,8 +54,11 @@ signup(user:User){
  
              firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Admin').doc(currentuser.uid)
              .set(Object.assign({
-               name: user.name,
+                name: user.name,
                 company_id: "COM#"+currentuser.uid ,
+                function:true,
+                 Managers:[],
+                 Users:[]
                } 
              ))
              // this.storage.set('data', data );

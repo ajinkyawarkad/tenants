@@ -46,7 +46,7 @@
     <ion-textarea placeholder="Add Remark" [(ngModel)]="leadd.remark"></ion-textarea>
   </ion-item>
 
-<button ion-button full color="secondary" text-center (click)="hide1()" > Add Reference </button>
+<button ion-button color="secondary" text-center (click)="hide1()" > Add Reference </button>
 
 <div *ngIf="hideMe1"> 
   <ion-item> 
@@ -61,16 +61,15 @@
 <ion-item> 
   <ion-input placeholder="Phone" [(ngModel)]="leadref.phone"></ion-input>
 </ion-item>
-<button ion-button full color="secondary" text-center (click)="Save(leadref)" > Save Reference </button>
+<button ion-button  color="secondary" text-center (click)="Save(leadref)" > Save Reference </button>
 </div>
 
 
 </ion-list>
 
 
-<button  ion-button   color="primary" text-center (click)="Task(leadd)">Save & Next Call</button>
-<button  ion-button   color="primary" text-center (click)="StartTask()">Save & Stop</button>
-<button  ion-button   color="primary" text-center (click)="StartTask()">Cancel</button>
+<button  ion-button   color="primary" text-center (click)="Task(leadd)">Save </button>
+
 <br>
 </div>
  

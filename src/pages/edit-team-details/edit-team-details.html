@@ -32,8 +32,12 @@
              <br />
          
              <ion-item>
-                 <ion-label>Role</ion-label>
-                 <ion-input type="text" required [(ngModel)]="value.role" placeholder="Role"></ion-input>
+              <ion-label>Role</ion-label>
+              <ion-select placeholder="Select One" required [(ngModel)]="value.role">
+              <ion-option >Manager</ion-option>
+              <ion-option >Sale Representative</ion-option>
+              </ion-select>
+                 <!-- <ion-input type="text" required [(ngModel)]="value.role" placeholder="Role"></ion-input> -->
              </ion-item>
          
                     

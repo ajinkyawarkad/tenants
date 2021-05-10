@@ -7,7 +7,10 @@
   </ion-header>
   
   
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true" class="has-header" >
+
+
+	
 	<div>
 	<div style="float: right;margin-top: -6px;">
 		<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"  showCancelButton="always" ></ion-searchbar>
@@ -76,7 +79,7 @@
 			  <th>Follow Up</th>
 			  <th>Status</th>
 			  <th>Remarks</th>
-			  <th>Edit/Delete</th>
+			  <th>Edit / Delete</th>
 		  </tr>
 		  
 		  <tbody>
@@ -84,7 +87,8 @@
 			
 			  <tr *ngFor="let product of productsss  ;let idx = index; ">
 				<td >
-					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
+					<ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
+					&nbsp;
 					<ion-checkbox slot="start" 
 					[(ngModel)]="product.isChecked" 
 					(ionChange)="checkEvent();"></ion-checkbox>
@@ -106,8 +110,10 @@
 			  <td >{{product.remark}}</td>
 			  
 			  <td> 
+				<div style="display: inline-block;margin-left: 3px;">
 				  <ion-icon name="create" (click)="edit(product)"></ion-icon>
-				  <div style="display: inline-block;margin-left: 30px;">
+				</div>
+				  <div style="display: inline-block;margin-left: 10px;">
 				  <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
 				  </div>
 			  </td>
@@ -115,15 +121,12 @@
 		 
 		  </tbody>
 
-
-
-
 		  <tbody *ngIf="terms">
 			  
-			
 			<tr *ngFor="let product of prod  ;let idx = index; ">
 			  <td >
-				  <ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
+				  <ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
+				  &nbsp;
 				  <ion-checkbox slot="start" 
 				  [(ngModel)]="product.isChecked" 
 				  (ionChange)="checkEvent();"></ion-checkbox>
@@ -169,6 +172,10 @@
         </button>
 		
 	  </div>
+
+
+
+
   </ion-content>
 
  

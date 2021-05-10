@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import {
-IonicPage,
+
 NavController,
 NavParams,
 AlertController,
@@ -13,6 +13,7 @@ FormControl,
 Validators,
 FormArray,
 } from "@angular/forms";
+
 import { AngularFirestore } from "@angular/fire/firestore";
 import firebase from "firebase";
 import { Observable } from "rxjs";
@@ -27,7 +28,7 @@ status: string;
 action: string;
 }
 
-@IonicPage()
+
 @Component({
 selector: "page-edit-campaigns-details",
 templateUrl: "edit-campaigns-details.html",
@@ -37,11 +38,15 @@ export class EditCampaignsDetailsPage {
 slideOpts;
 public form: FormGroup;
 createSuccess = false;
-//product:any;
+public productsss:any;
+public prod:any;
 userInfo: any;
 products: Observable<Camps[]>;
+productss:any;
 pro: any;
 proo: any;
+sts:any=[];
+
 
 product: { cid: ""; name: ""; goals: ""; manager: ""; sr: "" };
 value: any;
@@ -55,12 +60,25 @@ private alertCtrl: AlertController,
 public afs: AngularFirestore
 ) {
 this.value = navParams.get("product");
-console.log(this.value);
+console.log("prod",this.value);
 }
 
 ionViewDidLoad() {
 console.log("ionViewDidLoad EditCampaignsDetailsPage");
 let currentuser = firebase.auth().currentUser;
+
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Admin")
+.doc(currentuser.uid)
+.onSnapshot((doc) => {
+  var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  console.log(source, " data: ");
+  this.productss = doc.data().Managers;
+  console.log(this.productss);
+});
 firebase
 .firestore()
 .collection("Company")
@@ -69,14 +87,54 @@ firebase
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 console.log(source, " data: ");
 this.products = doc.data().status;
-console.log(this.products);
+this.sts=this.products;
+
+console.log("sts",this.products);
+
 });
+
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Admin")
+.doc(currentuser.uid)
+.onSnapshot((doc) => {
+  var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  console.log(source, " data: ");
+  this.productsss = doc.data().Users;
+  console.log(this.productsss);
+
+  console.log("prod in productssss",this.prod);
+
+  this.prod.push(this.productsss);
+
+  console.log("All sr name",this.prod);
+
+ 
+}); 
+
+firebase.firestore().collection("Company").
+doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+.onSnapshot((doc) => {
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: ");
+    this.prod = doc.data().SR_name;
+
+  
+    // this.prod.push(this.productsss);
+    console.log("sr name",this.prod);
+  //  console.log("productssss",this.productsss)
+    });
 }
 
 ionViewDidEnter() {
 //lock manual swipe for main slider
 this.slides.lockSwipeToNext(true);
 this.slides.lockSwipeToPrev(true);
+}
+Add() {
+  this.sts.push({ status: "", action: "" });
 }
 
 slideToSlide() {
@@ -114,11 +172,11 @@ firebase
 .collection("Company")
 .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid).update(
 Object.assign({
-name: this.value.name,
-goals: this.value.goals,
-manager: this.value.manager,
-sr: this.value.sr,
-status:this.products
+ name: this.value.name,
+ goals: this.value.goals,
+ manager: this.value.manager,
+// sr: this.prod,
+status:this.sts
 })
 )
 .then(() => {

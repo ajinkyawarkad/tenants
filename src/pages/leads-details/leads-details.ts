@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { CallDetailsPage } from '../call-details/call-details';
 import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
 import { TaskDetailsPage } from '../task-details/task-details';
@@ -17,7 +17,7 @@ name: string,
 manager:string;
 }
 
-@IonicPage()
+
 @Component({
 selector: 'page-leads-details',
 templateUrl: 'leads-details.html',
@@ -202,8 +202,7 @@ this.products = doc.data().CSVfield ;
 });
 
 
-this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
-;
+this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid);
 this.productss = this.userInfo.valueChanges().Users ;
 
 firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
@@ -232,12 +231,14 @@ firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collectio
 let loading = this.loadingCtrl.create({
   spinner: 'bubbles',
   content: 'Loading...',
+  duration: 2000
 });
 loading.present();
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
   if (!snaps.docs.length) {
     console.log("No Data Available");
+    alert("No Data Available")
     return false;
   }
   loading.dismiss();
@@ -276,6 +277,7 @@ nextPage(last)
    let loading = this.loadingCtrl.create({
     spinner: 'bubbles',
     content: 'Loading...',
+    duration: 2000
   });
   loading.present();
 
@@ -330,6 +332,7 @@ this.itemnumberbypage*this.pagination_clicked_count;
   let loading = this.loadingCtrl.create({
     spinner: 'bubbles',
     content: 'Loading...',
+    duration: 2000
   });
   loading.present();
   let currentuser=firebase.auth().currentUser;
@@ -374,7 +377,6 @@ console.log("edit",product)
 this.navCtrl.push(EditLeadDetailsPage, {
   product:product,
   campid:this.campid,
-  //proStatus:this.proStatus
  
 });
 }
@@ -398,9 +400,14 @@ id,
 
 });
 }
-calldetails()
+calldetails(uid)
 {
-this.navCtrl.push(CallDetailsPage);
+console.log("campid",this.campid)
+let campid=this.campid
+this.navCtrl.push(CallDetailsPage,{
+  uid,
+  campid
+});
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({

@@ -1,5 +1,5 @@
 import { Component,ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams } from 'ionic-angular';
 import { CreateNewCampleadPage } from '../create-new-camplead/create-new-camplead';
 import { Http } from '@angular/http';
 
@@ -11,7 +11,7 @@ import { CSVRecord } from '../../models/CSVModel';
 //declare var testvar;
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-create-campaigns-lead',
   templateUrl: 'create-campaigns-lead.html',

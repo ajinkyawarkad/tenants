@@ -17,7 +17,7 @@ import { RegisterPage } from '../pages/register/register';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserLicensesPage } from '../pages/user-licenses/user-licenses';
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
-import { ArchivedCampaignsDetailsPage } from '../pages/archived-campaigns-details/archived-campaigns-details';
+
 import { EditCampaignsDetailsPage } from '../pages/edit-campaigns-details/edit-campaigns-details';
 
 import { LeadsDetailsPage } from '../pages/leads-details/leads-details';
@@ -48,6 +48,7 @@ import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { SearchPipe1 } from '../pipes/search/search1';
 import { SearchPipe2 } from '../pipes/search/search2';
+import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
 
 
 
@@ -56,7 +57,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     MyApp,
     LoginPage,
     RegisterPage,
-    HomePage,
+    HomePage, 
     ReportPage,
     CreateCampaignPage,
     TrackCampaignPage,
@@ -64,7 +65,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     SettingsPage,
     UserLicensesPage,
     CreateLeadProfilePage,
-    ArchivedCampaignsDetailsPage,
+ 
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
@@ -77,6 +78,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     ProfilePage,
     CallDetailsPage,
     LeadInTrackCampPage,
+    EditCsvFieldPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -112,7 +114,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     SettingsPage,
     UserLicensesPage,
     CreateLeadProfilePage,  
-    ArchivedCampaignsDetailsPage,
+  
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
@@ -124,7 +126,8 @@ import { SearchPipe2 } from '../pipes/search/search2';
     EditTeamDetailsPage,
     ProfilePage,
     CallDetailsPage,
-    LeadInTrackCampPage
+    LeadInTrackCampPage,
+    EditCsvFieldPage
     
   ],
   providers: [
