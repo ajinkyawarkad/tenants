@@ -1,0 +1,82 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Campaigns Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content  class="content"> 
+  <div class="contaier">
+  <ion-slides #slides >
+  
+    <ion-slide >
+        <ion-list>
+          <ion-item>
+            <ion-label>Name</ion-label>
+             <ion-input type="text" required [(ngModel)]="value.name" ></ion-input>
+         </ion-item>
+         <br />
+      
+          <ion-item>
+            <ion-label>Goals</ion-label>
+             <ion-textarea type="text" required [(ngModel)]="value.goals" ></ion-textarea>
+         </ion-item>
+         <br />
+
+         <ion-item>
+          <ion-label>Manager</ion-label>
+          <ion-input type="text" required [(ngModel)]="value.manager" ></ion-input>
+        </ion-item>
+        <br />
+        <ion-item>
+          <ion-label>Sale Representative</ion-label>
+          <ion-input type="text" required [(ngModel)]="value.sr" ></ion-input>
+        </ion-item>
+        <br />
+      
+        <ion-item>
+          <ion-label>
+           Allow Manager to Edit
+          </ion-label>
+          <ion-checkbox checked="true"></ion-checkbox>
+        </ion-item >
+      
+         </ion-list>
+        
+        <button ion-button round  type="button" (click)="slideToSlide()">Save & Next</button>
+        <br>
+    </ion-slide>
+   
+  
+
+    <ion-slide>
+     
+        <ion-label>Status</ion-label>
+      <tr *ngFor="let product of products "> 
+        <td> 
+          <ion-input type="text" [(ngModel)]="product.status"></ion-input>
+        </td>
+        <td >
+            <select  type="text" [(ngModel)]="product.action">
+              <option>None</option>
+              <option>Inform Manager</option>
+              <option >Remove client from profile</option>
+            </select>
+        </td>
+        </tr >
+      
+      <br><br>
+      <div >
+        <div style="float:right;">
+          <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
+          <button ion-button  id="nextBtn" (click)="update()">Save</button>
+        </div>   
+     </div>
+
+    </ion-slide>
+</ion-slides>
+</div>
+
+</ion-content>
+

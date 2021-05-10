@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create New Lead</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="content">
+
+<div class="contaier">
+  <table >
+    <tr *ngFor="let product of products; let idx = index; ">
+      <!-- <td > <ion-label> {{product.value}}</ion-label></td> -->
+      <td><ion-input [(ngModel)]="products[idx].value"></ion-input></td> 
+      <td><ion-input [(ngModel)]="products[idx].action"></ion-input></td> 
+    </tr>  
+ </table>
+
+ <ion-item>
+  <ion-label>Sale Representative</ion-label>
+  <ion-select [(ngModel)]="prod" >
+  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+  </ion-select>
+  </ion-item>
+<br>
+
+<button ion-button  (click)= "insertLead(prod)" >Save</button>
+</div>
+</ion-content>

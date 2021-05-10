@@ -1,0 +1,41 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Lead Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="content">
+  <div class="contaier">
+
+    <table >
+      <tr *ngFor="let produ of value.leads; let i = index;"> 
+        <td><ion-input [(ngModel)]="produ.value"  style="font-weight: bold;"></ion-input></td> 
+        <td><ion-input [(ngModel)]="produ.action"></ion-input></td>  
+      </tr>  
+  <!--      
+      <tr>
+        <td style="font-weight: bold;">Handler</td>
+        <td><ion-input [(ngModel)]="value.sr"></ion-input></td>
+      </tr>
+    -->
+    
+   </table>
+
+   
+   
+    <ion-list>
+   
+     
+          <button ion-button round full color="primary" (click)="update()">
+            Save Changes
+        </button>
+       </ion-list>
+    
+</div>
+
+
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="contaier-login" >
+    <!-- <div id="recaptcha-container"></div> -->
+  <ion-grid>
+   <ion-row>
+      <ion-col>
+
+        <ion-item>
+          <ion-input type="text" readonly placeholder="Email" [(ngModel)]="email"></ion-input>
+      </ion-item> 
+      <br />
+
+        <ion-item>
+          <ion-input type="text" required placeholder="Full Name" [(ngModel)]="name"> </ion-input>
+      </ion-item>
+      <br />
+   
+
+       <ion-item >
+        <ion-input type="number" [(ngModel)]="phoneno" placeholder="Phone No"></ion-input>
+      </ion-item>
+       <br />
+   
+       <ion-item>
+        <ion-input type="text"  [(ngModel)]="company_name"  placeholder="Company Name"></ion-input>
+       </ion-item>        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button round full color="primary" (click)="updateprofile()">
+         Change Profile
+      </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button (click)="ResetPassword()" ion-button round full color="primary" >
+        Reset Password
+      </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button (click)="logout()"ion-button round full color="primary" >
+        Logout
+      </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  </div>
+
+
+</ion-content>

@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-navbar>
+  <button ion-button menuToggle>
+  <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Team details</ion-title>
+  </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+  <!-- <ion-segment [(ngModel)]="Segments"  value="2" mode="ios" >
+  <ion-segment-button (ionSelect)="Segments = 1" value="1">
+  Add
+  </ion-segment-button>
+  <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+  Display
+  </ion-segment-button>
+  <ion-segment-button (ionSelect)="Segments = 3" value="3" >
+  Licenses
+  </ion-segment-button>
+  </ion-segment> -->
+  
+  
+  <!-- 
+  <br>
+  <div *ngSwitchCase="1" >
+  
+  </div>
+   -->
+  
+  
+  
+  <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
+  <ion-segment-button (ionSelect)="Segments = 1" value="1">
+  Active Users
+  </ion-segment-button>
+  
+  <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+  Non-Active Users
+  </ion-segment-button>
+ 
+  <ion-segment-button (ionSelect)="Segments = 3" value="3" >
+  User Licenses
+  </ion-segment-button> 
+</ion-segment>
+  
+  <div [ngSwitch]="Segments">
+  <div *ngSwitchCase="1" >
+
+    <div style="float: right;margin-top: -6px;">
+     <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    </div>
+
+     <div style="float: left">
+      <button ion-button  color="secondary" (click)="add()"> Add New User</button> 
+     </div>
+
+  <table padding>
+  
+  <thead>
+  <tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Role</th>
+  <th>Email</th>
+  <th>Action</th>
+  
+  </tr>
+    </thead>
+  <tbody>
+  <tr *ngFor="let product of productss | async | search1 :term">
+  <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+  <td>{{product.last}}</td>
+  <td>{{product.role}}</td>
+  <td>{{product.email}}</td>
+  
+  <td> <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon></td>
+  
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  
+  <div *ngSwitchCase="2" >
+    <div style="float: right;margin-top: -6px;">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+     </div>
+ 
+  <table padding>
+  
+  <thead>
+  <tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Role</th>
+  <th>Email</th>
+  <th>Action</th>
+  
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products | async | search1 :term ">
+  <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+  <td>{{product.last}}</td>
+  <td>{{product.role}}</td>
+  <td>{{product.email}}</td>
+  
+  <td> <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon></td>
+  
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  
+  <div *ngSwitchCase="3" >
+    <div style="float: right;margin-top: -6px;">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+     </div>
+  <table padding>
+  <thead>
+  <tr>
+  <th>No. of Licenses</th>
+  <th>Price</th>
+  <th>Total Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>10</td>
+  <td>6</td>
+  <td>76</td>
+  </tr>
+  <tr>
+  <td>89</td>
+  <td>7</td>
+  <td>78</td>
+  
+  </tr>
+  
+  </tbody>
+  </table>
+  </div>
+  
+  
+  
+  </div>
+  
+  </ion-content>

@@ -1,0 +1,84 @@
+page-settings 
+{
+    ion-content
+	{
+		font-family: 'roboto';
+		font-size: 15px;	
+	}
+    /*.col {
+        width: 100%;
+        display: block;
+        margin-right: 10px;
+        }*/
+        .button-full-md {
+            margin-left: 18%;
+            margin-right: 0;
+            //border-radius: 5px;
+            border-right-width: 0;
+            border-left-width: 0;
+            width: 64%;
+        }
+        
+        label{
+        vertical-align: top;
+        float: left;
+        margin: 25px;
+        }
+        .container{
+            display:flex;
+        }
+        .container #one, #two, #three{
+            font-size:1.5rem;
+            font-weight: bold;
+           
+        }
+
+        @media only screen and (min-width: 320px){
+            label{
+                vertical-align: top;
+                float: left;
+                width: 160px;
+                margin: 7px;
+            }
+            
+
+            
+        }
+
+        @media screen and (min-width: 320px) and (max-width: 425px){
+            label{
+                vertical-align: top;
+                float: left;
+                width: 160px;
+                margin: 7px;
+                
+            }
+            .container .checkbox-inline{
+                width:100%;
+            }
+            .container #one, #two, #three{
+                font-size:1.5rem;
+                font-weight: bold;
+            }
+            
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px){
+            label{
+                margin-bottom:15px;
+                
+            }
+            .container{
+                display:flex;
+            }
+            .container #one, #two, #three{
+                font-size:1.5rem;
+                font-weight: bold;
+               
+            }
+            
+            
+        }
+
+        }
+
+

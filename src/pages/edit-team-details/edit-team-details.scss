@@ -1,0 +1,86 @@
+page-edit-team-details {
+	ion-content
+	{
+		font-family: 'roboto';
+		font-size: 15px;	
+	}
+    $white-color: #fff;
+    $height100: 100%;
+
+    .button-full-md {
+        margin-left: 23%;
+        margin-right: 0;
+        border-radius: 5px;
+        border-right-width: 0;
+        border-left-width: 0;
+        width: 57%;
+    }
+    
+   .item-md ion-icon[item-left], .item-md ion-icon[item-right], 
+   .item-md ion-icon[item-start], .item-md ion-icon[item-end] {
+		margin-left: -13px;
+		margin-top: 11px;
+		margin-bottom: 10px;
+		margin-right: -5px;
+	}
+
+	.grid1 {
+		width:100%;
+	    height: $height100;
+	}
+	
+	.contaier-login {
+		width: 93%;
+		background: #ffffff;
+		position: fixed;	
+		margin-left: 10px;
+	}
+		
+	ion-row {
+        height: $height100;
+        margin-top: 33px;
+	}
+	
+	ion-icon {
+		margin-right: 15px;
+	}
+	
+	ion-button {
+		margin-top: 5px;
+		margin-bottom: 15px;
+		text-decoration: initial;	
+	}
+	ion-input{
+		border-color: #fff;
+	}
+	h5 , h1 {
+		text-align: center;	
+    }
+    
+	@media only screen and (min-width:700px) {
+        
+        .contaier-login {
+			background:#ffffff;
+            border-radius:5px; 
+          
+			width: 100%;
+			border: 1px solid rgb(160, 156, 156);
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			//height:auto;	
+        }
+        ion-row {
+            height: $height100;
+            margin-top: 33px;
+        }
+	}
+	@media only screen and (min-width:768px){
+		.contaier-login{
+			width:50%;
+		}
+    }
+
+}
