@@ -14,6 +14,7 @@ export class EditCsvFieldPage {
   products:any;
   campid:any;
   anArray:any=[];
+  arr:any=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
 
@@ -21,7 +22,7 @@ export class EditCsvFieldPage {
     
   }
   Add(){
-    this.anArray.push({'value':'','action':''}); 
+    this.arr.push({'value':'','action':' '}); 
     }
 
   ionViewDidLoad() {
@@ -39,22 +40,49 @@ export class EditCsvFieldPage {
   savefield()
   {
      let Mainheader =this.anArray;
-    console.log(Mainheader); 
+ 
+    console.log("EDITED/Added",this.arr); 
    
     let currentUser = firebase.auth().currentUser;
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    .collection('leads').doc('3954116f-d868-4de9-b9f5-c57d44c5dd3f')
-    .set(Object.assign({
-  
-     leads:this.anArray
-    
-     }  
-   )) 
+    .collection('leads').get().then(dat =>{
+      dat.docs.forEach(snap => 
+        {
+          for(var z in this.arr){
+            firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
+            .collection('leads').doc(snap.data().uid).update({
+              leads:firebase.firestore.FieldValue.arrayUnion(
+                this.arr[z]
+              )
+            })
 
+          }
+    
+     
+          
+        })
+    })
+
+
+  //   firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
+  //   .collection('leads').doc('3954116f-d868-4de9-b9f5-c57d44c5dd3f')
+  //   .set(Object.assign({
+  
+  //    leads:this.anArray
+    
+  //    }  
+  //  )) 
+  for(var x in this.arr){
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
     .update({
-      CSVfield:Mainheader
+      CSVfield:firebase.firestore.FieldValue.arrayUnion(
+        this.arr[x]
+      )
     })
+
+  }
+
+ 
     let alert = this.alertCtrl.create({
       title: 'Sucess',
       subTitle: ' Field Updated Successfully .. ',
@@ -76,3 +104,4 @@ export class EditCsvFieldPage {
 
 
 }
+

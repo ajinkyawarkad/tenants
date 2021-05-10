@@ -1,22 +1,11 @@
 import { Component, ViewChild } from "@angular/core";
-import {
-
-NavController,
-NavParams,
-AlertController,
-} from "ionic-angular";
+import {NavController,NavParams,AlertController} from "ionic-angular";
 import { Slides } from "ionic-angular";
-import {
-FormGroup,
-FormBuilder,
-FormControl,
-Validators,
-FormArray,
-} from "@angular/forms";
-
+import {FormGroup,FormBuilder,FormControl,Validators,FormArray} from "@angular/forms";
 import { AngularFirestore } from "@angular/fire/firestore";
 import firebase from "firebase";
 import { Observable } from "rxjs";
+import { EditCsvFieldPage } from "../edit-csv-field/edit-csv-field";
 
 interface Camps {
 name: string;
@@ -38,7 +27,7 @@ export class EditCampaignsDetailsPage {
 slideOpts;
 public form: FormGroup;
 createSuccess = false;
-public productsss:any;
+public productsss:any[];
 public prod:any;
 userInfo: any;
 products: Observable<Camps[]>;
@@ -103,15 +92,25 @@ firebase
   var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
   console.log(source, " data: ");
   this.productsss = doc.data().Users;
-  console.log(this.productsss);
+  console.log("productssss",this.productsss);
 
-  console.log("prod in productssss",this.prod);
-
-  this.prod.push(this.productsss);
-
-  console.log("All sr name",this.prod);
+  //console.log("prod in productssss",this.prod);
+  
+  // for(let i=0;i<this.productsss.length;i++){
+   
+  //     this.prod.push(this.productsss[i].name+" "+this.productsss[i].last);
+  
+    
+  // }
 
  
+   
+      this.productsss.push(this.prod);
+  
+ 
+
+  console.log("All sr name",this.productsss);
+
 }); 
 
 firebase.firestore().collection("Company").
@@ -121,10 +120,7 @@ doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
     console.log(source, " data: ");
     this.prod = doc.data().SR_name;
 
-  
-    // this.prod.push(this.productsss);
     console.log("sr name",this.prod);
-  //  console.log("productssss",this.productsss)
     });
 }
 
@@ -135,6 +131,12 @@ this.slides.lockSwipeToPrev(true);
 }
 Add() {
   this.sts.push({ status: "", action: "" });
+}
+
+temp(){
+  let campid=this.value.cid
+  this.navCtrl.push(EditCsvFieldPage,
+    {campid})
 }
 
 slideToSlide() {
@@ -154,6 +156,7 @@ this.slides.slideTo(this.slides.getActiveIndex() - 1);
 this.slides.lockSwipeToPrev(true);
 }
 }
+
 
 update() {
 let currentuser = firebase.auth().currentUser;
