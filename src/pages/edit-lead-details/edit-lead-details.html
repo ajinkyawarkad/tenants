@@ -11,25 +11,41 @@
 <ion-content padding class="content">
   <div class="contaier">
 
-    <table >
-      <tr > 
-        <td><ion-label>Action</ion-label></td> 
-        <td><ion-input ></ion-input></td>  
-      </tr>  
+<ion-list>    
+    <ion-item > 
+      <ion-label>Action</ion-label>
+      
+     <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="value.action"> 
+      <ion-option value="Callback">Callback</ion-option>
+      <ion-option value="Schedule Meet">Schedule Meet</ion-option>
+    </ion-select>
+    <!-- <ion-icon item-end name="calendar"></ion-icon> -->
+  </ion-item>
+    <!-- <h6 [hidden]="!myTime">Follow Back - {{myDate}} : {{myTime}} </h6> -->
+    <div *ngIf="hideMe"> 
+      <ion-item> 
+        <label style="color: black;">Follow Back</label> 
+        <input type="date"  [(ngModel)]="value.datetime1" name="datetime" style="height: 30px;width: 53%;">
+     </ion-item>
+     </div>
+     
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select placeholder="Select Status" [(ngModel)]="value.status"  >
+        <ion-option  *ngFor="let product of productss" [value]="product.status">{{product.status}}</ion-option>
+      </ion-select>
+    </ion-item>
+          
+   
+                                            
+  <ion-item> 
+    <ion-label>Remark</ion-label>
+    <ion-textarea [(ngModel)]="value.remark"></ion-textarea>
+  </ion-item>
+</ion-list>
 
-      <tr > 
-        <td><ion-label>Status</ion-label></td> 
-        <td><ion-input ></ion-input></td>  
-      </tr> 
-
-      <tr > 
-        <td><ion-label>Remark</ion-label></td> 
-        <td><ion-input ></ion-input></td>  
-      </tr> 
-       
   
-   </table>
-
+   
    <br>
 
     <table >

@@ -174,8 +174,10 @@ getItems(ev) {
 }
 ionViewDidLoad() {
   $(document).on('change', 'table thead input', function() {
+  
     var checked = $(this).is(":checked");
-
+    //var checkedValue = $('.messageCheckbox:checked').eq(index);
+    console.log("checkedValue",checked);
     var index = $(this).parent().index();
         $('table  tr').each(function() {
             if(checked) {
@@ -185,6 +187,8 @@ ionViewDidLoad() {
             } else {
                 $(this).find("td").eq(index).hide();  
                 $(this).find("th").eq(index).hide(); 
+               
+               
             }
         });
 });

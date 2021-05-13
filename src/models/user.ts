@@ -1,4 +1,4 @@
-import { Time } from "@angular/common";
+
 
 export class User{
     name:string;

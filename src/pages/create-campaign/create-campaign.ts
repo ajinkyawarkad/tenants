@@ -1,10 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import {
- 
-  NavController,
-  NavParams,
-  AlertController,
-} from "ionic-angular";
+import {NavController,NavParams,AlertController} from "ionic-angular";
 
 import { Slides } from "ionic-angular";
 import {

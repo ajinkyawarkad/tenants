@@ -10,18 +10,37 @@ import { AngularFirestore} from '@angular/fire/firestore';
 export class EditLeadDetailsPage {
  value:any;
  campid:any;
+ productss:any;
+ public hideMe: boolean = false;
  
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
     this.value = navParams.get('product');
+    console.log("edit page",this.value);
     console.log("edit page",this.value.leads);
     this.campid = navParams.get('campid');
     //console.log(this.campid);      
    
     //console.log(this.proStatus);                                                                                                         
   }
-
+  hide() {
+    this.hideMe = !this.hideMe;
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditLeadDetailsPage');
+    let currentuser=firebase.auth().currentUser;
+
+    firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.campid)
+.onSnapshot((doc) => {
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+console.log(source, " data: ");
+this.productss = doc.data().status;
+
+console.log("sts",this.productss);
+
+});
   }
   
   update()
@@ -33,8 +52,11 @@ export class EditLeadDetailsPage {
     .collection('leads').doc(this.value.uid)
 
             .update(Object.assign({
-              leads:this.value.leads
-             
+              leads:this.value.leads,
+              action:this.value.action,
+              remark:this.value.remark,
+              status:this.value.status,
+              datetime:this.value.datetime1  
               } 
             )).then(() => {
               console.log("updated..");

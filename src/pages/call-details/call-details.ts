@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
-import { Console } from "@angular/core/src/console";
-import firebase, { firestore } from "firebase";
+import firebase from "firebase";
 import { NavController, NavParams } from "ionic-angular";
-import { empty, Observable } from "rxjs";
+import {  Observable } from "rxjs";
 
 interface Users {
   name: string;

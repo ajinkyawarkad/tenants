@@ -22,6 +22,7 @@
      <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="leadd.action"> 
       <ion-option value="Callback">Callback</ion-option>
       <ion-option value="Schedule Meet">Schedule Meet</ion-option>
+      <ion-option value="Send Mail">Send Mail</ion-option>
     </ion-select>
     <!-- <ion-icon item-end name="calendar"></ion-icon> -->
   </ion-item>
@@ -36,7 +37,7 @@
     <ion-item>
       <ion-label>Status</ion-label>
       <ion-select placeholder="Select Status" [(ngModel)]="leadd.selected_value" (ionChange)="Getselected(leadd.selected_value)" >
-        <ion-option  *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
+        <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
       </ion-select>
     </ion-item>
           

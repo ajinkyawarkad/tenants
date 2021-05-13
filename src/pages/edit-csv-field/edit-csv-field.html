@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -14,8 +13,8 @@
     <tr>
       <th>Field</th>
       <!-- <th>Unique</th>	
-      <th>Mobile</th>
-      <th></th> -->
+      <th>Mobile</th>-->
+      <!-- <th></th>  -->
     </tr>
   
     <tbody>
@@ -25,10 +24,10 @@
         <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
         
         <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
-        <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td>
+        <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td>-->
       
-        <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
-  -->
+        <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+  
         </tr >
       <tr *ngFor="let att of arr; let idx = index">
         <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>

@@ -1,4 +1,3 @@
-//Updated
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Leadd, Leadref } from '../../models/user';
@@ -268,7 +267,7 @@ export class TaskDetailsPage {
     }
 
   hide() {
-    this.hideMe = !this.hideMe;
+    this.hideMe = true;
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;

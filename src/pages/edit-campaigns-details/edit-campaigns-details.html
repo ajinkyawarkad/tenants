@@ -37,8 +37,8 @@
         <ion-item >
           <ion-label >Sales Representative</ion-label>
           <ion-select multiple required [(ngModel)]="prod" >
-            <ion-option *ngFor="let product of prod">{{product}}</ion-option>
-            <!-- <ion-option *ngFor="let product of productsss">{{product.name}}&nbsp;{{product.last}}</ion-option> -->
+            <!-- <ion-option *ngFor="let product of prod">{{product}}</ion-option> -->
+            <ion-option *ngFor="let product of anArray2">{{product}}</ion-option>
             </ion-select> 
         </ion-item>
         <br />
@@ -93,15 +93,15 @@
     <div style="float:left;">
     <button ion-button (click)="Add()">Add More</button>
     </div>
-    <br>
+   
     
     <div>
     
       <div >
         <div style="float:right;">
           <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
-          <button ion-button  id="nextBtn" (click)="update()">Save</button>
-          <button ion-button id="nextBtn" (click)= "temp()" >Temp</button>
+          <button ion-button  id="nextBtn" (click)="update(prod)">Save</button>
+          <!-- <button ion-button id="nextBtn" (click)= "temp()" >Temp</button> -->
         </div>   
      </div>
    

@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 import { data } from 'jquery';
 import { LeadsDetailsPage } from '../leads-details/leads-details';
 import { HomePage } from '../home/home';
+import { getAllJSDocTagsOfKind, isSpreadAssignment } from 'typescript';
 
 
 interface Camps {
@@ -32,6 +33,8 @@ export class CreateNewCampleadPage {
   public anArray:any=[]; 
   public det:any=[];
   public hed:any=[];
+  cust=[]
+  data2=[]
     value:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
@@ -64,8 +67,20 @@ n
   hide() {
     this.hideMe = true;
   }
+
   
   insertLead(data){
+
+    data:{
+
+
+
+    }
+   
+
+
+
+
    
     this.storage.get('cuid').then((val) => {
       console.log('id is', val);
@@ -73,17 +88,35 @@ n
       console.log("uuid",uuid);
       console.log("camp id",this.value.cid);
       console.log("data",data)
+
+     
+     
+    for(var a in this.anArray){
+      if(this.anArray[a].indicator == "None"){
+        this.cust.push(this.anArray[a])
+      }else{
+        // this.data2.push({[x]:y})
+      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
+      .collection('leads').doc(uuid1)
+      .set( {
+          [this.anArray[a].indicator]: this.anArray[a].action
+        },{merge:true})
+      }
+    }
+    console.log("Main",this.data2)
+    console.log("Custome",this.cust)
     
+  
      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
      .collection('leads').doc(uuid1)
      .set(Object.assign({
-
-      leads:this.anArray,
+      leads:this.cust,
       SR_id:data.id,
       SR_name:data.name+" "+data.last,
       uid:uuid1 
       }  
-    )) .then(()=>{
+    ),{merge:true}) 
+    .then(()=>{
      let alert = this.alertCtrl.create({
        title: 'Success',
        subTitle: 'Lead added Successfully',

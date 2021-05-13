@@ -25,6 +25,11 @@ export class EditCsvFieldPage {
     this.arr.push({'value':'','action':' '}); 
     }
 
+
+    remove(idx)
+    {
+      this.anArray.splice(idx, 1);
+    }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCsvFieldPage');
     let currentuser=firebase.auth().currentUser;
@@ -57,9 +62,7 @@ export class EditCsvFieldPage {
             })
 
           }
-    
-     
-          
+  
         })
     })
 
@@ -104,4 +107,3 @@ export class EditCsvFieldPage {
 
 
 }
-
