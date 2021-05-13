@@ -9,8 +9,6 @@
   
   <ion-content padding="true" class="has-header" >
 
-
-	
 	<div>
 	<div style="float: right;margin-top: -6px;">
 		<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"  showCancelButton="always" ></ion-searchbar>
@@ -43,15 +41,15 @@
 		</ion-item>                     
     </div>
   
-	<div>
+	<div >
 	<div  class="scrollbar" >    
 		<table > 		
 			<thead  *ngIf="hideMe2" > 
 				<hr >	
 			<td  style="border: none;" *ngFor="let product of products ; let idx = index;">
-				<input type="checkbox" checked="checked" />{{products[idx].value}}</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
+				<input class="messageCheckbox" type="checkbox" checked="checked" />{{products[idx].value}}</td>
+			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
+			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Action</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
@@ -73,7 +71,12 @@
 				  
 					
 			  </th>
-			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
+			  <!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		 -->
+			  <th>First Name</th>
+			  <th>Last Name</th>
+			  <th>Phone</th>
+			  <th>Email</th>
+			  <th>Address</th>
 			  <th>Handler</th>
 			  <th>Action</th>
 			  <th>Follow Up</th>
@@ -96,13 +99,21 @@
 					 
 				</td>
 
-				<td  *ngFor="let produ of product.leads; let i = index;" >
+				<!-- <td  *ngFor="let produ of product.leads; let i = index;" >
 						  {{produ.action}}
 						  <div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
 								<ion-icon   name="call" (click)="gotocall(product.leads[0].action,product.leads[1].action,product.uid)" > </ion-icon>	
 						 </div>   
-				  </td>	
-				 
+				  </td>	 -->
+				  <td ><a href="">{{product.first_name}}</a></td>	  
+				  <td >{{product.last_name}}</td>	  
+				  <td >{{product.Phone}} 
+					  <div  style="display: inline-block;margin-left: 40px;">
+					<ion-icon   name="call" (click)="gotocall(product.leads[0].action1000,product.leads[1].action,product.uid)" > </ion-icon>	
+			 		</div>  
+			</td>	  
+				<td ><a href="">{{product.Email}}</a></td>	  
+				<td >{{product.Address}}</td>	   
 			  <td >{{product.SR_name}}</td>	  
 			  <td >{{product.action}}</td>
 			  <td >{{product.datetime}}</td>
