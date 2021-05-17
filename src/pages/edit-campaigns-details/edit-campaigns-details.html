@@ -5,44 +5,52 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content  class="content"> 
-  <div class="contaier">
-  <ion-slides #slides style="width:99%">
-    <ion-slide tyle="height: 91%;">
+<ion-content  padding> 
 
-      <h5>Edit your sales campaigns</h5>
-      <p style="color: darkred;">This is step 1</p>
+  <div class="container">
+ 
+  <ion-slides #slides style="width:100%;margin-top: -11%;">
+    <ion-slide >
 
-        <ion-list>
-          <ion-item>
-            <ion-label>Name</ion-label>
-             <ion-input type="text" required [(ngModel)]="value.name" ></ion-input>
-         </ion-item>
-         <br />
-      
-          <ion-item>
-            <ion-label>Goals</ion-label>
-             <ion-textarea type="text" required [(ngModel)]="value.goals" ></ion-textarea>
-         </ion-item>
-         <br />
+      <div class="progress-bar">
+        <div class="progress-step is-active">
+          <div class="step-count">1</div>
+          <div class="step-description">Basic Details</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-count">2</div>
+          <div class="step-description">Edit Status</div>
+        </div>
+     </div>
 
-         <ion-item>
-          <ion-label>Manager</ion-label>
-          <ion-select required [(ngModel)]="value.manager">
+     <p>Setup your sales campaigns</p>
+      <!-- <p style="color: darkred;">This is step 1</p> -->
+
+      <label>Name</label>
+          <div>
+             <ion-input type="text"  [(ngModel)]="value.name" ></ion-input>
+         </div>
+       
+         <label>Goals</label>
+          <div>
+             <ion-input type="text"  [(ngModel)]="value.goals" ></ion-input>
+         </div>
+        
+         <label>Manager</label>
+         <ion-item style="width: 218%;margin-left: -6px;">
+          <ion-select  [(ngModel)]="value.manager">
             <ion-option *ngFor="let product of productss">{{product.name}}&nbsp;{{product.last}}</ion-option>
             </ion-select> 
         </ion-item>
-        <br />
-
-        <ion-item >
-          <ion-label >Sales Representative</ion-label>
-          <ion-select multiple required [(ngModel)]="prod" >
+      
+        <label >Sales Representative</label>
+        <ion-item style="width: 218%;margin-left: -6px;">
+          <ion-select multiple  [(ngModel)]="prod" >
             <!-- <ion-option *ngFor="let product of prod">{{product}}</ion-option> -->
             <ion-option *ngFor="let product of anArray2">{{product}}</ion-option>
             </ion-select> 
         </ion-item>
-        <br />
-
+        
         <!-- <ion-item >
           <ion-label>Sales Representative</ion-label>
           <ion-select *ngFor="let pr of prod" required [(ngModel)]="pr">
@@ -58,30 +66,41 @@
           <ion-checkbox checked="true"></ion-checkbox>
         </ion-item >
        -->
-         </ion-list>
+       
         
         <button ion-button   type="button" (click)="slideToSlide()">Save & Next</button>
-        <br><br>
+        
     </ion-slide>
    
-    <ion-slide style="height: 99%;overflow: auto; overflow-x: hidden; ">
+    <ion-slide style="height: 100%;overflow: auto; overflow-x: hidden; ">
+      <div class="progress-bar">
+        <div class="progress-step ">
+          <div class="step-count">1</div>
+          <div class="step-description">Basic Details</div>
+        </div>
+        <div class="progress-step is-active">
+          <div class="step-count">2</div>
+          <div class="step-description">Edit Status</div>
+        </div>
+     </div>
+
       <div class="upper">
-      <h5>Edit your sale status</h5>
-      <p style="color: darkred;">This is final step </p>
+      <p>Edit your sale status</p>
+      <!-- <p style="color: darkred;">This is final step </p> -->
       </div>
   
     <table >
-    <tr style="height: 41px;font-size:15px;">
+    <tr style="height: 28px;font-size:15px;">
     <th >Status</th>
     <th>Action</th>
     </tr>
     
     <tr *ngFor="let product of sts "> 
       <td> 
-        <ion-input type="text" [(ngModel)]="product.status"></ion-input>
+        <ion-input class="status" type="text" [(ngModel)]="product.status"></ion-input>
       </td>
       <td >
-          <select  type="text" [(ngModel)]="product.action">
+          <select class="selectoptionn" type="text" [(ngModel)]="product.action">
             <option>None</option>
             <option>Inform Manager</option>
             <option >Remove client from profile</option>
@@ -94,7 +113,7 @@
     <button ion-button (click)="Add()">Add More</button>
     </div>
    
-    
+    <br>
     <div>
     
       <div >
@@ -108,37 +127,7 @@
     </div>
     
     </ion-slide>
-<!-- 
-    <ion-slide style="height: 91%;overflow: auto; overflow-x: hidden; ">
 
-     
-        <h5 style="margin-top: 1.8rem;margin-bottom: 1rem;">Setup your sale status</h5>
-        <p style="color: darkred;">This is final step </p>
-       
-     
-       
-      <tr *ngFor="let product of products "> 
-        <td> 
-          <ion-input type="text" [(ngModel)]="product.status"></ion-input>
-        </td>
-        <td >
-            <select  type="text" [(ngModel)]="product.action">
-              <option>None</option>
-              <option>Inform Manager</option>
-              <option >Remove client from profile</option>
-            </select>
-        </td>
-        </tr >
-      
-      <br><br>
-      <div >
-        <div style="float:right;">
-          <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
-          <button ion-button  id="nextBtn" (click)="update()">Save</button>
-        </div>   
-     </div>
-
-    </ion-slide> -->
 </ion-slides>
 </div>
 

@@ -49,6 +49,7 @@ import { SortPipe } from '../pipes/sort/sort';
 import { SearchPipe1 } from '../pipes/search/search1';
 import { SearchPipe2 } from '../pipes/search/search2';
 import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
+import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remaining-lead-deatils';
 
 
 
@@ -79,6 +80,7 @@ import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
     CallDetailsPage,
     LeadInTrackCampPage,
     EditCsvFieldPage,
+    RemainingLeadDeatilsPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -114,7 +116,7 @@ import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
     SettingsPage,
     UserLicensesPage,
     CreateLeadProfilePage,  
-  
+    RemainingLeadDeatilsPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,

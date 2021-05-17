@@ -22,6 +22,7 @@ import {  } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
+import { UserlistPage } from '../pages/userlist/userlist';
 
 @Component({
   templateUrl: 'app.html'

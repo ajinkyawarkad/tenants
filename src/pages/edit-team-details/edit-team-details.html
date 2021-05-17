@@ -7,52 +7,32 @@
 
 </ion-header>
 
-  <ion-content class="content"> 
-    <div class="contaier-login">
-        <ion-grid>
-        
-         <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label>First Name</ion-label>
-                <ion-input type="text" required [(ngModel)]="value.name" placeholder="First Name"></ion-input>
-            </ion-item>
-            <br />
-         
-            <ion-item>
-              <ion-label>Last Name</ion-label>
-              <ion-input type="text" required [(ngModel)]="value.last" placeholder="Last Name"></ion-input>
-            </ion-item>
-             <br />
-         
-             <ion-item>
-              <ion-label>Email</ion-label>
-                 <ion-input type="text" required [(ngModel)]="value.email" placeholder="Email"></ion-input>
-             </ion-item> 
-             <br />
-         
-             <ion-item>
-              <ion-label>Role</ion-label>
-              <ion-select placeholder="Select One" required [(ngModel)]="value.role">
-              <ion-option >Manager</ion-option>
-              <ion-option >Sale Representative</ion-option>
-              </ion-select>
-                 <!-- <ion-input type="text" required [(ngModel)]="value.role" placeholder="Role"></ion-input> -->
-             </ion-item>
-         
-                    
-            </ion-col>
-          </ion-row>
+  <ion-content padding> 
+
+    <div class="container">
   
-          <ion-row>
-            <ion-col>
-              <button ion-button round full color="primary" (click)="update();update1()">
-                Save
-            </button>
-            </ion-col>
-          </ion-row>
+    
+      <label >First Name</label>
+      <ion-input type="text" [(ngModel)]="value.name" ></ion-input>
   
-        </ion-grid>
-    </div>
+      <label >Last Name</label>
+      <ion-input type="text"  [(ngModel)]="value.last" ></ion-input>
+
+      <label >Email</label>
+      <ion-input type="email"  [(ngModel)]="value.email" ></ion-input>
   
+      <label >Role</label>
+      <select  [(ngModel)]="value.role" >
+        <option >Manager</option>
+        <option >Sale Representative</option>
+      </select>
+
+      <div style="text-align: center;">
+        <button ion-button color="primary" (click)="update();update1()">Save</button>
+          </div>
+
+    </div>  
+
+
+   
   </ion-content>

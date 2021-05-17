@@ -10,6 +10,7 @@ import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 import { Lead } from '../../models/user';
 import * as $ from "jquery";
 import { LoadingController } from 'ionic-angular';
+import { RemainingLeadDeatilsPage } from '../remaining-lead-deatils/remaining-lead-deatils';
 
 
 interface Users {
@@ -171,6 +172,11 @@ getItems(ev) {
       // item.status.toLowerCase().indexOf(val.toLowerCase()) > -1 
     })
   }
+}
+
+remaining()
+{
+  this.navCtrl.push(RemainingLeadDeatilsPage);
 }
 ionViewDidLoad() {
   $(document).on('change', 'table thead input', function() {

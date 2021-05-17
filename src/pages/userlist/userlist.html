@@ -8,61 +8,30 @@
 
 
 <ion-content padding>
-  <!-- <ion-item>
-    <ion-label>Select Manager</ion-label>
-    <ion-select >
-      <ion-option>Manager 1</ion-option>
-      <ion-option >Manager 2</ion-option>
-      <ion-option >Manager 3</ion-option>
-    </ion-select>
-  </ion-item>
-  <br />
-  <ion-item>
-    <ion-label>Select Sale Representative </ion-label>
-    <ion-select >
-      <ion-option>Sale Representative 1</ion-option>
-      <ion-option >Sale Representative 2</ion-option>
-      <ion-option >Sale Representative 3</ion-option>
-    </ion-select>
-  </ion-item>
-  <br /> -->
-  <div class="contaier-login">
-    <ion-grid>
-    <ion-row>
-    <ion-col>
-    <ion-item>
-    <ion-input type="text" required placeholder="First Name" required [(ngModel)]="employee.name" ></ion-input>
-    </ion-item>
-    <br />
+
+  <div class="container">
+  
     
-    <ion-item>
-    <ion-input type="text" required placeholder="Last Name" required [(ngModel)]="employee.last" ></ion-input>
-    </ion-item>
-    <br />
-    
-    <ion-item>
-    <ion-input type="text" required placeholder="Email" required [(ngModel)]="employee.email"></ion-input>
-    </ion-item>
-    <br />
-    
-    <ion-item>
-    <ion-label>Role</ion-label>
-    <ion-select placeholder="Select One" required [(ngModel)]="employee.role">
-    <ion-option >Manager</ion-option>
-    <ion-option >Sale Representative</ion-option>
-    </ion-select>
-    </ion-item>
-    </ion-col>
-    </ion-row>
-    
-    <ion-row>
-    <ion-col>
-    <button ion-button round full color="primary" (click)= "insertUser(employee)" >
-    Invite
-    </button>
-    </ion-col>
-    </ion-row>
-    
-    </ion-grid>
-    </div>
+      <label >First Name</label>
+      <ion-input type="text" [(ngModel)]="employee.name" required></ion-input>
+  
+      <label >Last Name</label>
+      <ion-input type="text"  [(ngModel)]="employee.last" required></ion-input>
+
+      <label >Email</label>
+      <ion-input type="email"  [(ngModel)]="employee.email" placeholder="Ex:abc@gmail.com" required></ion-input>
+  
+      <label >Role</label>
+      <select  [(ngModel)]="employee.role" required>
+        <option >Manager</option>
+        <option >Sale Representative</option>
+      </select>
+
+      <div style="text-align: center;">
+      <button  ion-button  color="primary" (click)= "insertUser(employee)" >Invite</button>
+        </div>
+   
+  </div>
+
+  
 </ion-content>

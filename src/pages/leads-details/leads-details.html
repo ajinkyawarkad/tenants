@@ -68,15 +68,16 @@
 				[(ngModel)]="masterCheck"    
 				[indeterminate]="isIndeterminate"
 				  (click)="checkMaster($event);"></ion-checkbox>
-				  
-					
 			  </th>
 			  <!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		 -->
 			  <th>First Name</th>
 			  <th>Last Name</th>
-			  <th>Phone</th>
 			  <th>Email</th>
+			  <th>Phone</th>
 			  <th>Address</th>
+			  <th>Profile URl</th>
+			  
+			  <th>Company Name</th>
 			  <th>Handler</th>
 			  <th>Action</th>
 			  <th>Follow Up</th>
@@ -84,10 +85,7 @@
 			  <th>Remarks</th>
 			  <th>Edit / Delete</th>
 		  </tr>
-		  
 		  <tbody>
-			  
-			
 			  <tr *ngFor="let product of productsss  ;let idx = index; ">
 				<td >
 					<ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
@@ -95,31 +93,31 @@
 					<ion-checkbox slot="start" 
 					[(ngModel)]="product.isChecked" 
 					(ionChange)="checkEvent();"></ion-checkbox>
-					
-					 
 				</td>
-
 				<!-- <td  *ngFor="let produ of product.leads; let i = index;" >
 						  {{produ.action}}
 						  <div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
 								<ion-icon   name="call" (click)="gotocall(product.leads[0].action,product.leads[1].action,product.uid)" > </ion-icon>	
 						 </div>   
 				  </td>	 -->
-				  <td ><a href="">{{product.first_name}}</a></td>	  
-				  <td >{{product.last_name}}</td>	  
+				  <td style="color: cornflowerblue;text-decoration: underline;" 
+				  	  (click)="remaining()">{{product.first_name}}</td>	  
+				  <td >{{product.last_name}}</td>
+				  <td ><a href="">{{product.Email}}</a></td>	  	  
 				  <td >{{product.Phone}} 
-					  <div  style="display: inline-block;margin-left: 40px;">
-					<ion-icon   name="call" (click)="gotocall(product.leads[0].action1000,product.leads[1].action,product.uid)" > </ion-icon>	
+					  <div  *ngIf="product.Phone" style="display: inline-block;margin-left: 40px;">
+					<ion-icon  name="call" (click)="gotocall(product.first_name, product.last_name,product.uid)" > </ion-icon>	
 			 		</div>  
-			</td>	  
-				<td ><a href="">{{product.Email}}</a></td>	  
-				<td >{{product.Address}}</td>	   
+			</td>
+				<td >{{product.Address}}</td>
+				<td >{{product.url}}</td>
+				<td >{{product.Company}}</td>
 			  <td >{{product.SR_name}}</td>	  
 			  <td >{{product.action}}</td>
 			  <td >{{product.datetime}}</td>
 			  <td >{{product.status}}</td>
 			  <td >{{product.remark}}</td>
-			  
+			   
 			  <td> 
 				<div style="display: inline-block;margin-left: 3px;">
 				  <ion-icon name="create" (click)="edit(product)"></ion-icon>
@@ -130,7 +128,7 @@
 			  </td>
 		  </tr>
 		 
-		  </tbody>
+		  </tbody>   
 
 		  <tbody *ngIf="terms">
 			  
@@ -188,5 +186,3 @@
 
 
   </ion-content>
-
- 

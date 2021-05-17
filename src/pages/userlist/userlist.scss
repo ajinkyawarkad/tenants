@@ -1,100 +1,53 @@
 page-userlist {
-	ion-content
-	{
-		font-family: 'roboto';
-		font-size: 15px;
-			
-	}
 
-	.button-full-md {
-		margin-left: 23%;
-		margin-right: 0;
-		border-radius: 5px;
-		border-right-width: 0;
-		border-left-width: 0;
-		width: 57%;
-	}
-	ion-segment 
-		{
-			width: 50%;
-		}
-
-	
-	/* Extra small devices (phones, 600px and down) */
-	@media only screen and (max-width: 600px) {
-		
-		ion-segment 
-		{
-			width: 100%;
-		}
-		
-		
-	}
-		
-	/* Small devices (portrait tablets and large phones, 600px and up) */
-	@media only screen and (min-width: 600px) {
-	
-	
-		.contaier-login {
-			width: 83%;
-			background: #ffffff;
-			position: fixed;
-			margin-left: 30px;
-		}
-		
-	}
-	
-	/* Medium devices (landscape tablets, 768px and up) */
-	@media only screen and (min-width: 768px) {
-		
-		.contaier-login {
-			width: 83%;
-			background: #ffffff;
-			position: fixed;
-			margin-left: 30px;
-		}
-	
-	}
-	
-	/* Large devices (laptops/desktops, 992px and up) */
 	@media only screen and (min-width: 992px) {
-		.contaier-login {
-		background:#ffffff;
-		border-radius:5px;
-		border: 1px solid rgb(160, 156, 156);
-	   // box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
-	   width: 70%;
-	   margin: 0;
-	   position: absolute;
-	   top: 50%;
-	   left: 50%;
-	   margin-right: 80%;
-	   transform: translate(-50%, -50%);
-	   height:auto;
-	}
-	
-	}
-	
-	/* Extra large devices (large laptops and desktops, 1200px and up) */
-	@media only screen and (min-width: 1200px) {
-		.contaier-login {
-			background:#ffffff;
-			border-radius:5px;
-			border: 1px solid rgb(160, 156, 156);
-		   // box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
-		   width: 70%;
-		   margin: 0;
-		   position: absolute;
-		   top: 50%;
-		   left: 50%;
-		   margin-right: 80%;
-		   transform: translate(-50%, -50%);
-		   height:auto;
+
+		input[type=text],input[type=email], select ,option
+		{
+			width: 95%; 
+			padding: 10px; 
+			border: 1px solid #ccc; 
+			border-radius: 4px; 
+			box-sizing: border-box; 
+			margin-top: 6px; 
+			margin-bottom: 16px; 
+			resize: vertical ;
+			margin-left: 2px;
+
+			&:focus {
+				outline: none;
+				border-color: #2d8cf0;
+			}
+
 		}
-	
+		label {
+			margin-left: 4px;
+			font-family: inherit;
+			line-height: normal;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		
+
+		.container {
+			border-radius: 5px;
+			//background-color: rgb(241, 238, 238);
+			border: 1px solid #ccc; 
+			padding: 7% 26% 9% 31%;
+			
+		}
+
+
+		ion-content {
+			font-family: 'roboto';
+			font-size: 15px;
+			//font-family: Arial, Helvetica, sans-serif;
+				
+		}
+
 	}
 	
-	  
-		
 
 }

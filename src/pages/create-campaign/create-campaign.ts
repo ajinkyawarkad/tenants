@@ -120,6 +120,7 @@ export class CreateCampaignPage {
   }
 
   insertUser(camp: Camp, data) {
+    console.log("DAta",data)
     let ids:any=[];
     ids=data;
     let x=[];
@@ -154,7 +155,8 @@ export class CreateCampaignPage {
       .then((val) => {
         // console.log('id is', val);
 
-        console.log(uuid);
+        console.log(this.uuid1);
+    
         this.storage.set("campId", this.uuid1);
 
         firebase

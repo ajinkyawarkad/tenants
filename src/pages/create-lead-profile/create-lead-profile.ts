@@ -43,7 +43,7 @@ export class CreateLeadProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private _FB   : FormBuilder, private http: Http
   ,private alertCtrl:AlertController,public navParam:NavParams) {
     this.value = this.navParams.get('item');  
-    console.log(this.value);
+    console.log("Camp",this.value);
   }
  
 
@@ -121,60 +121,16 @@ export class CreateLeadProfilePage {
     .update({
       CSVfield:Mainheader
     })
-    let alert = this.alertCtrl.create({
-      title: 'Sucess',
-      subTitle: ' Field Added Successfully .. Now you can add lead ',
-      buttons: [
-        {text: 'OK',
-                handler: data => {
-                  // this.navCtrl.push(CreateNewCampleadPage, 
-                  //   {
-                  //   item:this.value
-                  //   });
-                } 
-              },
-              {
-                text: "Cancel",
-                role: "cancel",
-                handler: () => {
-                  console.log("Cancel clicked");
-                  this.navCtrl.push(HomePage);
-                },
-              },
-            ]
-            });
-    alert.present();
-    
-  }
-
-  execute(){
-    let currentuser=firebase.auth().currentUser;
-  firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
-    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-    console.log(source, " data: ");
-    this.FireHead =  doc.data().CSVfield ;
-    console.log("Headers from firebase",this.FireHead) ;
-    });
-
-  }
-
-  upload(isChecked: boolean){
-    
-    let Mainheader =this.anArray;
-    console.log(Mainheader); 
-   
-    let currentUser = firebase.auth().currentUser;
-    // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
-    // .update({
-    //   CSVfield:Mainheader
-    // }
-    // )
-    //  var adminId= firebase.auth().currentUser.uid;
-    //  var file_data = $('#myfile').prop('files')[0];
-  //  firebase.storage().ref("users").child(adminId +"/"+ this.value + "/file.csv").put(file_data);
-
-  
-    let i;
+//execute function
+    firebase.firestore().collection('Company').doc('COM#'+currentUser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
+      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      console.log(source, " data: ");
+      this.FireHead =  doc.data().CSVfield ;
+      console.log("Headers from firebase",this.FireHead) ;
+      });
+      
+//upload function
+      let i;
     for(i=1;i<this.arr.length;i++){
       let x=[];
       let subMain=[]; /////////======> Temp DATA
@@ -206,31 +162,109 @@ export class CreateLeadProfilePage {
           leads:cust,
           uid:uid 
           },{merge:true})
+
       }
     }
+
+    let alert = this.alertCtrl.create({
+      title: 'Sucess',
+      subTitle: ' Field Added Successfully .. Now you can add lead ',
+      buttons: [
+        {text: 'OK',
+                handler: data => {
+                  // this.navCtrl.push(CreateNewCampleadPage, 
+                  //   {
+                  //   item:this.value
+                  //   });
+                } 
+              },
+              {
+                text: "Cancel",
+                role: "cancel",
+                handler: () => {
+                  console.log("Cancel clicked");
+                  this.navCtrl.push(HomePage);
+                },
+              },
+            ]
+            });
+    alert.present();
+    
+  }
+
+  // execute(){
+  //   let currentuser=firebase.auth().currentUser;
+  // firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
+  //   var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  //   console.log(source, " data: ");
+  //   this.FireHead =  doc.data().CSVfield ;
+  //   console.log("Headers from firebase",this.FireHead) ;
+  //   });
+
+  // }
+
+  // upload(isChecked: boolean){
+    
+  //   let Mainheader =this.anArray;
+  //   console.log(Mainheader); 
    
+  //   let currentUser = firebase.auth().currentUser;
+  //   // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+  //   // .update({
+  //   //   CSVfield:Mainheader
+  //   // }
+  //   // )
+  //   //  var adminId= firebase.auth().currentUser.uid;
+  //   //  var file_data = $('#myfile').prop('files')[0];
+  // //  firebase.storage().ref("users").child(adminId +"/"+ this.value + "/file.csv").put(file_data);
 
+  //   let i;
+  //   for(i=1;i<this.arr.length;i++){
+  //     let x=[];
+  //     let subMain=[]; /////////======> Temp DATA
+  //     x=this.arr[i]
+  //     let j;
+  //     for(j=0;j<x.length;j++){
+  //       subMain.push({"value":this.FireHead[j].value,"indicator":this.FireHead[j].indicator,"action":x[j]})
+  //     }
+  //     console.log("SUBMAIN",i,subMain)
+  //     this.MAIN.push(subMain)
+  //     let cust=[]
+  //     let uid=uuid()
 
+  //     for(var a in subMain){
+        
+  //       if(subMain[a].indicator == "None"){
+  //         cust.push(subMain[a])
+  //       }else{
+  //         // this.data2.push({[x]:y})
+  //       firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+  //       .collection('leads').doc(uid)
+  //       .set( {
+  //           [subMain[a].indicator]: subMain[a].action
+  //         },{merge:true})
+  //       }
+  //       firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+  //       .collection('leads').doc(uid)
+  //       .set( {
+  //         leads:cust,
+  //         uid:uid 
+  //         },{merge:true})
 
-
-
-
-
-
-
-
-  
-   let alert = this.alertCtrl.create({
-    title: 'Sucess',
-    subTitle: ' File Uploaded Successfully',
-    buttons: [{text: 'OK',
-              handler: data => {
-              // this.navCtrl.setRoot(HomePage);
-              } 
-            }]
-          });
-  alert.present();
-  } 
+  //     }
+  //   }
+    
+  //  let alert = this.alertCtrl.create({
+  //   title: 'Sucess',
+  //   subTitle: ' File Uploaded Successfully',
+  //   buttons: [{text: 'OK',
+  //             handler: data => {
+  //             // this.navCtrl.setRoot(HomePage);
+  //             } 
+  //           }]
+  //         });
+  // alert.present();
+  // } 
 
   save1(){
    // this.navCtrl.push(CreateCampaignsLeadPage);
