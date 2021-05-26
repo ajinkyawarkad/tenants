@@ -9,28 +9,8 @@
   
   
   <ion-content padding>
-  <!-- <ion-segment [(ngModel)]="Segments"  value="2" mode="ios" >
-  <ion-segment-button (ionSelect)="Segments = 1" value="1">
-  Add
-  </ion-segment-button>
-  <ion-segment-button (ionSelect)="Segments = 2" value="2" >
-  Display
-  </ion-segment-button>
-  <ion-segment-button (ionSelect)="Segments = 3" value="3" >
-  Licenses
-  </ion-segment-button>
-  </ion-segment> -->
-  
-  
-  <!-- 
-  <br>
-  <div *ngSwitchCase="1" >
-  
-  </div>
-   -->
-  
-  
-  
+     <div  class= "container">
+
   <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
   <ion-segment-button (ionSelect)="Segments = 1" value="1">
   Active Users
@@ -48,16 +28,17 @@
   <div [ngSwitch]="Segments">
   <div *ngSwitchCase="1" >
 
-    <div style="float: right;margin-top: -6px;">
-     <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    <div class="search">
+     <ion-searchbar placeholder="Search " [(ngModel)]="term"  ></ion-searchbar>
     </div>
 
-     <div style="float: left">
-      <button ion-button  color="secondary" (click)="add()"> Add New User</button> 
+     <div style="float: right;margin-top: -48px;">
+      <button ion-button  color="secondary" (click)="add()"> Add User</button> 
      </div>
 
+     
   <table padding>
-  
+   
   <thead>
   <tr>
   <th>First Name</th>
@@ -70,7 +51,7 @@
     </thead>
   <tbody>
   <tr *ngFor="let product of productss | async | search1 :term">
-  <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+  <td style="text-decoration: underline;color: cornflowerblue;" (click)="edit(product)">{{product.name}}</td>
   <td>{{product.last}}</td>
   <td>{{product.role}}</td>
   <td>{{product.email}}</td>
@@ -83,13 +64,14 @@
   </div>
   
   <div *ngSwitchCase="2" >
-    <div style="float: right;margin-top: -6px;">
-      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    <div class="search">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term" ></ion-searchbar>
      </div>
  
   <table padding>
   
   <thead>
+  
   <tr>
   <th>First Name</th>
   <th>Last Name</th>
@@ -114,8 +96,8 @@
   </div>
   
   <div *ngSwitchCase="3" >
-    <div style="float: right;margin-top: -6px;">
-      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    <div class="search">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term"  ></ion-searchbar>
      </div>
   <table padding>
   <thead>
@@ -145,5 +127,5 @@
   
   
   </div>
-  
+     </div>
   </ion-content>

@@ -10,7 +10,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content >
     <ion-card style="height: 20%;">
       <ion-list >
         <ion-item color="none">
@@ -19,7 +19,7 @@
                   <div style="text-align:center;">
                       <ion-icon style="color:black;font-size:40px;" name="contact" item-left></ion-icon>
                   </div>
-                  <h2 style="color:black;text-align:center">Welcome Admin</h2>
+                  <h2 style="color:black;text-align:center;font-size:15px;">Welcome Admin</h2>
                  <br>
                 </div>
         </ion-item>
@@ -29,13 +29,13 @@
     <br>
     <ion-list > 
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon [name]="p.icon" item-start ></ion-icon>
-        {{p.title}}
+        <ion-icon  [name]="p.icon" item-start ></ion-icon>
+        <div style="font-size:15px;" class="divtext">{{p.title}}</div>
       </button>
 
       <ion-item class="square-app"  (click)="logout()">
         <ion-icon name="log-out" item-left ></ion-icon>
-        <div class="divtext">Logout</div>
+        <div style="font-size:15px;" class="divtext">Logout</div>
       </ion-item>
     </ion-list>
   </ion-content>

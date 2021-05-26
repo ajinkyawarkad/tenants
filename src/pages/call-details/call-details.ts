@@ -3,6 +3,7 @@ import firebase from "firebase";
 import { NavController, NavParams } from "ionic-angular";
 import {  Observable } from "rxjs";
 
+
 interface Users {
   name: string;
   manager: string;
@@ -15,6 +16,7 @@ interface Users {
 export class CallDetailsPage {
   uid: any;
   campid: any;
+  public date:any;
 
   productss: Observable<Users[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -56,8 +58,13 @@ export class CallDetailsPage {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
               console.log(source, " data: ");
               this.productss = doc.data().data;
-
-              console.log("shjshj",this.productss)
+              
+              this.date = this.productss[0].Time.toDate();
+              let mm = this.date.getMonth();
+              let dd = this.date.getDate();
+              let yyyy = this.date.getFullYear();
+              this.date = dd + '/' + mm + '/' + yyyy;
+            
             });
         }else{
           console.log('DATA EMPTY')

@@ -42,18 +42,18 @@ export class TaskDetailsPage {
     public afs: AngularFirestore,private storage: Storage, private auth:AngularFireAuth,
     public alertCtrl: AlertController,) {
 
-      this.value = navParams.get('product');
+      this.value = navParams.get('cid');
       console.log(this.value);
       
 
-      this.id = navParams.get('id');
-      console.log("lead id",this.id);
+      // this.id = navParams.get('id');
+      // console.log("lead id",this.id);
 
       this.data = navParams.get('data');
       console.log("Data",this.data);
 
-      this.data1 = navParams.get('data1');
-      console.log("Data1",this.data1);
+      // this.data1 = navParams.get('data1');
+      // console.log("Data1",this.data1);
 
 
       let currentuser=firebase.auth().currentUser;
@@ -86,17 +86,14 @@ export class TaskDetailsPage {
           
         }
       }
-      
-     
+    
       this.act=action
       console.log("TEMO",this.act)
-
-  
   }
 
 
-  Task(leadd:Leadd){
-    if(leadd.action && leadd.remark  != null){
+  Task(){
+    if(this.data.action && this.data.remark  != null){
     
     this.storage.get('cuid').then((val) => {
     console.log('id is', val);
@@ -104,13 +101,13 @@ export class TaskDetailsPage {
     console.log(uid);
     let currentuser = firebase.auth().currentUser
     
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.id)
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.data.uid)
     .update(Object.assign({
     //id: uid,
-    action:leadd.action,
-    datetime:leadd.datetime1,
-    status: leadd.selected_value,
-    remark: leadd.remark
+    action:this.data.action,
+    datetime:this.data.datetime1,
+    status: this.data.status,
+    remark: this.data.remark
     },{merge:true}
     ))
     console.log("ACT IS ",this.act)
@@ -119,33 +116,28 @@ export class TaskDetailsPage {
     switch (this.act){
       case "Inform Manager":
         firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +
-        '/'+this.value.cid+'/'+'leads messages'+'/'+this.id)
+        '/'+this.value.cid+'/'+'leads messages'+'/'+this.data.uid)
         .set(Object.assign({
-              id: this.id,
+              id: this.data.uid,
               message:"status upated to "+this.select+" "+"by" +" "+currentuser.displayName
         }
         ))
         break;
       case "Remove client from profile":
-        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.id).delete();
-        console.log("DELETED", this.id)
+        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.data.uid).delete();
+        console.log("DELETED", this.data.uid)
         break;
 
-
-
-      
     }
-    
-
-    
-    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).collection('leads').doc(this.id).collection('History')
+   
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc(this.value.cid).collection('leads').doc(this.data.uid).collection('History')
     .doc('Activity1').set({
-     data:firebase.firestore.FieldValue.arrayUnion({
+     dataa:firebase.firestore.FieldValue.arrayUnion({
        Time: new Date(),
-       Action:leadd.action,
-       Handler:currentuser.displayName,
-       FollowUp:leadd.datetime1,
-       Remark:leadd.remark,
+       Action:this.data.action,
+       Handler:this.data.SR_name,
+       FollowUp:this.data.datetime1,
+       Remark:this.data.remark,
        link:"https://google.com"
 
      }) 
@@ -164,11 +156,11 @@ export class TaskDetailsPage {
       {
         data:firebase.firestore.FieldValue.arrayUnion({
         Time: new Date(),
-       Action:leadd.action,
+       Action:this.data.action,
       
-       FollowUp:leadd.datetime1,
-       Remark:leadd.remark,
-       name:this.id,
+       FollowUp:this.data.datetime1,
+       Remark:this.data.remark,
+       name:this.data.uid,
        link:"https://google.com"
       })
        
@@ -227,7 +219,7 @@ export class TaskDetailsPage {
     last_name:leadref.last_name,
     email: leadref.email,
     phone: leadref.phone,
-    refId:this.id
+    refId:this.data.uid
     }
     ))
     

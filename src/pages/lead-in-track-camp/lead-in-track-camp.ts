@@ -23,6 +23,7 @@ interface Camps {
 export class LeadInTrackCampPage {
 
   public anArray:any=[]; 
+  public anArray2:any=[]; 
   public det:any=[];
   public hed:any=[];
   value:any;
@@ -42,8 +43,25 @@ export class LeadInTrackCampPage {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       console.log(source, " data: "); 
       this.products =  doc.data().CSVfield ; 
+      
       console.log("csv ",this.products) ;
-      this.anArray=this.products 
+      let test:any=[];
+      test = this.products ;
+      for(var a in test){
+        if(test[a].indicator !== "None"){
+          this.anArray.push(test[a])
+        }else{
+          this.anArray2.push(test[a])
+
+        }
+      }
+      
+    
+    console.log("ANArray",this.anArray);
+    console.log("ANArray2",this.anArray2);
+    
+
+     
   });
 
   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
@@ -66,17 +84,30 @@ console.log("SR",this.productss) ;
        console.log("uuid",uuid);
        console.log("camp id",this.value.cid);
        console.log("data",data)
+
+      for (var a in this.anArray) {
+        
+     
+      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+      .collection('leads').doc(uuid1)
+      .set({
+        [this.anArray[a].indicator]:this.anArray[a].action
+        
+ 
+      },{merge:true})
+
+      }
      
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
       .set(Object.assign({
  
-       leads:this.anArray,
+       leads:this.anArray2,
        SR_id:data.id,
        SR_name:data.name+" "+data.last,
        uid:uuid1 
        }  
-     )) .then(()=>{
+     ),{merge:true}) .then(()=>{
       let alert = this.alertCtrl.create({
         title: 'Success',
         subTitle: 'Lead added Successfully',

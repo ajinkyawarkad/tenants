@@ -22,7 +22,14 @@ export class EditCsvFieldPage {
     
   }
   Add(){
-    this.arr.push({'value':'','action':' '}); 
+   
+    //this.arr.push({'value':'','action':' '}); 
+    if (this.arr.length < 5) {
+      this.arr.push({ value: "", action: "" });
+    } else {
+      alert("you reached to limit.. ");
+    }
+
     }
 
 

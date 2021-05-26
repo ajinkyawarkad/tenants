@@ -77,6 +77,7 @@ export class UserlistPage {
                  email:employee.email,
                  last: this.employee.last,
                 role: this.employee.role,
+                id:uid
                 
               },
               { merge: true }

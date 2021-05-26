@@ -1,9 +1,4 @@
-<!--
-  Generated template for the RemainingLeadDeatilsPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,5 +9,82 @@
 
 
 <ion-content padding>
+  <div class="container left">
 
+    <ion-item-divider class="divider">
+      <ion-label>
+        Lead Information
+      </ion-label>
+    </ion-item-divider>
+    <table >
+      <tr> 
+        <td>First name</td>
+        <td><ion-input class="in" [(ngModel)]="product.first_name"></ion-input></td>
+      </tr>
+      
+      <tr>
+        <td>Last name</td>
+        <td><ion-input class="in" [(ngModel)]="product.last_name"></ion-input></td>
+      </tr>
+
+      <tr>
+        <td>Phone</td>
+        <td><ion-input class="in" [(ngModel)]="product.Phone"></ion-input></td>
+      </tr>
+
+      <tr>
+        <td>Email</td>
+        <td><ion-input class="in" [(ngModel)]="product.Email"></ion-input></td> 
+        </tr>
+      
+  
+      <tr *ngFor="let produ of product.leads; let i = index;">
+    
+        <td >{{produ.value}} </td>
+        <td ><ion-input class="in" [(ngModel)]="produ.action"></ion-input></td>
+      </tr>
+     
+    </table>
+  </div>
+
+  <div class="container right">
+    <ion-item-divider class="divider">
+      <ion-label>
+        Call History
+      </ion-label>
+    </ion-item-divider>
+
+
+    <ion-card *ngFor="let prod of productss" > 
+
+      <ion-item>
+       
+        <h2>{{prod.Action}} at : {{prod.FollowUp}} </h2> 
+      
+      </ion-item>
+   
+      <ion-card-content>
+
+			  <p>Handler : {{prod.Handler}}</p>
+        <p>Remarks : {{prod.Remark}}</p>
+        
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <ion-icon name="play"></ion-icon>
+            <div>{{prod.link}}</div>
+          </button>
+        </ion-col>
+        <ion-col align-self-center text-center>
+          <ion-note>
+          Created at : {{date}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    
+    </ion-card>
+   
+    </div>
 </ion-content>

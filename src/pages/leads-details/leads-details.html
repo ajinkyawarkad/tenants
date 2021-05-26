@@ -1,188 +1,286 @@
 <ion-header>
 
 	<ion-navbar>
-	  <ion-title>Leads Details</ion-title>
+	<ion-title>Leads Details</ion-title>
 	</ion-navbar>
-  
-  </ion-header>
-  
-  
-  <ion-content padding="true" class="has-header" >
-
+	
+	</ion-header>
+	
+	
+	<ion-content padding="true" class="has-header" >
+	<div class="container">
+	
 	<div>
-	<div style="float: right;margin-top: -6px;">
-		<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"  showCancelButton="always" ></ion-searchbar>
-		
+	
+	<div style="float: right;margin-top: 1px;">
+	
+	<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms" showCancelButton="always" ></ion-searchbar>
 	</div>
-
+	
 	<div style="float: left;margin-top: 8px;">
-	<ion-icon style="display: inline-block;font-size: 1.6em" name="settings" (click)="hide2()"></ion-icon>
-	<p style="margin-top: -21px;margin-left: 23px;">Show/Hide Col</p>
+	<ion-icon class="settingicon" name="settings" (click)="hide2()"></ion-icon>
+	<p style="margin-top: -21px;margin-left: 40px;">Show/Hide Col</p>
 	</div>
 	&nbsp;
-	<div style="float: left;margin-left: 22px;">
-		<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
-    </div>
+	<div style="float: left;margin-left: 22px;margin-top: 7px;">
+	<button ion-button color="success" (click)="add()"> Add New Lead</button>
+	</div>
 	</div>
 	
-	<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: -18px;">  
-		
-		<button  ion-button  color="secondary" (click)="hide1()"> Assign Handler</button> 
-		
-    </div>
-
-	<div *ngIf="hideMe1"> 
-
-		<ion-item style="width: 50%;">
-		   <ion-label>Sale Representative</ion-label>
-			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
-			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
-		   </ion-select>
-		</ion-item>                     
-    </div>
-  
+	
+	
 	<div >
-	<div  class="scrollbar" >    
-		<table > 		
-			<thead  *ngIf="hideMe2" > 
-				<hr >	
-			<td  style="border: none;" *ngFor="let product of products ; let idx = index;">
-				<input class="messageCheckbox" type="checkbox" checked="checked" />{{products[idx].value}}</td>
-			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
-			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Action</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
-			</td>  
-			</thead>	
-		</table>
-		<hr >	  
-	</div>
-	  
-	<div   class="scrollbar">                                  
-	<table >   	
-		  <tr>
-			  <th>
-				   All
-				<ion-checkbox slot="start" 
-				[(ngModel)]="masterCheck"    
-				[indeterminate]="isIndeterminate"
-				  (click)="checkMaster($event);"></ion-checkbox>
-			  </th>
-			  <!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		 -->
-			  <th>First Name</th>
-			  <th>Last Name</th>
-			  <th>Email</th>
-			  <th>Phone</th>
-			  <th>Address</th>
-			  <th>Profile URl</th>
-			  
-			  <th>Company Name</th>
-			  <th>Handler</th>
-			  <th>Action</th>
-			  <th>Follow Up</th>
-			  <th>Status</th>
-			  <th>Remarks</th>
-			  <th>Edit / Delete</th>
-		  </tr>
-		  <tbody>
-			  <tr *ngFor="let product of productsss  ;let idx = index; ">
-				<td >
-					<ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
-					&nbsp;
-					<ion-checkbox slot="start" 
-					[(ngModel)]="product.isChecked" 
-					(ionChange)="checkEvent();"></ion-checkbox>
-				</td>
-				<!-- <td  *ngFor="let produ of product.leads; let i = index;" >
-						  {{produ.action}}
-						  <div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
-								<ion-icon   name="call" (click)="gotocall(product.leads[0].action,product.leads[1].action,product.uid)" > </ion-icon>	
-						 </div>   
-				  </td>	 -->
-				  <td style="color: cornflowerblue;text-decoration: underline;" 
-				  	  (click)="remaining()">{{product.first_name}}</td>	  
-				  <td >{{product.last_name}}</td>
-				  <td ><a href="">{{product.Email}}</a></td>	  	  
-				  <td >{{product.Phone}} 
-					  <div  *ngIf="product.Phone" style="display: inline-block;margin-left: 40px;">
-					<ion-icon  name="call" (click)="gotocall(product.first_name, product.last_name,product.uid)" > </ion-icon>	
-			 		</div>  
-			</td>
-				<td >{{product.Address}}</td>
-				<td >{{product.url}}</td>
-				<td >{{product.Company}}</td>
-			  <td >{{product.SR_name}}</td>	  
-			  <td >{{product.action}}</td>
-			  <td >{{product.datetime}}</td>
-			  <td >{{product.status}}</td>
-			  <td >{{product.remark}}</td>
-			   
-			  <td> 
-				<div style="display: inline-block;margin-left: 3px;">
-				  <ion-icon name="create" (click)="edit(product)"></ion-icon>
-				</div>
-				  <div style="display: inline-block;margin-left: 10px;">
-				  <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
-				  </div>
-			  </td>
-		  </tr>
-		 
-		  </tbody>   
-
-		  <tbody *ngIf="terms">
-			  
-			<tr *ngFor="let product of prod  ;let idx = index; ">
-			  <td >
-				  <ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
-				  &nbsp;
-				  <ion-checkbox slot="start" 
-				  [(ngModel)]="product.isChecked" 
-				  (ionChange)="checkEvent();"></ion-checkbox>
-				  
-				   
-			  </td>
-
-			  <td  *ngFor="let produ of product.leads; let i = index;" >
-						{{produ.action}}
-						<div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
-							  <ion-icon   name="call" (click)="gotocall(product.uid)" > </ion-icon>	
-					   </div>   
-				</td>	
-			   
-			<td >{{product.SR_name}}</td>	  
-			<td >{{product.action}}</td>
-			<td >{{product.datetime}}</td>
-			<td >{{product.status}}</td>
-			<td >{{product.remark}}</td>
-			
-			<td> 
-				<ion-icon name="create" (click)="edit(product)"></ion-icon>
-				<div style="display: inline-block;margin-left: 30px;">
-				<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
-				</div>
-			</td>
+	<div class="scrollbar" *ngIf="hideMe2" >
+		<tr *ngFor="let hed of active" >
+			<th >{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)"></ion-checkbox></th>
 		</tr>
-	   
-		</tbody>
-	  </table>
-	</div>
-</div>
+
+<!--  	
+	<th >Salutation<ion-checkbox (ionChange)="showhide('Salutation', $event)"></ion-checkbox></th>
+	<th >Full Name<ion-checkbox (ionChange)="showhide('Full_Name', $event)"></ion-checkbox></th>
+	<th >First Name<ion-checkbox (ionChange)="showhide('first_name', $event)"></ion-checkbox></th>
+	<th >Middle Name<ion-checkbox (ionChange)="showhide('middle_name', $event)"></ion-checkbox></th>
+	<th >Last Name<ion-checkbox (ionChange)="showhide('last_name', $event)"></ion-checkbox></th>
+	<th >Phone<ion-checkbox (ionChange)="showhide('Phone', $event)"></ion-checkbox></th>
+	<th >Other Contact<ion-checkbox (ionChange)="showhide('Other_Contact', $event)"></ion-checkbox></th>
+	<th >Email<ion-checkbox (ionChange)="showhide('Email', $event)"></ion-checkbox></th>
+	<th >Other Email<ion-checkbox (ionChange)="showhide('Other_Email', $event)"></ion-checkbox></th>
+	<th >Address<ion-checkbox (ionChange)="showhide('Address', $event)"></ion-checkbox></th>
+	<th >City<ion-checkbox (ionChange)="showhide('City', $event)"></ion-checkbox></th>
+	<th >State<ion-checkbox (ionChange)="showhide('State', $event)"></ion-checkbox></th>
+	<th >Country<ion-checkbox (ionChange)="showhide('Country', $event)"></ion-checkbox></th>
+	<th >Gender<ion-checkbox (ionChange)="showhide('Gender', $event)"></ion-checkbox></th>
+	<th ><ion-checkbox (ionChange)="showhide('Company_Name', $event)"></ion-checkbox>Company_Name</th>
+	<th >Position<ion-checkbox (ionChange)="showhide('Position', $event)"></ion-checkbox></th>
+	<th >Profile URL<ion-checkbox (ionChange)="showhide('Profile_URL', $event)"></ion-checkbox></th>
+	<th >Date of Birth<ion-checkbox (ionChange)="showhide('Date_of_Birth', $event)"></ion-checkbox></th>
+	<th >Office/Apartment<ion-checkbox (ionChange)="showhide('Apartment', $event)"></ion-checkbox></th>
+	<th >Zip/Postal<ion-checkbox (ionChange)="showhide('Zip', $event)"></ion-checkbox></th>
+	<th >Fax<ion-checkbox (ionChange)="showhide('Fax', $event)"></ion-checkbox></th>
+	<th >Price<ion-checkbox (ionChange)="showhide('Price', $event)"></ion-checkbox></th>
+	<th >Stage<ion-checkbox (ionChange)="showhide('Stage', $event)"></ion-checkbox></th>
+	<th >Quality<ion-checkbox (ionChange)="showhide('Quality', $event)"></ion-checkbox></th>
+	<th >Currency<ion-checkbox (ionChange)="showhide('Currency', $event)"></ion-checkbox></th> -->
+	<th >Handler</th>
+	<th>Action</th>
+	<th>Follow Up</th>
+	<th>Status</th>
+	<th>Remarks</th>
+	<!-- <table >
+	<thead >
+	<hr >
 	
-	  <!-- <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls> -->
-	  
-	  <div style="float:right;">
+	<td style="border: none;"><input type="checkbox" checked="checked" />first_name</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />last_name</td>
+	
+	<td style="border: none;"><input type="checkbox" checked="checked" />Phone</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
+	<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
+	</td>
+	</thead>
+	</table>
+	<hr > -->
+	</div>
+	
+	<div class="scrollbar">
+	<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: 3px;">
+	<p style="margin-left: 10px;" *ngIf="hideMe">Selected : {{checkedCount}} </p>
+	</div>
+	<div *ngIf="hideMe" style="float: left;margin-left: 16px;">
+	
+	<button ion-button color="secondary" (click)="hide1()"> Assign Handler</button>
+	
+	</div>
+	
+	<div *ngIf="hideMe1">
+	
+	<ion-item style="width: 30%;">
+	<ion-label>Sale Representative</ion-label>
+	<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+	<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+	</ion-select>
+	</ion-item>
+	</div>
+	<table >
+	
+	<tr>
+	<th>
+	All
+	<ion-checkbox slot="start"
+	[(ngModel)]="masterCheck"
+	[indeterminate]="isIndeterminate"
+	(click)="checkMaster($event);"></ion-checkbox>
+	
+	</th>
+	<!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th> -->
+	<th *ngIf="Salutation">Salutation</th>
+	<th *ngIf="Full_Name">Full Name</th>
+	<th *ngIf="first_name" >First Name</th>
+	<th *ngIf="middle_name">Middle Name</th>
+	<th *ngIf="last_name">Last Name</th>
+	<th *ngIf="Phone">Phone</th>
+	<th *ngIf="Other_Contact">Other Contact</th>
+	<th *ngIf="Email">Email</th>
+	<th *ngIf="Other_Email">Other Email</th>
+	<th *ngIf="Address">Address</th>
+	<th *ngIf="City">City</th>
+	<th *ngIf="State">State</th>
+	<th *ngIf="Country">Country</th>
+	<th *ngIf="Gender">Gender</th>
+	<th *ngIf="Company_Name">Company_Name</th>
+	<th *ngIf="Position">Position</th>
+	<th *ngIf="Profile_URL">Profile URL</th>
+	<th *ngIf="Date_of_Birth">Date of Birth</th>
+	<th *ngIf="Apartment">Office/Apartment</th>
+	<th *ngIf="Zip">Zip/Postal</th>
+	<th *ngIf="Fax">Fax</th>
+	<th *ngIf="Price">Price</th>
+	<th *ngIf="Stage">Stage</th>
+	<th *ngIf="Quality">Quality</th>
+	<th *ngIf="Currency">Currency</th>
+	<th >Handler</th>
+	<th>Action</th>
+	<th>Follow Up</th>
+	<th>Status</th>
+	<th>Remarks</th>
+	<th>Edit / Delete</th>
+	</tr>
+	
+	<tbody>
+	
+	
+	<tr *ngFor="let product of productsss;let idx = index; ">
+	<td >
+	<!-- <ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon> -->
+	&nbsp;
+	<ion-checkbox slot="start"
+	[(ngModel)]="product.isChecked"
+	(ionChange)="checkEvent();"></ion-checkbox>
+	
+	
+	</td>
+	
+	<!-- <td *ngFor="let produ of product.leads; let i = index;" >
+	{{produ.action}}
+	<div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
+	<ion-icon name="call" (click)="gotocall(product.leads[0].action,product.leads[1].action,product.uid)" > </ion-icon>
+	</div>
+	</td> -->
+	<td style="color: cornflowerblue;text-decoration: underline;"
+	(click)="remaining(product)" *ngIf="Full_name">{{product.Full_Name}}</td>
+	<td style="color: cornflowerblue;text-decoration: underline;"
+	(click)="remaining(product)" *ngIf="first_name">{{product.first_name}}</td>
+	<td *ngIf="middle_name">{{product.middle_name}}</td>
+	
+	<td *ngIf="last_name">{{product.last_name}}</td>
+	<!-- <td style="color: cornflowerblue;" >
+	{{product.Email}}</td> -->
+	<td *ngIf="Phone">{{product.Phone}}
+	<div *ngIf="product.Phone" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+	<ion-icon name="call" (click)="gotocall(product)" > </ion-icon>
+	</div>
+	</td>
+	<td *ngIf="Other_Contac">{{product.Other_Contac}}
+	<div *ngIf="product.Other_Contac" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+	<ion-icon name="call" (click)="gotocall(product)" > </ion-icon>
+	</div>
+	</td>
+	<td *ngIf="Email">{{product.Email}}</td>
+	<td *ngIf="Other Email">{{product.Other_Email}}</td>
+	<td *ngIf="Address">{{product.Address}}</td>
+	<td *ngIf="City">{{product.City}}</td>
+	<td *ngIf="State">{{product.State}}</td>
+	<td *ngIf="Country">{{product.Country}}</td>
+	<td *ngIf="Gender">{{product.Gender}}</td>
+	<td *ngIf="Company_Name">{{product.Company_Name}}</td>
+	<td *ngIf="Position">{{product.Position}}</td>
+	<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+	<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+	<td *ngIf="Apartment">{{product.Apartment}}</td>
+	<td *ngIf="Zip">{{product.Zip}}</td>
+	<td *ngIf="Fax">{{product.Fax}}</td>
+	<td *ngIf="Price">{{product.Price}}</td>
+	<td *ngIf="Stage">{{product.Stage}}</td>
+	<td *ngIf="Quality">{{product.Quality}}</td>
+	<td *ngIf="Currency">{{product.Currency}}</td>
+	<td >{{product.SR_name}}</td>
+	<td >{{product.action}}</td>
+	
+	<td >{{product.datetime}}</td>
+	<td >{{product.status}}</td>
+	<td >{{product.remark}}</td>
+	<td>
+	<div style="display: inline-block;margin-left: 3px;">
+	<ion-icon name="create" (click)="edit(product)"></ion-icon>
+	</div>
+	<div style="display: inline-block;margin-left: 10px;">
+	<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+	</div>
+	</td>
+	</tr>
+	
+	</tbody>
+	
+	<tbody *ngIf="terms">
+	
+	<tr *ngFor="let product of prod ;let idx = index; ">
+	<td >
+	<!-- <ion-icon style="display: inline-block;font-size: 1.3em;margin-left: 2px;" name="document" (click)="calldetails(product.uid)"></ion-icon> -->
+	&nbsp;
+	<ion-checkbox slot="start"
+	[(ngModel)]="product.isChecked"
+	(ionChange)="checkEvent();"></ion-checkbox>
+	
+	
+	</td>
+	
+	<td style="color: cornflowerblue;text-decoration: underline;"
+	(click)="remaining(product)">{{product.first_name}}</td>
+	<td >{{product.last_name}}</td>
+	<!-- <td style="color: cornflowerblue;" >
+	{{product.Email}}</td> -->
+	<td>{{product.Phone}}
+	<div *ngIf="product.Phone" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+	<ion-icon name="call" (click)="gotocall(product)" > </ion-icon>
+	</div>
+	</td>
+	
+	<td >{{product.SR_name}}</td>
+	<td >{{product.action}}</td>
+	<td >{{product.datetime}}</td>
+	<td >{{product.status}}</td>
+	<td >{{product.remark}}</td>
+	
+	<td>
+	<ion-icon name="create" (click)="edit(product)"></ion-icon>
+	<div style="display: inline-block;margin-left: 30px;">
+	<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+	</div>
+	</td>
+	</tr>
+	
+	</tbody>
+	</table>
+	</div>
+	</div>
+	
+	<!-- <pagination-controls style="float:right" (pageChange)="p = $event"></pagination-controls> -->
+	
+	<div style="float:right;">
 	<b>Page no: {{pagination_clicked_count+1}}</b>
-		<button  ion-button color="primary" (click)="	prevPage(first)" [disabled]="disable_prev || !(pagination_clicked_count>0)">
-            Previous
-        </button>	
-		<button  ion-button color="primary" (click)="nextPage(last)" [disabled]="disable_next">
-            Next
-        </button>
-		
-	  </div>
-
-
-
-
-  </ion-content>
+	<button ion-button color="primary" (click)="prevPage(first)" [disabled]="disable_prev || !(pagination_clicked_count>0)">
+	Previous
+	</button>
+	<button ion-button color="primary" (click)="nextPage(last)" [disabled]="disable_next">
+	Next
+	</button>
+	
+	</div>
+	
+	
+	
+	</div>
+	</ion-content>

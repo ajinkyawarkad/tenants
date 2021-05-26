@@ -1,99 +1,140 @@
 page-task-details {
-	ion-content
-	{
-		font-family: 'roboto';
-		font-size: 15px;	
-	}
-   
-    /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-	.contaier {
-		width: 90%;
-	    padding: 6px;
-		margin: 5%;
-		//margin-top: 7%;
-		height: auto;
-		background: #ffffff;
-        position: fixed;	
-	}
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 80%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+	$primary-color: #25c23f;
+	$light-gray-color: #b6d4b9;
+	
+		@media only screen and (min-width: 992px) {
 		
+	
+			input[type=text],input[type=email],input[type=date], select 
+			{
+				width: 95%; 
+				padding: 10px; 
+				border: 1px solid #ccc; 
+				border-radius: 4px; 
+				box-sizing: border-box; 
+				margin-top: 6px; 
+				margin-bottom: 16px; 
+				resize: vertical ;
+				//margin-left: 2px;
+				font-size: 15px;
+	
+				&:focus {
+					outline: none;
+					border-color: #2d8cf0;
+				}
+	
+			}
+	
+			ion-select
+			{
+				
+				width: 95%; 
+				padding: 10px; 
+				border: 1px solid #ccc; 
+				border-radius: 4px; 
+				box-sizing: border-box; 
+				margin-top: 6px; 
+				margin-bottom: 16px; 
+				resize: vertical ;
+				//margin-left: 2px;
+				font-size: 15px;
+	
+				&:focus {
+					outline: none;
+					border-color: #2d8cf0;
+				}
+	
+			}
+			.select-md {
+				padding: 10px 14px 10px 13px;
+			}
+			label {
+				font-family: inherit;
+				line-height: normal;
+				float: left;
+				margin-left: 5%;
+				margin-bottom: 1px;
+				font-size: 15px;
+			}
+			
+	
+			* {
+				box-sizing: border-box;
+			}
+			
+				  #prevBtn {
+			background-color: #bbbbbb;
+		  }
+	
+			.container {
+				border-radius: 5px;
+				//background-color: rgb(241, 238, 238);
+				border: 1px solid #ccc; 
+				padding: 3% 26% 9% 31%;
+				
+			}
+	
+			ion-content
+			{
+				font-family: 'roboto';
+				font-size: 14px;	
+			}
+			.status{
+			width: 98%;
+		
+			//padding: 7px;
+			border-radius: 4px;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			margin-top: 0px;
+			//margin-bottom: 4px;
+			resize: vertical;
+			margin-left: 0px;
+			font-size: 15px;
+			}
+	
+			
+			.selectoptionn
+			{
+				width: 100%;
+				
+				padding: 8px;
+				border-radius: 4px;
+				box-sizing: border-box;
+				margin-top: 6px;
+				resize: vertical;
+				margin-left: 0px;
+				font-size: 15px;
+	
+				&:focus {
+					outline: none;
+					border-color: #2d8cf0;
+				}
+	
+			}
+			
+		  
+		  ion-icon {
+			display: inline-block;
+			font-size: 1.2em;
+			margin-left: 5px;
+		}
+		}
+	
+		.item-md.item-block .item-inner,
+		.item-md.item-input.input-has-focus .item-inner,
+		.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+		.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+		.list-md .item-input.input-has-focus:last-child,
+		.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+		.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+		border-bottom: none;
+		box-shadow: none;
 	}
-	.list-md {
-		margin: 21px 20px 15px;
+		.list-md .item-input.input-has-focus:last-child .item-inner,
+		.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+		.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+		box-shadow: none; 
 	}
-	button:hover {
-        opacity: 0.8;
-      }
-      
-      #prevBtn {
-        background-color: #bbbbbb;
-      }
-	 
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-	//	border: 1px solid rgb(160, 156, 156);
-		// box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
-		width: 60%;
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:auto;
-	}
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		border: 1px solid rgb(160, 156, 156);
-		width: 60%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:auto;
-	}
-    
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		border: 1px solid rgb(160, 156, 156);
-		width: 60%;
-		position: absolute;
-		top: 40%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-        
-	}
-    
-}
 	
 }

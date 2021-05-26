@@ -11,6 +11,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import firebase from 'firebase';
 import { Counts } from '../../models/user';
+import { ToastController } from 'ionic-angular';
 
 
 interface Users {
@@ -41,7 +42,8 @@ column: string = 'name';
     public afs: AngularFirestore,
     public menuCtrl: MenuController,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private toast: ToastController,
   ) {
     this.Segments = "1";
     //this.menuCtrl.enable(true, 'menu');
@@ -223,17 +225,13 @@ column: string = 'name';
         active:false
         } 
       )).then(() => {
-        
-        let alert = this.alertCtrl.create({
-          title: 'Sucess',
-          subTitle: value.name + ' ' + 'is Archived',
-          buttons: [{text: 'OK',
-                    handler: data => {
-                   // this.navCtrl.setRoot(ProfilePage);
-                    } 
-                  }]
-                });
-        alert.present();
+
+        this.toast.create({
+          message : value.name + ' ' + 'is Archived',
+          duration:1000,
+          position:'top'
+        }).present();
+  
       }).catch((err) => {
         console.log(err);
         let alert = this.alertCtrl.create({
@@ -260,17 +258,23 @@ column: string = 'name';
         active:true
         } 
       )).then(() => {
+
+        this.toast.create({
+          message : value.name + ' ' + 'is Active now',
+          duration:1000,
+          position:'top'
+        }).present();
         
-        let alert = this.alertCtrl.create({
-          title: 'Sucess',
-          subTitle: value.name + ' ' + 'is back to Active now',
-          buttons: [{text: 'OK',
-                    handler: data => {
-                   // this.navCtrl.setRoot(ProfilePage);
-                    } 
-                  }]
-                });
-        alert.present();
+        // let alert = this.alertCtrl.create({
+        //   title: 'Sucess',
+        //   subTitle: value.name + ' ' + 'is back to Active now',
+        //   buttons: [{text: 'OK',
+        //             handler: data => {
+        //            // this.navCtrl.setRoot(ProfilePage);
+        //             } 
+        //           }]
+        //         });
+        // alert.present();
       }).catch((err) => {
         console.log(err);
         let alert = this.alertCtrl.create({

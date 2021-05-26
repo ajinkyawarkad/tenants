@@ -90,11 +90,7 @@ $light-gray-color: #b6d4b9;
 .step-description {
   font-size: 12px;
 }
-
-
-		
-
-		input[type=text],input[type=email], select 
+input[type=text],input[type=email], select 
 		{
 			width: 95%; 
 			padding: 10px; 
@@ -164,11 +160,10 @@ $light-gray-color: #b6d4b9;
 		}
 
 
-		ion-content {
+		ion-content
+		{
 			font-family: 'roboto';
-			font-size: 15px;
-			//font-family: Arial, Helvetica, sans-serif;
-				
+			font-size: 14px;	
 		}
 		.status{
 		width: 98%;

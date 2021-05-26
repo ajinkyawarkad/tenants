@@ -12,8 +12,10 @@
 
 
 <ion-content padding>
-  <div>
-    <div style="float: left;width: 60%;margin-top: 13px;">
+  <div  class= "container">
+
+  <div >
+    <div style="float: left;width: 30%;margin-top: 13px;">
       <ion-segment [(ngModel)]="Segments" value="1" mode="ios" style="width: 100%;">
           <ion-segment-button value="1">
               Active
@@ -23,8 +25,8 @@
           </ion-segment-button>
       </ion-segment>
       </div>
-    <div style="float: right;">
-  <ion-searchbar placeholder="Search" [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    <div style="float: right;width: 30%;">
+  <ion-searchbar placeholder="Search" [(ngModel)]="term" ></ion-searchbar>
   <!-- <button ion-button type="button" (click)="sort()">Sort</button> -->
   </div>
   
@@ -96,7 +98,8 @@
             </tbody>
           </table>
           <!-- <p>0 overdue follow-ups , 10 follow up for today , abc Manager</p> -->
-          </div>
+          </div>      
+      </div>
       </div>
       </ion-content>
 

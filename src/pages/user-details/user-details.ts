@@ -59,7 +59,7 @@ add()
  this.navCtrl.push(UserlistPage);
 }
 
-showPopup(value) {
+showPopup(value,value1) {
     let alert = this.alertCtrl.create({
       title: 'Confirm Delete',
       subTitle: 'Do you really want to delete?',
@@ -76,7 +76,7 @@ showPopup(value) {
           handler: data => {
             console.log(value);
             this.deleteItem1(value);
-            this.deleteItem2(value);
+            this.deleteItem2(value1);
           }
         }
       ]
@@ -89,12 +89,11 @@ let currentuser=firebase.auth().currentUser;
 this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'Users' +'/'+value).delete(); 
 }
 
-deleteItem2(value)
+deleteItem2(value1)
 {
-
+console.log("id",value1)
 let currentuser=firebase.auth().currentUser;
-this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'non-active' +'/'+value).delete();
-  
+this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'non-active'+'/'+value1).delete(); 
 }
 
 
