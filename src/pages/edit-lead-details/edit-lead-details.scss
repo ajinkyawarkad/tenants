@@ -1,120 +1,102 @@
 page-edit-lead-details {
-	ion-content
-	{
-		font-family: 'roboto';
-		font-size: 14px;	
-	}
+	@media only screen and (min-width: 992px) {
+
 	
-    td, th {
-		border: 1px solid #dddddd;
-    text-align: left;
-    width:50%;
-    height:4vh;
-	padding: 1px;
-	  
-    }
-    th{
-		font-size:16px;
-		text-align: left;
-		//padding-left:12px;
-		padding: 10px;
-	  }
-   
-	table {
-		border-collapse: collapse;
-		width: 100%;
-	  }
-	  .label-md {
-		margin: 13px 8px 13px 10px;
-	}
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-	.contaier {
-		width: 96%;
-		padding: 10px;
-		margin: 2%;
-		height: auto;
-		background: #ffffff;
-		position: fixed;	
-	}
-	
+		// .reg_name {
+		// 	max-width:200px;
+		// }
+
+		input[type=text],input[type=email], select ,option
+		{
+			//width: 50%; 
+			width: 90%;
+			padding: 10px; 
+			border: 1px solid #ccc; 
+			border-radius: 4px; 
+			box-sizing: border-box; 
+			margin-top: 2px; 
+			margin-bottom: 12px; 
+			resize: vertical ;
+			margin-left: 2px;
+			display: inline;
+
+			&:focus {
+				outline: none;
+				border-color: #2d8cf0;
+			}
+
+		}
+
+		ion-select
+		{
+			
+			width: 95%; 
+			padding: 10px; 
+			border: 1px solid #ccc; 
+			border-radius: 4px; 
+			box-sizing: border-box; 
+			margin-top: 6px; 
+			margin-bottom: 16px; 
+			resize: vertical ;
+			//margin-left: 2px;
+			font-size: 15px;
+
+			&:focus {
+				outline: none;
+				border-color: #2d8cf0;
+			}
+
+		}
+		.select-md {
+			padding: 10px 14px 10px 13px;
+		}
+
+		ion-input{
+			margin-top: 4px;
+    		margin-bottom: -11px;
+		}
+		label {
+			margin-left: 3px;
+			font-family: inherit;
+			line-height: normal;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		
+
+		.container {
+			border-radius: 5px;
+			//background-color: rgb(241, 238, 238);
+			border: 1px solid #ccc; 
+			padding: 7% 27% 9% 25%;
+			//padding: 7% 5% 1% 7%;
+			
+		}
+
+
+		ion-content
+		{
+			font-family: 'roboto';
+			font-size: 14px;	
+		}
+		.item-md.item-block .item-inner,
+	.item-md.item-input.input-has-focus .item-inner,
+	.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+	.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+	.list-md .item-input.input-has-focus:last-child,
+	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+    border-bottom: none;
+    box-shadow: none;
+}
+	.list-md .item-input.input-has-focus:last-child .item-inner,
+	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+    box-shadow: none; 
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-	//border: 1px solid rgb(160, 156, 156);
-		width: 80%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 95%;
 	}
-	.list-md {
-		margin: 21px 20px 15px;
-	}
-	button:hover {
-        opacity: 0.8;
-      }
-      
-      #prevBtn {
-        background-color: #bbbbbb;
-      }
-	 
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		// box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
-		width: 60%;
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:95%;
-	}
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 60%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		//height:100%;
-	}
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 60%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		//margin-right: 80%;
-		transform: translate(-50%, -50%);
-		//height:90%;
-	}
-}
-
 	
 }

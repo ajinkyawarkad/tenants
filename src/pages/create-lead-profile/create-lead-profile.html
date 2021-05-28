@@ -1,141 +1,139 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Create Lead Profile</ion-title>
+  <ion-title>Create Lead Profile</ion-title>
   </ion-navbar>
-
-</ion-header>
-
-
-<ion-content no-bounce>  
+  
+  </ion-header>
+  
+  
+  <ion-content no-bounce>
   <!-- Item Dividers in a List -->
   <ion-list>
-    <ion-item-divider>
-      <ion-label>
-        Option 1
-      </ion-label>
-    </ion-item-divider>
-
-
-    <h6 style="margin-left: 20px;">Select file to upload data</h6>
+  <ion-item-divider>
+  <ion-label>
+  Option 1
+  </ion-label>
+  </ion-item-divider>
+  
+  
+  <h6 style="margin-left: 20px;">Select file to upload data</h6>
   <div class="form-group" style="margin-left: 20px;">
-         <input type="file" (change)="onFileSelect($event.target)"  id="myfile" accept=".csv">
-         
-    </div>
-
-    
-    <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit"  (click)="upload()"> Upload</button>  -->
-   
-    <table >
-    
-      <!-- <tr>
-        <th>Field</th>
-        <th>Unique</th>	
-        <th>Mobile</th>
-        <th></th>
-      </tr> -->
-    
-      <tbody>
-     
+  <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">
   
-        <tr *ngFor="let att of anArray; let idx = index"> 
-          <td> <ion-input  style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
-          <td>
-            <select [(ngModel)]="anArray[idx].indicator"> 
-              <option >Select</option>
-              <option >None</option>
-              <option >Id</option>
-              <option >Salutation</option>
-              <option >first_name</option>
-              <option >middle_name</option>
-              <option >last_name</option>
-              <option >Full_Name</option>
-              <option >Email</option>
-              <option >Phone</option>
-              <option >Address</option>
-              <option >City</option>
-              <option >State</option>
-              <option >Country</option>
-              <option >Gender</option>
-              <option >Company_Name</option>
-              <option >Position</option>
-              <option >Profile_URL</option>
-              <option >Date_of_Birth</option>
-              <option >Apartment/Office/Room/Floor/Area</option>
-              <option >Zip/Postal</option>
-              <option >Fax</option>
-              <option >Price</option>
-              <option >Stage</option>
-              <option >Quality</option>
-              <option >Currency</option>
-              <option >Other_Contact</option>
-            </select>
-          </td>
-          <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
-          <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td> -->
-        
-          <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
-   
-          </tr >
-       
-        </tbody>
+  </div>
   
-       
-      </table>
-      <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="savefield()">Upload & Save</button>
-      <button  ion-button type="submit" (click)="execute()">execute</button> 
-
- 
-    <p style="margin-left: 20px;font-weight: bold;">OR</p>
-
-
-    <ion-item-divider>
-      <ion-label>
-        Option 2
-      </ion-label>
-    </ion-item-divider>
   
-    <h6 style="margin-left: 20px;">Add your Field</h6>
-    
-
-    <table class="data-table"  class="myTable">
-      
-      <tbody>
-     
-        
-        <tr *ngFor="let att of anArray1; let idx = index"> 
-          <td> <ion-input  style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray1[idx].value" ></ion-input></td>
-          <td>
-            <select [(ngModel)]="anArray1[idx].indicator"> 
-              <option >Select</option>
-              <option >None</option>
-              <option >first_name</option>
-              <option >last_name</option>
-              <option >Full Name</option>
-              <option >Email</option>
-              <option >Phone</option>
-             
-              
-            </select>
-          </td>
-          <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
-   
-          </tr >
-       
-        </tbody>
+  <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
   
-       
-      </table>
+  <table >
   
-    <br>
+  <!-- <tr>
+  <th>Field</th>
+  <th>Unique</th>
+  <th>Mobile</th>
+  <th></th>
+  </tr> -->
   
-    <button ion-button  style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
-    
-    <button  ion-button type="submit" (click)="savefield1()"> Save</button>
-     <!-- <button ion-button  color="success" (click)="save1()"> Create Lead </button>  -->
-      
-    
-   
+  <tbody>
+  
+  
+  <tr *ngFor="let att of anArray; let idx = index">
+  <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
+  <td>
+  <select [(ngModel)]="anArray[idx].indicator">
+  <option >Select</option>
+  <option >None</option>
+  <option >Id</option>
+  <option >Salutation</option>
+  <option >first_name</option>
+  <option >middle_name</option>
+  <option >last_name</option>
+  <option >Full_Name</option>
+  <option >Email</option>
+  <option >Phone</option>
+  <option >Address</option>
+  <option >City</option>
+  <option >State</option>
+  <option >Country</option>
+  <option >Gender</option>
+  <option >Company_Name</option>
+  <option >Position</option>
+  <option >Profile_URL</option>
+  <option >Date_of_Birth</option>
+  <option >Apartment</option>
+  <option >Zip</option>
+  <option >Fax</option>
+  <option >Price</option>
+  <option >Stage</option>
+  <option >Quality</option>
+  <option >Currency</option>
+  <option >Other_Contact</option>
+  </select>
+  </td>
+  <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
+  <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td> -->
+  
+  <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+  
+  </tr >
+  
+  </tbody>
+  
+  
+  </table>
+  <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="savefield()">Save</button>
+  <button ion-button type="submit" (click)="upload()" *ngIf="uploadFlag">Upload</button>
+  
+  
+  <p style="margin-left: 20px;font-weight: bold;">OR</p>
+  
+  
+  <ion-item-divider>
+  <ion-label>
+  Option 2
+  </ion-label>
+  </ion-item-divider>
+  
+  <h6 style="margin-left: 20px;">Add your Field</h6>
+  
+  
+  <table class="data-table" class="myTable">
+  <tbody>
+  
+  <tr *ngFor="let att of anArray1; let idx = index">
+  <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray1[idx].value" ></ion-input></td>
+  <td>
+  <select [(ngModel)]="anArray1[idx].indicator">
+  <option >Select</option>
+  <option >None</option>
+  <option >first_name</option>
+  <option >last_name</option>
+  <option >Full Name</option>
+  <option >Email</option>
+  <option >Phone</option>
+  
+  
+  </select>
+  </td>
+  <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+  
+  </tr >
+  
+  </tbody>
+  
+  
+  </table>
+  
+  <br>
+  
+  <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
+  
+  <button ion-button type="submit" (click)="savefield1()"> Save</button>
+  <!-- <button ion-button color="success" (click)="save1()"> Create Lead </button> -->
+  
+  
+  
   </ion-list>
-
-</ion-content>
+  
+  </ion-content>

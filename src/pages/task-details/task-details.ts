@@ -76,6 +76,7 @@ export class TaskDetailsPage {
 
   Getselected(selected_value) {
     let temp=[];
+    
     console.log("SELECT",selected_value)
     this.select=selected_value
     let action;
@@ -86,13 +87,16 @@ export class TaskDetailsPage {
           
         }
       }
-    
       this.act=action
       console.log("TEMO",this.act)
+      if(this.act === "Remove client from profile"){
+        alert('this will remove this lead profile permently');
+      }
   }
 
 
   Task(){
+    console.log("SR name",this.data.SR_name)
     if(this.data.action && this.data.remark  != null){
     
     this.storage.get('cuid').then((val) => {
@@ -105,7 +109,7 @@ export class TaskDetailsPage {
     .update(Object.assign({
     //id: uid,
     action:this.data.action,
-    datetime:this.data.datetime1,
+    datetime:this.data.datetime,
     status: this.data.status,
     remark: this.data.remark
     },{merge:true}
@@ -130,18 +134,25 @@ export class TaskDetailsPage {
 
     }
    
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc(this.value.cid).collection('leads').doc(this.data.uid).collection('History')
-    .doc('Activity1').set({
-     dataa:firebase.firestore.FieldValue.arrayUnion({
-       Time: new Date(),
-       Action:this.data.action,
-       Handler:this.data.SR_name,
-       FollowUp:this.data.datetime1,
-       Remark:this.data.remark,
-       link:"https://google.com"
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).collection('leads')
+    .doc(this.data.uid).collection('History')
+    .doc('Activity1')
+    .set({
+     data:firebase.firestore.FieldValue.arrayUnion({
+
+      Time: new Date(),
+      Action:this.data.action,
+      FollowUp:this.data.datetime,
+      Remark:this.data.remark,
+      name:this.data.uid,
+      link:"https://google.com",
+    
+      Handler:this.data.SR_name,
+      
 
      }) 
-    },{merge:true})
+    },{merge:true}
+    )
     var b = new Date().getMonth()+1;
 
     var c = new Date().getFullYear();
@@ -150,18 +161,17 @@ export class TaskDetailsPage {
     let date = a+'-'+b+'-'+c;
     let dat='';
     dat=date;
+    console.log("Dateee",date)
     
     firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Admin').doc(currentuser.uid).collection('Report').
-    doc(dat).set(
-      {
+    doc(dat).set({
         data:firebase.firestore.FieldValue.arrayUnion({
         Time: new Date(),
-       Action:this.data.action,
-      
-       FollowUp:this.data.datetime1,
-       Remark:this.data.remark,
-       name:this.data.uid,
-       link:"https://google.com"
+        Action:this.data.action,
+        FollowUp:this.data.datetime,
+        Remark:this.data.remark,
+        name:this.data.uid,
+        link:"https://google.com"
       })
        
       },{merge:true}
@@ -175,7 +185,7 @@ export class TaskDetailsPage {
     //scope: id,
     buttons: [{text: 'OK',
     handler: data => {
-    //this.navCtrl.pop();
+    this.navCtrl.pop();
     }
     }]
     });

@@ -17,31 +17,17 @@
       </ion-label>
     </ion-item-divider>
     <table >
-      <tr> 
-        <td>First name</td>
-        <td><ion-input class="in" [(ngModel)]="product.first_name"></ion-input></td>
+      <tr *ngFor="let product of field; let idx = index; let even = even;"> 
+        <td>{{field[idx].action}}</td>
+        <td >{{field[idx].val}}</td>
       </tr>
-      
-      <tr>
-        <td>Last name</td>
-        <td><ion-input class="in" [(ngModel)]="product.last_name"></ion-input></td>
-      </tr>
-
-      <tr>
-        <td>Phone</td>
-        <td><ion-input class="in" [(ngModel)]="product.Phone"></ion-input></td>
-      </tr>
-
-      <tr>
-        <td>Email</td>
-        <td><ion-input class="in" [(ngModel)]="product.Email"></ion-input></td> 
-        </tr>
-      
+ 
+     
   
-      <tr *ngFor="let produ of product.leads; let i = index;">
+      <tr *ngFor="let produ of data.leads; let i = index;">
     
         <td >{{produ.value}} </td>
-        <td ><ion-input class="in" [(ngModel)]="produ.action"></ion-input></td>
+        <td >{{produ.action}}</td>
       </tr>
      
     </table>

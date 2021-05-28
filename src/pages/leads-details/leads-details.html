@@ -27,62 +27,18 @@
 	</div>
 	</div>
 	
-	
-	
 	<div >
 	<div class="scrollbar" *ngIf="hideMe2" >
-		<tr *ngFor="let hed of active" >
-			<th >{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)"></ion-checkbox></th>
-		</tr>
-
-<!--  	
-	<th >Salutation<ion-checkbox (ionChange)="showhide('Salutation', $event)"></ion-checkbox></th>
-	<th >Full Name<ion-checkbox (ionChange)="showhide('Full_Name', $event)"></ion-checkbox></th>
-	<th >First Name<ion-checkbox (ionChange)="showhide('first_name', $event)"></ion-checkbox></th>
-	<th >Middle Name<ion-checkbox (ionChange)="showhide('middle_name', $event)"></ion-checkbox></th>
-	<th >Last Name<ion-checkbox (ionChange)="showhide('last_name', $event)"></ion-checkbox></th>
-	<th >Phone<ion-checkbox (ionChange)="showhide('Phone', $event)"></ion-checkbox></th>
-	<th >Other Contact<ion-checkbox (ionChange)="showhide('Other_Contact', $event)"></ion-checkbox></th>
-	<th >Email<ion-checkbox (ionChange)="showhide('Email', $event)"></ion-checkbox></th>
-	<th >Other Email<ion-checkbox (ionChange)="showhide('Other_Email', $event)"></ion-checkbox></th>
-	<th >Address<ion-checkbox (ionChange)="showhide('Address', $event)"></ion-checkbox></th>
-	<th >City<ion-checkbox (ionChange)="showhide('City', $event)"></ion-checkbox></th>
-	<th >State<ion-checkbox (ionChange)="showhide('State', $event)"></ion-checkbox></th>
-	<th >Country<ion-checkbox (ionChange)="showhide('Country', $event)"></ion-checkbox></th>
-	<th >Gender<ion-checkbox (ionChange)="showhide('Gender', $event)"></ion-checkbox></th>
-	<th ><ion-checkbox (ionChange)="showhide('Company_Name', $event)"></ion-checkbox>Company_Name</th>
-	<th >Position<ion-checkbox (ionChange)="showhide('Position', $event)"></ion-checkbox></th>
-	<th >Profile URL<ion-checkbox (ionChange)="showhide('Profile_URL', $event)"></ion-checkbox></th>
-	<th >Date of Birth<ion-checkbox (ionChange)="showhide('Date_of_Birth', $event)"></ion-checkbox></th>
-	<th >Office/Apartment<ion-checkbox (ionChange)="showhide('Apartment', $event)"></ion-checkbox></th>
-	<th >Zip/Postal<ion-checkbox (ionChange)="showhide('Zip', $event)"></ion-checkbox></th>
-	<th >Fax<ion-checkbox (ionChange)="showhide('Fax', $event)"></ion-checkbox></th>
-	<th >Price<ion-checkbox (ionChange)="showhide('Price', $event)"></ion-checkbox></th>
-	<th >Stage<ion-checkbox (ionChange)="showhide('Stage', $event)"></ion-checkbox></th>
-	<th >Quality<ion-checkbox (ionChange)="showhide('Quality', $event)"></ion-checkbox></th>
-	<th >Currency<ion-checkbox (ionChange)="showhide('Currency', $event)"></ion-checkbox></th> -->
+	
+	<th *ngFor="let hed of tru">{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)" checked></ion-checkbox></th>
+	<th *ngFor="let hed2 of fal" >{{hed2}}<ion-checkbox (ionChange)="showhide(hed2, $event)" ></ion-checkbox></th>
+	
 	<th >Handler</th>
 	<th>Action</th>
 	<th>Follow Up</th>
 	<th>Status</th>
 	<th>Remarks</th>
-	<!-- <table >
-	<thead >
-	<hr >
-	
-	<td style="border: none;"><input type="checkbox" checked="checked" />first_name</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />last_name</td>
-	
-	<td style="border: none;"><input type="checkbox" checked="checked" />Phone</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
-	<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
-	</td>
-	</thead>
-	</table>
-	<hr > -->
+
 	</div>
 	
 	<div class="scrollbar">
@@ -134,8 +90,8 @@
 	<th *ngIf="Position">Position</th>
 	<th *ngIf="Profile_URL">Profile URL</th>
 	<th *ngIf="Date_of_Birth">Date of Birth</th>
-	<th *ngIf="Apartment">Office/Apartment</th>
-	<th *ngIf="Zip">Zip/Postal</th>
+	<th *ngIf="Apartment">Office</th>
+	<th *ngIf="Zip">Zip</th>
 	<th *ngIf="Fax">Fax</th>
 	<th *ngIf="Price">Price</th>
 	<th *ngIf="Stage">Stage</th>
@@ -154,21 +110,13 @@
 	
 	<tr *ngFor="let product of productsss;let idx = index; ">
 	<td >
-	<!-- <ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon> -->
-	&nbsp;
+
 	<ion-checkbox slot="start"
 	[(ngModel)]="product.isChecked"
 	(ionChange)="checkEvent();"></ion-checkbox>
 	
 	
 	</td>
-	
-	<!-- <td *ngFor="let produ of product.leads; let i = index;" >
-	{{produ.action}}
-	<div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
-	<ion-icon name="call" (click)="gotocall(product.leads[0].action,product.leads[1].action,product.uid)" > </ion-icon>
-	</div>
-	</td> -->
 	<td style="color: cornflowerblue;text-decoration: underline;"
 	(click)="remaining(product)" *ngIf="Full_name">{{product.Full_Name}}</td>
 	<td style="color: cornflowerblue;text-decoration: underline;"
@@ -238,28 +186,57 @@
 	</td>
 	
 	<td style="color: cornflowerblue;text-decoration: underline;"
-	(click)="remaining(product)">{{product.first_name}}</td>
-	<td >{{product.last_name}}</td>
+	(click)="remaining(product)" *ngIf="Full_name">{{product.Full_Name}}</td>
+	<td style="color: cornflowerblue;text-decoration: underline;"
+	(click)="remaining(product)" *ngIf="first_name">{{product.first_name}}</td>
+	<td *ngIf="middle_name">{{product.middle_name}}</td>
+	
+	<td *ngIf="last_name">{{product.last_name}}</td>
 	<!-- <td style="color: cornflowerblue;" >
 	{{product.Email}}</td> -->
-	<td>{{product.Phone}}
+	<td *ngIf="Phone">{{product.Phone}}
 	<div *ngIf="product.Phone" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
 	<ion-icon name="call" (click)="gotocall(product)" > </ion-icon>
 	</div>
 	</td>
-	
+	<td *ngIf="Other_Contac">{{product.Other_Contac}}
+	<div *ngIf="product.Other_Contac" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+	<ion-icon name="call" (click)="gotocall(product)" > </ion-icon>
+	</div>
+	</td>
+	<td *ngIf="Email">{{product.Email}}</td>
+	<td *ngIf="Other Email">{{product.Other_Email}}</td>
+	<td *ngIf="Address">{{product.Address}}</td>
+	<td *ngIf="City">{{product.City}}</td>
+	<td *ngIf="State">{{product.State}}</td>
+	<td *ngIf="Country">{{product.Country}}</td>
+	<td *ngIf="Gender">{{product.Gender}}</td>
+	<td *ngIf="Company_Name">{{product.Company_Name}}</td>
+	<td *ngIf="Position">{{product.Position}}</td>
+	<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+	<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+	<td *ngIf="Apartment">{{product.Apartment}}</td>
+	<td *ngIf="Zip">{{product.Zip}}</td>
+	<td *ngIf="Fax">{{product.Fax}}</td>
+	<td *ngIf="Price">{{product.Price}}</td>
+	<td *ngIf="Stage">{{product.Stage}}</td>
+	<td *ngIf="Quality">{{product.Quality}}</td>
+	<td *ngIf="Currency">{{product.Currency}}</td>
 	<td >{{product.SR_name}}</td>
 	<td >{{product.action}}</td>
+	
 	<td >{{product.datetime}}</td>
 	<td >{{product.status}}</td>
 	<td >{{product.remark}}</td>
 	
 	<td>
-	<ion-icon name="create" (click)="edit(product)"></ion-icon>
-	<div style="display: inline-block;margin-left: 30px;">
-	<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
-	</div>
-	</td>
+		<div style="display: inline-block;margin-left: 3px;">
+		<ion-icon name="create" (click)="edit(product)"></ion-icon>
+		</div>
+		<div style="display: inline-block;margin-left: 10px;">
+		<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+		</div>
+		</td>
 	</tr>
 	
 	</tbody>

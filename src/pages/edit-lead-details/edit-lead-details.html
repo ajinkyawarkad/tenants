@@ -2,72 +2,102 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Edit Lead Details</ion-title>
+  <ion-title>Edit Lead Details</ion-title>
   </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding class="content">
-  <div class="contaier">
-
-<ion-list>    
-    <ion-item > 
-      <ion-label>Action</ion-label>
-      
-     <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="value.action"> 
-      <ion-option value="Callback">Callback</ion-option>
-      <ion-option value="Schedule Meet">Schedule Meet</ion-option>
-    </ion-select>
-    <!-- <ion-icon item-end name="calendar"></ion-icon> -->
-  </ion-item>
-    <!-- <h6 [hidden]="!myTime">Follow Back - {{myDate}} : {{myTime}} </h6> -->
-    <div *ngIf="hideMe"> 
-      <ion-item> 
-        <label style="color: black;">Follow Back</label> 
-        <input type="date"  [(ngModel)]="value.datetime1" name="datetime" style="height: 30px;width: 53%;">
-     </ion-item>
-     </div>
-     
-    <ion-item>
-      <ion-label>Status</ion-label>
-      <ion-select placeholder="Select Status" [(ngModel)]="value.status"  >
-        <ion-option  *ngFor="let product of productss" [value]="product.status">{{product.status}}</ion-option>
-      </ion-select>
-    </ion-item>
-          
-   
-                                            
-  <ion-item> 
-    <ion-label>Remark</ion-label>
-    <ion-textarea [(ngModel)]="value.remark"></ion-textarea>
-  </ion-item>
-</ion-list>
-
   
-   
-   <br>
-
-    <table >
-      <tr *ngFor="let produ of value.leads; let i = index;"> 
-        <td><ion-input [(ngModel)]="produ.value"  style="font-weight: bold;"></ion-input></td> 
-        <td><ion-input [(ngModel)]="produ.action"></ion-input></td>  
-      </tr>  
-       
+  </ion-header>
   
-   </table>
-
-   
-   
-    <ion-list>
-   
-     
-          <button ion-button color="primary" (click)="update()">
-            Save Changes
-        </button>
-       </ion-list>
-    
-</div>
-
-
-</ion-content>
+  
+  <ion-content padding>
+  <div class="container">
+  
+  <!-- <ion-item style="color:cornflowerblue;margin-top: -16px; border-bottom: 1px solid #ccc;">
+  {{data.first_name}} {{data.last_name}}
+  </ion-item> -->
+  <!--
+  <label style="margin-top: 10px;">Action</label>
+  <ion-item style="width: 204%;margin-left: 8px;">
+  <ion-select (ionChange)="hide()" [(ngModel)]="data.action">
+  <ion-option value="Callback">Callback</ion-option>
+  <ion-option value="Schedule Meet">Schedule Meet</ion-option>
+  <ion-option value="Send Mail">Send Mail</ion-option>
+  </ion-select>
+  </ion-item>
+  
+  <div *ngIf="hideMe">
+  <label style="color: black;">Follow Back</label>
+  <ion-item style="width: 102%;margin-left: 8px;height: 61px;">
+  <input type="date" [(ngModel)]="data.datetime" name="datetime" >
+  </ion-item>
+  </div>
+  
+  <label>Status</label>
+  <ion-item style="width: 204%;margin-left: 8px;">
+  <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" >
+  <ion-option *ngFor="let product of productss" [value]="product.status">{{product.status}}</ion-option>
+  </ion-select>
+  </ion-item>
+  
+  <label>Remark</label>
+  <ion-item>
+  <ion-input [(ngModel)]="data.remark"></ion-input>
+  </ion-item> -->
+  
+  <div class="form-inline">
+  
+  <div class="row" *ngFor="let product of field; let idx = index; let even = even;">
+  <ion-col class="col-xs-6">
+  <label class="sr-only">{{field[idx].action}}</label>
+  <ion-input [(ngModel)]="field[idx].value" type="text" ></ion-input>
+  
+  
+  
+  <!-- <ion-input [(ngModel)]="products[idx].action" type="text" ></ion-input> -->
+  </ion-col>
+  <!-- <ion-col class="col-xs-6">
+  <label >{{products[idx+1].value}}</label>
+  <ion-input [(ngModel)]="products[idx+1].action" type="text" ></ion-input>
+  </ion-col> -->
+  </div>
+  
+  <div *ngFor="let n of non; let idx = index;">
+  <label class="sr-only">{{non[idx].value}}</label>
+  <ion-input [(ngModel)]="non[idx].action" type="text" ></ion-input>
+  
+  
+  
+  </div>
+  
+  
+  
+  <!-- <div class="row" *ngFor="let product of anArray2; let idx = index; ">
+  <ion-col class="col-xs-6">
+  <label class="sr-only">{{anArray2[idx].value}}</label>
+  <ion-input [(ngModel)]="anArray2[idx].action" type="text" ></ion-input>
+  </ion-col>
+  </div> -->
+  </div>
+  
+  
+  
+  <!-- <table >
+  <tr *ngFor="let produ of value.leads; let i = index;">
+  <td><ion-input [(ngModel)]="produ.value" style="font-weight: bold;"></ion-input></td>
+  <td><ion-input [(ngModel)]="produ.action"></ion-input></td>
+  </tr>
+  
+  
+  </table> -->
+  
+  
+  
+  <ion-list>
+  <button ion-button color="primary" (click)="update()">
+  Save Changes
+  </button>
+  </ion-list>
+  
+  </div>
+  
+  
+  </ion-content>s

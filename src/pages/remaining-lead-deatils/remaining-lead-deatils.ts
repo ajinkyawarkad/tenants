@@ -9,15 +9,17 @@ import {  Observable } from "rxjs";
 })
 export class RemainingLeadDeatilsPage {
   product:any;
+  field = [];
+  val = [];
   uid: any;
   campid: any;
+  data;
   public date:any;
   productss: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.product = navParams.get("product");
-    console.log("product", this.product);
-
-    this.uid=this.product.uid;
+   
+this.data = navParams.get("data");
+console.log("Data", this.data);
 
     this.campid = navParams.get("campid");
     console.log("camp id", this.campid);
@@ -25,7 +27,27 @@ export class RemainingLeadDeatilsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RemainingLeadDeatilsPage');
+
+    let k = Object.keys(this.data);
+    let v = Object.values(this.data);
+    console.log("TEMO", k);
+    console.log("TEMO", v);
+
+    for (var i in k) {
+     
+      let r = k[i];
+      let rr = v[i];
+      if (r !== "SR_id" && r !== "SR_name" && r !== "uid" && r !== "leads" && r !== "merge") {
+      if (r !== "action" && r !== "datetime" && r !== "status" && r !== "remark") {
+        this.field.push({"action":r, "val":rr});
+      }
+      } 
+       console.log("field", this.field);
+    }
+
+    
     let cu = firebase.auth().currentUser.uid;
+
     firebase
       .firestore()
       .collection("Company")
@@ -33,7 +55,7 @@ export class RemainingLeadDeatilsPage {
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
-      .doc(this.uid)
+      .doc(this.data.uid)
       .collection("History")
       .doc("Activity1")
       .get()
@@ -46,7 +68,7 @@ export class RemainingLeadDeatilsPage {
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
-            .doc(this.uid)
+            .doc(this.data.uid)
             .collection("History")
             .doc("Activity1")
             .onSnapshot((doc) => {
@@ -66,7 +88,7 @@ export class RemainingLeadDeatilsPage {
           console.log('DATA EMPTY')
         }
       });
-  }
+   }
   }
   
 

@@ -55,11 +55,6 @@ export class LeadInTrackCampPage {
 
         }
       }
-      
-    
-    console.log("ANArray",this.anArray);
-    console.log("ANArray2",this.anArray2);
-    
 
      
   });
