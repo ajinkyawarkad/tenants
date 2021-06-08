@@ -40,6 +40,7 @@
     "rxjs-compat": "^6.6.7",
     "sw-toolbox": "3.6.0",
     "uuidv4": "^6.2.6",
+    "xlsx": "^0.17.0",
     "zone.js": "0.9.0"
   },
   "devDependencies": {

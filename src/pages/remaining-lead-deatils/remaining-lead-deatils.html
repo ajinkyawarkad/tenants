@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -16,20 +15,24 @@
         Lead Information
       </ion-label>
     </ion-item-divider>
-    <table >
-      <tr *ngFor="let product of field; let idx = index; let even = even;"> 
+    <table>
+      <tr *ngFor="let product of field; let idx = index; let even = even;">
         <td>{{field[idx].action}}</td>
-        <td >{{field[idx].val}}</td>
+        <td>{{field[idx].val}}</td>
       </tr>
- 
-     
-  
+      <tr *ngFor="let time of t ; let idx = index; ">
+        <td>{{time.action}}</td>
+        <td>{{time.val}}</td>
+      </tr>
+
+
+
       <tr *ngFor="let produ of data.leads; let i = index;">
-    
-        <td >{{produ.value}} </td>
-        <td >{{produ.action}}</td>
+
+        <td>{{produ.value}} </td>
+        <td>{{produ.action}}</td>
       </tr>
-     
+
     </table>
   </div>
 
@@ -41,21 +44,21 @@
     </ion-item-divider>
 
 
-    <ion-card *ngFor="let prod of productss" > 
+    <ion-card *ngFor="let prod of productss">
 
       <ion-item>
-       
-        <h2>{{prod.Action}} at : {{prod.FollowUp}} </h2> 
-      
+
+        <h2>{{prod.Action}} at : {{prod.FollowUp}} </h2>
+
       </ion-item>
-   
+
       <ion-card-content>
 
-			  <p>Handler : {{prod.Handler}}</p>
+        <p>Handler : {{prod.Handler}}</p>
         <p>Remarks : {{prod.Remark}}</p>
-        
+
       </ion-card-content>
-    
+
       <ion-row>
         <ion-col>
           <button ion-button icon-start clear small>
@@ -65,12 +68,12 @@
         </ion-col>
         <ion-col align-self-center text-center>
           <ion-note>
-          Created at : {{date}}
+            Created at : {{date}}
           </ion-note>
         </ion-col>
       </ion-row>
-    
+
     </ion-card>
-   
-    </div>
+
+  </div>
 </ion-content>

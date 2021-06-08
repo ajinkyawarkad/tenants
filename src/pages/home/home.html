@@ -7,56 +7,49 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding >
-  
+<ion-content padding>
+
   <h1 style="text-align: center;">Welcome {{name}}</h1>
-  <p style="font-size: 17px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Aenean elementum porta lacus, eu maximus mauris laoreet eu. Nullam laoreet tristique tincidunt.
-    Suspendisse placerat hendrerit luctus.</p>
+  <p style="font-size: 17px;"></p>
   <div class="center">
-  <div cards>
-    <div class="grid-full">
-      <ion-row>
-        <ion-col>
-          <ion-card (click)="report()">
-            <!-- <img src="assets/imgs/report.png" width="30px" height="40px">   -->
-            <ion-icon name="document" color="danger"></ion-icon>
-            <p>Reports</p>
-          </ion-card>
-        </ion-col>
+    <div cards>
+      <div class="grid-full">
+        <ion-row>
+          <ion-col>
+            <ion-card (click)="report()">
+              <!-- <img src="assets/imgs/report.png" width="30px" height="40px">   -->
+              <ion-icon name="document" color="danger"></ion-icon>
+              <p>Reports</p>
+            </ion-card>
+          </ion-col>
 
-        <ion-col>
-          <ion-card (click)="user()">
-            <!-- <img src="assets/imgs/user.png" width="30px" height="40px"> -->
-            <ion-icon name="people" color="primary"></ion-icon>
-            <p>Users</p>
-          </ion-card>
-        </ion-col>
+          <ion-col>
+            <ion-card (click)="user()">
+              <!-- <img src="assets/imgs/user.png" width="30px" height="40px"> -->
+              <ion-icon name="people" color="primary"></ion-icon>
+              <p>Users</p>
+            </ion-card>
+          </ion-col>
 
-        <ion-col>
-          <ion-card (click)="createCampaigns()">
-            <!-- <img src="assets/imgs/campanigs.png" width="30px" height="40px"> -->
-            <ion-icon name="person-add" color="secondary"></ion-icon>
-            <p>Create Campaigns</p>
-          </ion-card>
-        </ion-col>
+          <ion-col>
+            <ion-card (click)="createCampaigns()">
+              <!-- <img src="assets/imgs/campanigs.png" width="30px" height="40px"> -->
+              <ion-icon name="person-add" color="secondary"></ion-icon>
+              <p>Create Campaigns</p>
+            </ion-card>
+          </ion-col>
 
-        <ion-col>
-          <ion-card (click)="trackCampaigns()">
-            <!-- <img src="/assets/imgs/track-campanigs.png" width="30px" height="40px" > -->
-            <ion-icon name="copy" color="vibrant"></ion-icon>
-            <p>Track Campaigns</p>
-          </ion-card>
-        </ion-col>
-      </ion-row>
+          <ion-col>
+            <ion-card (click)="trackCampaigns()">
+              <!-- <img src="/assets/imgs/track-campanigs.png" width="30px" height="40px" > -->
+              <ion-icon name="copy" color="vibrant"></ion-icon>
+              <p>Track Campaigns</p>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </div>
+
     </div>
-
   </div>
-</div>
-  
+
 </ion-content>
-
-
-
-
-

@@ -12,6 +12,7 @@ export class RemainingLeadDeatilsPage {
   field = [];
   val = [];
   uid: any;
+  t=[];
   campid: any;
   data;
   public date:any;
@@ -38,13 +39,20 @@ console.log("Data", this.data);
       let r = k[i];
       let rr = v[i];
       if (r !== "SR_id" && r !== "SR_name" && r !== "uid" && r !== "leads" && r !== "merge") {
-      if (r !== "action" && r !== "datetime" && r !== "status" && r !== "remark") {
+      if (r !== "action" && r !== "datetime" && r !== "status" && r !== "remark" && r!== "createdAt") {
         this.field.push({"action":r, "val":rr});
       }
       } 
        console.log("field", this.field);
     }
-
+    let as = this.data
+    let s;
+    for(s=0;s<1;s++){
+      this.t.push({"action":"Created At","val":as.createdAt.toDate()})
+    }
+   
+    
+    console.log("fdddddddeld", this.t);
     
     let cu = firebase.auth().currentUser.uid;
 
@@ -81,7 +89,6 @@ console.log("Data", this.data);
               let dd = this.date.getDate();
               let yyyy = this.date.getFullYear();
               this.date = dd + '/' + mm + '/' + yyyy;
-              
               console.log(this.productss)
             });
         }else{

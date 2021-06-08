@@ -47,7 +47,7 @@ export class LoginPage {
           if (currentuser.photoURL && currentuser && data.emailVerified === true) {
             console.log(currentuser.displayName);
             console.log(currentuser.photoURL);
-            this.storage.set('name', currentuser.displayName) ;
+            this.storage.set('name', currentuser.displayName) ; 
             this.storage.set('email', currentuser.email) ;
             this.storage.set('cuid',currentuser.photoURL)
             console.log('Email is verified');

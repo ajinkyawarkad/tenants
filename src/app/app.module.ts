@@ -28,6 +28,7 @@ import { UserlistPage } from '../pages/userlist/userlist';
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
 import { EditLeadDetailsPage } from '../pages/edit-lead-details/edit-lead-details';
 import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-details';
+import { PendingLeadsPage } from '../pages/pending-leads/pending-leads';
 
 import { AngularFireModule } from '@angular/fire';
  import { AngularFireAuth } from '@angular/fire/auth';
@@ -43,6 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
 import { CallDetailsPage } from '../pages/call-details/call-details';
+
 import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-camp';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
@@ -66,6 +68,8 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     SettingsPage,
     UserLicensesPage,
     CreateLeadProfilePage,
+    PendingLeadsPage,
+
  
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
@@ -73,6 +77,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     CreateCampaignsLeadPage,
     UserDetailsPage,
     UserlistPage,
+
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
@@ -123,6 +128,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     CreateCampaignsLeadPage,
     UserDetailsPage,
     UserlistPage,
+    PendingLeadsPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,

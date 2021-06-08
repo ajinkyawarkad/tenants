@@ -100,7 +100,8 @@ console.log("SR",this.productss) ;
        leads:this.anArray2,
        SR_id:data.id,
        SR_name:data.name+" "+data.last,
-       uid:uuid1 
+       uid:uuid1,
+       createdAt:firebase.firestore.FieldValue.serverTimestamp()
        }  
      ),{merge:true}) .then(()=>{
       let alert = this.alertCtrl.create({

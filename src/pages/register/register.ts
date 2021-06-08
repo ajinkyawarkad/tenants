@@ -27,8 +27,6 @@ export class RegisterPage {
   }
    
 signup(user:User){
-  
-  
   if(user.email && user.password && user.name != null){
     firebase.auth().createUserWithEmailAndPassword(user.email,user.password).then((data) => {
       let currentuser=firebase.auth().currentUser;
@@ -39,7 +37,7 @@ signup(user:User){
            {
              currentuser.updateProfile({
                displayName: user.name,
-               photoURL: 'COM#'+currentuser.uid ,  
+               photoURL: 'COM#'+currentuser.uid ,  // Using As CompoanyId Com#id
              })
              
  

@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EditCampaignsDetailsPage } from '../edit-campaigns-details/edit-campaigns-details';
 import { LeadsDetailsPage } from '../leads-details/leads-details';
 
+
 import { LoginPage } from '../login/login';
 import { AngularFirestore} from '@angular/fire/firestore';
 
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase';
 import { Counts } from '../../models/user';
 import { ToastController } from 'ionic-angular';
+import { PendingLeadsPage } from '../pending-leads/pending-leads';
 
 
 interface Users {
@@ -33,9 +35,13 @@ column: string = 'name';
   public anArray: any = [];
   public arr = [];
   public a;
+  AllPendings:any =[];
   Segments: string;
   userInfo: any;
   products: any;
+  pc = [];
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -48,10 +54,15 @@ column: string = 'name';
     this.Segments = "1";
     //this.menuCtrl.enable(true, 'menu');
   }
+
+
   sort(){
     this.descending = !this.descending;
     this.order = this.descending ? 1 : -1;
   }
+
+
+  //=======================================Count===================
   ionViewDidLoad() {
     let currentuser = firebase.auth().currentUser;
     let cu = currentuser.uid;
@@ -72,7 +83,7 @@ column: string = 'name';
     .doc(cu)
     .get()
     .then((doc) => {
-      this.a = doc.data().function;
+      this.a = doc.data().function;   //==============Getting FLAG================
     })
 
 
@@ -95,7 +106,8 @@ column: string = 'name';
             doc.docs.forEach((snap) => {
               let call = [];
               let meet =[];
-              this.arr.push(snap.data().cid);
+              this.arr.push(snap.data().cid);  //All Campaigns IDs
+
               firebase
                 .firestore()
                 .collection("Company")
@@ -104,10 +116,7 @@ column: string = 'name';
                 .doc(snap.data().cid)
                 .collection("leads")
                 .get()
-                .then((data) => {
-
-
-
+                .then((data) => {     
                   if(this.a){   
                     firebase
                     .firestore()
@@ -118,42 +127,43 @@ column: string = 'name';
                     .collection("leads")
                     .get()
                      .then((docu) => {
-                      console.log(docu.docs.length);
-                      //
+                      console.log(docu.docs.length); // ==========ALL LEAD COUNT IN CAMP
                       data.docs.forEach(snap2 =>{
                          let action = snap2.data().action;
                          let t = Date.parse(snap2.data().datetime);
-                         switch (action){
+                         switch (action){                                 //Switching Action For Specific counts
                            case "Callback":
                              if(t<d1){
                                call.push(t);
+                               this.AllPendings.push(snap2.data())
                             }else{break;}
                              break;
                            case "Schedule Meet"  :
                             if(t<d1){
                               meet.push(t);
+                              this.AllPendings.push(snap2.data())
                            }else{break;}
                             break;
-  
                          }
                       })
-                      console.log("Inserte",snap.data().cid,meet,call);
-
-                      firebase
+                     
+                      firebase                      //===============Writing Counts back to DB================
                       .firestore()
                       .collection("Company")
                       .doc("COM#" + currentuser.uid)
                       .collection("Campaigns")
-                      .doc(snap.data().cid)
+                      .doc(snap.data().cid)  //===================MAin CampId return from docsForEach on camps collection
                       .update({
                         pendingCalls: call.length,
-                        pendingMeets: meet.length
+                        pendingMeets: meet.length,
+                        pendings: call.length + meet.length
                       });
-
+                      
                     })
                   }
+                  // console.log("Inserted",snap.data().cid,meet,call);
                  
-                  console.log("Size is", snap.data().cid, data.size);
+                  console.log("Toal lead counts", snap.data().cid, data.size);
                   firebase
                     .firestore()
                     .collection("Company")
@@ -181,10 +191,28 @@ column: string = 'name';
     loading.present();
     this.userInfo = this.afs.collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns");
     this.products = this.userInfo.valueChanges();
+    this.pc = this.products
+
+   
+    for (var z in this.pc){
+      console.log("PC",this.pc[z])
+    }
     loading.dismiss();
    
     console.log("ionViewDidLoad TrackCampaignPage");
   }
+
+
+  //==================
+
+  pendigDetails(AllPendings){
+    this.navCtrl.push(PendingLeadsPage, {
+      AllPendings : this.AllPendings 
+
+    })
+  }
+
+
   gotoActive(product) {
     this.navCtrl.push(EditCampaignsDetailsPage, {
       product: product,

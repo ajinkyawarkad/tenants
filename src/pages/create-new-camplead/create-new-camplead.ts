@@ -42,7 +42,7 @@ export class CreateNewCampleadPage {
    this.value = this.navParams.get('campid');  
    console.log("camp id",this.value);
   }
-n
+
   ionViewDidLoad() {
    let currentuser=firebase.auth().currentUser;
    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
@@ -109,7 +109,8 @@ n
         leads:this.anArray2,
         SR_id:data.id,
         SR_name:data.name+" "+data.last,
-        uid:uuid1 
+        uid:uuid1,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
         }  
       ),{merge:true}) .then(()=>{
        let alert = this.alertCtrl.create({

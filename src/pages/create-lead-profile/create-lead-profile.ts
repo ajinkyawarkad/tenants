@@ -102,8 +102,8 @@ export class CreateLeadProfilePage {
   extractData(res) {
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
-    this.headerRow = parsedData[0];
-    this.arr = parsedData;
+    this.headerRow = parsedData[0];                    //Headers
+    this.arr = parsedData;                            //DATA Except headers
     console.log("Length = : ", this.arr.length);
     console.log("DATA IS = : ", this.arr);
 
@@ -113,7 +113,7 @@ export class CreateLeadProfilePage {
     for (var a in match) {
       var variable = match[a];
       // console.log(variable)
-      this.anArray.push({value:variable,indicator: "" });
+      this.anArray.push({value:variable,indicator: "" });   //Creating CsvFields Structure
      
     }
     console.log("aaaaaaaa",this.anArray);
@@ -194,21 +194,22 @@ export class CreateLeadProfilePage {
       let j;
       for (j = 0; j < x.length; j++) {
         subMain.push({
-          "value": this.FireHead[j].value,
+          "value": this.FireHead[j].value,                
           "indicator": this.FireHead[j].indicator,
           "action": x[j],
         });
       }
       console.log("SUBMAIN", i, subMain);
-      this.MAIN.push(subMain);
+
+
       let cust = [];
       let uid = uuid();
 
       for (var a in subMain) {
-        if (subMain[a].indicator == "None") {
+        if (subMain[a].indicator == "None") {   //non Adressed fields Sorting CustomeFields
           cust.push(subMain[a]);
         } else {
-          // this.data2.push({[x]:y})
+         
           firebase
             .firestore()
             .collection("Company")
@@ -219,7 +220,7 @@ export class CreateLeadProfilePage {
             .doc(uid)
             .set(
               {
-                [subMain[a].indicator]: subMain[a].action,
+                [subMain[a].indicator]: subMain[a].action,    
               },
               { merge: true }
             );
@@ -236,13 +237,17 @@ export class CreateLeadProfilePage {
             {
               leads: cust,
               uid: uid,
+              createdAt:firebase.firestore.FieldValue.serverTimestamp(),
               SR_id:'NA',
               SR_name:'NA',
+              
             },
             { merge: true }
           );
       }
     }
+
+
     let alert = this.alertCtrl.create({
       title: "Sucess",
       subTitle: " Field Added Successfully .. Now you can add lead ",
@@ -270,7 +275,7 @@ export class CreateLeadProfilePage {
     alert.present();
   }
 
-  savefield() {
+  savefield() {                             
     let Mainheader = this.anArray;
     console.log("MAIN HEADERS", Mainheader);
 
