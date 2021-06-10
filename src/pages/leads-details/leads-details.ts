@@ -3,11 +3,12 @@ import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
 import { CallDetailsPage } from "../call-details/call-details";
 import { EditLeadDetailsPage } from "../edit-lead-details/edit-lead-details";
+import { ExportPage } from "../export/export";
 import { TaskDetailsPage } from "../task-details/task-details";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
-import { Lead } from "../../models/user";
+import { Lead , Filter } from "../../models/user";
 import * as $ from "jquery";
 import { LoadingController } from "ionic-angular";
 import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
@@ -30,6 +31,11 @@ export class LeadsDetailsPage {
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
+  public hideMe3 = false;
+  public hideMe4 = true;
+  public csvShow= false;
+  public exelShow= false;
+  
   
   fileName;
   show= false; //table flag ExelTable
@@ -52,12 +58,14 @@ export class LeadsDetailsPage {
   public det = [];
   public hed = [];
   public array = [];
+
   tru = [];
   fal = [];
   public leaduid: any;
   public campid: any;
   isItemAvailable = false;
   active = [];
+  filled = [];
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   Id;
@@ -86,13 +94,25 @@ export class LeadsDetailsPage {
   Stage;
   Quality;
   Currency;
+  //=============
+  Handler;
+  Action;
+  Follow_Up;
+  Status;
+  Remark
+
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   lead = {} as Lead;
+  filter = {} as Filter
   isIndeterminate: boolean;
   masterCheck: boolean;
   checkedCount: number;
+  pro:[];
+
+  selectedStatus;
+  
 
   constructor(
     public navCtrl: NavController,
@@ -117,34 +137,26 @@ export class LeadsDetailsPage {
   }
 
 
+
+  hide4() {
+    this.hideMe4 = true;
+  }
+
+
 //==================================>Table v/s Export<============================
-  exportexcel(){
-    this.fileName= this.value.name+'.xlsx';
-
-    let element = document.getElementById('details');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-  
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
- 
-    XLSX.writeFile(wb, this.fileName);
- 
+  showDownload(){
+  //   if( this.hideMe3 == false){
+  //     this.hideMe3 = true
+  //   }else{
+  //     this.hideMe3 = false
+  //   }
+  //  ;
+  this.navCtrl.push(ExportPage, {
+    campd:this.value
+   
+  });
   }
 
-  exportcsv() {
-    this.fileName= this.value.name+'.csv';
-  
-    let element = document.getElementById('details');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    XLSX.writeFile(wb, this.fileName);
- 
-  }
 
 
   checkMaster() {
@@ -195,6 +207,14 @@ export class LeadsDetailsPage {
         // console.log("count", this.checkedCount);
       }
     });
+  }
+
+  selectedstatus(status){
+    
+
+
+
+
   }
 
  
@@ -249,6 +269,7 @@ export class LeadsDetailsPage {
   }
 
   ionViewDidLoad() {
+    this.filter.status = "Select"
     $(document).on("change", "table thead input", function () {
       var checked = $(this).is(":checked");
       //var checkedValue = $('.messageCheckbox:checked').eq(index);
@@ -267,7 +288,23 @@ export class LeadsDetailsPage {
 
     console.log("ionViewDidLoad LeadsDetailsPage");
 
+
+
     let currentuser = firebase.auth().currentUser;
+
+    
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc("COM#" + currentuser.uid)
+    .collection("Campaigns")
+    .doc(this.value.cid).get().then(doc => {
+      this.pro = doc.data().status
+
+    })
+
+
+
     firebase
       .firestore()
       .collection("Company")
@@ -286,6 +323,7 @@ export class LeadsDetailsPage {
 
         // console.log("active headers",this.active)
       });
+      
     firebase
       .firestore()
       .collection("Company")
@@ -316,6 +354,17 @@ export class LeadsDetailsPage {
             }
           }
         }
+
+       
+
+       
+          // this.tru.push("Handler")
+          // this.tru.push("Action")
+          // this.tru.push("Follow_Up")
+          // this.tru.push("Status")
+          // this.tru.push("Remark")
+
+        
         console.log("True at : ", this.tru);
         console.log("false at : ", this.fal);
       });
@@ -355,6 +404,10 @@ export class LeadsDetailsPage {
           (this.first_name = res.data().first_name),
           (this.last_name = res.data().last_name),
           (this.middle_name = res.data().middle_name);
+
+         
+          //==========
+         
       });
 
     this.userInfo = this.afs

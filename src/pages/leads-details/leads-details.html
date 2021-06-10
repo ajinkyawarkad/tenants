@@ -27,12 +27,10 @@
 				<button ion-button color="success" (click)="add()"> Add New Lead</button>
 			</div>
 			<div style="float: left;margin-left: 22px;margin-top: 7px;">
-				<button ion-button color="success" (click)="exportexcel()"> Export to Exel</button>
+				<button ion-button color="success" (click)="showDownload()">Export</button>
 			</div>
 
-			<div style="float: left;margin-left: 22px;margin-top: 7px;">
-				<button ion-button color="success" (click)="exportcsv()"> Export to Csv</button>
-			</div>
+		
 		</div>
 
 		<div>
@@ -52,6 +50,7 @@
 
 			</div>
 
+
 			<div class="scrollbar">
 				<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: 3px;">
 					<p style="margin-left: 10px;" *ngIf="hideMe">Selected : {{checkedCount}} </p>
@@ -62,23 +61,35 @@
 
 				</div>
 
-				<div *ngIf="hideMe1">
 
-					<ion-item style="width: 30%;">
-						<ion-label>Sale Representative</ion-label>
-						<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
-							<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}
-							</ion-option>
+
+
+				<div *ngIf="hideMe3">
+					<div class="navbar">
+						<a>Filter</a>
+					</div>
+					<ion-item style="width: 45%;float:left; margin-left: 16px;">
+						<ion-label>Status</ion-label>
+						<ion-select [(ngModel)]="ss" (ionChange)="showOptions(ss)">
+							<ion-option>All</ion-option>
+							<ion-option *ngFor="let pr of pro ">{{pr.status}}</ion-option>
 						</ion-select>
 					</ion-item>
-				</div>
+					<button ion-button color="secondary" (click)="downloadCsv()" *ngIf="csvShow" style="float: left;margin-left: 22px;margin-top: 7px;">Download Csv</button>
+					<button ion-button color="secondary" (click)="downloadExel()" *ngIf="exelShow" style="float: left;margin-left: 22px;margin-top: 7px;">Download Exel</button>
 
 
-				<div hidden>  <!--Used for  Export-->
+
+					<!-- <div *ngIf="hideMe1"> -->
+				</div> <br>
+
+
+
+				<div hidden>
+					<!--Used for  Export-->
 					<table id="details">
 
 						<tr>
-
 							<!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th> -->
 							<th *ngIf="Salutation">Salutation</th>
 							<th *ngIf="Full_Name">Full Name</th>
@@ -116,7 +127,7 @@
 						<tbody>
 
 
-							<tr *ngFor="let product of productsss;let idx = index; ">
+							<tr *ngFor="let product of filled;let idx = index; ">
 
 								<td style="color: cornflowerblue;text-decoration: underline;"
 									(click)="remaining(product)" *ngIf="Full_name">{{product.Full_Name}}</td>
@@ -254,7 +265,8 @@
 				</div>
 
 
-				<table>  <!--Main Table-->
+				<table>
+					<!--Main Table-->
 					<tr>
 						<th>
 							All
@@ -444,7 +456,7 @@
 
 					</tbody>
 				</table>
-				
+
 			</div>
 		</div>
 

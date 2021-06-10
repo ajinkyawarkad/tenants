@@ -116,7 +116,8 @@ column: string = 'name';
                 .doc(snap.data().cid)
                 .collection("leads")
                 .get()
-                .then((data) => {     
+                .then((data) => { 
+                      
                   if(this.a){   
                     firebase
                     .firestore()

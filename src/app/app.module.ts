@@ -29,6 +29,7 @@ import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-c
 import { EditLeadDetailsPage } from '../pages/edit-lead-details/edit-lead-details';
 import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-details';
 import { PendingLeadsPage } from '../pages/pending-leads/pending-leads';
+import { ExportPage } from '../pages/export/export';
 
 import { AngularFireModule } from '@angular/fire';
  import { AngularFireAuth } from '@angular/fire/auth';
@@ -37,14 +38,12 @@ import { AngularFireModule } from '@angular/fire';
  import { Observable } from 'rxjs';
  
  import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
 import { CallDetailsPage } from '../pages/call-details/call-details';
-
 import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-camp';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
@@ -69,15 +68,13 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     UserLicensesPage,
     CreateLeadProfilePage,
     PendingLeadsPage,
-
- 
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
     CreateCampaignsLeadPage,
     UserDetailsPage,
     UserlistPage,
-
+    ExportPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
@@ -104,9 +101,6 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
     AngularFirestoreModule,
-    
-  
-    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -119,6 +113,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     TrackCampaignPage,
     AccountPage,
     SettingsPage,
+    ExportPage,
     UserLicensesPage,
     CreateLeadProfilePage,  
     RemainingLeadDeatilsPage,
@@ -146,7 +141,6 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     AuthserviceProvider,
      AngularFireModule ,
     //FileChooserOriginal,FileOpenerOriginal,FilePathOriginal
-   
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

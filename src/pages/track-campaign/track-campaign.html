@@ -40,6 +40,8 @@
             <tr>
               <th (click)="sort()">Compaigns Name <ion-icon   mode="ios" name="arrow-down"></ion-icon></th>
               <th>Manager</th>
+              <th>Pending Meetings</th>
+              <th>Pending Calls</th>
               <th>Pendings Tasks</th>
               <th>Total Lead</th>
               <th>Action</th>
@@ -50,6 +52,8 @@
             <tr *ngIf="product.active == true ">
               <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>
+              <td>{{product.pendingMeets}}</td>
+              <td>{{product.pendingCalls}}</td>
               
               <td style="text-decoration: underline;color:blue" (click)="pendigDetails(AllPendings)">{{product.pendings}}</td>
               
