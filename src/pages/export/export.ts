@@ -8,7 +8,7 @@ import { TaskDetailsPage } from "../task-details/task-details";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
-import { Lead , Filter } from "../../models/user";
+import { Lead  } from "../../models/user";
 import * as $ from "jquery";
 import { LoadingController } from "ionic-angular";
 import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";

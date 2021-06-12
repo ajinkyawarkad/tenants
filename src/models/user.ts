@@ -60,7 +60,3 @@ export class Sts{
     action2:string;
 
 }
-
-export class Filter{
-    status:string
-}

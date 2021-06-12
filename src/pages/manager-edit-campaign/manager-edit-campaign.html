@@ -1,0 +1,134 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Campaigns Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content  padding> 
+
+  <div class="container">
+ 
+  <ion-slides #slides style="width:100%;margin-top: -11%;">
+    <ion-slide >
+
+      <div class="progress-bar">
+        <div class="progress-step is-active">
+          <div class="step-count">1</div>
+          <div class="step-description">Basic Details</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-count">2</div>
+          <div class="step-description">Edit Status</div>
+        </div>
+     </div>
+
+     <p>Setup your sales campaigns</p>
+      <!-- <p style="color: darkred;">This is step 1</p> -->
+
+      <label>Name</label>
+          <div>
+             <ion-input type="text"  [(ngModel)]="value.name" ></ion-input>
+         </div>
+       
+         <label>Goals</label>
+          <div>
+             <ion-input type="text"  [(ngModel)]="value.goals" ></ion-input>
+         </div>
+        
+         <label>Manager</label>
+         <ion-item style="width: 218%;margin-left: -6px;">
+          <ion-select  [(ngModel)]="value.manager">
+            <ion-option *ngFor="let product of productss">{{product.name}}&nbsp;{{product.last}}</ion-option>
+            </ion-select> 
+        </ion-item>
+      
+        <label >Sales Representative</label>
+        <ion-item style="width: 218%;margin-left: -6px;">
+          <ion-select multiple  [(ngModel)]="prod" >
+            <!-- <ion-option *ngFor="let product of prod">{{product}}</ion-option> -->
+            <ion-option *ngFor="let product of anArray2">{{product}}</ion-option>
+            </ion-select> 
+        </ion-item>
+        
+        <!-- <ion-item >
+          <ion-label>Sales Representative</ion-label>
+          <ion-select *ngFor="let pr of prod" required [(ngModel)]="pr">
+            <ion-option *ngFor="let product of productsss">{{product.name}}&nbsp;{{product.last}}</ion-option>
+            </ion-select> 
+        </ion-item>
+        <br />   -->
+      
+        <!-- <ion-item>
+          <ion-label>
+           Allow Manager to Edit
+          </ion-label>
+          <ion-checkbox checked="true"></ion-checkbox>
+        </ion-item >
+       -->
+       
+        
+        <button ion-button   type="button" (click)="slideToSlide()">Save & Next</button>
+        
+    </ion-slide>
+   
+    <ion-slide style="height: 100%;overflow: auto; overflow-x: hidden; ">
+      <div class="progress-bar">
+        <div class="progress-step ">
+          <div class="step-count">1</div>
+          <div class="step-description">Basic Details</div>
+        </div>
+        <div class="progress-step is-active">
+          <div class="step-count">2</div>
+          <div class="step-description">Edit Status</div>
+        </div>
+     </div>
+
+      <div class="upper">
+      <p>Edit your sale status</p>
+      <!-- <p style="color: darkred;">This is final step </p> -->
+      </div>
+  
+    <table >
+    <tr style="height: 28px;font-size:15px;">
+    <th >Status</th>
+    <th>Action</th>
+    </tr>
+    
+    <tr *ngFor="let product of sts "> 
+      <td> 
+        <ion-input class="status" type="text" [(ngModel)]="product.status"></ion-input>
+      </td>
+      <td >
+          <select class="selectoptionn" type="text" [(ngModel)]="product.action">
+            <option>None</option>
+            <option>Inform Manager</option>
+            <option >Remove client from profile</option>
+          </select>
+      </td>
+    </tr>
+    
+    </table>
+    <div style="float:left;">
+    <button ion-button (click)="Add()">Add More</button>
+    </div>
+   
+    <br>
+    <div>
+    
+      <div >
+        <div style="float:right;">
+          <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
+          <button ion-button  id="nextBtn" (click)="update(prod)">Save</button>
+          <!-- <button ion-button id="nextBtn" (click)= "temp()" >Temp</button> -->
+        </div>   
+     </div>
+   
+    </div>
+    
+    </ion-slide>
+
+</ion-slides>
+</div>
+
+</ion-content>

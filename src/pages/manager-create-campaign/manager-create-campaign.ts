@@ -2,13 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import {NavController,NavParams,AlertController} from "ionic-angular";
 
 import { Slides } from "ionic-angular";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArray,
-} from "@angular/forms";
+import {FormGroup,FormBuilder,FormControl,Validators,FormArray,} from "@angular/forms";
 
 import { CreateLeadProfilePage } from "../create-lead-profile/create-lead-profile";
 import { Camp, Sts } from "../../models/user";
@@ -20,17 +14,19 @@ import { v4 as uuid } from "uuid";
 import { Observable } from "rxjs";
 import * as $ from "jquery";
 import { merge } from "jquery";
+import { ManagerCreateLeadProfilePage } from "../manager-create-lead-profile/manager-create-lead-profile";
 
 interface Camps {
   name: string;
   role: string;
 }
 
+
 @Component({
-  selector: "page-create-campaign",
-  templateUrl: "create-campaign.html",
+  selector: 'page-manager-create-campaign',
+  templateUrl: 'manager-create-campaign.html',
 })
-export class CreateCampaignPage {
+export class ManagerCreateCampaignPage {
   @ViewChild(Slides) slides: Slides;
   slideOpts;
   public form: FormGroup;
@@ -286,7 +282,7 @@ export class CreateCampaignPage {
           text: "Add",
           handler: () => {
             console.log("Add clicked");
-            this.navCtrl.push(CreateLeadProfilePage);
+            this.navCtrl.push(ManagerCreateLeadProfilePage);
           },
         },
       ],

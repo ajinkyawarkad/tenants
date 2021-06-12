@@ -18,10 +18,11 @@ interface Status {
 }
 
 @Component({
-  selector: "page-edit-campaigns-details",
-  templateUrl: "edit-campaigns-details.html",
+  selector: 'page-manager-edit-campaign',
+  templateUrl: 'manager-edit-campaign.html',
 })
-export class EditCampaignsDetailsPage {
+export class ManagerEditCampaignPage {
+
   @ViewChild(Slides) slides: Slides;
   slideOpts;
   public form: FormGroup;
@@ -256,4 +257,5 @@ export class EditCampaignsDetailsPage {
 
    
   }
+
 }

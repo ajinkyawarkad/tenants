@@ -8,7 +8,7 @@ import { TaskDetailsPage } from "../task-details/task-details";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
-import { Lead , Filter } from "../../models/user";
+import { Lead  } from "../../models/user";
 import * as $ from "jquery";
 import { LoadingController } from "ionic-angular";
 import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
@@ -47,6 +47,7 @@ export class LeadsDetailsPage {
   public disable_next: boolean = false;
   public disable_prev: boolean = false;
   public itemnumberbypage = 0;
+  selSts;
 
   value: any;
   userInfo: any;
@@ -58,6 +59,7 @@ export class LeadsDetailsPage {
   public det = [];
   public hed = [];
   public array = [];
+  public filtered = []
 
   tru = [];
   fal = [];
@@ -105,7 +107,6 @@ export class LeadsDetailsPage {
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   lead = {} as Lead;
-  filter = {} as Filter
   isIndeterminate: boolean;
   masterCheck: boolean;
   checkedCount: number;
@@ -136,10 +137,139 @@ export class LeadsDetailsPage {
     this.hideMe2 = !this.hideMe2;
   }
 
+  hide3() {
+    this.hideMe3 = true;
+  }
+
 
 
   hide4() {
     this.hideMe4 = true;
+  }
+
+
+  
+  showOptions(status) {
+    this.selSts = status
+
+    this.productsss = []
+    this.filled = []
+    this.filtered = []
+
+    let currentuser=firebase.auth().currentUser;
+    this.selectedStatus = status
+
+    if(status == "All"){
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc("COM#" + currentuser.uid)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .collection("leads").limit(this.pageSize).onSnapshot((snaps) => {
+        if (!snaps.docs.length) {
+          // console.log("No Data Available");
+          alert("No Data Available");
+          return false;
+        }
+        this.productsss = []
+        this.filled = []
+
+        snaps.docs.forEach((doc) => {
+         this.filled.push(doc.data())
+        });
+        this.productsss = this.filled
+    
+
+      })
+       this.productsss = this.filled
+
+    }else{
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc("COM#" + currentuser.uid)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .collection("leads").where('status','==',status).get().then(data =>{
+        data.docs.forEach(snap =>
+          {
+            this.filled.push(snap.data())
+          })
+      })
+      this.productsss = this.filled
+
+     
+
+
+    }
+     this.csvShow=true
+     this.exelShow=true
+
+  }
+
+  downloadCsv(){
+    if(this.filtered = []){
+      let currentuser=firebase.auth().currentUser;
+      this.selectedStatus = status
+  
+      if(this.selSts == "All"){
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc("COM#" + currentuser.uid)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads").get().then(data =>{
+          data.docs.forEach(snap =>
+            {
+              this.filtered.push(snap.data())
+            })
+        })
+        console.log("filtered00",this.filtered)
+           
+        
+      }else{
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc("COM#" + currentuser.uid)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads").where('status','==',this.selSts).get().then(data =>{
+          data.docs.forEach(snap =>
+            {
+              this.filtered.push(snap.data())
+            })
+        })
+        console.log("filtered00",this.filtered)
+  
+      }
+
+      
+    }else{
+      console.log("blanks0")
+      
+    }
+   
+
+    this.fileName= this.value.name+'.csv';
+  
+    let element = document.getElementById('details');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    XLSX.writeFile(wb, this.fileName);
+    
+
+     console.log("filtered",this.filtered)
+
+
+
+   
+    
   }
 
 
@@ -269,7 +399,7 @@ export class LeadsDetailsPage {
   }
 
   ionViewDidLoad() {
-    this.filter.status = "Select"
+    //this.filter.status = "Select"
     $(document).on("change", "table thead input", function () {
       var checked = $(this).is(":checked");
       //var checkedValue = $('.messageCheckbox:checked').eq(index);
@@ -460,6 +590,7 @@ export class LeadsDetailsPage {
       duration: 2000,
     });
     loading.present();
+    //>...............................................................................<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     firebase
       .firestore()

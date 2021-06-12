@@ -14,19 +14,14 @@ import firebase from 'firebase';
 import { Counts } from '../../models/user';
 import { ToastController } from 'ionic-angular';
 import { PendingLeadsPage } from '../pending-leads/pending-leads';
-
-
-interface Users {
-  name: string,  
-  manager:string; 
-}
-
+import { ManagerLeadDetailsPage } from '../manager-lead-details/manager-lead-details';
+import { ManagerEditCampaignPage } from '../manager-edit-campaign/manager-edit-campaign';
 
 @Component({
-  selector: "page-track-campaign",
-    templateUrl: "track-campaign.html",
+  selector: 'page-manager-track-campaign',
+  templateUrl: 'manager-track-campaign.html',
 })
-export class TrackCampaignPage {
+export class ManagerTrackCampaignPage {
   counts = {} as Counts;
   descending: boolean = false;
 order: number;
@@ -214,7 +209,7 @@ column: string = 'name';
 
 
   gotoActive(product) {
-    this.navCtrl.push(EditCampaignsDetailsPage, {
+    this.navCtrl.push(ManagerEditCampaignPage, {
       product: product,
     });
   }
@@ -328,10 +323,11 @@ column: string = 'name';
 
  
   leads(product) {
-    this.navCtrl.push(LeadsDetailsPage, {
+    this.navCtrl.push(ManagerLeadDetailsPage, {
       product: product,
     });
   }
   
+
 
 }

@@ -27,7 +27,7 @@
 				<button ion-button color="success" (click)="add()"> Add New Lead</button>
 			</div>
 			<div style="float: left;margin-left: 22px;margin-top: 7px;">
-				<button ion-button color="success" (click)="showDownload()">Export</button>
+				<button ion-button color="success" (click)="hide3()">Export</button>
 			</div>
 
 		
@@ -61,9 +61,6 @@
 
 				</div>
 
-
-
-
 				<div *ngIf="hideMe3">
 					<div class="navbar">
 						<a>Filter</a>
@@ -76,7 +73,7 @@
 						</ion-select>
 					</ion-item>
 					<button ion-button color="secondary" (click)="downloadCsv()" *ngIf="csvShow" style="float: left;margin-left: 22px;margin-top: 7px;">Download Csv</button>
-					<button ion-button color="secondary" (click)="downloadExel()" *ngIf="exelShow" style="float: left;margin-left: 22px;margin-top: 7px;">Download Exel</button>
+					
 
 
 
@@ -85,7 +82,7 @@
 
 
 
-				<div hidden>
+				<div >
 					<!--Used for  Export-->
 					<table id="details">
 
@@ -127,7 +124,7 @@
 						<tbody>
 
 
-							<tr *ngFor="let product of filled;let idx = index; ">
+							<tr *ngFor="let product of filtered;let idx = index; ">
 
 								<td style="color: cornflowerblue;text-decoration: underline;"
 									(click)="remaining(product)" *ngIf="Full_name">{{product.Full_Name}}</td>
@@ -477,4 +474,4 @@
 
 
 	</div>
-</ion-content>
+</ion-content>	

@@ -23,6 +23,8 @@ import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-c
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
 import { UserlistPage } from '../pages/userlist/userlist';
+import { HomeManagerPage } from '../pages/home-manager/home-manager';
+import { HomeUserPage } from '../pages/home-user/home-user';
 
 @Component({
   templateUrl: 'app.html'

@@ -11,106 +11,115 @@
 
 <ion-content padding>
 
-
-  <div class="navbar">
-    <a (click)="hide1()">Campaigns Report</a>
-
-    <a (click)="hide2()">Users Report</a>
-  </div>
-
-
-  <div *ngIf="hideMe1">
-    <ion-item style="width: 45%;float:left">
-      <ion-label>Compaigns</ion-label>
-      <ion-select [(ngModel)]="product" (ionChange)="status(product)">
-
-        <ion-option *ngFor="let product of products | async " [value]="product">{{product.name}}</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item style="width: 45%;float:right">
-      <ion-label>Status</ion-label>
-      <ion-select [(ngModel)]="ss" (ionChange)="selectedstatus(ss)">
-        <ion-option>All</ion-option>
-        <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <!-- <div *ngIf="hideMe1"> -->
-    <div>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>New Lead</ion-card-subtitle>
-                <hr>
-                <ion-card-subtitle>8</ion-card-subtitle>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>New Lead Attempted</ion-card-subtitle>
-                <hr>
-                <ion-card-subtitle>18</ion-card-subtitle>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>Total Lead Called</ion-card-subtitle>
-                <hr>
-                <ion-card-subtitle>80</ion-card-subtitle>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>Total Calls</ion-card-subtitle>
-                <hr>
-                <ion-card-subtitle>228</ion-card-subtitle>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-    </div>
-
-  </div>
-
-  <div *ngIf="hideMe2">
-    skjkjsfn
-  </div>
-  <ion-card>
-    <ion-card-header>
-      Bar Chart
-    </ion-card-header>
-    <ion-card-content class="canvas">
-      <canvas #barCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
-  <!-- <div >
-  <ion-card >
-  <ion-card-header>
-  Doughnut Chart
-  </ion-card-header>
-  <ion-card-content >
-  <canvas #doughnutCanvas></canvas>
-  </ion-card-content>
-  </ion-card>
+  
+  <!-- <div class="navbar" >
+    <a  (click)="hide1()" >Campaigns Report</a>
+   
+    <a (click)="hide2()" >Users Report</a>
   </div> -->
-  <!-- <ion-card>
-  <ion-card-header>
-  Line Chart
-  </ion-card-header>
-  <ion-card-content>
-  <canvas #lineCanvas></canvas>
-  </ion-card-content>
-  </ion-card>-->
 
+  <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
+    <ion-segment-button (ionSelect)="Segments = 1" value="1">
+      Campaigns Report
+    </ion-segment-button>
+    
+    <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+      Users Report
+    </ion-segment-button>
+   
+  </ion-segment>
+
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card >
+            <ion-card-header>
+              <ion-card-subtitle>New Lead</ion-card-subtitle>
+              <hr>
+              <ion-card-subtitle>8</ion-card-subtitle>
+            </ion-card-header>
+            </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>New Lead Attempted</ion-card-subtitle>
+              <hr>
+              <ion-card-subtitle>18</ion-card-subtitle>
+            </ion-card-header>
+            </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Total Lead Called</ion-card-subtitle>
+              <hr>
+              <ion-card-subtitle>80</ion-card-subtitle>
+            </ion-card-header>
+            </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Total Calls</ion-card-subtitle>
+              <hr>
+              <ion-card-subtitle>228</ion-card-subtitle>
+            </ion-card-header>
+            </ion-card>
+        </ion-col>
+        </ion-row>
+        </ion-grid>
+      </div>
+
+
+      <div [ngSwitch]="Segments">
+        <div *ngSwitchCase="1" >
+
+          <ion-item style="width: 45%;float:left">
+            <ion-label>Compaigns</ion-label>
+            <ion-select [(ngModel)]="product" (ionChange)="status(product)">  
+              <ion-option *ngFor="let product of products | async " [value]="product">{{product.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        
+          <ion-item style="width: 45%;float:right">
+            <ion-label>Status</ion-label>
+            <ion-select  [(ngModel)]="ss" (ionChange)="selectedstatus(ss)">
+              <ion-option >All</ion-option>
+              <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option>
+            </ion-select>
+          </ion-item>
+          </div>
+
+          <div *ngSwitchCase="2" >
+            <ion-item style="width: 45%;float:left">
+              <ion-label>Users</ion-label>
+              <ion-select [(ngModel)]="product" (ionChange)="selecteduser(product)">  
+                <ion-option *ngFor="let product of manager " [value]="product">{{product.name}}&nbsp; {{product.last}}</ion-option>
+                <ion-option *ngFor="let product of SR " [value]="product">{{product.name}} &nbsp;{{product.last}}</ion-option>
+              </ion-select>
+            </ion-item>
+          
+            <ion-item style="width: 45%;float:right">
+              <ion-label>Campaigns</ion-label>
+              <ion-select  [(ngModel)]="ss" (ionChange)="selectedstatus(ss)">
+                <ion-option >All</ion-option>
+                <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </div>
+      </div>
+    <br>
+
+    
+        <ion-card>
+          <ion-card-header>
+            Bar Chart
+          </ion-card-header>
+          <ion-card-content class="canvas">
+            <canvas  #barCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+            
 </ion-content>

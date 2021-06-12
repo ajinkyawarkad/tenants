@@ -3,11 +3,13 @@ import {   MenuController, NavController, NavParams,AlertController  } from 'ion
 import { User } from '../../models/user';
 
 import { HomePage } from '../home/home';
+import { HomeManagerPage } from '../home-manager/home-manager';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 
 import { Storage } from '@ionic/storage';
+import { HomeUserPage } from '../home-user/home-user';
 
 
 
@@ -47,12 +49,36 @@ export class LoginPage {
           if (currentuser.photoURL && currentuser && data.emailVerified === true) {
             console.log(currentuser.displayName);
             console.log(currentuser.photoURL);
-            this.storage.set('name', currentuser.displayName) ; 
-            this.storage.set('email', currentuser.email) ;
-            this.storage.set('cuid',currentuser.photoURL)
-            console.log('Email is verified');
-            console.log(data);
-             this.navCtrl.setRoot(HomePage);
+            let a = []
+            a= currentuser.photoURL.split('#')
+
+            switch ( a[0]){
+              case "COM":
+                this.storage.set('name', currentuser.displayName) ; 
+                this.storage.set('email', currentuser.email) ;
+                this.storage.set('cuid',currentuser.photoURL)
+                console.log('Email is verified');
+                console.log(a[0]);
+                 this.navCtrl.setRoot(HomePage);
+                 break;
+              case "M":
+                this.storage.set('name', currentuser.displayName) ; 
+                this.storage.set('email', currentuser.email) ;
+                this.storage.set('cuid',a[1]+'#'+a[2])
+                console.log('Email is verified');
+                console.log(data);
+                console.log(a[0]);
+                 this.navCtrl.setRoot(HomeManagerPage);
+                 break;
+              case "U":
+                console.log("USER ")  
+                console.log(a[0]);  
+                this.storage.set('name', currentuser.displayName) ; 
+                this.storage.set('email', currentuser.email) ;
+                this.navCtrl.setRoot(HomeUserPage);
+
+            }
+          
           }
           else {
             console.log('Email is not verified ');

@@ -5,7 +5,6 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import firebase from 'firebase';
 
-
 @Component({
 selector: 'page-report',
 templateUrl: 'report.html',
@@ -13,21 +12,25 @@ templateUrl: 'report.html',
 export class ReportPage {
 @ViewChild("barCanvas") barCanvas: ElementRef;
 @ViewChild("doughnutCanvas") doughnutCanvas: ElementRef;
-@ViewChild("lineCanvas") lineCanvas: ElementRef;
 
 private barChart: Chart;
-private doughnutChart: Chart;
-private lineChart: Chart;
+// private doughnutChart: Chart;
+
 public hideMe1: boolean = false;
 public hideMe2: boolean = false;
 userInfo: any;
 products: any;
-pro=[];
 productss: any;
-call = [];
+manager:any;
+SR:any;
+pro=[];
+
 statuss:any=[];
 campId;
+userId;
+campName=[];
 count;
+public labell:any;
 
 constructor(public navCtrl: NavController, public afs: AngularFirestore, public navParams: NavParams) {
 }
@@ -42,6 +45,38 @@ this.hideMe2 = !this.hideMe2;
 
 ionViewDidLoad() {
 console.log('ionViewDidLoad ReportPage');
+}
+
+selecteduser(user)
+{
+  console.log("selcted user",user);
+  this.userId=user.id;
+
+  let currentuser = firebase.auth().currentUser
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Users")
+.doc(this.userId)
+.collection("CampsAsso")
+.get().then(doc =>
+{
+  doc.docs.forEach(snap =>{
+    this.campName.push(snap.data().name);
+    
+  })
+  console.log(this.campName)
+this.count = doc.size
+console.log(this.count);
+console.log(doc);
+
+this.chart(this.count)
+
+})  
+
+
+  
 }
 
 status(selectedcamp){
@@ -59,21 +94,61 @@ console.log(this.pro)
 }
 
 selectedstatus(data){
-  let currentuser = firebase.auth().currentUser
-  firebase
-  .firestore()
-  .collection("Company")
-  .doc("COM#" + currentuser.uid)
-  .collection("Campaigns")
-  .doc(this.campId)
-  .collection("leads").where("status",'==',data).get().then(doc =>
-    {
-      this.count = doc.size
-      console.log(this.count)
-      
-    })
+this.labell=data;  
+let currentuser = firebase.auth().currentUser
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.campId)
+.collection("leads").where("status",'==',data).get().then(doc =>
+{
+this.count = doc.size
+console.log(this.count);
+
+this.chart(this.count)
+
+})  
 console.log(data);
 
+}
+
+chart(count)
+{
+  this.barChart = new Chart(this.barCanvas.nativeElement, {
+    type: "bar",
+    data: {
+    labels: ["Status"],
+    datasets: [
+    {
+    label: this.labell,
+    data: [count],
+    backgroundColor: [
+    "rgba(255, 99, 132, 0.2)",
+    ],
+    borderColor: [
+    "rgba(255,99,132,1)",
+    ],
+    borderWidth: 1
+    }
+    ]
+    },
+    options: {
+    scales: {
+    yAxes: [
+    {
+    ticks: {
+    beginAtZero: true
+    }
+    }
+    ]
+    }
+    }
+    });
+
+
+  
 }
 ngOnInit() {
 
@@ -81,41 +156,32 @@ let currentuser = firebase.auth().currentUser;
 this.userInfo = this.afs.collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns");
 this.products = this.userInfo.valueChanges();
 
-this.barChart = new Chart(this.barCanvas.nativeElement, {
-type: "bar",
-data: {
-labels: ["Pending Call ", "Pending Meeting"],
-datasets: [
-{
-label: "# of Votes",
-data: [this.call],
-backgroundColor: [
-"rgba(255, 99, 132, 0.2)",
-"rgba(54, 162, 235, 0.2)",
-
-],
-borderColor: [
-"rgba(255,99,132,1)",
-"rgba(54, 162, 235, 1)",
-],
-borderWidth: 1
-}
-]
-},
-options: {
-scales: {
-yAxes: [
-{
-ticks: {
-beginAtZero: true
-}
-}
-]
-}
-}
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Admin")
+.doc(currentuser.uid)
+.onSnapshot((doc) => {
+  var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  console.log(source, " data: ");
+  this.manager = doc.data().Managers;
+  console.log(this.manager);
 });
 
 
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Admin")
+.doc(currentuser.uid)
+.onSnapshot((doc) => {
+  var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  console.log(source, " data: ");
+  this.SR = doc.data().Users;
+  console.log(this.SR);
+});
 
 // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 // type: "doughnut",
@@ -140,36 +206,7 @@ beginAtZero: true
 // }
 // });
 
-// this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-// type: "line",
-// data: {
-// labels: ["January", "February", "March", "April", "May", "June", "July"],
-// datasets: [
-// {
-// label: "My First dataset",
-// fill: false,
-// lineTension: 0.1,
-// backgroundColor: "rgba(75,192,192,0.4)",
-// borderColor: "rgba(75,192,192,1)",
-// borderCapStyle: "butt",
-// borderDash: [],
-// borderDashOffset: 0.0,
-// borderJoinStyle: "miter",
-// pointBorderColor: "rgba(75,192,192,1)",
-// pointBackgroundColor: "#fff",
-// pointBorderWidth: 1,
-// pointHoverRadius: 5,
-// pointHoverBackgroundColor: "rgba(75,192,192,1)",
-// pointHoverBorderColor: "rgba(220,220,220,1)",
-// pointHoverBorderWidth: 2,
-// pointRadius: 1,
-// pointHitRadius: 10,
-// data: [65, 59, 80, 81, 56, 55, 40],
-// spanGaps: false
-// }
-// ]
-// }
-// });
+
 }
 
 }
