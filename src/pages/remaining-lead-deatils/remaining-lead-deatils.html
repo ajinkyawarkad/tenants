@@ -52,9 +52,9 @@
       <ion-label left>
         Pending Activity 
       </ion-label> -->
-      <ion-label>
-      <!-- <div style="float: left;width: 60%;">
-        <ion-segment [(ngModel)]="Segments" value="1" mode="ios" style="width: 70%;">
+      <ion-label style="width: 200%;">
+      <div >
+        <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
         <ion-segment-button value="1">
           Pending Activity 
         </ion-segment-button>
@@ -62,18 +62,18 @@
           Activity History
         </ion-segment-button>
         </ion-segment>
-        </div> -->
+        </div>
       </ion-label>
 
-      <div style="display:inline-block;">
-      <ion-label style="color: blue;text-decoration: underline;" (click)="activity()">
+    
+      <ion-label class="activity" (click)="activity()">
        Add Activity
       </ion-label>
 
-      <ion-label style="color: blue;text-decoration: underline;" name="dta" (click)="comment()">
+      <ion-label style="float:left;color: blue;text-decoration: underline;" name="dta" (click)="comment()">
         Add comment
        </ion-label>
-       </div>
+       
 
       <button ion-button full  color="success" >Register</button>
     </ion-item-divider>
