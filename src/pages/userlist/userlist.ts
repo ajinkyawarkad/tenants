@@ -9,6 +9,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 // import { merge } from 'jquery';
 import { uuid } from 'uuidv4';
+import { HomePage } from '../home/home';
 
 interface Users {
   first_name: string,
@@ -91,11 +92,12 @@ export class UserlistPage {
           .doc(uid)
           .set(
             {
-              ref:'S#COM#'+currentUser.uid,
+               ref:'S#COM#'+currentUser.uid,
                name: this.employee.name,
                last: this.employee.last,
                email:employee.email,
-              role: this.employee.role,
+               role: this.employee.role,
+               id:uid
               
             },
             { merge: true }
@@ -109,7 +111,7 @@ export class UserlistPage {
             {
               text: "OK",
               handler: (data) => {
-                this.navCtrl.push(UserlistPage);
+               // this.navCtrl.push(HomePage);
               },
             },
           ],

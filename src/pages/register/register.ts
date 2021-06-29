@@ -3,10 +3,13 @@ import {  NavController, NavParams ,AlertController} from 'ionic-angular';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase';
+import firebase, { firestore } from 'firebase';
 import { AuthserviceProvider } from '../../providers/authservice/authservice';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
+import axios from 'axios';
+import { addSyntheticLeadingComment, textSpanEnd } from 'typescript';
+import { UserregPage } from '../userreg/userreg';
 
 
 @Component({
@@ -17,8 +20,9 @@ export class RegisterPage {
   public showPassword: boolean = false;
   
   user = {} as User;
+  coms=[]
   
-  constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
+  constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, 
     public alertCtrl: AlertController, public AuthProvider:AuthserviceProvider,private storage: Storage) {
   }
 
@@ -27,10 +31,30 @@ export class RegisterPage {
   }
    
 signup(user:User){
-  if(user.email && user.password && user.name != null){
+  let tenantId;
+
+  
+  if(user.email && user.password && user.name && user.company_name != null){
+    let compName ;
+    let a = []
+    a=user.company_name.split(" ")
+    compName = a[0]
+
+
+    let url  = "https://us-central1-adminnew-d710c.cloudfunctions.net/createTen?name="+compName
+    
+    
+    axios.post(url,).then(res => {
+      console.log("cvcs",res.data)
+      tenantId = res.data
+      firebase.auth().tenantId = tenantId
+
+    }).then(dat =>{
+     
     firebase.auth().createUserWithEmailAndPassword(user.email,user.password).then((data) => {
       let currentuser=firebase.auth().currentUser;
      // console.log(data);
+     
        if(currentuser && data.user.emailVerified === false)
        {
          currentuser.sendEmailVerification().then
@@ -46,7 +70,9 @@ signup(user:User){
              firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
              .set(Object.assign({
               // company_name:user.company_name,
-               company_id: "COM#"+currentuser.uid 
+               company_id: "COM#"+currentuser.uid ,
+               tenantId:tenantId
+               
                })
              )
  
@@ -61,6 +87,13 @@ signup(user:User){
              ))
              // this.storage.set('data', data );
              //   console.log("dmcj",data);
+
+             firebase.firestore().collection("Tenants").doc(user.email).set({
+               details:firestore.FieldValue.arrayUnion({
+                 tenantId:tenantId,
+                 compName:user.company_name
+               })
+             },{merge:true})
  
             window.localStorage.setItem('emailForSignIn', currentuser.email);
             let alert = this.alertCtrl.create({
@@ -94,6 +127,11 @@ signup(user:User){
      });
 
 
+    })
+
+    
+
+
   }else{
     let alert = this.alertCtrl.create({
       title: 'Warning',
@@ -113,6 +151,11 @@ signup(user:User){
 public onPasswordToggle(): void {
       this.showPassword = !this.showPassword;
  }
+
+ toUser(){
+   this.navCtrl.push(UserregPage)
+ }
+
 
 login()
 {

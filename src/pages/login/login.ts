@@ -22,6 +22,8 @@ export class LoginPage {
 
   user = {} as User;
   phone: string;
+  coms =[]
+  tenantId;
   
   constructor(public auth: AngularFireAuth,
     public navCtrl: NavController,   
@@ -40,6 +42,8 @@ export class LoginPage {
 
     login(user:User){
       if(user.email && user.password != null){
+        firebase.auth().tenantId = this.tenantId
+
 
         
       firebase.auth().signInWithEmailAndPassword(user.email,user.password)
@@ -179,6 +183,32 @@ export class LoginPage {
     register(){
       this.navCtrl.push(RegisterPage);
       }
+
+      setTenant(id){
+        this.tenantId=id
+        console.log("Tenant Selected", this.tenantId)
+
+
+      }
+      
+
+      
+ getCom(){
+  firebase.firestore().collection("Tenants").doc(this.user.email).get().then(snap =>{
+    if(snap.exists){
+      this.coms = snap.data().details
+    console.log("Comanies are", this.coms)
+
+    }else{
+      alert("Create Account")
+
+    }
+    
+    
+   
+
+  })
+}
 
       public onPasswordToggle(): void {
         this.showPassword = !this.showPassword;

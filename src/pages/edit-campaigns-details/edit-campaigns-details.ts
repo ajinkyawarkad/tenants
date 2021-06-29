@@ -135,6 +135,10 @@ export class EditCampaignsDetailsPage {
     }
   }
 
+  remove(idx) {
+    this.sts.splice(idx, 1);
+    }
+
   temp() {
     let campid = this.value.cid;
     this.navCtrl.push(EditCsvFieldPage, { campid });

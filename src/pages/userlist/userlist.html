@@ -10,28 +10,32 @@
 <ion-content padding>
 
   <div class="container">
-  
-    
-      <label >First Name</label>
-      <ion-input type="text" [(ngModel)]="employee.name" required></ion-input>
-  
-      <label >Last Name</label>
-      <ion-input type="text"  [(ngModel)]="employee.last" required></ion-input>
-
-      <label >Email</label>
-      <ion-input type="email"  [(ngModel)]="employee.email" placeholder="Ex:abc@gmail.com" required></ion-input>
-  
-      <label >Role</label>
-      <select  [(ngModel)]="employee.role" required>
-        <option >Manager</option>
-        <option >Sale Representative</option>
-      </select>
-
-      <div style="text-align: center;">
-      <button  ion-button  color="primary" (click)= "insertUser(employee)" >Invite</button>
-        </div>
    
-  </div>
+      <fieldset>
+        <!-- <legend>Contact</legend> -->
+        <div class="field-wrapper">
+          <label>First Name</label>
+          <input type="text" class="form-element" [(ngModel)]="employee.name" required>
+    
+          <label >Last Name</label>
+          <input type="text"  class="form-element" [(ngModel)]="employee.last" required>
 
+          <label >Email</label>
+          <input type="text" class="form-element" [(ngModel)]="employee.email" placeholder="Ex:abc@gmail.com" required>
   
+          <label >Role</label>
+          <select  class="form-element" [(ngModel)]="employee.role" required>
+            <option >Manager</option>
+            <option >Sale Representative</option>
+          </select>
+
+        </div>
+      </fieldset>
+  
+     
+      <div style="text-align: center;">
+        <button ion-button  (click)="insertUser(employee)" color="primary" type="submit">Invite</button>
+      </div>
+   
+  </div>  
 </ion-content>

@@ -238,7 +238,7 @@ buttons: [
 {
 text: "OK",
 handler: (data) => {
-// this.navCtrl.setRoot(ProfilePage);
+ this.navCtrl.pop();
 },
 },
 ],

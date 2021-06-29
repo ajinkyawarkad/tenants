@@ -6,6 +6,7 @@ export class User{
     password:string;
     phoneno:string;
     company_name:string;
+    compId:string;
   
 }
 

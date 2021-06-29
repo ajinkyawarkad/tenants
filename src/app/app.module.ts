@@ -61,6 +61,8 @@ import { ManagerCreateLeadProfilePage } from '../pages/manager-create-lead-profi
 import { ManagerLeadDetailsPage } from '../pages/manager-lead-details/manager-lead-details';
 import { ManagerTaskDetailsPage } from '../pages/manager-task-details/manager-task-details';
 import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manager-track-campaign';
+import { UserregPage } from '../pages/userreg/userreg';
+
 
 
 
@@ -78,6 +80,7 @@ import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manage
     ManagerEditCampaignPage,
     ManagerCreateLeadProfilePage,
     ManagerLeadDetailsPage,
+    UserregPage,
     ManagerTaskDetailsPage,
     ManagerTrackCampaignPage,
     TrackCampaignPage,
@@ -86,6 +89,7 @@ import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manage
     UserLicensesPage,
     CreateLeadProfilePage,
     PendingLeadsPage,
+    
     ExportPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
@@ -140,6 +144,7 @@ import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manage
     ManagerTaskDetailsPage,
     ManagerTrackCampaignPage,
     TrackCampaignPage,
+    UserregPage,
     AccountPage,
     SettingsPage,
     UserLicensesPage,

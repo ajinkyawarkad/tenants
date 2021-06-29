@@ -96,16 +96,17 @@
             <ion-item style="width: 45%;float:left">
               <ion-label>Users</ion-label>
               <ion-select [(ngModel)]="product" (ionChange)="selecteduser(product)">  
-                <ion-option *ngFor="let product of manager " [value]="product">{{product.name}}&nbsp; {{product.last}}</ion-option>
-                <ion-option *ngFor="let product of SR " [value]="product">{{product.name}} &nbsp;{{product.last}}</ion-option>
+                <ion-option *ngFor="let product of manager " [value]="product">{{product.name}}&nbsp; {{product.last}} (Manager)</ion-option>
+                <ion-option disabled>__________________________</ion-option>
+                <ion-option *ngFor="let product of SR " [value]="product">{{product.name}} &nbsp;{{product.last}}  (SR)</ion-option>
               </ion-select>
             </ion-item>
           
             <ion-item style="width: 45%;float:right">
               <ion-label>Campaigns</ion-label>
-              <ion-select  [(ngModel)]="ss" (ionChange)="selectedstatus(ss)">
+              <ion-select  [(ngModel)]="pr" (ionChange)="selectedCamp(pr)">
                 <ion-option >All</ion-option>
-                <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option>
+                <ion-option *ngFor="let pr of campName" [value]="pr">{{pr.name}}</ion-option>
               </ion-select>
             </ion-item>
           </div>

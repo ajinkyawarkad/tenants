@@ -13,20 +13,202 @@
 
 <ion-content  padding="true" class="has-header">
   <div class="container">
+
+    <div class="wrap">
+      <table class="head">
+        <tr>
+          <th>
     
-<div>
-  <table>
-    <tr >
-      <th>First Name</th>
-      <th>Last Name</th>
-      </tr>
-      <tr *ngFor="let product of arr;">
-        <td>{{product.first_name}}</td>
-        <td>{{product.last_name}}</td>
-      </tr>
-      
-  </table>
-</div>  
+            <div >
+          
+              <ion-icon  id="btnOpenForm" class="settingicon" name="settings" (click)="hide2()"></ion-icon>
+              <ion-checkbox  slot="start" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
+              (click)="checkMaster($event);"></ion-checkbox>
+          
+              
+            </div>	
+          </th>
+          
+          <th *ngIf="Salutation">Salutation</th>
+          <th *ngIf="Full_Name">Full Name</th>
+          <th *ngIf="first_name">First Name</th>
+          <th *ngIf="middle_name">Middle Name</th>
+          <th *ngIf="last_name">Last Name</th>
+          <th *ngIf="Phone">Phone</th>
+          <th *ngIf="Other_Contact">Other Contact</th>
+          <th *ngIf="Email">Email</th>
+          <th *ngIf="Other_Email">Other Email</th>
+          <th *ngIf="Address">Address</th>
+          <th *ngIf="City">City</th>
+          <th *ngIf="State">State</th>
+          <th *ngIf="Country">Country</th>
+          <th *ngIf="Gender">Gender</th>
+          <th *ngIf="Company_Name">Company_Name</th>
+          <th *ngIf="Position">Position</th>
+          <th *ngIf="Profile_URL">Profile URL</th>
+          <th *ngIf="Date_of_Birth">Date of Birth</th>
+          <th *ngIf="Apartment">Office</th>
+          <th *ngIf="Zip">Zip</th>
+          <th *ngIf="Fax">Fax</th>
+          <th *ngIf="Price">Price</th>
+          <th *ngIf="Stage">Stage</th>
+          <th *ngIf="Quality">Quality</th>
+          <th *ngIf="Currency">Currency</th>
+          <th>Handler</th>
+          <th>Activity</th>
+          <th>Status</th>
+          <th>Remarks</th>
+          <th>Edit / Delete</th>
+        </tr>
+      </table>
+  
+  
+      <div class="inner_table">
+        <table>
+          <tr *ngFor="let product of mainData;let idx = index; ">
+  
+            <td>
+              <div>
+              <ion-icon (click)="remaining(product)" class="settingicon" ios="ios-list-box" md="md-list-box"></ion-icon>
+              <ion-checkbox slot="start" [(ngModel)]="product.isChecked" (ionChange)="checkEvent();">
+              </ion-checkbox>
+            </div>
+            </td>
+          
+            <td *ngIf="Full_name">{{product.Full_Name}}</td>
+            <td *ngIf="first_name">{{product.first_name}}</td>
+            <td *ngIf="middle_name">{{product.middle_name}}</td>
+            <td *ngIf="last_name">{{product.last_name}}</td>
+            <!-- <td style="color: cornflowerblue;" >
+            {{product.Email}}</td> -->
+            <td *ngIf="Phone">{{product.Phone}}
+            <div *ngIf="product.Phone"
+            style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+            <ion-icon name="call" (click)="remaining(product)"> </ion-icon>
+            </div>
+            </td>
+            <td *ngIf="Other_Contac">{{product.Other_Contac}}
+            <div *ngIf="product.Other_Contac"
+            style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+            <ion-icon name="call" > </ion-icon>
+            </div>
+            </td>
+            <td *ngIf="Email">{{product.Email}}</td>
+            <td *ngIf="Other Email">{{product.Other_Email}}</td>
+            <td *ngIf="Address">{{product.Address}}</td>
+            <td *ngIf="City">{{product.City}}</td>
+            <td *ngIf="State">{{product.State}}</td>
+            <td *ngIf="Country">{{product.Country}}</td>
+            <td *ngIf="Gender">{{product.Gender}}</td>
+            <td style="color: cornflowerblue;text-decoration: underline;" (click)="remaining(product)"
+            *ngIf="Company_Name">{{product.Company_Name}}</td>
+            <td *ngIf="Position">{{product.Position}}</td>
+            <td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+            <td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+            <td *ngIf="Apartment">{{product.Apartment}}</td>
+            <td *ngIf="Zip">{{product.Zip}}</td>
+            <td *ngIf="Fax">{{product.Fax}}</td>
+            <td *ngIf="Price">{{product.Price}}</td>
+            <td *ngIf="Stage">{{product.Stage}}</td>
+            <td *ngIf="Quality">{{product.Quality}}</td>
+            <td *ngIf="Currency">{{product.Currency}}</td>
+            <td>{{product.SR_name}}</td>
+            
+            <td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
+            {{product.action}} <br> {{product.datetime}}
+            
+            </td>
+  
+            <td  *ngIf="!product.pending" style="color: green;"  (click)="gotocall(product)" >
+              {{product.action}} <br> {{product.datetime}}
+                
+              </td>
+            <!-- <td>{{product.datetime}}</td> -->
+            <td>{{product.status}}</td>
+            <td>{{product.remark}}</td>
+            <td>
+            <div style="display: inline-block;margin-left: 3px;">
+            <ion-icon name="create" (click)="edit(product)"></ion-icon>
+            </div>
+            <div style="display: inline-block;margin-left: 10px;">
+            <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+            </div>
+            </td>
+            </tr>
+      </table>
+      </div>
+  
+      <div class="inner_table" *ngIf="terms">
+        <table>
+          <tr *ngFor="let product of mainData ;let idx = index; ">
+            <td>
+            <ion-icon (click)="remaining(product)" class="settingicon" ios="ios-list-box" md="md-list-box"></ion-icon>
+            <ion-checkbox slot="start" [(ngModel)]="product.isChecked" (ionChange)="checkEvent();">
+            </ion-checkbox>
+            </td>
+            <td *ngIf="Full_name">{{product.Full_Name}}</td>
+            <td *ngIf="first_name">{{product.first_name}}</td>
+            <td *ngIf="middle_name">{{product.middle_name}}</td>
+            <td *ngIf="last_name">{{product.last_name}}</td>
+            <!-- <td style="color: cornflowerblue;" >
+            {{product.Email}}</td> -->
+            <td *ngIf="Phone">{{product.Phone}}
+            <div *ngIf="product.Phone"
+            style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+            <ion-icon name="call" (click)="remaining(product)" > </ion-icon>
+            </div>
+            </td>
+            <td *ngIf="Other_Contac">{{product.Other_Contac}}
+            <div *ngIf="product.Other_Contac"
+            style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+            <ion-icon name="call" (click)="gotocall(product)"> </ion-icon>
+            </div>
+            </td>
+            <td *ngIf="Email">{{product.Email}}</td>
+            <td *ngIf="Other Email">{{product.Other_Email}}</td>
+            <td *ngIf="Address">{{product.Address}}</td>
+            <td *ngIf="City">{{product.City}}</td>
+            <td *ngIf="State">{{product.State}}</td>
+            <td *ngIf="Country">{{product.Country}}</td>
+            <td *ngIf="Gender">{{product.Gender}}</td>
+            <td style="color: cornflowerblue;text-decoration: underline;" 
+            *ngIf="Company_Name">{{product.Company_Name}}</td>
+            
+            <td *ngIf="Position">{{product.Position}}</td>
+            <td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+            <td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+            <td *ngIf="Apartment">{{product.Apartment}}</td>
+            <td *ngIf="Zip">{{product.Zip}}</td>
+            <td *ngIf="Fax">{{product.Fax}}</td>
+            <td *ngIf="Price">{{product.Price}}</td>
+            <td *ngIf="Stage">{{product.Stage}}</td>
+            <td *ngIf="Quality">{{product.Quality}}</td>
+            <td *ngIf="Currency">{{product.Currency}}</td>
+            <td>{{product.SR_name}}</td>
+            <td></td>
+            <td style="color: cornflowerblue;text-decoration: underline;" (click)="gotocall(product)" >
+            {{product.action}} <br> {{product.datetime}}</td>
+            
+            <!-- <td></td> -->
+            <td>{{product.status}}</td>
+            <td>{{product.remark}}</td>
+            
+            <td>
+              
+            <div style="display: inline-block;margin-left: 3px;">
+            <ion-icon name="create" (click)="edit(product)"></ion-icon>
+            </div>
+            <div style="display: inline-block;margin-left: 10px;">
+            <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+            </div>
+            
+            </td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  
+    
 
 
 

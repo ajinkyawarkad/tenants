@@ -19,14 +19,6 @@ interface Users {
   manager: string;
 }
 
-/**
- * Generated class for the ExportPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-
 @Component({
   selector: 'page-export',
   templateUrl: 'export.html',
@@ -41,8 +33,7 @@ export class ExportPage {
   public hideMe4 = true;
   public csvShow= false;
   public exelShow= false;
-  
-  
+   
   fileName;
   show= false; //table flag ExelTable
   pageSize: number = 10;
@@ -126,8 +117,7 @@ export class ExportPage {
 
   ionViewDidLoad() {
     let currentuser = firebase.auth().currentUser
-
-        
+    
     firebase
     .firestore()
     .collection("Company")
@@ -135,7 +125,6 @@ export class ExportPage {
     .collection("Campaigns")
     .doc(this.campid).get().then(doc => {
       this.pro = doc.data().status
-
     })
 
     firebase
@@ -153,7 +142,6 @@ export class ExportPage {
           this.active.push(this.products[a].indicator);
         }
       }
-
       // console.log("active headers",this.active)
     });
 
@@ -190,15 +178,6 @@ export class ExportPage {
       console.log("True at : ", this.tru);
       console.log("false at : ", this.fal);
     });
-
-
-
-
-
-
-
-
-
 
     firebase
       .firestore()
@@ -240,9 +219,7 @@ export class ExportPage {
 
     console.log('ionViewDidLoad ExportPage');
   }
-
-  
-
+ 
   showhide(name, ev) {
     let currentUser = firebase.auth().currentUser;
     firebase
@@ -257,7 +234,6 @@ export class ExportPage {
         [name]: ev.value,
       });
   }
-
   
   showOptions(status) {
     this.filled = []
@@ -275,8 +251,7 @@ export class ExportPage {
       .collection("leads").get().then(data =>{
         data.docs.forEach(snap =>
           {
-            this.filled.push(snap.data())
-            
+            this.filled.push(snap.data())            
           })
       })
     }else{
@@ -292,10 +267,6 @@ export class ExportPage {
             this.filled.push(snap.data())
           })
       })
-
-     
-
-
     }
      this.csvShow=true
      this.exelShow=true
@@ -313,8 +284,7 @@ export class ExportPage {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
  
-    XLSX.writeFile(wb, this.fileName);
-    
+    XLSX.writeFile(wb, this.fileName); 
   }
 
   
@@ -330,6 +300,4 @@ export class ExportPage {
     XLSX.writeFile(wb, this.fileName);
  
   }
-
-
 }

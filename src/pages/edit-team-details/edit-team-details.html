@@ -11,21 +11,25 @@
 
     <div class="container">
   
-    
+      <fieldset>
+        <!-- <legend>Contact</legend> -->
+        <div class="field-wrapper">
       <label >First Name</label>
-      <ion-input type="text" [(ngModel)]="value.name" ></ion-input>
+      <input type="text" class="form-element" [(ngModel)]="value.name" >
   
       <label >Last Name</label>
-      <ion-input type="text"  [(ngModel)]="value.last" ></ion-input>
+      <input type="text" class="form-element"  [(ngModel)]="value.last" >
 
       <label >Email</label>
-      <ion-input type="email"  [(ngModel)]="value.email" ></ion-input>
+      <input type="email" class="form-element" [(ngModel)]="value.email" >
   
       <label >Role</label>
-      <select  [(ngModel)]="value.role" >
+      <select  class="form-element" [(ngModel)]="value.role" >
         <option >Manager</option>
         <option >Sale Representative</option>
       </select>
+    </div>
+      </fieldset>
 
       <div style="text-align: center;">
         <button ion-button color="primary" (click)="update();update1()">Save</button>

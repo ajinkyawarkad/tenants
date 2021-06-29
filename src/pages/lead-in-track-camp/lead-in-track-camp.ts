@@ -80,29 +80,23 @@ console.log("SR",this.productss) ;
        console.log("camp id",this.value.cid);
        console.log("data",data)
 
-      for (var a in this.anArray) {
-        
-     
+      for (var a in this.anArray) {     
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
-      .set({
-        [this.anArray[a].indicator]:this.anArray[a].action
-        
- 
-      },{merge:true})
-
+        .set({
+          [this.anArray[a].indicator]:this.anArray[a].action
+        },{merge:true})
       }
      
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
-      .set(Object.assign({
- 
-       leads:this.anArray2,
-       SR_id:data.id,
-       SR_name:data.name+" "+data.last,
-       uid:uuid1,
-       createdAt:firebase.firestore.FieldValue.serverTimestamp()
-       }  
+        .set(Object.assign({
+        leads:this.anArray2,
+        SR_id:data.id,
+        SR_name:data.name+" "+data.last,
+        uid:uuid1,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+        }  
      ),{merge:true}) .then(()=>{
       let alert = this.alertCtrl.create({
         title: 'Success',

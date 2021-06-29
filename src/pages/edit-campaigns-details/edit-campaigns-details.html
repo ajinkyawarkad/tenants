@@ -9,7 +9,7 @@
 
   <div class="container">
  
-  <ion-slides #slides style="width:100%;margin-top: -11%;">
+  <ion-slides #slides class="mainslide">
     <ion-slide >
 
       <div class="progress-bar">
@@ -24,8 +24,7 @@
      </div>
 
      <p>Setup your sales campaigns</p>
-      <!-- <p style="color: darkred;">This is step 1</p> -->
-
+     
       <label>Name</label>
           <div>
              <ion-input type="text"  [(ngModel)]="value.name" ></ion-input>
@@ -51,28 +50,12 @@
             </ion-select> 
         </ion-item>
         
-        <!-- <ion-item >
-          <ion-label>Sales Representative</ion-label>
-          <ion-select *ngFor="let pr of prod" required [(ngModel)]="pr">
-            <ion-option *ngFor="let product of productsss">{{product.name}}&nbsp;{{product.last}}</ion-option>
-            </ion-select> 
-        </ion-item>
-        <br />   -->
-      
-        <!-- <ion-item>
-          <ion-label>
-           Allow Manager to Edit
-          </ion-label>
-          <ion-checkbox checked="true"></ion-checkbox>
-        </ion-item >
-       -->
-       
-        
+     
         <button ion-button   type="button" (click)="slideToSlide()">Save & Next</button>
         
     </ion-slide>
    
-    <ion-slide style="height: 100%;overflow: auto; overflow-x: hidden; ">
+    <ion-slide >
       <div class="progress-bar">
         <div class="progress-step ">
           <div class="step-count">1</div>
@@ -95,7 +78,7 @@
     <th>Action</th>
     </tr>
     
-    <tr *ngFor="let product of sts "> 
+    <tr *ngFor="let product of sts ; let idx = index;"> 
       <td> 
         <ion-input class="status" type="text" [(ngModel)]="product.status"></ion-input>
       </td>
@@ -106,6 +89,8 @@
             <option >Remove client from profile</option>
           </select>
       </td>
+   
+      <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
     </tr>
     
     </table>

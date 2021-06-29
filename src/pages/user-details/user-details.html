@@ -1,131 +1,146 @@
 <ion-header>
   <ion-navbar>
-  <button ion-button menuToggle>
-  <ion-icon name="menu"></ion-icon>
-  </button>
-  <ion-title>Team details</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Team details</ion-title>
   </ion-navbar>
-  </ion-header>
-  
-  
-  <ion-content padding>
-     <div  class= "container">
+</ion-header>
 
-  <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
-  <ion-segment-button (ionSelect)="Segments = 1" value="1">
-  Active Users
-  </ion-segment-button>
-  
-  <ion-segment-button (ionSelect)="Segments = 2" value="2" >
-  Non-Active Users
-  </ion-segment-button>
- 
-  <ion-segment-button (ionSelect)="Segments = 3" value="3" >
-  User Licenses
-  </ion-segment-button> 
-</ion-segment>
-  
-  <div [ngSwitch]="Segments">
-  <div *ngSwitchCase="1" >
 
-    <div class="search">
-     <ion-searchbar placeholder="Search " [(ngModel)]="term"  ></ion-searchbar>
-    </div>
+<ion-content padding>
+  <div class="container">
+   
+    <ion-segment class=seg [(ngModel)]="Segments" value="1" mode="ios">
+      <ion-segment-button (ionSelect)="Segments = 1" value="1">
+        Active Users
+      </ion-segment-button>
 
-     <div style="float: right;margin-top: -48px;">
-      <button ion-button  color="secondary" (click)="add()"> Add User</button> 
-     </div>
+      <ion-segment-button (ionSelect)="Segments = 2" value="2">
+        Non-Active Users
+      </ion-segment-button>
+
+      <ion-segment-button (ionSelect)="Segments = 3" value="3">
+        User Licenses
+      </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="Segments">
+      <div *ngSwitchCase="1">
+
+        <div class="Sbar">
+          <ion-searchbar placeholder="Search " [(ngModel)]="term"></ion-searchbar>
+        </div>
+
+        <div class="addbutton">
+          <button ion-button color="secondary" (click)="add()"> Add User</button>
+        </div>
+
+        <div class="tableFixHead">
+          <table >
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Action</th>
+              <th>Admin privilege</th>
+            </tr>
+            </thead>
+         
+           <tbody>
+              <tr *ngFor="let product of productss | search1 :term">
+                <td style="text-decoration: underline;color: cornflowerblue;" (click)="edit(product)">{{product.name}}
+                </td>
+                <td>{{product.last}}</td>
+                <td>{{product.role}}</td>
+                <td>{{product.email}}</td>
+                
+                <td>
+                  <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon>
+                </td>
+                <td>
+                  
+                  <ion-checkbox  slot="start" [(ngModel)]="product.isAdmin" 
+                  (ionChange)="makeAdmin(product.id);"></ion-checkbox>
+
+                </td>
+               
+				
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
      
-  <table padding>
-   
-  <thead>
-  <tr>
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Role</th>
-  <th>Email</th>
-  <th>Action</th>
+
+      <div *ngSwitchCase="2">
+        <div class="Sbar">
+          <ion-searchbar placeholder="Search " [(ngModel)]="term"></ion-searchbar>
+        </div>
+
+        <div class="tableFixHead">
+          <table >
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+         
+         
+            <tbody>
+              <tr *ngFor="let product of products | async | search1 :term ">
+                <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+                <td>{{product.last}}</td>
+                <td>{{product.role}}</td>
+                <td>{{product.email}}</td>
+
+                <td>
+                  <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon>
+                </td>
+              </tr>
+
+            </tbody>
+            </table>
+            </div>
+      </div>
   
-  </tr>
-    </thead>
-  <tbody>
-  <tr *ngFor="let product of productss | async | search1 :term">
-  <td style="text-decoration: underline;color: cornflowerblue;" (click)="edit(product)">{{product.name}}</td>
-  <td>{{product.last}}</td>
-  <td>{{product.role}}</td>
-  <td>{{product.email}}</td>
-  
-  <td> <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon></td>
-  
-  </tr>
-  </tbody>
-  </table>
+      <div *ngSwitchCase="3">
+        <br>
+        <div class="tableFixHead">
+          <table >
+            <thead>
+            <tr>
+              <th>No. of Licenses</th>
+              <th>Price</th>
+              <th>Total Price</th>
+            </tr>
+            </thead>
+
+         <tbody>
+              <tr>
+                <td>10</td>
+                <td>6</td>
+                <td>76</td>
+              </tr>
+              <tr>
+                <td>89</td>
+                <td>7</td>
+                <td>78</td>
+              </tr>
+          </tbody>
+            </table>
+          </div>
+        </div>
+
+     
+    </div>
   </div>
-  
-  <div *ngSwitchCase="2" >
-    <div class="search">
-      <ion-searchbar placeholder="Search " [(ngModel)]="term" ></ion-searchbar>
-     </div>
- 
-  <table padding>
-  
-  <thead>
-  
-  <tr>
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Role</th>
-  <th>Email</th>
-  <th>Action</th>
-  
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let product of products | async | search1 :term ">
-  <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
-  <td>{{product.last}}</td>
-  <td>{{product.role}}</td>
-  <td>{{product.email}}</td>
-  
-  <td> <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon></td>
-  
-  </tr>
-  </tbody>
-  </table>
-  </div>
-  
-  <div *ngSwitchCase="3" >
-    <div class="search">
-      <ion-searchbar placeholder="Search " [(ngModel)]="term"  ></ion-searchbar>
-     </div>
-  <table padding>
-  <thead>
-  <tr>
-  <th>No. of Licenses</th>
-  <th>Price</th>
-  <th>Total Price</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>10</td>
-  <td>6</td>
-  <td>76</td>
-  </tr>
-  <tr>
-  <td>89</td>
-  <td>7</td>
-  <td>78</td>
-  
-  </tr>
-  
-  </tbody>
-  </table>
-  </div>
-  
-  
-  
-  </div>
-     </div>
-  </ion-content>
+</ion-content>

@@ -29,10 +29,14 @@ statuss:any=[];
 campId;
 userId;
 campName=[];
-count;
+count = 0;
 public labell:any;
 
+
+Segments:string;
+
 constructor(public navCtrl: NavController, public afs: AngularFirestore, public navParams: NavParams) {
+  this.Segments="1";
 }
 
 hide1() {
@@ -63,20 +67,37 @@ selecteduser(user)
 .get().then(doc =>
 {
   doc.docs.forEach(snap =>{
-    this.campName.push(snap.data().name);
-    
+    this.campName.push(snap.data());
   })
   console.log(this.campName)
+  
 this.count = doc.size
 console.log(this.count);
 console.log(doc);
 
-this.chart(this.count)
+this.chartUser(this.count)
 
 })  
 
+}
+selectedCamp(data){
+  console.log("cccccc",data.cid);
 
-  
+  let currentuser = firebase.auth().currentUser
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(data.cid)
+.collection("leads")
+.get().then(doc =>
+{
+this.count = doc.size
+console.log(this.count);
+this.chartCamp(this.count)
+
+})
 }
 
 status(selectedcamp){
@@ -107,14 +128,73 @@ firebase
 this.count = doc.size
 console.log(this.count);
 
-this.chart(this.count)
+this.chartStatus(this.count)
 
 })  
 console.log(data);
 
 }
 
-chart(count)
+chartCamp(count){
+  this.barChart = new Chart(this.barCanvas.nativeElement, {
+    type: "bar",
+    data: {
+    labels: ["Leads"],
+    datasets: [
+    {
+    label: "Leads",
+    data: [count],
+    backgroundColor: [
+    "rgba(255, 99, 132, 0.2)",
+    ],
+    borderColor: [
+    "rgba(255,99,132,1)",
+    ],
+    borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+    yAxes: [
+    {
+    ticks: {
+    beginAtZero: true
+    } }] }
+    }
+    });
+}
+
+chartUser(count)
+{
+  this.barChart = new Chart(this.barCanvas.nativeElement, {
+    type: "bar",
+    data: {
+    labels: ["Campaigns"],
+    datasets: [
+    {
+    label: "Campaigns",
+    data: [count],
+    backgroundColor: [
+    "rgba(255, 99, 132, 0.2)",
+    ],
+    borderColor: [
+    "rgba(255,99,132,1)",
+    ],
+    borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+    yAxes: [
+    {
+    ticks: {
+    beginAtZero: true
+    } }] }
+    }
+    });
+}
+
+chartStatus(count)
 {
   this.barChart = new Chart(this.barCanvas.nativeElement, {
     type: "bar",
@@ -146,9 +226,6 @@ chart(count)
     }
     }
     });
-
-
-  
 }
 ngOnInit() {
 
