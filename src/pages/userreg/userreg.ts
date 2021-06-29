@@ -39,7 +39,7 @@ export class UserregPage {
     idc = st.split("#");
     let compIdc= idc[1]+'#'+idc[2];
     if (user.email && user.password && user.name && user.compId != null) {
-      
+
       firebase.firestore().collection("Tenants").doc(user.email).set({
         compName:"com",
         tenantId:user.company_name
@@ -242,5 +242,9 @@ export class UserregPage {
       });
       alert.present();
     }
+  }
+
+  login(){
+    this.navCtrl.push(LoginPage)
   }
 }
