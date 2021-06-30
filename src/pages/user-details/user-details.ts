@@ -59,20 +59,20 @@ export class UserDetailsPage {
     let currentuser = firebase.auth().currentUser;
     this.userInfo = this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("non-active");
     this.products = this.userInfo.valueChanges();
 
     // this.userInfo = this.afs
     //   .collection("Company")
-    //   .doc("COM#" + currentuser.uid)
+    //   .doc(currentuser.photoURL)
     //   .collection("Users");
     // this.productss = this.userInfo.valueChanges();
     // console.log(this.productss)
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Users").onSnapshot(snap =>{
         this.productss=[]
         snap.docs.forEach(dat => {
@@ -85,51 +85,51 @@ export class UserDetailsPage {
      
   }
 
-  makeAdmin(id){
-    let currentuser = firebase.auth().currentUser;
-    let a = this.userIds.indexOf(id);
-    console.log("data",a, this.productss[a].isAdmin )
-    let f = this.productss[a].isAdmin
+  // makeAdmin(id){
+  //   let currentuser = firebase.auth().currentUser;
+  //   let a = this.userIds.indexOf(id);
+  //   console.log("data",a, this.productss[a].isAdmin )
+  //   let f = this.productss[a].isAdmin
 
 
-    if(f){
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Users").doc(id).update({
-        isAdmin:false
+  //   if(f){
+  //     firebase
+  //     .firestore()
+  //     .collection("Company")
+  //     .doc(currentuser.photoURL)
+  //     .collection("Users").doc(id).update({
+  //       isAdmin:false
         
-      })
-    }else{
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Users").doc(id).update({
-        isAdmin:true
+  //     })
+  //   }else{
+  //     firebase
+  //     .firestore()
+  //     .collection("Company")
+  //     .doc(currentuser.photoURL)
+  //     .collection("Users").doc(id).update({
+  //       isAdmin:true
         
-      })
+  //     })
 
-    }
+  //   }
 
 
 
     
-    console.log("For Admin",id)
-    firebase
-    .firestore()
-    .collection("Company")
-    .doc("COM#" + currentuser.uid)
-    .collection("secAdmins").doc("userIds").update({
-      ids:firestore.FieldValue.arrayUnion(
-        id
-      )
-    })
+  //   console.log("For Admin",id)
+  //   firebase
+  //   .firestore()
+  //   .collection("Company")
+  //   .doc(currentuser.photoURL)
+  //   .collection("secAdmins").doc("userIds").update({
+  //     ids:firestore.FieldValue.arrayUnion(
+  //       id
+  //     )
+  //   })
 
    
    
-  }
+  // }
 
 
   add() {
@@ -159,12 +159,11 @@ export class UserDetailsPage {
     });
     alert.present();
   }
-  
   deleteItem1(value) {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Users" + "/" + value)
+      .doc(currentuser.photoURL + "/" + "Users" + "/" + value)
       .delete();
   }
 
@@ -173,7 +172,7 @@ export class UserDetailsPage {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "non-active" + "/" + value1)
+      .doc(currentuser.photoURL + "/" + "non-active" + "/" + value1)
       .delete();
   }
 
@@ -188,13 +187,13 @@ export class UserDetailsPage {
   }
 
   async showActive(user: User) {
-    let currentUser = firebase.auth().currentUser;
+    let currentuser = firebase.auth().currentUser;
     const events = await firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentUser.uid)
+      .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentUser.uid);
+      .doc(currentuser.uid);
     const dat = await events.get();
     if (!dat.exists) {
       console.log("No such document!");

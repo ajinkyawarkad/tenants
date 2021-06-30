@@ -17,9 +17,20 @@
         <ion-item class="nameLabel" > 
           {{data.first_name}}  {{data.last_name}}
        </ion-item>
-      
+
+       <label style="margin-top: 10px;">Status</label>
+         <ion-item class="itemselect">
+          <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" disabled>
+            <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
+          </ion-select>
+        </ion-item>
+           
+        <label>Remark</label>
+        <ion-item> 
+        <ion-input [(ngModel)]="data.remark" disabled></ion-input>
+      </ion-item>
        
-       <label style="margin-top: 10px;">Action</label> 
+       <label >Action</label> 
         <ion-item class="itemselect"> 
           <ion-select (ionChange)="hide()"  [(ngModel)]="data.action" disabled> 
             <ion-option value="Callback">Callback</ion-option>
@@ -35,17 +46,7 @@
          </ion-item>
          </div>
          
-         <label>Status</label>
-         <ion-item class="itemselect">
-          <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" disabled>
-            <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
-          </ion-select>
-        </ion-item>
-           
-        <label>Remark</label>
-        <ion-item> 
-        <ion-input [(ngModel)]="data.remark" disabled></ion-input>
-      </ion-item>
+        
     
       <label>Tick to complete task </label>
       <ion-checkbox slot="start"  (ionChange)="completeTask(data);"></ion-checkbox>
@@ -59,8 +60,19 @@
           {{data.first_name}}  {{data.last_name}}
        </ion-item>
       
+       <label style="margin-top: 10px;">Status</label>
+       <ion-item class="itemselect">
+        <ion-select placeholder="Select Status" [(ngModel)]="task.status" (ionChange)="Getselected(task.status)" >
+          <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
+        </ion-select>
+      </ion-item>
+         
+      <label>Remark</label>
+      <ion-item> 
+      <ion-input [(ngModel)]="task.remark" ></ion-input>
+    </ion-item>
        
-       <label style="margin-top: 10px;">Action</label> 
+       <label >Action</label> 
         <ion-item class="itemselect" > 
           <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="task.action" > 
             <ion-option value="None">None</ion-option>
@@ -77,17 +89,7 @@
          </ion-item>
          </div>
          
-         <label>Status</label>
-         <ion-item class="itemselect">
-          <ion-select placeholder="Select Status" [(ngModel)]="task.status" (ionChange)="Getselected(task.status)" >
-            <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
-          </ion-select>
-        </ion-item>
-           
-        <label>Remark</label>
-        <ion-item> 
-        <ion-input [(ngModel)]="task.remark" ></ion-input>
-      </ion-item>
+        
 
       <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
          <button  ion-button   color="primary" text-center (click)="Task(task)">Save </button>

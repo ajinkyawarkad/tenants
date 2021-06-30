@@ -51,7 +51,7 @@ export class PendingLeadsPage {
     firebase
     .firestore()
     .collection("Company")
-    .doc("COM#" + currentuser.uid)
+    .doc(currentuser.photoURL)
     .collection("Campaigns")
     .doc(this.cid)
     .collection("leads").where('pending','==',true).onSnapshot((snap)=> {

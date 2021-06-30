@@ -80,7 +80,7 @@ export class HomePage {
       //   }
       let currentUser = firebase.auth().currentUser;
       let doc = use.email;
-      const events = await firebase.firestore().collection('Company').doc("COM#"+currentUser.uid).collection('non-active').doc(currentUser.email)
+      const events = await firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('non-active').doc(currentUser.email)
       const dat = await events.get();
       if(!dat.exists){
         console.log('No such document!');

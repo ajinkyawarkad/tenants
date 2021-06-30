@@ -60,7 +60,7 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Admin")
       .doc(currentuser.uid)
       .onSnapshot((doc) => {
@@ -72,7 +72,7 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -85,7 +85,7 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -100,7 +100,7 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Admin")
       .doc(currentuser.uid)
       .onSnapshot((doc) => {
@@ -198,7 +198,7 @@ export class EditCampaignsDetailsPage {
            firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -210,7 +210,7 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .update(
         Object.assign({
           name: this.value.name,

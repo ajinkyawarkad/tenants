@@ -73,7 +73,7 @@ export class UserlistPage {
             .doc(uid)
             .set(
               {
-                ref:'M#COM#'+currentUser.uid,
+                ref:'M#'+currentUser.photoURL,
                  name: this.employee.name,
                  email:employee.email,
                  last: this.employee.last,
@@ -92,7 +92,7 @@ export class UserlistPage {
           .doc(uid)
           .set(
             {
-               ref:'S#COM#'+currentUser.uid,
+               ref:'U#'+currentUser.photoURL,
                name: this.employee.name,
                last: this.employee.last,
                email:employee.email,

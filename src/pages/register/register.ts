@@ -61,25 +61,27 @@ signup(user:User){
            {
              currentuser.updateProfile({
                displayName: user.name,
-               photoURL: 'COM#'+currentuser.uid ,  // Using As CompoanyId Com#id
+               photoURL: tenantId,  // Using As CompoanyId Com#id
              })
              
  
           //   this.storage.set('name', currentuser.displayName);
              
-             firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
+             firebase.firestore().collection('Company').doc(tenantId)
              .set(Object.assign({
               // company_name:user.company_name,
-               company_id: "COM#"+currentuser.uid ,
-               tenantId:tenantId
+               company_id: tenantId ,
+               compName:user.company_name,
+               adminId:currentuser.uid
+            
                
                })
              )
  
-             firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Admin').doc(currentuser.uid)
+             firebase.firestore().collection('Company').doc(tenantId).collection('Admin').doc(currentuser.uid)
              .set(Object.assign({
                 name: user.name,
-                company_id: "COM#"+currentuser.uid ,
+                company_id: tenantId ,
                 function:true,
                  Managers:[],
                  Users:[]

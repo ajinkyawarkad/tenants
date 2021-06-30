@@ -8,11 +8,11 @@ import { TaskDetailsPage } from "../task-details/task-details";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
-import { Lead  } from "../../models/user";
+import { Lead } from "../../models/user";
 import * as $ from "jquery";
 import { LoadingController } from "ionic-angular";
 import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 
 interface Users {
   name: string;
@@ -20,22 +20,21 @@ interface Users {
 }
 
 @Component({
-  selector: 'page-export',
-  templateUrl: 'export.html',
+  selector: "page-export",
+  templateUrl: "export.html",
 })
 export class ExportPage {
-
   p: number = 1;
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
   public hideMe3 = false;
   public hideMe4 = true;
-  public csvShow= false;
-  public exelShow= false;
-   
+  public csvShow = false;
+  public exelShow = false;
+
   fileName;
-  show= false; //table flag ExelTable
+  show = false; //table flag ExelTable
   pageSize: number = 10;
   last;
   public first: any = [];
@@ -95,16 +94,16 @@ export class ExportPage {
   Action;
   Follow_Up;
   Status;
-  Remark
+  Remark;
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   lead = {} as Lead;
- 
+
   isIndeterminate: boolean;
   masterCheck: boolean;
   checkedCount: number;
-  pro:[];
+  pro: [];
 
   selectedStatus;
 
@@ -112,72 +111,74 @@ export class ExportPage {
     this.value = navParams.get("campd");
     console.log(this.value);
     this.campid = this.value.cid;
-    console.log(this.value)
+    console.log(this.value);
   }
 
   ionViewDidLoad() {
-    let currentuser = firebase.auth().currentUser
-    
-    firebase
-    .firestore()
-    .collection("Company")
-    .doc("COM#" + currentuser.uid)
-    .collection("Campaigns")
-    .doc(this.campid).get().then(doc => {
-      this.pro = doc.data().status
-    })
+    let currentuser = firebase.auth().currentUser;
 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc("COM#" + currentuser.uid)
-    .collection("Campaigns")
-    .doc(this.campid)
-    .onSnapshot((doc) => {
-      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .get()
+      .then((doc) => {
+        this.pro = doc.data().status;
+      });
 
-      this.products = doc.data().CSVfield;
-      for (var a in this.products) {
-        if (this.products[a].indicator !== "None") {
-          this.active.push(this.products[a].indicator);
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .onSnapshot((doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+
+        this.products = doc.data().CSVfield;
+        for (var a in this.products) {
+          if (this.products[a].indicator !== "None") {
+            this.active.push(this.products[a].indicator);
+          }
         }
-      }
-      // console.log("active headers",this.active)
-    });
+        // console.log("active headers",this.active)
+      });
 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc("COM#" + currentuser.uid)
-    .collection("Campaigns")
-    .doc(this.campid)
-    .collection("Fields")
-    .doc("records")
-    .onSnapshot((res) => {
-      let a: any = [];
-      a = res.data();
-      this.tru = [];
-      this.fal = [];
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.campid)
+      .collection("Fields")
+      .doc("records")
+      .onSnapshot((res) => {
+        let a: any = [];
+        a = res.data();
+        this.tru = [];
+        this.fal = [];
 
-      let k = Object.keys(a);
-      let v = Object.values(a);
+        let k = Object.keys(a);
+        let v = Object.values(a);
 
-      for (var i in k) {
-        if (k[i] !== "None") {
-          if (v[i] == true) {
-            this.tru.push(k[i]);
-          } else {
-            for (var e in this.active) {
-              if (this.active[e] == k[i]) {
-                this.fal.push(k[i]);
+        for (var i in k) {
+          if (k[i] !== "None") {
+            if (v[i] == true) {
+              this.tru.push(k[i]);
+            } else {
+              for (var e in this.active) {
+                if (this.active[e] == k[i]) {
+                  this.fal.push(k[i]);
+                }
               }
             }
           }
         }
-      }
-      console.log("True at : ", this.tru);
-      console.log("false at : ", this.fal);
-    });
+        console.log("True at : ", this.tru);
+        console.log("false at : ", this.fal);
+      });
 
     firebase
       .firestore()
@@ -214,12 +215,11 @@ export class ExportPage {
           (this.first_name = res.data().first_name),
           (this.last_name = res.data().last_name),
           (this.middle_name = res.data().middle_name);
-        
       });
 
-    console.log('ionViewDidLoad ExportPage');
+    console.log("ionViewDidLoad ExportPage");
   }
- 
+
   showhide(name, ev) {
     let currentUser = firebase.auth().currentUser;
     firebase
@@ -234,70 +234,70 @@ export class ExportPage {
         [name]: ev.value,
       });
   }
-  
+
   showOptions(status) {
-    this.filled = []
+    this.filled = [];
 
-    let currentuser=firebase.auth().currentUser;
-    this.selectedStatus = status
+    let currentuser = firebase.auth().currentUser;
+    this.selectedStatus = status;
 
-    if(status == "All"){
+    if (status == "All") {
       firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Campaigns")
-      .doc(this.campid)
-      .collection("leads").get().then(data =>{
-        data.docs.forEach(snap =>
-          {
-            this.filled.push(snap.data())            
-          })
-      })
-    }else{
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads")
+        .get()
+        .then((data) => {
+          data.docs.forEach((snap) => {
+            this.filled.push(snap.data());
+          });
+        });
+    } else {
       firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Campaigns")
-      .doc(this.campid)
-      .collection("leads").where('status','==',status).get().then(data =>{
-        data.docs.forEach(snap =>
-          {
-            this.filled.push(snap.data())
-          })
-      })
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads")
+        .where("status", "==", status)
+        .get()
+        .then((data) => {
+          data.docs.forEach((snap) => {
+            this.filled.push(snap.data());
+          });
+        });
     }
-     this.csvShow=true
-     this.exelShow=true
+    this.csvShow = true;
+    this.exelShow = true;
 
-     console.log("filtered",this.filled)
+    console.log("filtered", this.filled);
   }
 
-  
-  downloadCsv(){
-    this.fileName= this.value.name+'.csv';
-  
-    let element = document.getElementById('details');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    XLSX.writeFile(wb, this.fileName); 
-  }
+  downloadCsv() {
+    this.fileName = this.value.name + ".csv";
 
-  
-  downloadExel() {
-    this.fileName= this.value.name+'.xlsx';
-  
-    let element = document.getElementById('details');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
+    let element = document.getElementById("details");
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
     XLSX.writeFile(wb, this.fileName);
- 
+  }
+
+  downloadExel() {
+    this.fileName = this.value.name + ".xlsx";
+
+    let element = document.getElementById("details");
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    XLSX.writeFile(wb, this.fileName);
   }
 }

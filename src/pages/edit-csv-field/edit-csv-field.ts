@@ -75,7 +75,7 @@ export class EditCsvFieldPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCsvFieldPage');
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.campid).onSnapshot((doc) => {
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.campid).onSnapshot((doc) => {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       console.log(source, " data: "); 
       this.products =  doc.data().CSVfield ; 

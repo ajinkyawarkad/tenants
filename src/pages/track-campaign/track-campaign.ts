@@ -76,7 +76,7 @@ export class TrackCampaignPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(currentuser.photoURL)
       .collection("Admin")
       .doc(cu)
       .get()
@@ -87,7 +87,7 @@ export class TrackCampaignPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(currentuser.photoURL)
       .collection("Admin")
       .doc(cu)
       .get()
@@ -96,7 +96,7 @@ export class TrackCampaignPage {
         firebase
           .firestore()
           .collection("Company")
-          .doc("COM#" + currentuser.uid)
+          .doc(currentuser.photoURL)
           .collection("Campaigns")
           .get()
           .then((doc) => {
@@ -108,7 +108,7 @@ export class TrackCampaignPage {
               firebase
                 .firestore()
                 .collection("Company")
-                .doc("COM#" + currentuser.uid)
+                .doc(currentuser.photoURL)
                 .collection("Campaigns")
                 .doc(snap.data().cid)
                 .collection("leads")
@@ -118,7 +118,7 @@ export class TrackCampaignPage {
                     firebase
                       .firestore()
                       .collection("Company")
-                      .doc("COM#" + currentuser.uid)
+                      .doc(currentuser.photoURL)
                       .collection("Campaigns")
                       .doc(snap.data().cid)
                       .collection("leads")
@@ -138,7 +138,7 @@ export class TrackCampaignPage {
                                 firebase
                                 .firestore()
                                 .collection("Company")
-                                .doc("COM#" + currentuser.uid)
+                                .doc(currentuser.photoURL)
                                 .collection("Campaigns")
                                 .doc(snap.data().cid)
                                 .collection("leads").doc(snap2.data().uid).set({
@@ -156,7 +156,7 @@ export class TrackCampaignPage {
                                 firebase
                                 .firestore()
                                 .collection("Company")
-                                .doc("COM#" + currentuser.uid)
+                                .doc(currentuser.photoURL)
                                 .collection("Campaigns")
                                 .doc(snap.data().cid)
                                 .collection("leads").doc(snap2.data().uid).set({
@@ -173,7 +173,7 @@ export class TrackCampaignPage {
                         firebase //===============Writing Counts back to DB================
                           .firestore()
                           .collection("Company")
-                          .doc("COM#" + currentuser.uid)
+                          .doc(currentuser.photoURL)
                           .collection("Campaigns")
                           .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
                           .update({
@@ -189,7 +189,7 @@ export class TrackCampaignPage {
                   firebase
                     .firestore()
                     .collection("Company")
-                    .doc("COM#" + currentuser.uid)
+                    .doc(currentuser.photoURL)
                     .collection("Campaigns")
                     .doc(snap.data().cid)
                     .update({
@@ -213,7 +213,7 @@ export class TrackCampaignPage {
     loading.present();
     this.userInfo = this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Campaigns");
     this.products = this.userInfo.valueChanges();
     this.pc = this.products;
@@ -269,7 +269,7 @@ export class TrackCampaignPage {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(
         Object.assign({
           active: false,
@@ -306,7 +306,7 @@ export class TrackCampaignPage {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(
         Object.assign({
           active: true,
@@ -353,14 +353,14 @@ export class TrackCampaignPage {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
       .delete();
 
     for (var i in Sr_id) {
       firebase
         .firestore()
         .collection("Company")
-        .doc("COM#" + currentuser.uid)
+        .doc(currentuser.photoURL)
         .collection("Users")
         .doc(Sr_id[i])
         .collection("CampsAsso")

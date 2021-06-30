@@ -125,81 +125,67 @@ export class CreateLeadProfilePage {
     console.log("ionViewDidLoad CreateLeadProfilePage");
   }
 
+  removeField(valuee, att) {
+    console.log(valuee, att);
 
-
-
-
-  removeField(valuee ,att) {
-    console.log(valuee , att);
-    
     let b = att;
     if (b) {
-     
       let s = this.arrFilelds.includes(att);
-     
-     
+
       switch (s) {
         case true:
           let f;
-          let a ;
-         
+          let a;
 
           // let f = this.dummy.includes({indicator:att});
-          for(var t in this.dummy){
-            if(this.dummy[t].indicator == att){
-              f= true
-              a = t
+          for (var t in this.dummy) {
+            if (this.dummy[t].indicator == att) {
+              f = true;
+              a = t;
               break;
-
-            }else{
-              f = false
-              
-              
+            } else {
+              f = false;
             }
-
           }
-          console.log("fa",f)
-            switch(f){
-              case false:
-                // this.dummy.push(att)
-                this.dummy[valuee].indicator = att
-                console.log("false Dummy", this.dummy)
-                console.log("False Anarray", this.anArray);
-                break;
-              case true:
-                alert("Duplicate Fields not allowed")
-                
-                console.log("indessss", a)
+          console.log("fa", f);
+          switch (f) {
+            case false:
+              // this.dummy.push(att)
+              this.dummy[valuee].indicator = att;
+              console.log("false Dummy", this.dummy);
+              console.log("False Anarray", this.anArray);
+              break;
+            case true:
+              alert("Duplicate Fields not allowed");
 
-                this.dummy[a].indicator = ""
-                this.anArray[a].indicator = ""
-                this.anArray[valuee].indicator = att
-                this.dummy[valuee].indicator = att
+              console.log("indessss", a);
 
-                console.log("true Dummy", this.dummy)
-                console.log("true anArray", this.anArray);
+              this.dummy[a].indicator = "";
+              this.anArray[a].indicator = "";
+              this.anArray[valuee].indicator = att;
+              this.dummy[valuee].indicator = att;
 
-                // let a = this.dummy.indexOf(att);
-            }
-            
+              console.log("true Dummy", this.dummy);
+              console.log("true anArray", this.anArray);
 
-        
-          
+            // let a = this.dummy.indexOf(att);
+          }
+
           // this.arrFilelds.splice(a, 1);
           // this.dummy.push(att);
           // for (var u in this.anArray) {
           //   if (this.anArray[u].indicator == "") {
           //     this.anArray[u].indicator = att;
-          //    
+          //
           //     break;
           //   } else {
           //   }
           // }
-         
+
           break;
 
         case false:
-          alert("Something went  Wrong")
+          alert("Something went  Wrong");
           break;
       }
     } else {
@@ -239,7 +225,6 @@ export class CreateLeadProfilePage {
     // }
     // console.log("ATTT", this.arrFilelds)
   }
-
 
   onFileSelect(input: HTMLInputElement) {
     this.headerRow = [];
@@ -286,7 +271,7 @@ export class CreateLeadProfilePage {
       // console.log(variable)
       this.anArray.push({ value: variable, indicator: "" }); //Creating CsvFields Structure
       this.arrDummy.push({ value: variable, indicator: "" });
-     this.dummy.push({indicator: ""})
+      this.dummy.push({ indicator: "" });
     }
     console.log("aaaaaaaa", this.dummy);
   }
@@ -430,7 +415,6 @@ export class CreateLeadProfilePage {
             //   campid,
             // });
             this.navCtrl.push(HomePage);
-
           },
         },
         {
@@ -466,7 +450,7 @@ export class CreateLeadProfilePage {
         firebase
           .firestore()
           .collection("Company")
-          .doc("COM#" + currentUser.uid)
+          .doc(currentUser.photoURL)
           .collection("Campaigns")
           .doc(this.campid)
           .onSnapshot((doc) => {

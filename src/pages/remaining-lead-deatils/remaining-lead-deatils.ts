@@ -94,7 +94,7 @@ export class RemainingLeadDeatilsPage {
       buttons: [
         {text: 'OK',
                 handler: data => {
-                  this.navCtrl.push(HomePage)
+                 // this.navCtrl.push(HomePage)
                 }
                 
               },
@@ -195,13 +195,13 @@ export class RemainingLeadDeatilsPage {
     //   this.t.push({"action":"Created At","val":as.createdAt.toDate()})
     // }
    
-   
+    let currentuser = firebase.auth().currentUser
     let cu = firebase.auth().currentUser.uid;
 
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -214,7 +214,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc("COM#" + cu)
+            .doc(currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -235,7 +235,7 @@ export class RemainingLeadDeatilsPage {
       firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -248,7 +248,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc("COM#" + cu)
+            .doc(currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")

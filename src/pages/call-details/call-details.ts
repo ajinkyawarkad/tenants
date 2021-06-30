@@ -31,10 +31,11 @@ export class CallDetailsPage {
     console.log("ionViewDidLoad CallDetailsPage");
 
     let cu = firebase.auth().currentUser.uid;
+    let cup =  firebase.auth().currentUser
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(cup.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -47,7 +48,7 @@ export class CallDetailsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc("COM#" + cu)
+            .doc(cup.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
