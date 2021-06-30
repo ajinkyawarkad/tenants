@@ -159,6 +159,7 @@ export class UserDetailsPage {
     });
     alert.present();
   }
+  
   deleteItem1(value) {
     let currentuser = firebase.auth().currentUser;
     this.afs

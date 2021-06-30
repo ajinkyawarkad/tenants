@@ -80,6 +80,18 @@ export class LoginPage {
                 this.storage.set('name', currentuser.displayName) ; 
                 this.storage.set('email', currentuser.email) ;
                 this.navCtrl.setRoot(HomeUserPage);
+                break;
+                // case " M":
+                //   this.storage.set('name', currentuser.displayName) ; 
+                //   this.storage.set('email', currentuser.email) ;
+                //   this.storage.set('cuid',a[1]+'#'+a[2])
+                //   console.log('Email is verified');
+                //   console.log(data);
+                //   console.log(a[0]);
+                //    this.navCtrl.setRoot(HomeManagerPage);
+                  //  break;
+
+              
 
             }
           

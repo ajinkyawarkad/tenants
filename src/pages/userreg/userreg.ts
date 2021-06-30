@@ -7,10 +7,10 @@ import {
 } from "ionic-angular";
 import { LoginPage } from "../login/login";
 import { User } from "../../models/user";
-import firebase from "firebase";
+import firebase, { firestore } from "firebase";
 import { createRendererType2 } from "@angular/core/src/view";
 
-@IonicPage()
+
 @Component({
   selector: 'page-userreg',
   templateUrl: 'userreg.html',
@@ -39,13 +39,17 @@ export class UserregPage {
     idc = st.split("#");
     let compIdc= idc[1]+'#'+idc[2];
     if (user.email && user.password && user.name && user.compId != null) {
+     
 
+      
       firebase.firestore().collection("Tenants").doc(user.email).set({
-        compName:"com",
-        tenantId:user.company_name
-
-
-      },{merge:true})
+        details:firestore.FieldValue.arrayUnion({
+         compName:"aajjs",
+         tenantId:user.company_name
+ 
+        })
+ 
+       },{merge:true})
 
 
       firebase
