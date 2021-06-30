@@ -411,18 +411,18 @@ export class LeadsDetailsPage {
     console.log("AAAAA", this.array);
     let i, j;
     for (i = 0; i < this.array.length; i++) {
-      // firebase
-      //   .firestore()
-      //   .collection("Company")
-      //   .doc(currentuser.photoURL)
-      //   .collection("Campaigns")
-      //   .doc(this.value.cid)
-      //   .collection("leads")
-      //   .doc(this.array[i])
-      //   .update({
-      //     SR_id: dataa.id,
-      //     SR_name: dataa.name + " " + dataa.last,
-      //   });
+      firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.value.cid)
+        .collection("leads")
+        .doc(this.array[i])
+        .update({
+          SR_id: dataa.id,
+          SR_name: dataa.name + " " + dataa.last,
+        });
     }
     let alert = this.alertCtrl.create({
       title: "Success",
