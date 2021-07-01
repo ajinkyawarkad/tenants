@@ -44,14 +44,14 @@
   <label >Manager</label>
   <ion-item style="width: 218%;margin-left: -6px;">
   <ion-select [(ngModel)]="product" >
-  <ion-option *ngFor="let product of products" [value]="product">{{product.name}}&nbsp;{{product.last}}</ion-option>
+  <ion-option *ngFor="let product of products" [value]="product">{{product.name}}</ion-option>
   </ion-select>
   </ion-item>
   
   <label >Sale Representative</label>
   <ion-item style="width: 218%;margin-left: -6px;">
   <ion-select multiple [(ngModel)]="prod" >
-  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
   </ion-select>
   </ion-item>
   
@@ -85,7 +85,7 @@
   <th>Action</th>
   </tr>
   
-  <tr >
+  <tr>
   <td>
   <ion-input class="status" placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
   <td><select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action1">

@@ -662,6 +662,7 @@ margin-right: -17px
 		  position:relative;
 		padding: 40px;
 		color: #fff;
+		height: 84%;
 		}
 		.close-button {
 		background:none;
@@ -736,7 +737,7 @@ margin-right: -17px
 		
 			  border: 2px solid #488aff;
 			//margin-bottom: 16px;
-			padding: 10px; 
+			padding: 2px; 
 			-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			-moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
@@ -745,6 +746,16 @@ margin-right: -17px
 		border-radius: 5px;
 		height: 100%;
 		width: 100%;
+	}
+
+	.card-md {
+		margin: -37px;
+		border-radius: 2px;
+		width: calc(100% - 20px);
+		font-size: 0px;
+		background: #fff;
+	//	-webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+	//	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 	}
 	.tableFixHead  { 
 		overflow-x: scroll;

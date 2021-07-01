@@ -101,7 +101,7 @@
 		<ion-item style="width: 30%;border: 1px solid gray;">
 		   <ion-label>Sale Representative</ion-label>
 			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
-			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
 		   </ion-select>
 		</ion-item>                     
     </div>

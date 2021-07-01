@@ -217,7 +217,6 @@ export class UserDetailsPage {
             [this.employee.name]: {
               name: this.employee.name,
               role: this.employee.role,
-              last: this.employee.last,
             },
           },
         });

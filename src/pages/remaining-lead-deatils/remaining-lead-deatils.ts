@@ -95,8 +95,7 @@ export class RemainingLeadDeatilsPage {
         {text: 'OK',
                 handler: data => {
                  // this.navCtrl.push(HomePage)
-                }
-                
+                }   
               },
              
             ]
@@ -195,26 +194,28 @@ export class RemainingLeadDeatilsPage {
     //   this.t.push({"action":"Created At","val":as.createdAt.toDate()})
     // }
    
-    let currentuser = firebase.auth().currentUser
+   
     let cu = firebase.auth().currentUser.uid;
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc("COM#" + cu)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
       .doc(this.data.uid)
       .collection("History")
       .doc("Activity1")
+      // .where("Completed","==","true")
       .get()
+      
       .then((doc) => {
         if (doc.data()) {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentuser.photoURL)
+            .doc("COM#" + cu)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -235,7 +236,7 @@ export class RemainingLeadDeatilsPage {
       firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc("COM#" + cu)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -248,7 +249,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentuser.photoURL)
+            .doc("COM#" + cu)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")

@@ -71,19 +71,23 @@ export class CreateCampaignPage {
   goTo() {
     console.log(this.anArray);
   }
+
   Add() {
     if (this.anArray.length < 8) {
-      this.anArray.push({ status: "", action: "" });
+      this.anArray.push({ status: "", action: "None" });
     } else {
       alert("you reached to limit.. ");
     }
   }
+
   remove(idx) {
     this.anArray.splice(idx, 1);
   }
   ionViewDidLoad() {
     this.sts.sts1 = "Interested";
     this.sts.sts2 = "Not-Interested";
+    this.sts.action1 = "None"
+    this.sts.action2 ="None"
     console.log("ionViewDidLoad CreateCampaignPage");
     let currentuser = firebase.auth().currentUser;
 
@@ -123,7 +127,7 @@ export class CreateCampaignPage {
     let y = [];
     for (var z in ids) {
       x.push(ids[z].id);
-      y.push(ids[z].name + " " + ids[z].last);
+      y.push(ids[z].name);
     }
     console.log("DAta", y);
 

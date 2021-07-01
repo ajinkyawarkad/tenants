@@ -24,11 +24,19 @@
         </td>
         <td>
           <div>
-            <select [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)">
-
-              <option *ngFor="let produ of anArray">{{produ.indicator}}</option>
-              <option *ngFor="let produ1 of arrFilelds">{{produ1}}</option>
+            <select *ngIf="anArray[idx].indicator !== 'Select'" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+              
+              <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
+              
+               
             </select>
+        
+            <select *ngIf="anArray[idx].indicator == 'Select'" style="border : 1px solid red;" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+              
+              <option *ngFor="let produ of arrFilelds">{{produ}}</option>      
+               
+            </select>
+        
           </div>
 
 

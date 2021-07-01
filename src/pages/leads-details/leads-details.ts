@@ -175,7 +175,7 @@ export class LeadsDetailsPage {
           .then((doc) => {
             test = doc.data().Users;
             for (var i in test) {
-              let nam = test[i].name + " " + test[i].last;
+              let nam = test[i].name;
               let name = nam;
               this.pro.push(name);
             }
@@ -421,7 +421,7 @@ export class LeadsDetailsPage {
         .doc(this.array[i])
         .update({
           SR_id: dataa.id,
-          SR_name: dataa.name + " " + dataa.last,
+          SR_name: dataa.name ,
         });
     }
     let alert = this.alertCtrl.create({
@@ -814,7 +814,7 @@ export class LeadsDetailsPage {
       .collection("Campaigns")
       .doc(this.value.cid)
       .collection("leads")
-      .orderBy("datetime")
+      //.orderBy("datetime")
       .limit(this.page)
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {

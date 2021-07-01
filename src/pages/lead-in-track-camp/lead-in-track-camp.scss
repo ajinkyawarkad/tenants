@@ -24,6 +24,7 @@ page-lead-in-track-camp {
 		display: flex;
 		flex-wrap: wrap;
 	  }
+	
 	  fieldset {
 		//background-color: #f5f5f5;
 		border: 1px solid #ccc;
@@ -42,7 +43,7 @@ page-lead-in-track-camp {
 		flex-wrap: wrap;
 		/* justify-content: flex-end; */
 	  }
-	  label, input, button {
+	  label, input, button,select {
 		display: block;
 	  }
 	  label {

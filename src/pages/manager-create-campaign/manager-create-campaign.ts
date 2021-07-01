@@ -124,7 +124,7 @@ export class ManagerCreateCampaignPage {
     let y=[];
     for(var z in ids){
       x.push(ids[z].id)
-      y.push(ids[z].name+" "+ids[z].last)
+      y.push(ids[z].name)
 
 
     }

@@ -93,7 +93,7 @@ console.log("SR",this.productss) ;
         .set(Object.assign({
         leads:this.anArray2,
         SR_id:data.id,
-        SR_name:data.name+" "+data.last,
+        SR_name:data.name,
         uid:uuid1,
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
         }  

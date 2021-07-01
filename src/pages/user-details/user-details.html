@@ -40,8 +40,7 @@
           <table >
             <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Full Name</th>
               <th>Role</th>
               <th>Email</th>
               <th>Action</th>
@@ -53,7 +52,6 @@
               <tr *ngFor="let product of productss | search1 :term">
                 <td style="text-decoration: underline;color: cornflowerblue;" (click)="edit(product)">{{product.name}}
                 </td>
-                <td>{{product.last}}</td>
                 <td>{{product.role}}</td>
                 <td>{{product.email}}</td>
                 
@@ -87,7 +85,6 @@
             <thead>
             <tr>
               <th>First Name</th>
-              <th>Last Name</th>
               <th>Role</th>
               <th>Email</th>
               <th>Action</th>
@@ -98,7 +95,6 @@
             <tbody>
               <tr *ngFor="let product of products | async | search1 :term ">
                 <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
-                <td>{{product.last}}</td>
                 <td>{{product.role}}</td>
                 <td>{{product.email}}</td>
 

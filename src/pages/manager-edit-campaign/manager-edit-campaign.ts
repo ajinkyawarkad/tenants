@@ -109,7 +109,7 @@ export class ManagerEditCampaignPage {
         console.log(source, " data: ");
         this.productsss = doc.data().Users;
         for (var i in this.productsss) {
-          let n = this.productsss[i].name + " " + this.productsss[i].last;
+          let n = this.productsss[i].name;
           for (var x in this.anArray) {
             if (this.anArray.includes(n) === false) {
               this.anArray2.push(n)
@@ -174,7 +174,7 @@ export class ManagerEditCampaignPage {
       x = uiArr[a].split(" ")[0];
       y = uiArr[a].split(" ")[1];
       console.log("first names",x)
-      console.log("last names",y)
+      // console.log("last names",y)
 
       firebase
         .firestore()
@@ -182,7 +182,7 @@ export class ManagerEditCampaignPage {
         .doc(currentuser.photoURL)
         .collection("Users")
         .where("name", "==", x)
-        .where("last", "==", y)
+        // .where("last", "==", y)
         .get()
         .then((dat) => {
           dat.docs.forEach((snap) => {

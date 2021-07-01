@@ -100,7 +100,7 @@ export class UserregPage {
                           Managers: firebase.firestore.FieldValue.arrayUnion({
                             id: currentuser.uid,
                             name: name[0],
-                            last: name[1],
+                            // last: name[1],
                             role: "Manager",
                           }),
                         });
@@ -114,7 +114,7 @@ export class UserregPage {
                           email: currentuser.email,
                           id: currentuser.uid,
                           name: name[0],
-                          last: name[1],
+                          // last: name[1],
                           role: "Manager",
                           function: true,
                         });
@@ -165,7 +165,7 @@ export class UserregPage {
                           Users: firebase.firestore.FieldValue.arrayUnion({
                             id: currentuser.uid,
                             name: name[0],
-                            last: name[1],
+                            // last: name[1],
                             role: "Sale Representative",
                           }),
                         });
@@ -179,7 +179,7 @@ export class UserregPage {
                           email: currentuser.email,
                           id: currentuser.uid,
                           name: name[0],
-                          last: name[1],
+                          // last: name[1],
                           role: "Sale Representative",
                           function: true,
                         });

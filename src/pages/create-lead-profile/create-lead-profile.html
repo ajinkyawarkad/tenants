@@ -22,7 +22,7 @@
       <h6 >Select file to upload data</h6>
 
   <div class="form-group" >
-    <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">  
+    <input type="file"  (change)="onFileSelect($event.target)" id="myfile" accept=".csv">  
   </div>
  
   <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
@@ -35,48 +35,25 @@
   <tr *ngFor="let att of anArray; let idx = index">
   <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
   <td>
-  <!-- <ion-select [(ngModel)]="anArray[idx].indicator" (ionChange)="status(anArray[idx].indicator)" >
-    <ion-option *ngFor="let att of arrFilelds;" [value]="anArray[idx].indicator">{{att}}</ion-option>
-  </ion-select> -->
-
+ 
   <div>
-    <select [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+    <select *ngIf="anArray[idx].indicator !== 'Select'" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
       
       <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
-      <!-- <option *ngFor="let produ2 of dummy">{{produ2}}</option> --> 
-        <!-- <option >Select</option>
-        <option [disabled]="isEnabled" value="None">None</option> -->
-        <!-- <option [disabled]="isEnabled" value="Id">Id</option>
-        <option [disabled]="isEnabled" value="Salutation">Salutation</option>
-        <option [disabled]="isEnabled" value="first_name">first_name</option> -->
-        <!-- <ion-option id="middle_name">middle_name</option>
-        <ion-option id="last_name">last_name</ion-option> 
-      -->
+      
        
     </select>
+
+    <select *ngIf="anArray[idx].indicator == 'Select'" style="border : 1px solid red;" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+      
+      <option *ngFor="let produ of arrFilelds">{{produ}}</option>      
+       
+    </select>
+
   </div>
   
-   
-  <!-- 
-  <option >Country</option>
-  <option >Gender</option>
-  <option >Company_Name</option>
-  <option >Position</option>
-  <option >Profile_URL</option>
-  <option >Date_of_Birth</option>
-  <option >Apartment</option>
-  <option >Zip</option>
-  <option >Fax</option>
-  <option >Price</option>
-  <option >Stage</option>
-  <option >Quality</option>
-  <option >Currency</option>
-  <option >Other_Contact</option> -->
-  
   </td>
-  <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
-  <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td> -->
-  <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+ 
   
   </tr >  
   
@@ -84,7 +61,7 @@
   
   
   </table>
-  <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="savefield()">Save</button>
+  <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" *ngIf="uploadFlagg" (click)="savefield()">Save</button>
   <button ion-button type="submit" (click)="upload()" *ngIf="uploadFlag">Upload</button>
     </div>
 

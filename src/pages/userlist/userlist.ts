@@ -38,8 +38,7 @@ export class UserlistPage {
     if (
       employee.email &&
       employee.role &&
-      employee.name &&
-      employee.last != null
+      employee.name != null
     ) {
       this.storage.get("cuid").then((val) => {
         console.log("id is", val);
@@ -76,7 +75,7 @@ export class UserlistPage {
                 ref:'M#'+currentUser.photoURL,
                  name: this.employee.name,
                  email:employee.email,
-                 last: this.employee.last,
+                // last: this.employee.last,
                 role: this.employee.role,
                 id:uid
                 
@@ -94,7 +93,7 @@ export class UserlistPage {
             {
                ref:'U#'+currentUser.photoURL,
                name: this.employee.name,
-               last: this.employee.last,
+              // last: this.employee.last,
                email:employee.email,
                role: this.employee.role,
                id:uid
@@ -111,7 +110,7 @@ export class UserlistPage {
             {
               text: "OK",
               handler: (data) => {
-               // this.navCtrl.push(HomePage);
+               this.navCtrl.push(HomePage);
               },
             },
           ],
