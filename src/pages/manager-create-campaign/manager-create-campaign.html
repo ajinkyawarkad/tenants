@@ -13,96 +13,94 @@
   
   <div class="container">
 
-   
-
-  <ion-slides #slides style="width:100%;margin-top: -11%;">
+  <ion-slides #slides class="mainslide">
   
   <ion-slide >
-
-    <div class="progress-bar">
-      <div class="progress-step is-active">
-        <div class="step-count">1</div>
-        <div class="step-description">Basic Details</div>
-      </div>
-      <div class="progress-step">
-        <div class="step-count">2</div>
-        <div class="step-description">Create Status</div>
-      </div>
-   </div>
   
-        <p>Setup your sales campaigns</p>
-        <!-- <p style="color: darkred;">This is step 1</p> -->
+  <div class="progress-bar">
+  <div class="progress-step is-active">
+  <div class="step-count">1</div>
+  <div class="step-description">Basic Details</div>
+  </div>
+  <div class="progress-step">
+  <div class="step-count">2</div>
+  <div class="step-description">Create Status</div>
+  </div>
+  </div>
+  
+  <p>Setup your sales campaigns</p>
 
-          <label >Name</label>
-          <div>
-            <ion-input type="text" required  [(ngModel)]="camp.name" ></ion-input>
-            </div>
-           
-            <label >Set Goals</label>
-            <div>
-            <ion-input type="text" required [(ngModel)]="camp.goals"></ion-input>
-            </div>
-           
-            <label >Manager</label>
-            <ion-item style="width: 218%;margin-left: -6px;">
-            <ion-select [(ngModel)]="product" >
-            <ion-option *ngFor="let product of products" [value]="product">{{product.name}}&nbsp;{{product.last}}</ion-option>
-            </ion-select>
-            </ion-item>
-          
-            <label >Sale Representative</label>
-            <ion-item style="width: 218%;margin-left: -6px;">
-            <ion-select multiple [(ngModel)]="prod" >
-            <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
-            </ion-select>
-            </ion-item>
-       
-      
+  
+  <label >Name</label>
+  <div>
+  <ion-input type="text" required [(ngModel)]="camp.name" ></ion-input>
+  </div>
+  
+  <label >Set Goals</label>
+  <div>
+  <ion-input type="text" required [(ngModel)]="camp.goals"></ion-input>
+  </div>
+  
+  <label >Manager</label>
+  <ion-item style="width: 218%;margin-left: -6px;">
+  <ion-select [(ngModel)]="product" >
+  <ion-option *ngFor="let product of products" [value]="product">{{product.name}}</ion-option>
+  </ion-select>
+  </ion-item>
+  
+  <label >Sale Representative</label>
+  <ion-item style="width: 218%;margin-left: -6px;">
+  <ion-select multiple [(ngModel)]="prod" >
+  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
+  </ion-select>
+  </ion-item>
+  
+  
   <button ion-button type="button" (click)="slideToSlide()">Save & Next</button>
   
   </ion-slide>
   
-  <ion-slide style="height: 100%;overflow: auto; overflow-x: hidden; ">
-    <div class="progress-bar">
-      <div class="progress-step ">
-        <div class="step-count">1</div>
-        <div class="step-description">Basic Details</div>
-      </div>
-      <div class="progress-step is-active">
-        <div class="step-count">2</div>
-        <div class="step-description">Create Status</div>
-      </div>
-   </div>
+  <ion-slide >
+  <div class="progress-bar">
+  <div class="progress-step ">
+  <div class="step-count">1</div>
+  <div class="step-description">Basic Details</div>
+  </div>
+  <div class="progress-step is-active">
+  <div class="step-count">2</div>
+  <div class="step-description">Create Status</div>
+  </div>
+  </div>
   
-    <div class="upper">
-    <p>Setup your sale status</p>
-    <!-- <p style="color: darkred;">This is final step </p> -->
-    </div>
-
-    
+  <div class="upper">
+  <p>Setup your sale status</p>
+  <!-- <p style="color: darkred;">This is final step </p> -->
+  </div>
+  
+  
   <table >
-   
+  
   <tr style="height: 28px;font-size:15px;">
-  <th >Status</th>
+  <th>Status</th>
   <th>Action</th>
   </tr>
-
-  <tr >
-  <td> 
-    <ion-input class="status" placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
-  <td><select class="selectoptionn" (click)="checkAlert($event)"  type="text" [(ngModel)]="sts.action1">
-  <option>None</option>
-  <option>Inform Manager</option>
-  <option >Remove client from profile</option>
+  
+  <tr>
+  <td>
+  <ion-input class="status" placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
+  <td><select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action1">
+    <option value="None" selected>None</option>
+    <option value="Inform Manager">Inform Manager</option>
+    <option value="Remove client from profile">Remove client from profile</option>
   </select>
- 
+  
   </td>
   
   </tr>
   <tr >
-  <td> <ion-input class="status"  placeholder="Not Interested" [(ngModel)]="sts.sts2" type="text" name="pname[]"></ion-input></td>
+  <td> <ion-input class="status" placeholder="Not Interested" [(ngModel)]="sts.sts2" type="text" name="pname[]"></ion-input></td>
   <td><select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action2" >
-  <option>None</option>
+  <option selected>None</option>
   <option>Inform Manager</option>
   <option >Remove client from profile</option>
   </select>
@@ -110,29 +108,29 @@
   </tr>
   
   <tr *ngFor="let att of anArray; let idx = index;">
-  <td>
-  <ion-input class="status" placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
-  </td>
+    <td>
+    <ion-input class="status" placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
+    </td>
   <td >
-  <select class="selectoptionn" (click)="checkAlert($event)" type="text"  [(ngModel)]="anArray[idx].action">
-  <option>None</option>
-  <option>Inform Manager</option>
-  <option >Remove client from profile</option>
-  </select>
+    <select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="anArray[idx].action">
+      <option selected>None</option>
+      <option>Inform Manager</option>
+      <option >Remove client from profile</option>
+    </select>
   </td>
   <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
   
   </tr >
   
   </table>
-  <div style="float:left;">
-  <button color="secondary" ion-button (click)="Add()">Add More</button>
-  </div>
-<br>
+    <div style="float:left;">
+      <button color="secondary" ion-button (click)="Add()">Add More</button>
+    </div>
+  <br>
   <div style="float:right;">
-  <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
-  <button ion-button id="nextBtn" (click)= "insertUser(camp,prod,product);" >Save</button>
-  <button ion-button id="nextBtn" (click)= "temp()" >Temp</button>
+    <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
+    <button ion-button id="nextBtn" (click)= "insertUser(camp,prod,product);" >Save</button>
+    <!-- <button ion-button id="nextBtn" (click)= "temp()" >Temp</button> -->
   </div>
   
   

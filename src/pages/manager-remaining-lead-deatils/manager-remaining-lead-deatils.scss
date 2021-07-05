@@ -1,0 +1,79 @@
+page-manager-remaining-lead-deatils {
+    .container {
+		border-radius: 5px;
+		background-color:#fafafa;
+		height: 100%; 
+        position: fixed;
+        z-index: 1;	
+	}
+    .label-md {
+        margin: 16px -159px 13px 0;
+    }
+    .activity{
+        
+        float:left;
+        color:blue;
+        text-decoration: underline;
+        margin-left: 44%;
+    }
+
+    .dot {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+    //   .segment-ios .segment-button {	
+    //     height: 3.6rem;
+    //     background-color: white;
+    //     text-align: center;
+    //     width: 250%;
+    // }
+    .text-input-md {
+        margin: -1px 8px;
+        padding: 0;
+        width: calc(100% - 8px - 8px);
+    }
+
+    ion-content
+	{
+		font-family: 'roboto';
+		font-size: 14px;	
+	}
+    .left {
+        left: 10px;
+        width:40%;
+      }
+
+    .right {
+        right: 10px;
+        width:57%;
+      }
+      
+     .in{
+        height: 35px;
+        margin-top: -9px;
+     }
+    .divider{
+        background-color:#fafafa;
+    }
+    table{
+        width:90%;
+        margin-top: 3%;
+        margin-left:5%;
+        background-color: white;
+        border: 1px solid #ddd !important;
+    }
+    tr:hover {
+        background-color:#f5f5f5;
+    }
+    td { 
+        padding: 8px;  
+        text-align: left; 
+        border-bottom: 1px solid rgb(221, 220, 220); 
+        
+        
+    }
+
+}

@@ -1,0 +1,39 @@
+
+<ion-header>
+
+  <ion-navbar>
+  <ion-title>Edit Lead Details</ion-title>
+  </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+  <div class="container">
+  
+
+    <fieldset>  
+
+      <div class="field-wrapper" *ngFor="let product of field; let idx = index; let even = even;">
+        <label class="sr-only">{{field[idx].action}}</label>
+        <input class="form-element" [(ngModel)]="field[idx].value" type="text" >
+      </div>
+
+      <div class="field-wrapper" *ngFor="let n of non; let idx = index;"> 
+      <label class="sr-only">{{non[idx].value}}</label>
+      <input class="form-element" [(ngModel)]="non[idx].action" type="text" >
+      </div>
+    </fieldset>
+ 
+  
+
+  <ion-list>
+  <button ion-button color="primary" (click)="update()">
+  Save Changes
+  </button>
+  </ion-list>
+  
+  </div>
+  
+  
+  </ion-content>

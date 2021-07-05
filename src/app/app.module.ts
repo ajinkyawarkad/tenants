@@ -2,10 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import {NgxPaginationModule} from 'ngx-pagination'; 
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReportPage } from '../pages/report/report';
@@ -17,9 +15,7 @@ import { RegisterPage } from '../pages/register/register';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserLicensesPage } from '../pages/user-licenses/user-licenses';
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
-
 import { EditCampaignsDetailsPage } from '../pages/edit-campaigns-details/edit-campaigns-details';
-
 import { LeadsDetailsPage } from '../pages/leads-details/leads-details';
 import { TaskDetailsPage } from '../pages/task-details/task-details';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
@@ -29,15 +25,11 @@ import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-c
 import { EditLeadDetailsPage } from '../pages/edit-lead-details/edit-lead-details';
 import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-details';
 import { PendingLeadsPage } from '../pages/pending-leads/pending-leads';
-
 import { AngularFireModule } from '@angular/fire';
- import { AngularFireAuth } from '@angular/fire/auth';
- import { firebaseConfig } from '../config';
-
- import { Observable } from 'rxjs';
- 
- import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-
+import { AngularFireAuth } from '@angular/fire/auth';
+import { firebaseConfig } from '../config';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -62,9 +54,10 @@ import { ManagerLeadDetailsPage } from '../pages/manager-lead-details/manager-le
 import { ManagerTaskDetailsPage } from '../pages/manager-task-details/manager-task-details';
 import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manager-track-campaign';
 import { UserregPage } from '../pages/userreg/userreg';
-
-
-
+import { ManagerReportPage } from '../pages/manager-report/manager-report';
+import { ManagerRemainingLeadDeatilsPage } from '../pages/manager-remaining-lead-deatils/manager-remaining-lead-deatils';
+import { ManagerEditLeadPage } from '../pages/manager-edit-lead/manager-edit-lead';
+import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/manager-lead-in-track-camp';
 
 @NgModule({
   declarations: [
@@ -74,6 +67,9 @@ import { UserregPage } from '../pages/userreg/userreg';
     HomePage, 
     HomeManagerPage,
     HomeUserPage,
+    ManagerRemainingLeadDeatilsPage,
+    ManagerEditLeadPage,
+    ManagerLeadInTrackCampPage,
     ReportPage,
     CreateCampaignPage,
     ManagerCreateCampaignPage,
@@ -88,8 +84,7 @@ import { UserregPage } from '../pages/userreg/userreg';
     SettingsPage,
     UserLicensesPage,
     CreateLeadProfilePage,
-    PendingLeadsPage,
-    
+    PendingLeadsPage, 
     ExportPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
@@ -105,6 +100,7 @@ import { UserregPage } from '../pages/userreg/userreg';
     LeadInTrackCampPage,
     EditCsvFieldPage,
     RemainingLeadDeatilsPage,
+    ManagerReportPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -123,9 +119,7 @@ import { UserregPage } from '../pages/userreg/userreg';
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
     AngularFirestoreModule,
-    
-  
-    
+   
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -134,7 +128,11 @@ import { UserregPage } from '../pages/userreg/userreg';
     RegisterPage,
     HomePage,
     HomeManagerPage,
+    ManagerRemainingLeadDeatilsPage,
+    ManagerEditLeadPage,
+    ManagerLeadInTrackCampPage,
     HomeUserPage,
+    ManagerReportPage,
     ReportPage,
     CreateCampaignPage,
     ManagerCreateCampaignPage,

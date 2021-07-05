@@ -1,0 +1,185 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Remaining Lead Deatils</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="container left">
+
+    <ion-item-divider class="divider">
+      <ion-label>
+        Lead Information
+      </ion-label>
+    </ion-item-divider>
+    <table>
+      <tr *ngFor="let product of field; let idx = index; let even = even;">
+        <td>{{field[idx].action}}</td>
+        <td>{{field[idx].val}}</td>
+      </tr>
+      <tr *ngFor="let time of t ; let idx = index; ">
+        <td>{{time.action}}</td>
+        <td>{{time.val}}</td>
+      </tr>
+
+      <tr *ngFor="let produ of data.leads; let i = index;">
+
+        <td>{{produ.value}} </td>
+        <td>{{produ.indicator}}</td>
+      </tr>
+
+      <tr *ngFor="let att of arr; let idx = index">
+        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>
+        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].indicator"></ion-input> </td>
+        <td><ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
+      </tr>
+
+    </table>
+
+    <button ion-button  style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
+    <button  ion-button type="submit" *ngIf="hideMe1" (click)="savefield()"> Save</button>
+  </div>
+
+  <div class="container right">
+
+
+  
+
+    <ion-item-divider class="divider">
+      <!-- <ion-label left>
+        Activity History
+      </ion-label>
+
+      <ion-label left>
+        Pending Activity 
+      </ion-label> -->
+     
+        <ion-label style="width: 300%;">
+        <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
+        <ion-segment-button value="1">
+          Pending Activity 
+        </ion-segment-button>
+        <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+          Activity History
+        </ion-segment-button>
+        </ion-segment>
+        </ion-label>
+     
+
+    
+
+    
+      <ion-label class="activity" (click)="activity()">
+       Add Activity
+      </ion-label>
+
+      <ion-label style="float:left;color: blue;text-decoration: underline;" name="dta" (click)="comment()">
+        Add comment
+       </ion-label>
+       
+
+      <button ion-button full  color="success" >Register</button>
+    </ion-item-divider>
+
+
+    <div [ngSwitch]="Segments">
+
+      <div  *ngSwitchCase="1"  > 
+       
+        <ion-card  *ngFor="let prod of pend  | paginate: { itemsPerPage: 2, currentPage: p } ;">
+          
+          <ion-item >
+    
+            <h2>{{prod.Action}} at : {{prod.FollowUp}} </h2>
+    
+          </ion-item>
+    
+          <ion-card-content >
+    
+            <p>Handler : {{prod.Handler}}</p>
+            <p>Remarks : {{prod.Remark}}</p>
+    
+          </ion-card-content>
+    
+          <ion-row style=" margin-top: -25px;">
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <!-- <ion-icon name="play"></ion-icon> -->
+                <span class="dot" style="   background-color: red;"></span>
+                <div>{{prod.link}}</div>
+              </button>
+            </ion-col>
+            <ion-col align-self-center text-center >
+              <ion-note >
+                Created at : {{prod.Time.toDate() | date }}
+              </ion-note>
+            </ion-col>
+          </ion-row>
+    
+        </ion-card>
+    
+        <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+        <div *ngSwitchCase="2">
+          <ion-card *ngFor="let produ of complete  | paginate: { itemsPerPage: 2, currentPage: p } ;">
+
+            <ion-item>
+      
+              <h2>{{produ.Action}} at : {{produ.FollowUp}} </h2>
+      
+            </ion-item>
+      
+            <ion-card-content>
+      
+              <p>Handler : {{produ.Handler}}</p>
+              <p>Remarks : {{produ.Remark}}</p>
+      
+            </ion-card-content>
+      
+            <ion-row style=" margin-top: -25px;">
+              <ion-col>
+                <button ion-button icon-start clear small>
+                  <!-- <ion-icon name="play"></ion-icon> -->
+                  <span class="dot" style="   background-color: #66FF00;"></span>
+                  <div>{{produ.link}}</div>
+                </button>
+              </ion-col>
+              <ion-col align-self-center text-center >
+                <ion-note >
+                  Created at : {{produ.Time.toDate() | date }}
+                </ion-note>
+              </ion-col>
+            </ion-row>
+      
+          </ion-card>
+      
+          <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>    
+
+    <ion-item-divider>
+      <ion-label left>
+       Comments
+      </ion-label>
+    </ion-item-divider>
+
+
+      <ion-card *ngFor="let com of comments">  
+        <ion-item>
+          <h2>Comment  : {{com.Time.toDate() | date }}</h2>
+        </ion-item>
+  
+        <ion-card-content>
+
+          <p>{{com.Comment}}</p>
+        
+        </ion-card-content>
+
+      </ion-card>
+   
+  </div>
+</ion-content>

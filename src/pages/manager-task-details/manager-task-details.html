@@ -1,18 +1,124 @@
-<!--
-  Generated template for the ManagerTaskDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>managerTaskDetails</ion-title>
+    <ion-title>Task Details</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding> 
+  <div class="container">
 
+    <ion-slides #slides class="mainslide">
+  
+      <ion-slide *ngIf = "showSlide">
+
+        <ion-item class="nameLabel" > 
+          {{data.first_name}}  {{data.last_name}}
+       </ion-item>
+
+       <label style="margin-top: 10px;">Status</label>
+         <ion-item class="itemselect">
+          <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" disabled>
+            <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
+          </ion-select>
+        </ion-item>
+           
+        <label>Remark</label>
+        <ion-item> 
+        <ion-input placeholder="Enter Remark" [(ngModel)]="data.remark" disabled></ion-input>
+      </ion-item>
+       
+       <label >Action</label> 
+        <ion-item class="itemselect"> 
+          <ion-select (ionChange)="hide()"  [(ngModel)]="data.action" disabled> 
+            <ion-option value="Callback">Callback</ion-option>
+            <ion-option value="Schedule Meet">Schedule Meet</ion-option>
+            <ion-option value="Send Mail">Send Mail</ion-option>
+          </ion-select> 
+        </ion-item>
+    
+        <div *ngIf="hideMe"> 
+          <label style="color: black;">Follow Back</label> 
+          <ion-item class="datetime" > 
+            <input type="date" [(ngModel)]="data.datetime" name="datetime" disabled>
+         </ion-item>
+         </div>
+         
+        
+    
+      <label>Tick to complete task </label>
+      <ion-checkbox slot="start"  (ionChange)="completeTask(data);"></ion-checkbox>
+      
+<br><br>
+        <button ion-button type="button" (click)="slideToSlide()">Save & Next</button>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-item class="nameLabel"> 
+          {{data.first_name}}  {{data.last_name}}
+       </ion-item>
+      
+       <label style="margin-top: 10px;">Status</label>
+       <ion-item class="itemselect">
+        <ion-select placeholder="Select Status" [(ngModel)]="task.status" (ionChange)="Getselected(task.status)" >
+          <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
+        </ion-select>
+      </ion-item>
+         
+      <label>Remark</label>
+      <ion-item> 
+      <ion-input placeholder="Enter Remark" [(ngModel)]="task.remark" ></ion-input>
+    </ion-item>
+       
+       <label >Action</label> 
+        <ion-item class="itemselect" > 
+          <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="task.action" > 
+            <ion-option value="None">None</ion-option>
+            <ion-option value="Callback">Callback</ion-option>
+            <ion-option value="Schedule Meet">Schedule Meet</ion-option>
+            <ion-option value="Send Mail">Send Mail</ion-option>
+          </ion-select> 
+        </ion-item>
+    
+        <div *ngIf="hideMe"> 
+          <label style="color: black;">Follow Back</label> 
+          <ion-item class="datetime" > 
+            <input type="date" [(ngModel)]="task.datetime" name="datetime" >
+         </ion-item>
+         </div>
+         
+        
+
+      <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
+         <button  ion-button   color="primary" text-center (click)="Task(task)">Save </button>
+
+       <div *ngIf="hideMe1"> 
+        <ion-item> 
+          <ion-input placeholder="First Name" [(ngModel)]="leadref.first_name" ></ion-input>
+       </ion-item>
+       <ion-item> 
+        <ion-input placeholder="Last Name" [(ngModel)]="leadref.last_name"></ion-input>
+      </ion-item>
+      <ion-item> 
+        <ion-input placeholder="Email" [(ngModel)]="leadref.email"></ion-input>
+      </ion-item>
+      <ion-item> 
+        <ion-input placeholder="Phone" [(ngModel)]="leadref.phone"></ion-input>
+      </ion-item>
+      <button ion-button  color="secondary" text-center (click)="Save(leadref)" > Save Reference </button>
+      </div>
+     
+           <button ion-button color="secondary" text-center (click)="hide1()" > Add Reference </button>
+      </ion-slide>
+
+    </ion-slides>  
+
+<br>
+</div>
+ 
 </ion-content>
+
+
+

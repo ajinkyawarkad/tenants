@@ -1,18 +1,110 @@
-<!--
-  Generated template for the ManagerCreateLeadProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>managerCreateLeadProfile</ion-title>
+  <ion-title>Create Lead Profile</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+  <ion-content padding>
+  <!-- Item Dividers in a List -->
 
-<ion-content padding>
+  <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
+    <ion-segment-button (ionSelect)="Segments = 1" value="1">
+      Select File
+    </ion-segment-button>
+    
+    <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+      Manually Add Data
+    </ion-segment-button>
+  </ion-segment>
 
-</ion-content>
+  <div [ngSwitch]="Segments">
+    <div *ngSwitchCase="1" style="margin-top: 12px;">
+      <h6 >Select file to upload data</h6>
+
+  <div class="form-group" >
+    <input type="file"  (change)="onFileSelect($event.target)" id="myfile" accept=".csv">  
+  </div>
+ 
+  <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
+  
+  <table>
+  
+  <tbody>
+  
+  
+  <tr *ngFor="let att of anArray; let idx = index">
+  <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td>
+  <td>
+ 
+  <div>
+    <select *ngIf="anArray[idx].indicator !== 'Select'" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+      
+      <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
+      
+       
+    </select>
+
+    <select *ngIf="anArray[idx].indicator == 'Select'" style="border : 1px solid red;" [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+      
+      <option *ngFor="let produ of arrFilelds">{{produ}}</option>      
+       
+    </select>
+
+  </div>
+  
+  </td>
+ 
+  
+  </tr >  
+  
+  </tbody>
+  
+  
+  </table>
+  <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" *ngIf="uploadFlagg" (click)="savefield()">Save</button>
+  <button ion-button type="submit" (click)="upload()" *ngIf="uploadFlag">Upload</button>
+    </div>
+
+    <div *ngSwitchCase="2" >
+      <h6 style="margin-top: 12px;">Add your Field</h6>
+  
+  
+      <table class="data-table" class="myTable">
+      <tbody>
+      
+      <tr *ngFor="let att of anArray1; let idx = index">
+      <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray1[idx].value" ></ion-input></td>
+      <td>
+        <div>
+          <select  *ngIf="anArray1[idx].indicator !== 'Select'" [(ngModel)]=" anArray1[idx].indicator" (change)="removeField2(idx, anArray1[idx].indicator)" > 
+            
+            <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
+            
+             
+         </select>
+      
+          <select *ngIf="anArray1[idx].indicator == 'Select'" style="border : 1px solid red;" [(ngModel)]=" anArray1[idx].indicator" (change)="removeField2(idx, anArray1[idx].indicator)"  > 
+            
+            <option *ngFor="let produ of arrFilelds">{{produ}}</option>      
+             
+          </select>
+      
+        </div>
+
+  
+      </td>
+      <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+      </tr >
+      </tbody> 
+      </table>
+      
+      <br>
+      
+      <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="add()">Add More</button>   
+      <button ion-button type="submit" (click)="savefield1()"> Save</button>
+    </div>
+
+  </div>  
+
+
+  </ion-content>

@@ -1,18 +1,423 @@
-<!--
-  Generated template for the ManagerLeadDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>managerLeadDetails</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+	<ion-title>Leads Details</ion-title>
+	</ion-navbar>
+	
+	</ion-header>
+	
+	
+	<ion-content padding="true" >
 
-</ion-header>
+	<div class="container">
+
+	<div>
+	
+	<div style="float: right;margin-top: 1px; width: 20%;">
+	
+	<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"
+	showCancelButton="always"></ion-searchbar>
+	</div>
+	
+	<div style="float: left;margin-top: 8px;">
+		
+
+		<div class="form-popup-bg">
+		  <div class="form-container">
+			  
+			<button id="btnCloseForm" class="close-button">X</button>
+			
+			<ion-row>
+				<ion-col>
+				<ion-card *ngFor="let hed of tru; let ind = index;">
+				
+					<ion-card-header class="cardheader">{{hed}}
+						<ion-checkbox class="cardCheckbox" (ionChange)="showhide(hed, $event)" checked></ion-checkbox>
+					</ion-card-header>
+				</ion-card>	
+				</ion-col>
+
+				<ion-col>
+					<ion-card *ngFor="let hed2 of fal">
+						<ion-card-header class="cardheader" >{{hed2}}
+						<ion-checkbox class="cardCheckbox" (ionChange)="showhide(hed2, $event)" ></ion-checkbox>
+					</ion-card-header>
+					</ion-card>	
+					</ion-col>
+			</ion-row>
+			
+		  </div>
+		</div>
+	</div>
+	
+	&nbsp;
+	<div style="float: left;margin-left: 10px;margin-top: 7px;">
+	<button ion-button color="success" (click)="add()"> Add</button>
+	</div>
+
+	<div>
+	<div style="float: left;margin-left: 10px;margin-top: -10px;">
+	<button ion-button color="success" (click)="hide3()">Filter</button>
+	</div>
+
+	<div *ngIf="hideMe3" style="float: right;margin-right: 20%;margin-top: -7px;">
+	
+		<ion-item>
+				  <ion-row>
+					<ion-col>
+						<select [(ngModel)]="field" (change)="setField(field)">
+							<option>Status</option>
+							<option>Action</option>
+							<option>Handler</option>
+						</select>
+						</ion-col>
+						<ion-col>
+						<select [(ngModel)]="ss" (change)="showOptions(ss)">
+							<option>All</option>
+							<option *ngFor="let pr of pro ">{{pr}}</option>
+						</select>
+						</ion-col>
+						</ion-row>
+				</ion-item>
+			
+	
+		<!-- <button ion-button color="secondary" (click)="downloadCsv()" *ngIf="csvShow" style="float: right;margin-left: 22px;margin-top: 7px;">Download Csv</button> -->
+		
+		</div> 
 
 
-<ion-content padding>
+		<div style="float: right;margin-right: 29%;margin-top: -35px;">
+			<ion-icon style="font-size: 1.8em;"
+			ios="ios-download" md="md-download" *ngIf="csvShow" (click)="downloadCsv()"></ion-icon>
+		</div>
+	
+	</div>
+	</div>
 
-</ion-content>
+	<div>
+
+	<div class="scrollbar">
+	<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: 3px;">
+	<p style="margin-left: 10px;" *ngIf="hideMe">Selected : {{checkedCount}} </p>
+	</div>
+
+	<div *ngIf="hideMe" style="float: left;margin-left: 16px;">
+	<button ion-button color="secondary" (click)="hide1()"> Assign Handler</button>
+	</div>
+
+	<div *ngIf="hideMe1"> 
+
+		<ion-item style="width: 30%;border: none;">
+		   <ion-label>Sale Representative</ion-label>
+			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
+		   </ion-select>
+		</ion-item>                     
+    </div>
+  
+	<br>
+
+	<div class="tableFixHead">
+		<table >
+			<thead>
+		  <tr>
+			<th>
+				<div >
+					<ion-icon  id="btnOpenForm" class="settingicon" name="settings" (click)="hide2()"></ion-icon>
+					<ion-checkbox  slot="start" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
+					(click)="checkMaster($event);"></ion-checkbox>		
+				</div>	
+			</th>
+			
+			<th *ngIf="Salutation">Salutation</th>
+			<th *ngIf="first_name">First Name</th>
+			<th *ngIf="Full_Name">Full Name</th>
+			<th *ngIf="middle_name">Middle Name</th>
+			<th *ngIf="last_name">Last Name</th>
+			<th *ngIf="Phone">Phone</th>
+			<th *ngIf="Other_Contact">Other Contact</th>
+			<th *ngIf="Email">Email</th>
+			<th *ngIf="Other_Email">Other Email</th>
+			<th *ngIf="Address">Address</th>
+			<th *ngIf="City">City</th>
+			<th *ngIf="State">State</th>
+			<th *ngIf="Country">Country</th>
+			<th *ngIf="Gender">Gender</th>
+			<th *ngIf="Company_Name">Company_Name</th>
+			<th *ngIf="Position">Position</th>
+			<th *ngIf="Profile_URL">Profile URL</th>
+			<th *ngIf="Date_of_Birth">Date of Birth</th>
+			<th *ngIf="Apartment">Office</th>
+			<th *ngIf="Zip">Zip</th>
+			<th *ngIf="Fax">Fax</th>
+			<th *ngIf="Price">Price</th>
+			<th *ngIf="Stage">Stage</th>
+			<th *ngIf="Quality">Quality</th>
+			<th *ngIf="Currency">Currency</th>
+			<th *ngIf="Corporate_Website">Corporate Website</th>
+			<th *ngIf="Facebook">Facebook</th>
+			<th *ngIf="Facebook_Page">Facebook Page</th>
+			<th *ngIf="Home">Home</th>
+			<th *ngIf="Home_Phone">Home Phone</th>
+			<th *ngIf="Live_Chat">Live Chat</th>
+			<th *ngIf="LiveJournal">LiveJournal</th>
+			<th *ngIf="Mobile">Mobile</th>
+			<th *ngIf="Newsletter_Email">Newsletter Email</th>
+			<th *ngIf="Opportunity">Opportunity</th>
+			<th *ngIf="Personal_Page">Personal Page</th>
+			<th *ngIf="Responsible_Person">Responsible Person</th>
+			<th *ngIf="Skype">Skype</th>
+			<th *ngIf="Source">Source</th>
+			<th *ngIf="Telegram_Account">Telegram Account</th>
+			<th *ngIf="Twitter">Twitter</th>
+			<th *ngIf="Vibe_Contact">Vibe Contact</th>
+			<th *ngIf="VK_Page">VK Page</th>
+			<th *ngIf="Website">Website</th>
+			<th *ngIf="Work_Email">Work Email</th>
+			<th *ngIf="Work_Phone">Work Phone</th>
+
+			<th>Handler</th>
+			<th>Activity</th>
+			<th>Status</th>
+			<th>Remarks</th>
+			<th>Edit / Delete</th>
+			</tr>
+		  </thead>
+
+		  <tbody>
+			<tr *ngFor="let product of productsss;let idx = index; ">
+
+				<td>
+					<div>
+					<ion-icon (click)="remaining(product)" class="settingicon" ios="ios-list-box" md="md-list-box"></ion-icon>
+					<ion-checkbox slot="start" [(ngModel)]="product.isChecked" (ionChange)="checkEvent();">
+					</ion-checkbox>
+				</div>
+				</td>
+			
+				<td *ngIf="Full_name">{{product.Full_Name}}</td>
+				<td *ngIf="first_name">{{product.first_name}}</td>
+				<td *ngIf="middle_name">{{product.middle_name}}</td>
+				<td *ngIf="last_name">{{product.last_name}}</td>
+				<!-- <td style="color: cornflowerblue;" >
+				{{product.Email}}</td> -->
+				<td *ngIf="Phone">{{product.Phone}}
+				<div *ngIf="product.Phone"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" (click)="remaining(product)"> </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Other_Contac">{{product.Other_Contac}}
+				<div *ngIf="product.Other_Contac"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" > </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Email">{{product.Email}}</td>
+				<td *ngIf="Other Email">{{product.Other_Email}}</td>
+				<td *ngIf="Address">{{product.Address}}</td>
+				<td *ngIf="City">{{product.City}}</td>
+				<td *ngIf="State">{{product.State}}</td>
+				<td *ngIf="Country">{{product.Country}}</td>
+				<td *ngIf="Gender">{{product.Gender}}</td>
+				<td style="color: cornflowerblue;text-decoration: underline;" (click)="remaining(product)"
+				*ngIf="Company_Name">{{product.Company_Name}}</td>
+				<td *ngIf="Position">{{product.Position}}</td>
+				<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+				<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+				<td *ngIf="Apartment">{{product.Apartment}}</td>
+				<td *ngIf="Zip">{{product.Zip}}</td>
+				<td *ngIf="Fax">{{product.Fax}}</td>
+				<td *ngIf="Price">{{product.Price}}</td>
+				<td *ngIf="Stage">{{product.Stage}}</td>
+				<td *ngIf="Quality">{{product.Quality}}</td>
+				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Corporate_Website">{{product.Corporate_Website}}</td>
+				<td *ngIf="Facebook">{{product.Facebook}}</td>
+				<td *ngIf="Facebook_Page">{{product.Facebook_Page}}</td>
+				<td *ngIf="Home">{{product.Home}}</td>
+				<td *ngIf="Home_Phone">{{product.Home_Phone}}</td>
+				<td *ngIf="Live_Chat">{{product.Live_Chat}}</td>
+				<td *ngIf="LiveJournal">{{product.LiveJournal}}</td>
+				<td *ngIf="Mobile">{{product.Mobile}}</td>
+				<td *ngIf="Newsletter_Email">{{product.Newsletter_Email}}</td>
+				<td *ngIf="Opportunity">{{product.Opportunity}}</td>
+				<td *ngIf="Personal_Page">{{product.Personal_Page}}</td>
+				<td *ngIf="Responsible_Person">{{product.Responsible_Person}}</td>
+				<td *ngIf="Skype">{{product.Skype}}</td>
+				<td *ngIf="Source">{{product.Source}}</td>
+				<td *ngIf="Telegram_Account">{{product.Telegram_Account}}</td>
+				<td *ngIf="Twitter">{{product.Twitter}}</td>
+				<td *ngIf="Vibe_Contact">{{product.Vibe_Contact}}</td>
+				<td *ngIf="VK_Page">{{product.VK_Page}}</td>
+				<td *ngIf="Website">{{product.Website}}</td>
+				<td *ngIf="Work_Email">{{product.Work_Email}}</td>
+				<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
+
+				<td>{{product.SR_name}}</td>
+				
+				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
+				{{product.action}} <br> {{product.datetime}}
+				<p style="text-decoration:underline;color: black;">Add activiy</p>
+				</td>
+
+				<td  *ngIf="!product.pending" style="color: green;"  (click)="gotocall(product)" >
+					{{product.action}} <br> {{product.datetime}}
+					<p style="text-decoration:underline;color: black"> Add activiy</p>
+					</td>
+			
+				<td>{{product.status}}</td>
+				<td>{{product.remark}}</td>
+				<td>
+				<div style="display: inline-block;margin-left: 3px;">
+				<ion-icon name="create" (click)="edit(product)"></ion-icon>
+				</div>
+				<div style="display: inline-block;margin-left: 10px;">
+				<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+				</div>
+				</td>
+				</tr>
+		 </tbody>
+
+
+
+
+		 <!-- Second Table /////////////////////////////////////////////////////////////////-->
+
+		 <tbody *ngIf="terms">
+			<tr *ngFor="let product of productsss;let idx = index; ">
+
+				<td>
+					<div>
+					<ion-icon (click)="remaining(product)" class="settingicon" ios="ios-list-box" md="md-list-box"></ion-icon>
+					<ion-checkbox slot="start" [(ngModel)]="product.isChecked" (ionChange)="checkEvent();">
+					</ion-checkbox>
+				</div>
+				</td>
+			
+				<td *ngIf="Full_name">{{product.Full_Name}}</td>
+				<td *ngIf="first_name">{{product.first_name}}</td>
+				<td *ngIf="middle_name">{{product.middle_name}}</td>
+				<td *ngIf="last_name">{{product.last_name}}</td>
+				<!-- <td style="color: cornflowerblue;" >
+				{{product.Email}}</td> -->
+				<td *ngIf="Phone">{{product.Phone}}
+				<div *ngIf="product.Phone"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" (click)="remaining(product)"> </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Other_Contac">{{product.Other_Contac}}
+				<div *ngIf="product.Other_Contac"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" > </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Email">{{product.Email}}</td>
+				<td *ngIf="Other Email">{{product.Other_Email}}</td>
+				<td *ngIf="Address">{{product.Address}}</td>
+				<td *ngIf="City">{{product.City}}</td>
+				<td *ngIf="State">{{product.State}}</td>
+				<td *ngIf="Country">{{product.Country}}</td>
+				<td *ngIf="Gender">{{product.Gender}}</td>
+				<td style="color: cornflowerblue;text-decoration: underline;" (click)="remaining(product)"
+				*ngIf="Company_Name">{{product.Company_Name}}</td>
+				<td *ngIf="Position">{{product.Position}}</td>
+				<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+				<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+				<td *ngIf="Apartment">{{product.Apartment}}</td>
+				<td *ngIf="Zip">{{product.Zip}}</td>
+				<td *ngIf="Fax">{{product.Fax}}</td>
+				<td *ngIf="Price">{{product.Price}}</td>
+				<td *ngIf="Stage">{{product.Stage}}</td>
+				<td *ngIf="Quality">{{product.Quality}}</td>
+				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Corporate_Website">{{product.Corporate_Website}}</td>
+				<td *ngIf="Facebook">{{product.Facebook}}</td>
+				<td *ngIf="Facebook_Page">{{product.Facebook_Page}}</td>
+				<td *ngIf="Home">{{product.Home}}</td>
+				<td *ngIf="Home_Phone">{{product.Home_Phone}}</td>
+				<td *ngIf="Live_Chat">{{product.Live_Chat}}</td>
+				<td *ngIf="LiveJournal">{{product.LiveJournal}}</td>
+				<td *ngIf="Mobile">{{product.Mobile}}</td>
+				<td *ngIf="Newsletter_Email">{{product.Newsletter_Email}}</td>
+				<td *ngIf="Opportunity">{{product.Opportunity}}</td>
+				<td *ngIf="Personal_Page">{{product.Personal_Page}}</td>
+				<td *ngIf="Responsible_Person">{{product.Responsible_Person}}</td>
+				<td *ngIf="Skype">{{product.Skype}}</td>
+				<td *ngIf="Source">{{product.Source}}</td>
+				<td *ngIf="Telegram_Account">{{product.Telegram_Account}}</td>
+				<td *ngIf="Twitter">{{product.Twitter}}</td>
+				<td *ngIf="Vibe_Contact">{{product.Vibe_Contact}}</td>
+				<td *ngIf="VK_Page">{{product.VK_Page}}</td>
+				<td *ngIf="Website">{{product.Website}}</td>
+				<td *ngIf="Work_Email">{{product.Work_Email}}</td>
+				<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
+				
+
+
+				<td>{{product.SR_name}}</td>
+				
+				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
+				{{product.action}} <br> {{product.datetime}}
+				<p>Add activiy</p>
+				</td>
+
+				<td  *ngIf="!product.pending" style="color: green;"  (click)="gotocall(product)" >
+					{{product.action}} <br> {{product.datetime}}
+						
+					</td>
+			
+				<td>{{product.status}}</td>
+				<td>{{product.remark}}</td>
+				<td>
+				<div style="display: inline-block;margin-left: 3px;">
+				<ion-icon name="create" (click)="edit(product)"></ion-icon>
+				</div>
+				<div style="display: inline-block;margin-left: 10px;">
+				<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+				</div>
+				</td>
+				</tr>
+		 </tbody>
+		</table>
+		
+	</div>
+	</div>
+	</div>
+	
+	<!-- <pagination-controls style="float:right" (pageChange)="p = $event"></pagination-controls> -->
+	<br>
+	<div style="float:left;">
+	
+	<ion-item>
+		<ion-label>Records</ion-label>
+		<ion-select [(ngModel)]="PageSize" (ionChange)="SelectedPageSize(PageSize)">
+			<ion-option >5</ion-option>
+			<ion-option selected>10</ion-option>
+			<ion-option >20</ion-option>
+			<ion-option>50</ion-option>
+			<ion-option>100</ion-option>
+		</ion-select>	
+	</ion-item>
+	</div>
+
+	
+
+	<div style="float:right;">
+	<b>Page no: {{pagination_clicked_count+1}}</b>
+	<button ion-button color="primary" (click)="prevPage(first)"
+	[disabled]="disable_prev || !(pagination_clicked_count>0)">
+	Previous
+	</button>
+	<button ion-button color="primary" (click)="nextPage(last)" [disabled]="disable_next">
+	Next
+	</button>
+	
+	</div>
+	
+	
+	
+	</div>
+	</ion-content>

@@ -4,8 +4,11 @@ import {
   NavController,
   NavParams,
   AlertController,
+  LoadingController,
 } from "ionic-angular";
 import { User } from "../../models/user";
+
+
 
 import { HomePage } from "../home/home";
 import { HomeManagerPage } from "../home-manager/home-manager";
@@ -27,6 +30,7 @@ export class LoginPage {
   phone: string;
   coms = [];
   tenantId;
+  showLogin = false
  
 
   name 
@@ -42,12 +46,18 @@ export class LoginPage {
     public storage: Storage,
     public navParams: NavParams,
     public menuCtrl: MenuController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
   ) {
     this.menuCtrl.enable(false, "menu");
   }
 
   ionViewDidLoad() {
+    let loading = this.loadingCtrl.create({
+      spinner: "bubbles",
+      content: "Please wait...",
+    });
+    loading.present();
     this.storage.get("email").then(val => {
       console.log("email",val)
 
@@ -76,6 +86,7 @@ export class LoginPage {
                             data.emailVerified === true
                           ) {
                             this.navCtrl.setRoot(HomePage)
+                            loading.dismiss();
                           } else { //=============================
                             console.log("Email is not verified ");
                             // this.navCtrl.setRoot(LoginPage);
@@ -87,6 +98,7 @@ export class LoginPage {
                                   text: "OK",
                                   handler: (data) => {
                                     this.navCtrl.setRoot(LoginPage);
+                                   
                                   },
                                 },
                               ],
@@ -129,8 +141,11 @@ export class LoginPage {
                                 data.emailVerified === true
                               ) {
                                 this.navCtrl.setRoot(HomeManagerPage)
+                                loading.dismiss();
+                               
                               } else { //=============================
                                 console.log("Email is not verified ");
+                                loading.dismiss();
                                 // this.navCtrl.setRoot(LoginPage);
                                 let alert = this.alertCtrl.create({
                                   title: "Error",
@@ -149,6 +164,7 @@ export class LoginPage {
                             });
                           })
                           .catch((err) => {
+                            loading.dismiss();
                             console.log(err);
                             let alert = this.alertCtrl.create({
                               //title: 'Error',
@@ -163,7 +179,7 @@ export class LoginPage {
                     
                     break;
           
-                  case "User":
+                  case "Sale Representative":
                     this.storage.get("tenant").then(ten => {
                       this.storage.get("email").then(ema => {
                         this.storage.get("password").then(pass =>{
@@ -180,8 +196,10 @@ export class LoginPage {
                                 data.emailVerified === true
                               ) {
                                 this.navCtrl.setRoot(HomeUserPage)
+                                loading.dismiss();
                               } else { //=============================
                                 console.log("Email is not verified ");
+                                loading.dismiss();
                                 // this.navCtrl.setRoot(LoginPage);
                                 let alert = this.alertCtrl.create({
                                   title: "Error",
@@ -201,6 +219,7 @@ export class LoginPage {
                           })
                           .catch((err) => {
                             console.log(err);
+                            loading.dismiss();
                             let alert = this.alertCtrl.create({
                               //title: 'Error',
                               subTitle: err,
@@ -331,13 +350,20 @@ export class LoginPage {
       }
 
       }else{
-        console.log("null")
+       
+        this.showLogin = true
+        loading.dismiss();
+       
+       
+        
+        
 
       }
 
       
     })
     console.log("ionViewDidLoad LoginPage");
+    
   }
 
   login(user: User) {

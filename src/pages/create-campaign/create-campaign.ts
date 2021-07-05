@@ -178,6 +178,27 @@ export class CreateCampaignPage {
             })
           );
 
+          firebase
+        .firestore()
+        .collection("Company")
+        .doc(val)
+        .collection("Users")
+        .doc(data2.id)
+        .collection("CampsAsso")
+        .doc(this.uuid1)
+        .set(
+          Object.assign(
+            {
+              cid: this.uuid1,
+              name: camp.name,
+              goals: camp.goals,
+              manager: data2.name,
+              active: true,
+            },
+            { merge: true }
+          )
+        );
+
         for (var d in x) {
           firebase
             .firestore()
@@ -211,6 +232,8 @@ export class CreateCampaignPage {
               handler: (data) => {
                 this.navCtrl.push(CreateLeadProfilePage, {
                   item: this.uuid1,
+                  manId:data2.id,
+                  Srs:x
                 });
               },
             },

@@ -31,12 +31,13 @@ export class ManagerCreateCampaignPage {
   slideOpts;
   public form: FormGroup;
   createSuccess = false;
- 
+
   camp = {} as Camp;
   sts = {} as Sts;
   uuid1 = uuid();
   products: Observable<Camps[]>;
   productss: Observable<Camps[]>;
+  admin;
 
   userInfo: any;
   public anArray: any = [];
@@ -58,42 +59,48 @@ export class ManagerCreateCampaignPage {
     this.navCtrl.push(CreateLeadProfilePage);
   }
 
- 
-
-   checkAlert(evt) {
+  checkAlert(evt) {
     var val = evt.target.value;
     if (val === "Remove client from profile") {
-      alert('this will remove client profile permently');
+      alert("this will remove client profile permently");
     }
   }
   goTo() {
     console.log(this.anArray);
   }
+
   Add() {
-    if(this.anArray.length < 8)
-    {
-      this.anArray.push({ status: "", action: "" });
-    }
-    else
-    {
-      alert("you reached to limit.. ")
+    if (this.anArray.length < 8) {
+      this.anArray.push({ status: "", action: "None" });
+    } else {
+      alert("you reached to limit.. ");
     }
   }
+
   remove(idx) {
     this.anArray.splice(idx, 1);
   }
+
+
   ionViewDidLoad() {
     this.sts.sts1 = "Interested";
     this.sts.sts2 = "Not-Interested";
+    this.sts.action1 = "None"
+    this.sts.action2 ="None"
     console.log("ionViewDidLoad CreateCampaignPage");
     let currentuser = firebase.auth().currentUser;
-
+    
     firebase
+    .firestore()
+    .collection("Company").doc(currentuser.photoURL).get().then(doc => {
+      this.admin = doc.data().adminId
+      console.log("Admin",this.admin)
+      firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -101,34 +108,41 @@ export class ManagerCreateCampaignPage {
         console.log(this.products);
       });
 
-    firebase
+      firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + currentuser.uid)
+      .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
         this.productss = doc.data().Users;
         console.log(this.productss);
       });
+
+
+
+    })
+
+
+    
+
+   
   }
 
   insertUser(camp: Camp, data, data2) {
-    console.log("DAta",data)
-    console.log("DAta2",data2)
-    let ids:any=[];
-    ids=data;
-    let x=[];
-    let y=[];
-    for(var z in ids){
-      x.push(ids[z].id)
-      y.push(ids[z].name)
-
-
+    console.log("DAta", data);
+    console.log("DAta2", data2);
+    let ids: any = [];
+    ids = data;
+    let x = [];
+    let y = [];
+    for (var z in ids) {
+      x.push(ids[z].id);
+      y.push(ids[z].name);
     }
-    console.log("DAta",y)
+    console.log("DAta", y);
 
     var obj = [
       {
@@ -153,7 +167,7 @@ export class ManagerCreateCampaignPage {
         // console.log('id is', val);
 
         console.log(this.uuid1);
-    
+
         this.storage.set("campId", this.uuid1);
 
         firebase
@@ -167,34 +181,61 @@ export class ManagerCreateCampaignPage {
               cid: this.uuid1,
               name: camp.name,
               goals: camp.goals,
-              manager: camp.manager,
+              manager: data2.name,
+              manId: data2.id,
+
               SR_id: x,
               SR_name: y,
               status: obj,
               active: true,
             })
           );
-          
-          for(var d in x){
-            firebase
-          .firestore()
-          .collection("Company")
-          .doc(val)
-          .collection("Users").doc(x[d]).collection('CampsAsso')
-          .doc(this.uuid1)
-          .set(
-            Object.assign({
+
+        for (var d in x) {
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc(val)
+            .collection("Users")
+            .doc(x[d])
+            .collection("CampsAsso")
+            .doc(this.uuid1)
+            .set(
+              Object.assign(
+                {
+                  cid: this.uuid1,
+                  name: camp.name,
+                  goals: camp.goals,
+                  manager: data2.name,
+                  active: true,
+                },
+                { merge: true }
+              )
+            );
+        }
+
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(val)
+        .collection("Users")
+        .doc(data2.id)
+        .collection("CampsAsso")
+        .doc(this.uuid1)
+        .set(
+          Object.assign(
+            {
               cid: this.uuid1,
               name: camp.name,
               goals: camp.goals,
-              manager: camp.manager,
+              manager: data2.name,
               active: true,
-            },{merge:true})
-          );
+            },
+            { merge: true }
+          )
+        );
 
 
-          }
-     
         let alert = this.alertCtrl.create({
           title: "Success",
           subTitle: "Compaign Added Successfully. Now You Can Add Leads",
@@ -203,7 +244,7 @@ export class ManagerCreateCampaignPage {
             {
               text: "OK",
               handler: (data) => {
-                this.navCtrl.push(CreateLeadProfilePage, {
+                this.navCtrl.push(ManagerCreateLeadProfilePage, {
                   item: this.uuid1,
                 });
               },
@@ -240,7 +281,7 @@ export class ManagerCreateCampaignPage {
   }
 
   save() {
-    this.navCtrl.push(CreateLeadProfilePage);
+    this.navCtrl.push(ManagerCreateLeadProfilePage);
   }
   ionViewDidEnter() {
     //lock manual swipe for main slider
