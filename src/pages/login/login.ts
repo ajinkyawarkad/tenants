@@ -27,11 +27,19 @@ export class LoginPage {
   phone: string;
   coms = [];
   tenantId;
+ 
+
+  name 
+  email 
+  cuid 
+  role
+  tenant 
+   pass 
 
   constructor(
     public auth: AngularFireAuth,
     public navCtrl: NavController,
-    private storage: Storage,
+    public storage: Storage,
     public navParams: NavParams,
     public menuCtrl: MenuController,
     private alertCtrl: AlertController
@@ -40,6 +48,295 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    this.storage.get("email").then(val => {
+      console.log("email",val)
+
+      if(val != null){
+
+        console.log("Not Null")
+        this.storage.get("tenant").then(tenantId =>{
+          this.storage.get("userId").then(uid => {
+            firebase.firestore().collection("Company").doc(tenantId).collection("Users").doc(uid).get().then(doc =>{
+              if(!doc.exists){
+                this.role = "Admin"
+                console.log("role","Admin")
+                this.storage.get("tenant").then(ten => {
+                  this.storage.get("email").then(ema => {
+                    this.storage.get("password").then(pass =>{
+                      firebase.auth().tenantId = ten
+      
+                      firebase.auth()
+                      .signInWithEmailAndPassword(ema,pass)
+                      .then((user) => {
+                        let currentuser = firebase.auth().currentUser;
+                        firebase.auth().onAuthStateChanged((data) => {
+                          if (
+                            currentuser.photoURL &&
+                            currentuser &&
+                            data.emailVerified === true
+                          ) {
+                            this.navCtrl.setRoot(HomePage)
+                          } else { //=============================
+                            console.log("Email is not verified ");
+                            // this.navCtrl.setRoot(LoginPage);
+                            let alert = this.alertCtrl.create({
+                              title: "Error",
+                              subTitle: "Email not verified please check your inbox",
+                              buttons: [
+                                {
+                                  text: "OK",
+                                  handler: (data) => {
+                                    this.navCtrl.setRoot(LoginPage);
+                                  },
+                                },
+                              ],
+                            });
+                            alert.present();
+                          }
+                        });
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        let alert = this.alertCtrl.create({
+                          //title: 'Error',
+                          subTitle: err,
+                          buttons: [{ text: "OK", handler: (data) => {} }],
+                        });
+                        alert.present();
+                      });
+                    })
+                  })
+                })
+
+              }else{
+                this.role = doc.data().role
+                console.log("role",this.role)
+                switch (this.role){
+                  case "Manager":
+                    this.storage.get("tenant").then(ten => {
+                      this.storage.get("email").then(ema => {
+                        this.storage.get("password").then(pass =>{
+                          firebase.auth().tenantId = ten
+          
+                          firebase.auth()
+                          .signInWithEmailAndPassword(ema,pass)
+                          .then((user) => {
+                            let currentuser = firebase.auth().currentUser;
+                            firebase.auth().onAuthStateChanged((data) => {
+                              if (
+                                currentuser.photoURL &&
+                                currentuser &&
+                                data.emailVerified === true
+                              ) {
+                                this.navCtrl.setRoot(HomeManagerPage)
+                              } else { //=============================
+                                console.log("Email is not verified ");
+                                // this.navCtrl.setRoot(LoginPage);
+                                let alert = this.alertCtrl.create({
+                                  title: "Error",
+                                  subTitle: "Email not verified please check your inbox",
+                                  buttons: [
+                                    {
+                                      text: "OK",
+                                      handler: (data) => {
+                                        this.navCtrl.setRoot(LoginPage);
+                                      },
+                                    },
+                                  ],
+                                });
+                                alert.present();
+                              }
+                            });
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                            let alert = this.alertCtrl.create({
+                              //title: 'Error',
+                              subTitle: err,
+                              buttons: [{ text: "OK", handler: (data) => {} }],
+                            });
+                            alert.present();
+                          });
+                        })
+                      })
+                    })
+                    
+                    break;
+          
+                  case "User":
+                    this.storage.get("tenant").then(ten => {
+                      this.storage.get("email").then(ema => {
+                        this.storage.get("password").then(pass =>{
+                          firebase.auth().tenantId = ten
+          
+                          firebase.auth()
+                          .signInWithEmailAndPassword(ema,pass)
+                          .then((user) => {
+                            let currentuser = firebase.auth().currentUser;
+                            firebase.auth().onAuthStateChanged((data) => {
+                              if (
+                                currentuser.photoURL &&
+                                currentuser &&
+                                data.emailVerified === true
+                              ) {
+                                this.navCtrl.setRoot(HomeUserPage)
+                              } else { //=============================
+                                console.log("Email is not verified ");
+                                // this.navCtrl.setRoot(LoginPage);
+                                let alert = this.alertCtrl.create({
+                                  title: "Error",
+                                  subTitle: "Email not verified please check your inbox",
+                                  buttons: [
+                                    {
+                                      text: "OK",
+                                      handler: (data) => {
+                                        this.navCtrl.setRoot(LoginPage);
+                                      },
+                                    },
+                                  ],
+                                });
+                                alert.present();
+                              }
+                            });
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                            let alert = this.alertCtrl.create({
+                              //title: 'Error',
+                              subTitle: err,
+                              buttons: [{ text: "OK", handler: (data) => {} }],
+                            });
+                            alert.present();
+                          });
+                        })
+                      })
+                    })
+                    
+                    break;
+          
+                }
+              }
+            })
+          })
+        })
+        
+      switch (this.role){
+        case "Admin":
+          
+          break;
+
+        case "Manager":
+
+          this.storage.get("tenant").then(ten => {
+            this.storage.get("email").then(ema => {
+              this.storage.get("password").then(pass =>{
+                firebase.auth().tenantId = ten
+
+                firebase.auth()
+                .signInWithEmailAndPassword(ema,pass)
+                .then((user) => {
+                  let currentuser = firebase.auth().currentUser;
+                  firebase.auth().onAuthStateChanged((data) => {
+                    if (
+                      currentuser.photoURL &&
+                      currentuser &&
+                      data.emailVerified === true
+                    ) {
+                      this.navCtrl.setRoot(HomeManagerPage)
+                    } else { //=============================
+                      console.log("Email is not verified ");
+                      // this.navCtrl.setRoot(LoginPage);
+                      let alert = this.alertCtrl.create({
+                        title: "Error",
+                        subTitle: "Email not verified please check your inbox",
+                        buttons: [
+                          {
+                            text: "OK",
+                            handler: (data) => {
+                              this.navCtrl.setRoot(LoginPage);
+                            },
+                          },
+                        ],
+                      });
+                      alert.present();
+                    }
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  let alert = this.alertCtrl.create({
+                    //title: 'Error',
+                    subTitle: err,
+                    buttons: [{ text: "OK", handler: (data) => {} }],
+                  });
+                  alert.present();
+                });
+              })
+            })
+          })
+          
+          break;
+
+        case "User":
+          this.storage.get("tenant").then(ten => {
+            this.storage.get("email").then(ema => {
+              this.storage.get("password").then(pass =>{
+                firebase.auth().tenantId = ten
+
+                firebase.auth()
+                .signInWithEmailAndPassword(ema,pass)
+                .then((user) => {
+                  let currentuser = firebase.auth().currentUser;
+                  firebase.auth().onAuthStateChanged((data) => {
+                    if (
+                      currentuser.photoURL &&
+                      currentuser &&
+                      data.emailVerified === true
+                    ) {
+                      this.navCtrl.setRoot(HomeUserPage)
+                    } else { //=============================
+                      console.log("Email is not verified ");
+                      // this.navCtrl.setRoot(LoginPage);
+                      let alert = this.alertCtrl.create({
+                        title: "Error",
+                        subTitle: "Email not verified please check your inbox",
+                        buttons: [
+                          {
+                            text: "OK",
+                            handler: (data) => {
+                              this.navCtrl.setRoot(LoginPage);
+                            },
+                          },
+                        ],
+                      });
+                      alert.present();
+                    }
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  let alert = this.alertCtrl.create({
+                    //title: 'Error',
+                    subTitle: err,
+                    buttons: [{ text: "OK", handler: (data) => {} }],
+                  });
+                  alert.present();
+                });
+              })
+            })
+          })
+          
+          break;
+
+      }
+
+      }else{
+        console.log("null")
+
+      }
+
+      
+    })
     console.log("ionViewDidLoad LoginPage");
   }
 
@@ -66,14 +363,33 @@ export class LoginPage {
                 .doc(currentuser.uid)
                 .get()
                 .then((doc) => {
-                  if (doc.exists) {
+                  if (!doc.exists) {
+                    console.log("Admin");
+                    this.storage.set("name", currentuser.displayName);
+                    this.storage.set("email", currentuser.email);
+                    this.storage.set("cuid", currentuser.photoURL);
+                    this.storage.set("userId", currentuser.uid);
+                    this.storage.set("role","Admin")
+                    this.storage.set("tenant",currentuser.photoURL)
+                    this.storage.set("password",this.user.password)
+                    console.log("Email is verified");
+
+                    this.navCtrl.setRoot(HomePage);
+
+
+                    
+                  } else {
                     let role = doc.data().role;
                     switch (role) {
                       case "Manager":
                         console.log("Manager ");
                         this.storage.set("name", currentuser.displayName);
                         this.storage.set("email", currentuser.email);
+                        this.storage.set("userId", currentuser.uid);
                         this.storage.set("cuid", currentuser.photoURL);
+                        this.storage.set("role","Manager")
+                        this.storage.set("tenant",currentuser.photoURL)
+                        this.storage.set("password",this.user.password)
 
                         this.navCtrl.setRoot(HomeManagerPage);
                         break;
@@ -83,45 +399,20 @@ export class LoginPage {
 
                         this.storage.set("name", currentuser.displayName);
                         this.storage.set("email", currentuser.email);
-                        this.navCtrl.setRoot(HomeUserPage);
-                    }
-                  } else {
-                    console.log("Admin");
-                    this.storage.set("name", currentuser.displayName);
-                    this.storage.set("email", currentuser.email);
-                    this.storage.set("cuid", currentuser.photoURL);
-                    console.log("Email is verified");
+                        this.storage.set("cuid", currentuser.photoURL);
+                        this.storage.set("userId", currentuser.uid);
+                        this.storage.set("role","User")
+                        this.storage.set("tenant",currentuser.photoURL)
+                        this.storage.set("password",this.user.password)
 
-                    this.navCtrl.setRoot(HomePage);
+                        this.navCtrl.setRoot(HomeUserPage);
+                        break;
+                    }
+                    
                   }
                 });
 
-              // switch ( a[0]){
-              //   case "COM":
-              //     this.storage.set('name', currentuser.displayName) ;
-              //     this.storage.set('email', currentuser.email) ;
-              //     this.storage.set('cuid',currentuser.photoURL)
-              //     console.log('Email is verified');
-              //     console.log(a[0]);
-              //      this.navCtrl.setRoot(HomePage);
-              //      break;
-              //   case "M":
-              //     this.storage.set('name', currentuser.displayName) ;
-              //     this.storage.set('email', currentuser.email) ;
-              //     this.storage.set('cuid',a[1]+'#'+a[2])
-              //     console.log('Email is verified');
-              //     console.log(data);
-              //     console.log(a[0]);
-              //      this.navCtrl.setRoot(HomeManagerPage);
-              //      break;
-              //   case "U":
-              //     console.log("USER ")
-              //     console.log(a[0]);
-              //     this.storage.set('name', currentuser.displayName) ;
-              //     this.storage.set('email', currentuser.email) ;
-              //     this.navCtrl.setRoot(HomeUserPage);
-
-              // }
+             
             } else {
               console.log("Email is not verified ");
               // this.navCtrl.setRoot(LoginPage);

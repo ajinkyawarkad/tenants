@@ -32,7 +32,7 @@ import { HomeUserPage } from '../pages/home-user/home-user';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  HomePage;
+  rootPage: any =  LoginPage;
 
   public name: any;
 
@@ -81,6 +81,18 @@ export class MyApp {
       console.log(user);
     })
     this.storage.remove('name').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('cuid').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('role').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('tenant').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('password').then((user) =>{
       console.log(user);
     })
     this.menuctrl.close();

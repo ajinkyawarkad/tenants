@@ -94,7 +94,7 @@ column: string = 'name';
         firebase
           .firestore()
           .collection("Company")
-          .doc("COM#" + currentuser.uid)
+          .doc( currentuser.photoURL)
           .collection("Campaigns")
           .get()
           .then((doc) => {
@@ -106,7 +106,7 @@ column: string = 'name';
               firebase
                 .firestore()
                 .collection("Company")
-                .doc("COM#" + currentuser.uid)
+                .doc(currentuser.photoURL)
                 .collection("Campaigns")
                 .doc(snap.data().cid)
                 .collection("leads")
@@ -116,7 +116,7 @@ column: string = 'name';
                     firebase
                     .firestore()
                     .collection("Company")
-                    .doc("COM#" + currentuser.uid)
+                    .doc(currentuser.photoURL)
                     .collection("Campaigns")
                     .doc(snap.data().cid)
                     .collection("leads")
@@ -145,7 +145,7 @@ column: string = 'name';
                       firebase                      //===============Writing Counts back to DB================
                       .firestore()
                       .collection("Company")
-                      .doc("COM#" + currentuser.uid)
+                      .doc(currentuser.photoURL)
                       .collection("Campaigns")
                       .doc(snap.data().cid)  //===================MAin CampId return from docsForEach on camps collection
                       .update({
@@ -162,7 +162,7 @@ column: string = 'name';
                   firebase
                     .firestore()
                     .collection("Company")
-                    .doc("COM#" + currentuser.uid)
+                    .doc(currentuser.photoURL)
                     .collection("Campaigns")
                     .doc(snap.data().cid)
                     .update({
@@ -184,7 +184,7 @@ column: string = 'name';
       content: 'Loading...',
     });
     loading.present();
-    this.userInfo = this.afs.collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns");
+    this.userInfo = this.afs.collection("Company").doc(currentuser.photoURL).collection("Campaigns");
     this.products = this.userInfo.valueChanges();
     this.pc = this.products
 
@@ -243,7 +243,7 @@ column: string = 'name';
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(Object.assign({
         active:false
         } 
@@ -276,7 +276,7 @@ column: string = 'name';
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(Object.assign({
         active:true
         } 
@@ -317,7 +317,7 @@ column: string = 'name';
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
       .delete();
   }
 

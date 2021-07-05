@@ -18,7 +18,6 @@ export class EditCsvFieldPage {
     "Select",
     "None",
     "Custome",
-  
     "Address",
     "Apartment",
     "City",
@@ -35,7 +34,6 @@ export class EditCsvFieldPage {
     "Follow_up",
     "Full_Name",
     "Gender",
-
     "Home",
     "Home_Phone",
     "Id",
