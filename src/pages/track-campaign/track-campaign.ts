@@ -167,6 +167,25 @@ export class TrackCampaignPage {
                                 break;
                               }
                               break;
+
+                              case "Send Mail":
+                              if (t < d1) {
+                                meet.push(t);
+                                
+                                firebase
+                                .firestore()
+                                .collection("Company")
+                                .doc(currentuser.photoURL)
+                                .collection("Campaigns")
+                                .doc(snap.data().cid)
+                                .collection("leads").doc(snap2.data().uid).set({
+                                  pending:true
+                                },{merge:true})
+                                // this.AllPendings.push(snap2.data());
+                              } else {
+                                break;
+                              }
+                              break;
                           }
                         });
 

@@ -56,7 +56,7 @@ export class EditLeadDetailsPage {
     private alertCtrl: AlertController
   ) {
     this.value = navParams.get("cid");
-    console.log(this.value.cid);
+    console.log(this.value);
 
     this.data = navParams.get("data");
     console.log("Data", this.data);
@@ -65,7 +65,7 @@ export class EditLeadDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -79,7 +79,7 @@ export class EditLeadDetailsPage {
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Campaigns")
-      .doc(this.value.cid)
+      .doc(this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -125,7 +125,7 @@ export class EditLeadDetailsPage {
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Campaigns")
-      .doc(this.value.cid)
+      .doc(this.value)
       .collection("leads")
       .doc(this.data.uid)
       .onSnapshot((res) => {
@@ -184,7 +184,7 @@ export class EditLeadDetailsPage {
         .collection("Company")
         .doc(currentuser.photoURL)
         .collection("Campaigns")
-        .doc(this.value.cid)
+        .doc(this.value)
         .collection("leads")
         .doc(this.data.uid)
         .update({
@@ -197,7 +197,7 @@ export class EditLeadDetailsPage {
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Campaigns")
-      .doc(this.value.cid)
+      .doc(this.value)
       .collection("leads")
       .doc(this.data.uid)
       .set(

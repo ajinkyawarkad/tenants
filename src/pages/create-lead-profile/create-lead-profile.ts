@@ -61,7 +61,7 @@ export class CreateLeadProfilePage {
     "Select",
     "None",
     "Custome",
-    "Action",
+  
     "Address",
     "Apartment",
     "City",
@@ -78,7 +78,7 @@ export class CreateLeadProfilePage {
     "Follow_up",
     "Full_Name",
     "Gender",
-    "Handler",
+
     "Home",
     "Home_Phone",
     "Id",
@@ -133,8 +133,13 @@ export class CreateLeadProfilePage {
     console.log("Camp idd", this.campid);
   }
 
+  add(){
+    this.anArray1.push({ value: "", indicator: "None" });
+    this.dummy2.push({ indicator: "None" });
+  }
+
   Add() {
-    this.anArray1.push({ value: "", indicator: "" });
+    
     this.anArray.push({ value: "", indicator: "" });
   }
 
@@ -191,7 +196,19 @@ export class CreateLeadProfilePage {
                 // console.log("False Anarray", this.anArray);
                 break;
               case true:
-                alert("Duplicate Fields not allowed");
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
                 console.log(valuee, att);
 
                 console.log("indessss", a);
@@ -218,6 +235,89 @@ export class CreateLeadProfilePage {
         console.log("Bllank");
       }
     }
+  }
+
+  removeField2(index, field ){
+    if (field == "None" || field == "Custome") {
+      this.anArray1[index].indicator = field;
+      this.dummy2[index].indicator = field;
+    } else {
+      let b = field;
+      if (b) {
+        let s = this.arrFilelds.includes(field);
+
+       
+     
+            let f;
+            let a;
+
+            // let f = this.dummy.includes({indicator:att});
+            for (var t in this.dummy2) {
+              if (this.dummy2[t].indicator == field) {
+                f = true;
+                a = t;
+                break;
+              } else {
+                f = false;
+              }
+            }
+
+            //a = match found index
+            //value
+            console.log("fa", f);
+            switch (f) {
+              case false:
+                // this.dummy.push(att)
+                console.log(index, field);
+                this.dummy2[index].indicator = field;
+                // console.log("false Dummy", this.dummy);
+                // console.log("False Anarray", this.anArray);
+                break;
+              case true:
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+                console.log(index, field);
+
+                console.log("indessss", a);
+
+                this.anArray1[index].indicator = "Select";
+                this.dummy2[index].indicator = "Select";
+
+                this.anArray1[a].indicator = field;
+                this.dummy2[a].indicator = field;
+
+                console.log("true Dummy", this.dummy2);
+                console.log("true anArray", this.anArray1);
+
+              // let a = this.dummy.indexOf(att);
+            }
+
+            
+
+          
+        
+      } else {
+        console.log("Bllank");
+      }
+
+
+
+
+    }
+
+    console.log("Anarray2",this.anArray1)
+
   }
 
   onFileSelect(input: HTMLInputElement) {
@@ -271,70 +371,166 @@ export class CreateLeadProfilePage {
     console.log("aaaaaaaa", this.dummy);
   }
 
-  // savefield1() {
-  //   let Mainheader = this.anArray1;
-  //   console.log(Mainheader);
+  savefield1() {
+    let check;
 
-  //   let currentUser = firebase.auth().currentUser;
-  //   firebase
-  //     .firestore()
-  //     .collection("Company")
-  //     .doc(currentUser.photoURL)
-  //     .collection("Campaigns")
-  //     .doc(this.campid)
-  //     .update({
-  //       CSVfield: Mainheader,
-  //     });
-  //   //execute function
-  //   firebase
-  //     .firestore()
-  //     .collection("Company")
-  //     .doc("COM#" + currentUser.uid)
-  //     .collection("Campaigns")
-  //     .doc(this.campid)
-  //     .onSnapshot((doc) => {
-  //       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-  //       console.log(source, " data: ");
-  //       this.FireHead = doc.data().CSVfield;
-  //       console.log("Headers from firebase", this.FireHead);
-  //     });
+    for (var i in this.anArray1) {
+      if (
+        this.anArray1[i].indicator == "None" ||
+        this.anArray1[i].indicator == "Select"
+      ) {
+        this.anArray1[i].indicator = "Select";
+        check = true;
+      } else {
+        console.log("pass");
+      }
+    }
 
-  //   let alert = this.alertCtrl.create({
-  //     title: "Sucess",
-  //     subTitle: " Field Added Successfully .. Now you can add lead ",
-  //     buttons: [
-  //       {
-  //         text: "OK",
-  //         handler: (data) => {
-  //           let campid=this.campid
-  //           this.navCtrl.push(CreateNewCampleadPage,
-  //             {
-  //             campid
-  //             });
-  //         },
-  //       },
-  //       {
-  //         text: "Cancel",
-  //         role: "cancel",
-  //         handler: () => {
-  //           console.log("Cancel clicked");
-  //           this.navCtrl.push(HomePage);
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   alert.present();
-  // }
+    if (check) {
+      alert("Select Filelds ");
+    } else {
+      let Mainheader = this.anArray1;
+      console.log("MAIN HEADERS", Mainheader);
 
-  // execute(){
-  //   let currentUser=firebase.auth().currentUser
-  //   firebase.firestore().collection('Company').doc('COM#'+currentUser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
-  //     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-  //     console.log(source, " data: ");
-  //     this.FireHead =  doc.data().CSVfield ;
-  //     console.log("Headers from firebase",this.FireHead) ;
-  //     });
-  // }
+      let currentUser = firebase.auth().currentUser;
+      firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentUser.photoURL)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .update({
+          CSVfield: Mainheader,
+        })
+        .then((res) => {
+          //execute function
+          let currentUser = firebase.auth().currentUser;
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc(currentUser.photoURL)
+            .collection("Campaigns")
+            .doc(this.campid)
+            .onSnapshot((doc) => {
+              var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+              console.log(source, " data: ");
+              this.FireHead = doc.data().CSVfield;
+              console.log("Headers from firebase", this.FireHead);
+              this.uploadFlag = true;
+            });
+        });
+        let alert = this.alertCtrl.create({
+          title: "Sucess",
+          subTitle: " Field Added Successfully.. Continue to Add Lead ",
+          buttons: [
+            {
+              text: "OK",
+              handler: (data) => {
+                let campid = this.campid;
+                this.navCtrl.push(CreateNewCampleadPage, {
+                  campid,
+                });
+               // this.navCtrl.push(HomePage);
+              },
+            },
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+                this.navCtrl.push(HomePage);
+              },
+            },
+          ],
+        });
+        alert.present();
+
+
+      let arrz = [];
+
+      firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentUser.photoURL)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("Fields")
+        .doc("records")
+        .set(
+          {
+            Action: false,
+            Address: false,
+            Apartment: false,
+            City: false,
+            Company_Name: false,
+            Corporate_Website: false,
+            Country: false,
+            Currency: false,
+            Date_of_Birth: false,
+            Email: false,
+            Facebook: false,
+            Facebook_Page: false,
+            Fax: false,
+            first_name: false,
+            Follow_up: false,
+            Full_Name: false,
+            Gender: false,
+            Handler: false,
+            Home: false,
+            Home_Phone: false,
+            Id: false,
+            last_name: false,
+            Live_Chat: false,
+            LiveJournal: false,
+            middle_name: false,
+            Mobile: false,
+            Newsletter_Email: false,
+            Opportunity: false,
+            Other_Contact: false,
+            Personal_Page: false,
+            Phone: false,
+            Position: false,
+            Price: false,
+            Profile_URL: false,
+            Quality: false,
+            Responsible_Person: false,
+            Salutation: false,
+            Skype: false,
+            Source: false,
+            Stage: false,
+            State: false,
+            Telegram_Account: false,
+            Twitter: false,
+            Vibe_Contact: false,
+            VK_Page: false,
+            Website: false,
+            Work_Email: false,
+            Work_Phone: false,
+            Zip: false,
+          },
+          { merge: true }
+        )
+        .then((res) => {
+          let i;
+
+          for (i = 0; i < 4; i++) {
+            firebase
+              .firestore()
+              .collection("Company")
+              .doc(currentUser.photoURL)
+              .collection("Campaigns")
+              .doc(this.campid)
+              .collection("Fields")
+              .doc("records")
+              .update({
+                [Mainheader[i].indicator]: true,
+              });
+          }
+        });
+    }
+    
+  }
+
 
   upload() {
     let currentUser = firebase.auth().currentUser;

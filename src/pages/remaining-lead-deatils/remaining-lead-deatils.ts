@@ -23,9 +23,12 @@ export class RemainingLeadDeatilsPage {
   arr:any=[];
   public hideMe1: boolean = false;
   public date:any;
-  productss: any;
+  productss: Observable<any[]>;
   products:any;
-  comments:any
+  comments:any;
+  prod:any
+  pend:any=[]
+  complete:any=[]
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
    
     this.data = navParams.get("data");
@@ -207,9 +210,8 @@ export class RemainingLeadDeatilsPage {
       .doc(this.data.uid)
       .collection("History")
       .doc("Activity1")
-      // .where("Completed","==","true")
+      //.where("Completed","==","true")
       .get()
-      
       .then((doc) => {
         if (doc.data()) {
           firebase
@@ -225,13 +227,30 @@ export class RemainingLeadDeatilsPage {
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
               console.log(source, " data: ");
-              this.productss = doc.data().data;
+              this.prod = doc.data().data;
+              console.log("pendings",this.prod)
+              for(var i in this.prod){
+                if(this.prod[i].Completed == false)
+                {
+                  this.pend.push(this.prod[i])
+                  
+                }
+                else{
+                  this.complete.push(this.prod[i])
+                }
+                
+              }
+              console.log("pendings",this.pend)
             });
         }else{
           console.log('DATA EMPTY')
         }
       });
-
+    
+      
+     
+     
+      
 
       firebase
       .firestore()

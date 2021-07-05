@@ -6,7 +6,9 @@ page-remaining-lead-deatils {
         position: fixed;
         z-index: 1;	
 	}
-  
+    .label-md {
+        margin: 16px -159px 13px 0;
+    }
     .activity{
         
         float:left;
@@ -18,10 +20,10 @@ page-remaining-lead-deatils {
     .dot {
         height: 10px;
         width: 10px;
-        background-color: red;
         border-radius: 50%;
         display: inline-block;
       }
+
     //   .segment-ios .segment-button {	
     //     height: 3.6rem;
     //     background-color: white;

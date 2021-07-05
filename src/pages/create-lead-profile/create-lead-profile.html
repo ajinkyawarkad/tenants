@@ -75,17 +75,23 @@
       <tr *ngFor="let att of anArray1; let idx = index">
       <td> <ion-input style="height: 30px;" type="text" placeholder="Enter Field " [(ngModel)]="anArray1[idx].value" ></ion-input></td>
       <td>
-      <select [(ngModel)]="anArray1[idx].indicator">
-      <option >Select</option>
-      <option >None</option>
-      <option >first_name</option>
-      <option >last_name</option>
-      <option >Full Name</option>
-      <option >Email</option>
-      <option >Phone</option>
+        <div>
+          <select  *ngIf="anArray1[idx].indicator !== 'Select'" [(ngModel)]=" anArray1[idx].indicator" (change)="removeField2(idx, anArray1[idx].indicator)" > 
+            
+            <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
+            
+             
+         </select>
       
+          <select *ngIf="anArray1[idx].indicator == 'Select'" style="border : 1px solid red;" [(ngModel)]=" anArray1[idx].indicator" (change)="removeField2(idx, anArray1[idx].indicator)"  > 
+            
+            <option *ngFor="let produ of arrFilelds">{{produ}}</option>      
+             
+          </select>
       
-      </select>
+        </div>
+
+  
       </td>
       <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
       </tr >
@@ -94,7 +100,7 @@
       
       <br>
       
-      <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>   
+      <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="add()">Add More</button>   
       <button ion-button type="submit" (click)="savefield1()"> Save</button>
     </div>
 

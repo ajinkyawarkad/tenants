@@ -93,6 +93,28 @@ export class LeadsDetailsPage {
   Stage;
   Quality;
   Currency;
+  Corporate_Website;
+  Facebook;
+  Facebook_Page;
+  Home;
+  Home_Phone;
+  Live_Chat;
+  LiveJournal;
+  Mobile;
+  Newsletter_Email;
+  Opportunity;
+  Personal_Page;
+  Responsible_Person;
+  Skype;
+  Source;
+  Telegram_Account;
+  Twitter;
+  Vibe_Contact;
+  VK_Page;
+  Website;
+  Work_Email;
+  Work_Phone;
+        
   //=============
   Handler;
   Action;
@@ -175,7 +197,8 @@ export class LeadsDetailsPage {
           .then((doc) => {
             test = doc.data().Users;
             for (var i in test) {
-              let nam = test[i].name;
+              let nam =
+               test[i].name;
               let name = nam;
               this.pro.push(name);
             }
@@ -597,7 +620,32 @@ export class LeadsDetailsPage {
           (this.Zip = res.data().Zip),
           (this.first_name = res.data().first_name),
           (this.last_name = res.data().last_name),
-          (this.middle_name = res.data().middle_name);
+          (this.middle_name = res.data().middle_name),
+
+          (this.Corporate_Website = res.data().Corporate_Website),
+          (this.Facebook = res.data().Facebook),
+          (this.Facebook_Page = res.data().Facebook_Page),
+          (this.Home = res.data().Home),
+          (this.Home_Phone = res.data().Home_Phone),
+          (this.Live_Chat = res.data().Live_Chat),
+          (this.LiveJournal = res.data().LiveJournal),
+          (this.Mobile = res.data().Mobile),
+          (this.Newsletter_Email = res.data().Newsletter_Email),
+          (this.Opportunity = res.data().Opportunity),
+          (this.Personal_Page = res.data().Personal_Page),
+          (this.Responsible_Person = res.data().Responsible_Person),
+          (this.Skype = res.data().Skype),
+          (this.Source = res.data().Source),
+          (this.Telegram_Account = res.data().Telegram_Account),
+          (this.Twitter = res.data().Twitter),
+          (this.Vibe_Contact = res.data().Vibe_Contact),
+          (this.VK_Page = res.data().VK_Page),
+          (this.Website = res.data().Website),
+          (this.Work_Email = res.data().Work_Email),
+          (this.Work_Phone = res.data().Work_Phone)
+          
+         
+
 
         //==========
       });
@@ -977,7 +1025,7 @@ export class LeadsDetailsPage {
   }
 
   edit(data) {
-    let cid = this.value;
+    let cid = this.value.cid;
     this.navCtrl.push(EditLeadDetailsPage, {
       cid,
       data,

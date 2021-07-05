@@ -1,5 +1,7 @@
 page-leads-details {
 
+	
+
 	ion-content
 	{
 		font-family: 'roboto';
@@ -749,7 +751,8 @@ margin-right: -17px
 	}
 
 	.card-md {
-		margin: -37px;
+		margin: -43px;
+		height: 79px;
 		border-radius: 2px;
 		width: calc(100% - 20px);
 		font-size: 0px;
@@ -810,7 +813,9 @@ margin-right: -17px
 	margin-top: -2px;
 	margin-right: -7px;
 }
-
+cardCheckbox{
+	margin-left: 20px;
+}
 
 
 }

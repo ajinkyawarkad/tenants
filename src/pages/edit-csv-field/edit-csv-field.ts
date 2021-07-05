@@ -18,7 +18,7 @@ export class EditCsvFieldPage {
     "Select",
     "None",
     "Custome",
-    "Action",
+  
     "Address",
     "Apartment",
     "City",
@@ -35,7 +35,7 @@ export class EditCsvFieldPage {
     "Follow_up",
     "Full_Name",
     "Gender",
-    "Handler",
+
     "Home",
     "Home_Phone",
     "Id",
@@ -67,11 +67,12 @@ export class EditCsvFieldPage {
     "Work_Email",
     "Work_Phone",
     "Zip",
-    "E-mail",
   ];
+  newFields=[]
 
 
   dummy = [];
+
 
   constructor(
     public navCtrl: NavController,
@@ -89,6 +90,9 @@ export class EditCsvFieldPage {
     // }
     this.anArray.push({ value: "", indicator: "None" });
     this.dummy.push({indicator: "None" });
+    this.newFields.push({field:"none"})
+
+    console.log(this.anArray,"dummy",this.dummy)
   }
 
   remove(idx) {
@@ -110,11 +114,14 @@ export class EditCsvFieldPage {
         this.products = doc.data().CSVfield;
         console.log("csv ", this.products);
         this.anArray = this.products;
+
+        for (var r in this.anArray) {
+          this.dummy.push({ indicator: this.anArray[r].indicator });
+        }
+        console.log("for dummy", this.anArray)
       });
 
-    for (var r in this.anArray) {
-      this.dummy.push({ indicator: this.anArray[r].indicator });
-    }
+    
   }
 
 
@@ -125,13 +132,13 @@ export class EditCsvFieldPage {
       this.anArray[valuee].indicator = att;
       this.dummy[valuee].indicator = att;
       
+      
     } else {
       let b = att;
       if (b) {
         let s = this.arrFilelds.includes(att);
 
-        switch (s) {
-          case true:
+      
             let f;
             let a;
 
@@ -158,7 +165,19 @@ export class EditCsvFieldPage {
                 // console.log("False Anarray", this.anArray);
                 break;
               case true:
-                alert("Duplicate Fields not allowed");
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
                 console.log(valuee, att);
 
                 console.log("indessss", a);
@@ -175,12 +194,9 @@ export class EditCsvFieldPage {
               // let a = this.dummy.indexOf(att);
             }
 
-            break;
+        
 
-          case false:
-            alert("Something went  Wrong");
-            break;
-        }
+    
       } else {
         console.log("Bllank");
       }
@@ -192,9 +208,42 @@ export class EditCsvFieldPage {
 
 
   savefield() {
-    //let Mainheader =this.anArray;
+    let check;
 
-    //console.log("EDITED/Added",this.arr);
+    for (var i in this.anArray) {
+      if (
+        this.anArray[i].indicator == "None" ||
+        this.anArray[i].indicator == "Select"
+      ) {
+        this.anArray[i].indicator = "Select";
+        check = true;
+      } else {
+        console.log("pass");
+      }
+    }
+
+    if (check) {
+      let alert = this.alertCtrl.create({
+        title: "Warning!",
+        subTitle: "Check Assigned Fields",
+        buttons: [
+          {
+            text: "OK",
+            handler: (data) => {
+              // this.navCtrl.push(HomePage);
+            },
+          },
+        ],
+      });
+      alert.present();
+      
+      
+      
+    } else {
+
+      let Mainheader =this.anArray;
+
+    console.log("EDITED/Added",this.arr);
 
     let currentUser = firebase.auth().currentUser;
     // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
@@ -239,5 +288,11 @@ export class EditCsvFieldPage {
       ],
     });
     alert.present();
+
+
+    }
+
+
+    
   }
 }

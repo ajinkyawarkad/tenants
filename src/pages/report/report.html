@@ -93,12 +93,32 @@
           </div>
 
           <div *ngSwitchCase="2" >
+
+            <!-- <ion-item style="width: 45%;float:left">
+            <label for="dino-select">Users :</label>
+            <select class="Selectuser" [(ngModel)]="product" (change)="selecteduser(product)">
+                <optgroup label="Manager">
+                    <option *ngFor="let product of manager " [value]="product"> {{product.name}}</option>
+                </optgroup>
+                <optgroup label="SR">
+                    <option *ngFor="let product of SR " [value]="product">{{product.name}}</option>
+                   
+                </optgroup>
+            </select>
+            </ion-item> -->
+
+
+
             <ion-item style="width: 45%;float:left">
               <ion-label>Users</ion-label>
               <ion-select [(ngModel)]="product" (ionChange)="selecteduser(product)">  
-                <ion-option *ngFor="let product of manager " [value]="product">{{product.name}}&nbsp; {{product.last}} (Manager)</ion-option>
-                <ion-option disabled>__________________________</ion-option>
-                <ion-option *ngFor="let product of SR " [value]="product">{{product.name}} &nbsp;{{product.last}}  (SR)</ion-option>
+                <optgroup label="Manager">
+                <ion-option *ngFor="let product of manager " [value]="product">{{product.name}} (Manager)</ion-option>
+                </optgroup>
+                <!-- <ion-option disabled>__________________________</ion-option> -->
+                <optgroup label="Sr">
+                <ion-option *ngFor="let product of SR " [value]="product">{{product.name}} (SR)</ion-option>
+                </optgroup>
               </ion-select>
             </ion-item>
           
