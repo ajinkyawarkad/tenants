@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import firebase from 'firebase';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
-import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
-import { RemainingLeadDeatilsPage } from '../remaining-lead-deatils/remaining-lead-deatils';
-import { TaskDetailsPage } from '../task-details/task-details';
+import { Component } from "@angular/core";
+import { AngularFirestore } from "@angular/fire/firestore";
+import firebase from "firebase";
+import { AlertController, NavController, NavParams } from "ionic-angular";
+import { EditLeadDetailsPage } from "../edit-lead-details/edit-lead-details";
+import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
+import { TaskDetailsPage } from "../task-details/task-details";
 import { Lead } from "../../models/user";
-import { ExportPage } from '../export/export';
+import { ExportPage } from "../export/export";
 import * as $ from "jquery";
 import { Observable } from "rxjs";
 
 @Component({
-  selector: 'page-pending-leads',
-  templateUrl: 'pending-leads.html',
+  selector: "page-pending-leads",
+  templateUrl: "pending-leads.html",
 })
 export class PendingLeadsPage {
-  mainData=[]
-  arr=[];
+  mainData = [];
+  arr = [];
   products: Observable<any[]>;
   productss: Observable<any[]>;
   userInfo: any;
@@ -34,7 +34,7 @@ export class PendingLeadsPage {
   fileName;
   show = false; //table flag ExelTable
 
-  l//lead = {} as Lead;
+  l; //lead = {} as Lead;
   isIndeterminate: boolean;
   masterCheck: boolean;
   checkedCount: number;
@@ -51,7 +51,6 @@ export class PendingLeadsPage {
   filled = [];
   public anArray: any = [];
   public array = [];
-  
   Id;
   Salutation;
   first_name;
@@ -78,16 +77,45 @@ export class PendingLeadsPage {
   Stage;
   Quality;
   Currency;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl:AlertController,
-    public afs: AngularFirestore) {
-    this.value =  this.navParams.get("cid");
-    console.log("camp id in pendimg",this.value)
+  Corporate_Website;
+  Facebook;
+  Facebook_Page;
+  Home;
+  Home_Phone;
+  Live_Chat;
+  LiveJournal;
+  Mobile;
+  Newsletter_Email;
+  Opportunity;
+  Personal_Page;
+  Responsible_Person;
+  Skype;
+  Source;
+  Telegram_Account;
+  Twitter;
+  Vibe_Contact;
+  VK_Page;
+  Website;
+  Work_Email;
+  Work_Phone;
+        
+  //=============
+  Handler;
+  Action;
+  Follow_Up;
+  Status;
+  Remark;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public afs: AngularFirestore
+  ) {
+    this.value = this.navParams.get("cid");
+    console.log("camp id in pendimg", this.value);
   }
- 
 
   ionViewDidLoad() {
-
     let currentuser = firebase.auth().currentUser;
 
     firebase
@@ -144,11 +172,6 @@ export class PendingLeadsPage {
         console.log("false at : ", this.fal);
       });
 
-
-
-
-
-
     function closeForm() {
       $(".form-popup-bg").removeClass("is-visible");
     }
@@ -196,87 +219,110 @@ export class PendingLeadsPage {
       });
     });
 
-  
-    this.arr = this.mainData
-   
-    console.log(this.value)
+    this.arr = this.mainData;
+
+    console.log(this.value);
 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc(currentuser.photoURL)
-    .collection("Campaigns")
-    .doc(this.value)
-    .collection("leads").where('pending','==',true).onSnapshot((snap)=> {
-      this.mainData = []
-      snap.docs.forEach(dat => {
-        this.mainData.push(dat.data())
-
-      })
-    })
-
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.value)
+      .collection("leads")
+      .where("pending", "==", true)
+      .onSnapshot((snap) => {
+        this.mainData = [];
+        snap.docs.forEach((dat) => {
+          this.mainData.push(dat.data());
+        });
+      });
 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc(currentuser.photoURL)
-    .collection("Campaigns")
-    .doc(this.value)
-    .collection("Fields")
-    .doc("records")
-    .onSnapshot((res) => {
-      (this.Address = res.data().Address),
-        (this.Apartment = res.data().Apartment),
-        (this.City = res.data().City),
-        (this.Company_Name = res.data().Company_Name),
-        (this.Country = res.data().Country),
-        (this.Currency = res.data().Currency),
-        (this.Date_of_Birth = res.data().Date_of_Birth),
-        (this.Email = res.data().Email),
-        (this.Fax = res.data().Fax),
-        (this.Full_Name = res.data().Full_Name),
-        (this.Gender = res.data().Gender),
-        (this.Id = res.data().Id),
-        (this.Other_Contact = res.data().Other_Contact),
-        (this.Other_Email = res.data().Other_Email),
-        (this.Phone = res.data().Phone),
-        (this.Position = res.data().Position),
-        (this.Profile_URL = res.data().Profile_URL),
-        (this.Quality = res.data().Quality),
-        (this.Salutation = res.data().Salutation),
-        (this.Stage = res.data().Stage),
-        (this.State = res.data().State),
-        (this.Price = res.data().Price),
-        (this.Zip = res.data().Zip),
-        (this.first_name = res.data().first_name),
-        (this.last_name = res.data().last_name),
-        (this.middle_name = res.data().middle_name);
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.value)
+      .collection("Fields")
+      .doc("records")
+      .onSnapshot((res) =>
+      {
+        (this.Address = res.data().Address),
+          (this.Apartment = res.data().Apartment),
+          (this.City = res.data().City),
+          (this.Company_Name = res.data().Company_Name),
+          (this.Country = res.data().Country),
+          (this.Currency = res.data().Currency),
+          (this.Date_of_Birth = res.data().Date_of_Birth),
+          (this.Email = res.data().Email),
+          (this.Fax = res.data().Fax),
+          (this.Full_Name = res.data().Full_Name),
+          (this.Gender = res.data().Gender),
+          (this.Id = res.data().Id),
+          (this.Other_Contact = res.data().Other_Contact),
+          (this.Other_Email = res.data().Other_Email),
+          (this.Phone = res.data().Phone),
+          (this.Position = res.data().Position),
+          (this.Profile_URL = res.data().Profile_URL),
+          (this.Quality = res.data().Quality),
+          (this.Salutation = res.data().Salutation),
+          (this.Stage = res.data().Stage),
+          (this.State = res.data().State),
+          (this.Price = res.data().Price),
+          (this.Zip = res.data().Zip),
+          (this.first_name = res.data().first_name),
+          (this.last_name = res.data().last_name),
+          (this.middle_name = res.data().middle_name),
 
-      //==========
-    });
+          (this.Corporate_Website = res.data().Corporate_Website),
+          (this.Facebook = res.data().Facebook),
+          (this.Facebook_Page = res.data().Facebook_Page),
+          (this.Home = res.data().Home),
+          (this.Home_Phone = res.data().Home_Phone),
+          (this.Live_Chat = res.data().Live_Chat),
+          (this.LiveJournal = res.data().LiveJournal),
+          (this.Mobile = res.data().Mobile),
+          (this.Newsletter_Email = res.data().Newsletter_Email),
+          (this.Opportunity = res.data().Opportunity),
+          (this.Personal_Page = res.data().Personal_Page),
+          (this.Responsible_Person = res.data().Responsible_Person),
+          (this.Skype = res.data().Skype),
+          (this.Source = res.data().Source),
+          (this.Telegram_Account = res.data().Telegram_Account),
+          (this.Twitter = res.data().Twitter),
+          (this.Vibe_Contact = res.data().Vibe_Contact),
+          (this.VK_Page = res.data().VK_Page),
+          (this.Website = res.data().Website),
+          (this.Work_Email = res.data().Work_Email),
+          (this.Work_Phone = res.data().Work_Phone)
+          
+         
 
+
+        //==========
+      });
     this.userInfo = this.afs
-    .collection("Company")
-    .doc(currentuser.photoURL)
-    .collection("Admin")
-    .doc(currentuser.uid);
-  this.productss = this.userInfo.valueChanges().Users;
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid);
+    this.productss = this.userInfo.valueChanges().Users;
 
-  firebase
-    .firestore()
-    .collection("Company")
-    .doc(currentuser.photoURL)
-    .collection("Admin")
-    .doc(currentuser.uid)
-    .onSnapshot((doc) => {
-      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      // console.log(source, " data: ");
-      this.productss = doc.data().Users;
-      // console.log(this.productss);
-    });
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid)
+      .onSnapshot((doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        // console.log(source, " data: ");
+        this.productss = doc.data().Users;
+        // console.log(this.productss);
+      });
 
-
-    console.log('ionViewDidLoad PendingLeadsPage', this.mainData);
+    console.log("ionViewDidLoad PendingLeadsPage", this.mainData);
   }
   hide() {
     this.hideMe = true;
@@ -347,7 +393,7 @@ export class PendingLeadsPage {
 
   insertsr(dataa) {
     console.log("iasa", dataa);
-   
+
     let currentuser = firebase.auth().currentUser;
     console.log("AAAAA", this.array);
     let i, j;
@@ -362,7 +408,7 @@ export class PendingLeadsPage {
         .doc(this.array[i])
         .update({
           SR_id: dataa.id,
-          SR_name: dataa.name ,
+          SR_name: dataa.name,
         });
     }
     let alert = this.alertCtrl.create({
@@ -398,7 +444,19 @@ export class PendingLeadsPage {
 
   deleteItem1(value1) {
     let currentuser = firebase.auth().currentUser;
-    this.afs.collection("Company").doc( currentuser.photoURL + "/" + "Campaigns" + "/" +this.value + "/" + "leads" + "/" + value1)
+    this.afs
+      .collection("Company")
+      .doc(
+        currentuser.photoURL +
+          "/" +
+          "Campaigns" +
+          "/" +
+          this.value +
+          "/" +
+          "leads" +
+          "/" +
+          value1
+      )
       .delete();
   }
 
@@ -470,14 +528,12 @@ export class PendingLeadsPage {
       });
   }
 
-
   showOptions(val) {
     this.selSts = status;
 
     this.mainData = [];
     this.filled = [];
     this.filtered = [];
-    
 
     let currentuser = firebase.auth().currentUser;
     this.selectedStatus = status;
@@ -653,7 +709,7 @@ export class PendingLeadsPage {
 
   edit(data) {
     let cid = this.value;
-    console.log("edit pagee",cid)
+    console.log("edit pagee", cid);
     this.navCtrl.push(EditLeadDetailsPage, {
       cid,
       data,
@@ -671,5 +727,4 @@ export class PendingLeadsPage {
     let cid = this.value;
     this.navCtrl.push(RemainingLeadDeatilsPage, { data, cid });
   }
-
 }

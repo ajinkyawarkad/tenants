@@ -45,6 +45,7 @@ export class CreateCampaignPage {
   userInfo: any;
   public anArray: any = [];
   public acArr: any = [];
+  formSlide = true;
 
   constructor(
     private _FB: FormBuilder,
@@ -275,9 +276,11 @@ export class CreateCampaignPage {
     //lock manual swipe for main slider
     this.slides.lockSwipeToNext(true);
     this.slides.lockSwipeToPrev(true);
+    this.slides.onlyExternal = true;
   }
 
   slideToSlide() {
+    this.formSlide= false
     if (this.slides.getActiveIndex() + 1 === this.slides.length()) {
       this.slides.slideTo(0);
     } else {
@@ -288,6 +291,7 @@ export class CreateCampaignPage {
   }
 
   slideToPrev() {
+    this.formSlide = true
     if (this.slides.getActiveIndex() + 1 == this.slides.length()) {
       this.slides.lockSwipeToPrev(false);
       this.slides.slideTo(this.slides.getActiveIndex() - 1);

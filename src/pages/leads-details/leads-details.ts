@@ -114,7 +114,7 @@ export class LeadsDetailsPage {
   Website;
   Work_Email;
   Work_Phone;
-        
+
   //=============
   Handler;
   Action;
@@ -145,10 +145,14 @@ export class LeadsDetailsPage {
   }
 
   hide() {
-    this.hideMe = true;
+    if (this.array.length == null) {
+      this.hideMe = false;
+    } else {
+      this.hideMe = true;
+    }
   }
   hide1() {
-    this.hideMe1 = true;
+    this.hideMe1 = !this.hideMe1;
   }
   hide2() {
     this.hideMe2 = !this.hideMe2;
@@ -197,8 +201,7 @@ export class LeadsDetailsPage {
           .then((doc) => {
             test = doc.data().Users;
             for (var i in test) {
-              let nam =
-               test[i].name;
+              let nam = test[i].name;
               let name = nam;
               this.pro.push(name);
             }
@@ -389,6 +392,13 @@ export class LeadsDetailsPage {
           // console.log(this.array);
           this.checkedCount = this.array.length;
           // console.log("count", this.checkedCount);
+          // if(this.checkedCount == 0){
+          //   this.hideMe = false
+
+          // }else{
+          //   this.hideMe = true
+          // }
+          console.log("HideMe", this.hideMe);
         }
         if (obj.isChecked == false) {
           var index = this.array.indexOf(obj.uid);
@@ -398,6 +408,13 @@ export class LeadsDetailsPage {
           // console.log(this.array);
           // console.log(this.array.length);
           // console.log("count", this.checkedCount);
+          // if(this.checkedCount == 0){
+          //   this.hideMe = false
+
+          // }else{
+          //   this.hideMe = true
+          // }
+          console.log("HideMe", this.hideMe);
         }
       });
     });
@@ -429,7 +446,7 @@ export class LeadsDetailsPage {
 
   insertsr(dataa) {
     console.log("iasa", dataa);
-   
+
     let currentuser = firebase.auth().currentUser;
     console.log("AAAAA", this.array);
     let i, j;
@@ -444,7 +461,7 @@ export class LeadsDetailsPage {
         .doc(this.array[i])
         .update({
           SR_id: dataa.id,
-          SR_name: dataa.name ,
+          SR_name: dataa.name,
         });
     }
     let alert = this.alertCtrl.create({
@@ -475,6 +492,8 @@ export class LeadsDetailsPage {
   }
 
   ionViewDidLoad() {
+
+
     function closeForm() {
       $(".form-popup-bg").removeClass("is-visible");
     }
@@ -621,7 +640,6 @@ export class LeadsDetailsPage {
           (this.first_name = res.data().first_name),
           (this.last_name = res.data().last_name),
           (this.middle_name = res.data().middle_name),
-
           (this.Corporate_Website = res.data().Corporate_Website),
           (this.Facebook = res.data().Facebook),
           (this.Facebook_Page = res.data().Facebook_Page),
@@ -642,10 +660,7 @@ export class LeadsDetailsPage {
           (this.VK_Page = res.data().VK_Page),
           (this.Website = res.data().Website),
           (this.Work_Email = res.data().Work_Email),
-          (this.Work_Phone = res.data().Work_Phone)
-          
-         
-
+          (this.Work_Phone = res.data().Work_Phone);
 
         //==========
       });

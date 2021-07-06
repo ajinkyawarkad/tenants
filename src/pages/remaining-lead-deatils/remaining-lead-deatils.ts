@@ -199,11 +199,12 @@ export class RemainingLeadDeatilsPage {
    
    
     let cu = firebase.auth().currentUser.uid;
+    let current =firebase.auth().currentUser
 
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(current.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -217,7 +218,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc("COM#" + cu)
+            .doc(current.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -255,7 +256,7 @@ export class RemainingLeadDeatilsPage {
       firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + cu)
+      .doc(current.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -268,7 +269,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc("COM#" + cu)
+            .doc(current.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")

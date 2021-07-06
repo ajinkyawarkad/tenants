@@ -135,6 +135,27 @@
             <th *ngIf="Stage">Stage</th>
             <th *ngIf="Quality">Quality</th>
             <th *ngIf="Currency">Currency</th>
+            <th *ngIf="Corporate_Website">Corporate Website</th>
+            <th *ngIf="Facebook">Facebook</th>
+            <th *ngIf="Facebook_Page">Facebook Page</th>
+            <th *ngIf="Home">Home</th>
+            <th *ngIf="Home_Phone">Home Phone</th>
+            <th *ngIf="Live_Chat">Live Chat</th>
+            <th *ngIf="LiveJournal">LiveJournal</th>
+            <th *ngIf="Mobile">Mobile</th>
+            <th *ngIf="Newsletter_Email">Newsletter Email</th>
+            <th *ngIf="Opportunity">Opportunity</th>
+            <th *ngIf="Personal_Page">Personal Page</th>
+            <th *ngIf="Responsible_Person">Responsible Person</th>
+            <th *ngIf="Skype">Skype</th>
+            <th *ngIf="Source">Source</th>
+            <th *ngIf="Telegram_Account">Telegram Account</th>
+            <th *ngIf="Twitter">Twitter</th>
+            <th *ngIf="Vibe_Contact">Vibe Contact</th>
+            <th *ngIf="VK_Page">VK Page</th>
+            <th *ngIf="Website">Website</th>
+            <th *ngIf="Work_Email">Work Email</th>
+            <th *ngIf="Work_Phone">Work Phone</th>
             <th>Handler</th>
             <th>Activity</th>
             <th>Status</th>
@@ -153,44 +174,65 @@
                 </ion-checkbox>
               </div>
               </td>
-            
-              <td *ngIf="Full_name">{{product.Full_Name}}</td>
-              <td *ngIf="first_name">{{product.first_name}}</td>
-              <td *ngIf="middle_name">{{product.middle_name}}</td>
-              <td *ngIf="last_name">{{product.last_name}}</td>
-              <!-- <td style="color: cornflowerblue;" >
-              {{product.Email}}</td> -->
-              <td *ngIf="Phone">{{product.Phone}}
-              <div *ngIf="product.Phone"
-              style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
-              <ion-icon name="call" (click)="remaining(product)"> </ion-icon>
-              </div>
-              </td>
-              <td *ngIf="Other_Contac">{{product.Other_Contac}}
-              <div *ngIf="product.Other_Contac"
-              style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
-              <ion-icon name="call" > </ion-icon>
-              </div>
-              </td>
-              <td *ngIf="Email">{{product.Email}}</td>
-              <td *ngIf="Other Email">{{product.Other_Email}}</td>
-              <td *ngIf="Address">{{product.Address}}</td>
-              <td *ngIf="City">{{product.City}}</td>
-              <td *ngIf="State">{{product.State}}</td>
-              <td *ngIf="Country">{{product.Country}}</td>
-              <td *ngIf="Gender">{{product.Gender}}</td>
-              <td style="color: cornflowerblue;text-decoration: underline;" (click)="remaining(product)"
-              *ngIf="Company_Name">{{product.Company_Name}}</td>
-              <td *ngIf="Position">{{product.Position}}</td>
-              <td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
-              <td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
-              <td *ngIf="Apartment">{{product.Apartment}}</td>
-              <td *ngIf="Zip">{{product.Zip}}</td>
-              <td *ngIf="Fax">{{product.Fax}}</td>
-              <td *ngIf="Price">{{product.Price}}</td>
-              <td *ngIf="Stage">{{product.Stage}}</td>
-              <td *ngIf="Quality">{{product.Quality}}</td>
-              <td *ngIf="Currency">{{product.Currency}}</td>
+            	<td *ngIf="Salutation">{{product.Salutation}}</td>
+				<td *ngIf="first_name">{{product.first_name}}</td>
+				<td *ngIf="Full_Name">{{product.Full_Name}}</td>
+				<td *ngIf="middle_name">{{product.middle_name}}</td>
+				<td *ngIf="last_name">{{product.last_name}}</td>
+				<!-- <td style="color: cornflowerblue;" >
+				{{product.Email}}</td> -->
+				<td *ngIf="Phone">{{product.Phone}}
+				<div *ngIf="product.Phone"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" (click)="remaining(product)"> </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Other_Contac">{{product.Other_Contac}}
+				<div *ngIf="product.Other_Contac"
+				style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
+				<ion-icon name="call" > </ion-icon>
+				</div>
+				</td>
+				<td *ngIf="Email">{{product.Email}}</td>
+				<td *ngIf="Other Email">{{product.Other_Email}}</td>
+				<td *ngIf="Address">{{product.Address}}</td>
+				<td *ngIf="City">{{product.City}}</td>
+				<td *ngIf="State">{{product.State}}</td>
+				<td *ngIf="Country">{{product.Country}}</td>
+				<td *ngIf="Gender">{{product.Gender}}</td>
+				<td style="color: cornflowerblue;text-decoration: underline;" (click)="remaining(product)"
+				*ngIf="Company_Name">{{product.Company_Name}}</td>
+				<td *ngIf="Position">{{product.Position}}</td>
+				<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
+				<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
+				<td *ngIf="Apartment">{{product.Apartment}}</td>
+				<td *ngIf="Zip">{{product.Zip}}</td>
+				<td *ngIf="Fax">{{product.Fax}}</td>
+				<td *ngIf="Price">{{product.Price}}</td>
+				<td *ngIf="Stage">{{product.Stage}}</td>
+				<td *ngIf="Quality">{{product.Quality}}</td>
+				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Corporate_Website">{{product.Corporate_Website}}</td>
+				<td *ngIf="Facebook">{{product.Facebook}}</td>
+				<td *ngIf="Facebook_Page">{{product.Facebook_Page}}</td>
+				<td *ngIf="Home">{{product.Home}}</td>
+				<td *ngIf="Home_Phone">{{product.Home_Phone}}</td>
+				<td *ngIf="Live_Chat">{{product.Live_Chat}}</td>
+				<td *ngIf="LiveJournal">{{product.LiveJournal}}</td>
+				<td *ngIf="Mobile">{{product.Mobile}}</td>
+				<td *ngIf="Newsletter_Email">{{product.Newsletter_Email}}</td>
+				<td *ngIf="Opportunity">{{product.Opportunity}}</td>
+				<td *ngIf="Personal_Page">{{product.Personal_Page}}</td>
+				<td *ngIf="Responsible_Person">{{product.Responsible_Person}}</td>
+				<td *ngIf="Skype">{{product.Skype}}</td>
+				<td *ngIf="Source">{{product.Source}}</td>
+				<td *ngIf="Telegram_Account">{{product.Telegram_Account}}</td>
+				<td *ngIf="Twitter">{{product.Twitter}}</td>
+				<td *ngIf="Vibe_Contact">{{product.Vibe_Contact}}</td>
+				<td *ngIf="VK_Page">{{product.VK_Page}}</td>
+				<td *ngIf="Website">{{product.Website}}</td>
+				<td *ngIf="Work_Email">{{product.Work_Email}}</td>
+				<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
               <td>{{product.SR_name}}</td>
               
               <td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
