@@ -68,6 +68,12 @@
           </ion-select>
         </ion-item>
 
+        <label>Remark</label>
+        <ion-item>
+          <ion-input placeholder="Enter Remark" [(ngModel)]="task.remark"></ion-input>
+        </ion-item>
+
+
         <label>Action</label>
         <ion-item class="itemselect">
           <ion-select placeholder="Select Action" (ionChange)="hide(task.action)" [(ngModel)]="task.action">
@@ -78,11 +84,7 @@
           </ion-select>
         </ion-item>
 
-        <label>Remark</label>
-        <ion-item>
-          <ion-input placeholder="Enter Remark" [(ngModel)]="task.remark"></ion-input>
-        </ion-item>
-
+       
        
 
         <div *ngIf="hideMe">

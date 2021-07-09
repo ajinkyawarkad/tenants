@@ -511,7 +511,7 @@ export class TaskDetailsPage {
             action: this.task.action,
             datetime: "",
             status:  this.task.status,
-            remark: "",
+            remark: this.task.remark,
            
           },
           { merge: true }
@@ -537,6 +537,7 @@ export class TaskDetailsPage {
                 name: this.data.uid,
                 Handler: this.data.SR_name,
                 Completed: true,
+                pending:false
               }),
             },
             { merge: true }
