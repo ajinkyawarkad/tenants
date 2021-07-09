@@ -73,7 +73,7 @@ export class RemainingLeadDeatilsPage {
             firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
             .collection('leads').doc(snap.data().uid).update({
               leads:firebase.firestore.FieldValue.arrayUnion(
-                this.arr[z]
+                this.moreDetails[z]
               )
             })
 
