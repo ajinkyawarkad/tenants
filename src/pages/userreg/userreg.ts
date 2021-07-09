@@ -99,7 +99,7 @@ export class UserregPage {
                         .update({
                           Managers: firebase.firestore.FieldValue.arrayUnion({
                             id: currentuser.uid,
-                            name: name[0],
+                            name: user.name,
                             // last: name[1],
                             role: "Manager",
                           }),
@@ -113,7 +113,7 @@ export class UserregPage {
                         .set({
                           email: currentuser.email,
                           id: currentuser.uid,
-                          name: name[0],
+                          name: user.name,
                           // last: name[1],
                           role: "Manager",
                           function: true,
