@@ -33,7 +33,7 @@ export class RemainingLeadDeatilsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
    
     this.data = navParams.get("data");
-    console.log("Data", this.data.leads);
+    console.log("Data", this.data);
     this.arr=this.data.leads
 
     this.campid = navParams.get("cid");
@@ -63,34 +63,15 @@ export class RemainingLeadDeatilsPage {
 
     savefield()
   {
-     
-    let currentUser = firebase.auth().currentUser;
+    let currentUser = firebase.auth().currentUser
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    .collection('leads').get().then(dat =>{
-      dat.docs.forEach(snap => 
-        {
-          for(var z in this.arr){
-            firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-            .collection('leads').doc(snap.data().uid).update({
-              leads:firebase.firestore.FieldValue.arrayUnion(
-                this.moreDetails[z]
-              )
-            })
+     .collection('leads').doc(this.data.uid).update({
+       leads:this.moreDetails
+     })
 
-          }
-  
-        })
-    })
+    
 
-  for(var x in this.arr){
-    // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    // .update({
-    //   CSVfield:firebase.firestore.FieldValue.arrayUnion(
-    //     this.arr[x]
-    //   )
-    // })
 
-  }
 
  
     let alert = this.alertCtrl.create({
