@@ -196,8 +196,8 @@ export class TrackCampaignPage {
                           .collection("Campaigns")
                           .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
                           .update({
-                            pendingCalls: call.length,
-                            pendingMeets: meet.length,
+                            // pendingCalls: call.length,
+                            // pendingMeets: meet.length,
                             pendings: call.length + meet.length,
                           });
                       });

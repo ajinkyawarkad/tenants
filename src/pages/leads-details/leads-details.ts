@@ -49,7 +49,7 @@ export class LeadsDetailsPage {
   value: any;
   userInfo: any;
   products: Observable<Users[]>;
-  productss: Observable<Users[]>;
+  productss :any=[];
   productsss: any;
   prod = [];
   public anArray: any = [];
@@ -122,6 +122,7 @@ export class LeadsDetailsPage {
   Status;
   Remark;
   showAssign;
+  srIds=[];
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -141,8 +142,12 @@ export class LeadsDetailsPage {
     public loadingCtrl: LoadingController
   ) {
     this.value = navParams.get("product");
-    console.log(this.value);
+    // this.srIds =this.value.SR_id
+    
     this.campid = this.value.cid;
+    for(var i in this.value.SR_id){
+      this.srIds.push({"id":this.value.SR_id[i],"name":this.value.SR_name[i]})
+    }
   }
 
   hide() {
@@ -419,6 +424,7 @@ export class LeadsDetailsPage {
   checkEvent(lead: Lead) {
     this.hide();
     let checked = 0;
+    
 
     this.productsss.map((obj) => {
       // console.log(obj.isChecked);
@@ -432,19 +438,21 @@ export class LeadsDetailsPage {
         } else {
           this.showAssign = true;
         }
+       
       }
       if (obj.isChecked == false) {
         var index = this.array.indexOf(obj.uid);
         if (index !== -1) {
           this.array.splice(index, 1);
         }
+       
+        // console.log(this.array);
+        this.checkedCount = this.array.length;
         if (this.checkedCount == 0) {
           this.showAssign = false;
         } else {
           this.showAssign = true;
         }
-        // console.log(this.array);
-        this.checkedCount = this.array.length;
         // console.log("count", this.checkedCount);
       }
     });
@@ -689,12 +697,16 @@ export class LeadsDetailsPage {
         //==========
       });
 
-    this.userInfo = this.afs
-      .collection("Company")
-      .doc(currentuser.photoURL)
-      .collection("Admin")
-      .doc(currentuser.uid);
-    this.productss = this.userInfo.valueChanges().Users;
+    // this.userInfo = this.afs
+    //   .collection("Company")
+    //   .doc(currentuser.photoURL)
+    //   .collection("Admin")
+    //   .doc(currentuser.uid);
+    // this.productss = this.userInfo.valueChanges().Users;
+    this.productss=this.srIds
+    console.log("value",this.productss);
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<?????????????????????????????????????????????????????????????????????????????
 
     firebase
       .firestore()

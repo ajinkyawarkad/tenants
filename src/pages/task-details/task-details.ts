@@ -54,6 +54,7 @@ export class TaskDetailsPage {
   task = {} as Task;
   leadd = {} as Leadd;
   showSlide = false;
+  count;
   public products: Observable<Lead[]>;
 
   constructor(
@@ -92,6 +93,11 @@ export class TaskDetailsPage {
   }
 
   ionViewDidLoad() {
+    let currentuser = firebase.auth().currentUser;
+    firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).get().then(doc =>{
+      this.count = doc.data().pendings
+      
+    })
     if (this.data.action == null) {
       console.log("action=Null");
       this.showSlide = false;
@@ -246,12 +252,30 @@ export class TaskDetailsPage {
                 datetime: task.datetime,
                 status: task.status,
                 remark: task.remark,
-              },
-              { merge: true }
+              }
             )
           );
         console.log("ACT IS ", this.act);
         console.log("SELECT", this.select);
+
+
+
+        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).collection("leads").doc(this.data.uid).get().then(doc => {
+          if(doc.data().pending = true){
+            doc.ref.update({
+              pending:false
+            })
+
+            firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).update({
+              pendings:this.count-1
+            })
+
+
+          }else{
+           console.log("not false")
+
+          }
+        })
 
         switch (this.act) {
           case "Inform Manager":
