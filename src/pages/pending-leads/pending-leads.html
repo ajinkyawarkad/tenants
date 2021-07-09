@@ -2,7 +2,7 @@
 <ion-header>
 
 	<ion-navbar>
-		<ion-title>Pendings</ion-title>
+		<ion-title>Pendings Details</ion-title>
 	</ion-navbar>
 
 </ion-header>
@@ -11,7 +11,7 @@
 
 
 
-<ion-content  padding="true" class="has-header">
+<ion-content  padding="true">
   <div class="container">
 
 <div>
@@ -94,11 +94,11 @@
         <br>
       
       
-        <div class="tableFixHead">
-          <table >
+        <div id="table-scroll" class="table-scroll">
+          <table id="main-table" class="main-table">
             <thead>
             <tr>
-            <th>
+            <th scope="col"> 
         
               <div >
             
@@ -110,70 +110,70 @@
               </div>	
             </th>
             
-            <th *ngIf="Salutation">Salutation</th>
-            <th *ngIf="first_name">First Name</th>
-            <th *ngIf="Full_Name">Full Name</th>
-            <th *ngIf="middle_name">Middle Name</th>
-            <th *ngIf="last_name">Last Name</th>
-            <th *ngIf="Phone">Phone</th>
-            <th *ngIf="Other_Contact">Other Contact</th>
-            <th *ngIf="Email">Email</th>
-            <th *ngIf="Other_Email">Other Email</th>
-            <th *ngIf="Address">Address</th>
-            <th *ngIf="City">City</th>
-            <th *ngIf="State">State</th>
-            <th *ngIf="Country">Country</th>
-            <th *ngIf="Gender">Gender</th>
-            <th *ngIf="Company_Name">Company_Name</th>
-            <th *ngIf="Position">Position</th>
-            <th *ngIf="Profile_URL">Profile URL</th>
-            <th *ngIf="Date_of_Birth">Date of Birth</th>
-            <th *ngIf="Apartment">Office</th>
-            <th *ngIf="Zip">Zip</th>
-            <th *ngIf="Fax">Fax</th>
-            <th *ngIf="Price">Price</th>
-            <th *ngIf="Stage">Stage</th>
-            <th *ngIf="Quality">Quality</th>
-            <th *ngIf="Currency">Currency</th>
-            <th *ngIf="Corporate_Website">Corporate Website</th>
-            <th *ngIf="Facebook">Facebook</th>
-            <th *ngIf="Facebook_Page">Facebook Page</th>
-            <th *ngIf="Home">Home</th>
-            <th *ngIf="Home_Phone">Home Phone</th>
-            <th *ngIf="Live_Chat">Live Chat</th>
-            <th *ngIf="LiveJournal">LiveJournal</th>
-            <th *ngIf="Mobile">Mobile</th>
-            <th *ngIf="Newsletter_Email">Newsletter Email</th>
-            <th *ngIf="Opportunity">Opportunity</th>
-            <th *ngIf="Personal_Page">Personal Page</th>
-            <th *ngIf="Responsible_Person">Responsible Person</th>
-            <th *ngIf="Skype">Skype</th>
-            <th *ngIf="Source">Source</th>
-            <th *ngIf="Telegram_Account">Telegram Account</th>
-            <th *ngIf="Twitter">Twitter</th>
-            <th *ngIf="Vibe_Contact">Vibe Contact</th>
-            <th *ngIf="VK_Page">VK Page</th>
-            <th *ngIf="Website">Website</th>
-            <th *ngIf="Work_Email">Work Email</th>
-            <th *ngIf="Work_Phone">Work Phone</th>
-            <th>Handler</th>
-            <th>Activity</th>
-            <th>Status</th>
-            <th>Remarks</th>
-            <th>Edit / Delete</th>
+            <th scope="col" *ngIf="Salutation">Salutation</th>
+            <th scope="col" *ngIf="first_name">First Name</th>
+            <th scope="col" *ngIf="Full_Name">Full Name</th>
+            <th scope="col" *ngIf="middle_name">Middle Name</th>
+            <th scope="col" *ngIf="last_name">Last Name</th>
+            <th scope="col" *ngIf="Phone">Phone</th>
+            <th scope="col" *ngIf="Other_Contact">Other Contact</th>
+            <th scope="col" *ngIf="Email">Email</th>
+            <th scope="col" *ngIf="Other_Email">Other Email</th>
+            <th scope="col" *ngIf="Address">Address</th>
+            <th scope="col" *ngIf="City">City</th>
+            <th scope="col" *ngIf="State">State</th>
+            <th scope="col" *ngIf="Country">Country</th>
+            <th scope="col" *ngIf="Gender">Gender</th>
+            <th scope="col" *ngIf="Company_Name">Company_Name</th>
+            <th scope="col" *ngIf="Position">Position</th>
+            <th scope="col" *ngIf="Profile_URL">Profile URL</th>
+            <th scope="col" *ngIf="Date_of_Birth">Date of Birth</th>
+            <th scope="col" *ngIf="Apartment">Office</th>
+            <th scope="col" *ngIf="Zip">Zip</th>
+            <th scope="col" *ngIf="Fax">Fax</th>
+            <th scope="col" *ngIf="Price">Price</th>
+            <th scope="col" *ngIf="Stage">Stage</th>
+            <th scope="col" *ngIf="Quality">Quality</th>
+            <th scope="col" *ngIf="Currency">Currency</th>
+            <th scope="col" *ngIf="Corporate_Website">Corporate Website</th>
+            <th scope="col" *ngIf="Facebook">Facebook</th>
+            <th scope="col" *ngIf="Facebook_Page">Facebook Page</th>
+            <th scope="col" *ngIf="Home">Home</th>
+            <th scope="col" *ngIf="Home_Phone">Home Phone</th>
+            <th scope="col" *ngIf="Live_Chat">Live Chat</th>
+            <th scope="col" *ngIf="LiveJournal">LiveJournal</th>
+            <th scope="col" *ngIf="Mobile">Mobile</th>
+            <th scope="col" *ngIf="Newsletter_Email">Newsletter Email</th>
+            <th scope="col" *ngIf="Opportunity">Opportunity</th>
+            <th scope="col" *ngIf="Personal_Page">Personal Page</th>
+            <th scope="col" *ngIf="Responsible_Person">Responsible Person</th>
+            <th scope="col" *ngIf="Skype">Skype</th>
+            <th scope="col" *ngIf="Source">Source</th>
+            <th scope="col" *ngIf="Telegram_Account">Telegram Account</th>
+            <th scope="col" *ngIf="Twitter">Twitter</th>
+            <th scope="col" *ngIf="Vibe_Contact">Vibe Contact</th>
+            <th scope="col" *ngIf="VK_Page">VK Page</th>
+            <th scope="col" *ngIf="Website">Website</th>
+            <th scope="col" *ngIf="Work_Email">Work Email</th>
+            <th scope="col" *ngIf="Work_Phone">Work Phone</th>
+            <th scope="col">Handler</th>
+            <th scope="col">Activity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Edit / Delete</th>
             </tr>
             </thead>
       
             <tbody>
             <tr *ngFor="let product of mainData;let idx = index; ">
       
-              <td>
+              <th>
                 <div>
                 <ion-icon (click)="remaining(product)" class="settingicon" ios="ios-list-box" md="md-list-box"></ion-icon>
                 <ion-checkbox slot="start" [(ngModel)]="product.isChecked" (ionChange)="checkEvent();">
                 </ion-checkbox>
               </div>
-              </td>
+              </th>
             	<td *ngIf="Salutation">{{product.Salutation}}</td>
 				<td *ngIf="first_name">{{product.first_name}}</td>
 				<td *ngIf="Full_Name">{{product.Full_Name}}</td>

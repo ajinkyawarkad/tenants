@@ -1,4 +1,74 @@
 page-pending-leads {
+	html {
+		box-sizing: border-box;
+	  }
+	  *,
+	  *:before,
+	  *:after {
+		box-sizing: inherit;
+	  }
+	  .intro {
+		max-width: 1280px;
+		margin: 1em auto;
+	  }
+	  .table-scroll {
+		position: relative;
+		width:100%;
+		z-index: 1;
+		margin: auto;
+		overflow: auto;
+		//overflow-x: scroll;
+		height: 425px;
+	  }
+	  .table-scroll table {
+		width: 100%;
+		min-width: 1280px;
+		margin: auto;
+		border-collapse: separate;
+		border-spacing: 0;
+	  }
+	  .table-wrap {
+		position: relative;
+	  }
+	  .table-scroll th,
+	  .table-scroll td {
+		padding: 8px 26px;
+		
+		border: 1px solid rgb(224, 219, 219);
+		background: #fff;
+		vertical-align: top;
+   		text-align: center;
+		
+	  }
+	  .table-scroll thead th {
+		//background: #ccc;
+		//color: #ff;
+		background: #f4f4f4;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;	
+	  }
+	 
+	  
+	  a:focus {
+		background: red;
+	  } /* testing links*/
+	  
+	  th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+		z-index: 2;
+		background: #f4f4f4;
+	  }
+	  thead th:first-child,
+	  tfoot th:first-child {
+		z-index: 5;
+		
+	  }
+	 
+
+
 	ion-content
 	{
 		font-family: 'roboto';
@@ -64,39 +134,6 @@ page-pending-leads {
 			height: 100%;
 			width: 100%;
 		}
-		.tableFixHead  { 
-			overflow-x: scroll;
-			 height: 50%; 
-			 width: 100%;
-			//margin-top :20px
-		  }
-  
-	  .tableFixHead thead th { 
-		  position: sticky; 
-		  top: 0; 
-		  z-index: 1; 
-		 // overflow-x: scroll;
-		 // width: 100%;
-	  }
-  
-	  /* Just common table stuff. Really. */
-	  table  { border-collapse: collapse; width: 100%; }
-	  th, td {
-		   padding: 8px 4px;
-		   border: 1px solid #ddd;
-		   text-align: center;
-		   
-	 }
-	  th 
-	  { background:#eee; }
-
-	  p{
-		display: inline-block;
-		color: red;
-		height: 1px;
-		margin-top: 2px;
-		margin-left: 8px;
-	}
 
 	.seg{
 		float: left;
@@ -380,32 +417,8 @@ page-pending-leads {
 		height: 100%;
 		width: 100%;
 	}
-	.tableFixHead  { 
-		overflow-x: scroll;
-		 height: 50%; 
-		 width: 100%;
-		//margin-top :20px
-	  }
 
-  .tableFixHead thead th { 
-	  position: sticky; 
-	  top: 0; 
-	  z-index: 1; 
-	 // overflow-x: scroll;
-	 // width: 100%;
-  }
 
-  /* Just common table stuff. Really. */
-  table  { border-collapse: collapse; width: 100%; }
-  th, td {
-	   padding: 8px 4px;
-	   border: 1px solid #ddd;
-	   text-align: center;
-	   
-	   
- }
-  th 
-  { background:#eee; }
 
   p{
 	display: inline-block;
@@ -563,32 +576,9 @@ page-pending-leads {
 		height: 100%;
 		width: 100%;
 	}
-	.tableFixHead  { 
-		overflow-x: scroll;
-		 height: 50%; 
-		 width: 100%;
-		//margin-top :20px
-	  }
+	
 
-  .tableFixHead thead th { 
-	  position: sticky; 
-	  top: 0; 
-	  z-index: 1; 
-	 // overflow-x: scroll;
-	 // width: 100%;
-  }
-
-  /* Just common table stuff. Really. */
-  table  { border-collapse: collapse; width: 100%; }
-  th, td {
-	   padding: 8px 4px;
-	   border: 1px solid #ddd;
-	   text-align: center;
-	   
-	   
- }
-  th 
-  { background:#eee; }
+  
 
   p{
 	display: inline-block;
@@ -757,33 +747,8 @@ margin-right: -17px
 	//	-webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 	//	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 	}
-	.tableFixHead  { 
-		overflow-x: scroll;
-		 height: 50%; 
-		 width: 100%;
-		//margin-top :20px
-	  }
 
-  .tableFixHead thead th { 
-	  position: sticky; 
-	  top: 0; 
-	  z-index: 1; 
-	  //overflow-x: scroll;
-	  //width: 100%;
-  }
 
-  table  { border-collapse: collapse; 
-	width: 100%; 
-}
-  th, td {
-	   padding: 8px 4px;
-	   border: 1px solid #ddd;
-	   text-align: center;
-	   
-	   
- }
-  th 
-  { background:#eee; }
 
  p{
 	display: inline-block;
@@ -793,12 +758,7 @@ margin-right: -17px
 	margin-left: 8px;
 }
 
-  th 
-  { 
-	border-bottom: 3px solid #ddd;
-	border-top: 3px solid #ddd;
-}
-
+ 
 .seg{
 	float: left;
 	width: 100%;
@@ -816,6 +776,5 @@ cardCheckbox{
 
 
 }
-
 
 	}

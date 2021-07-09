@@ -20,6 +20,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 // import { merge } from 'jquery';
 import { uuid } from "uuidv4";
+import { identifierModuleUrl } from "@angular/compiler";
 
 interface Users {
   first_name: string;
@@ -40,8 +41,9 @@ export class UserDetailsPage {
   productss: any = [];
   Segments: string;
   // isAdmin = true
-  userIds=[]
-  
+  userIds = [];
+  users: any = [];
+  managers: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -73,16 +75,40 @@ export class UserDetailsPage {
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Users").onSnapshot(snap =>{
-        this.productss=[]
-        snap.docs.forEach(dat => {
-          this.productss.push(dat.data())
-          this.userIds.push(dat.data().id)
-         
-        })
+      .collection("Users")
+      .onSnapshot((snap) => {
+        this.productss = [];
+        snap.docs.forEach((dat) => {
+          this.productss.push(dat.data());
+          this.userIds.push(dat.data().id);
+        });
       });
-     
-     
+
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid)
+      .onSnapshot((doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        console.log(source, " data: ");
+        this.managers = doc.data().Managers;
+        console.log("Usersfrom Firebase", this.managers);
+      });
+
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid)
+      .onSnapshot((doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        console.log(source, " data: ");
+        this.users = doc.data().Users;
+        console.log("Usersfrom Firebase", this.users);
+      });
   }
 
   // makeAdmin(id){
@@ -91,7 +117,6 @@ export class UserDetailsPage {
   //   console.log("data",a, this.productss[a].isAdmin )
   //   let f = this.productss[a].isAdmin
 
-
   //   if(f){
   //     firebase
   //     .firestore()
@@ -99,7 +124,7 @@ export class UserDetailsPage {
   //     .doc(currentuser.photoURL)
   //     .collection("Users").doc(id).update({
   //       isAdmin:false
-        
+
   //     })
   //   }else{
   //     firebase
@@ -108,14 +133,11 @@ export class UserDetailsPage {
   //     .doc(currentuser.photoURL)
   //     .collection("Users").doc(id).update({
   //       isAdmin:true
-        
+
   //     })
 
   //   }
 
-
-
-    
   //   console.log("For Admin",id)
   //   firebase
   //   .firestore()
@@ -127,16 +149,14 @@ export class UserDetailsPage {
   //     )
   //   })
 
-   
-   
   // }
-
 
   add() {
     this.navCtrl.push(UserlistPage);
   }
 
-  showPopup(value) {
+  showPopup(value, role) {
+    console.log("value", value, role);
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
       subTitle: "Do you really want to delete?",
@@ -151,7 +171,7 @@ export class UserDetailsPage {
 
           handler: (data) => {
             console.log(value);
-            this.deleteItem1(value);
+            this.deleteItem1(value, role);
             this.deleteItem2(value);
           },
         },
@@ -159,12 +179,37 @@ export class UserDetailsPage {
     });
     alert.present();
   }
-  deleteItem1(value) {
+  
+  deleteItem1(value, role) {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
       .doc(currentuser.photoURL + "/" + "Users" + "/" + value)
       .delete();
+    switch (role) {
+      case "Sale Representative":
+     
+        for (var i in this.users) {
+          if (this.users[i].id == value) {
+            this.users.splice(i, 1);
+          }
+        }
+        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+          Users:this.users
+        })
+        break;
+      case "Manager":
+        for (var i in this.managers) {
+          if (this.managers[i].id == value) {
+            this.managers.splice(i, 1);
+          }
+        }
+        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+          Managers:this.managers
+        })
+        
+        break;
+    }
   }
 
   deleteItem2(value1) {

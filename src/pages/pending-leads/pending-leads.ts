@@ -105,6 +105,7 @@ export class PendingLeadsPage {
   Follow_Up;
   Status;
   Remark;
+  none=[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -177,7 +178,7 @@ export class PendingLeadsPage {
     }
 
     $(document).ready(function ($) {
-      /* Contact Form Interactions */
+      / Contact Form Interactions /
       $("#btnOpenForm").on("click", function (event) {
         event.preventDefault();
 
@@ -234,7 +235,14 @@ export class PendingLeadsPage {
       .onSnapshot((snap) => {
         this.mainData = [];
         snap.docs.forEach((dat) => {
-          this.mainData.push(dat.data());
+          if(dat.data().action !== "None"){
+            this.mainData.push(dat.data());
+
+          }else{
+            this.none.push(dat.data())
+            
+          }
+          
         });
       });
 
@@ -376,7 +384,6 @@ export class PendingLeadsPage {
       checked++;
       if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
         this.array.push(obj.uid);
-        // console.log(this.array);
         this.checkedCount = this.array.length;
       }
       if (obj.isChecked == false) {
@@ -384,16 +391,13 @@ export class PendingLeadsPage {
         if (index !== -1) {
           this.array.splice(index, 1);
         }
-        // console.log(this.array);
         this.checkedCount = this.array.length;
-        // console.log("count", this.checkedCount);
       }
     });
   }
 
   insertsr(dataa) {
     console.log("iasa", dataa);
-
     let currentuser = firebase.auth().currentUser;
     console.log("AAAAA", this.array);
     let i, j;
@@ -413,8 +417,7 @@ export class PendingLeadsPage {
     }
     let alert = this.alertCtrl.create({
       title: "Success",
-      subTitle: "Handler added Successfully",
-      //scope: id,
+      subTitle: "Handler Added Successfully",
       buttons: [{ text: "OK", handler: (data) => {} }],
     });
     alert.present();

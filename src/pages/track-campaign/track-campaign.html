@@ -37,35 +37,34 @@
       <div *ngSwitchCase="1">
       
         <div class="tableFixHead">
-          <table>
+          <table >
             <thead>
               <tr>
-                <th (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                <th scope="col" (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
                 </th>
-                <th>Manager</th>
-                <th>Pendings Tasks</th>
-                <th>Total Lead</th>
-                <th>Action</th>
+                <th scope="col">Manager</th>
+                <th scope="col">Pendings Tasks</th>
+                <th scope="col">Total Lead</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody
-          *ngFor="let product of products | async | search2 : term | sort: {property: column, order: order} ">
-          <tr *ngIf="product.active == true ">
-            <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
-            <td>{{product.manager}}</td>
-
-            <td style="text-decoration: underline;color:blue" (click)="pendigDetails(product.cid)">
-              {{product.pendings}}</td>
-
-
-            <td>{{product.totalLeads}}</td>
-            <td>
-              <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->
-              <p style="color:blue" (click)="gotoActive(product)">Edit</p>
-              <p (click)="archive(product)">Archive</p>
-            </td>
-          </tr>
-        </tbody>
+            <tbody *ngFor="let product of products | async | search2 : term | sort: {property: column, order: order} ">
+            
+              <tr  *ngIf="product.active == true ">
+                <th style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</th>
+                <td>{{product.manager}}</td>
+    
+                <td style="text-decoration: underline;color:blue" (click)="pendigDetails(product.cid)"> {{product.pendings}}</td>
+                <td>{{product.totalLeads}}</td>
+                <td>
+                  <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->
+                  <p style="color:blue" (click)="gotoActive(product)">Edit</p>
+                  <p (click)="archive(product)">Archive</p>
+                </td>
+              </tr>
+        
+            </tbody>
+           
           </table>
         </div>
         
@@ -77,20 +76,20 @@
         <br>
 
         <div class="tableFixHead">
-          <table>
+          <table >
             <thead>
               <tr>
-                <th (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                <th scope="col" (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
                 </th>
-                <th>Manager</th>
-                <th>Pendings Tasks</th>
-                <th>Total Lead</th>
-                <th>Action</th>
+                <th scope="col">Manager</th>
+                <th scope="col">Pendings Tasks</th>
+                <th scope="col">Total Lead</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody *ngFor="let product of products | async | search2 : term">
-              <tr *ngIf="product.active == false ">
-                <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
+              <tr  *ngIf="product.active == false ">
+                <th style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</th>
                 <td>{{product.manager}}</td>
                 <td>{{product.pendings}}</td>
                 <td>{{product.totalLeads}}</td>
@@ -100,12 +99,10 @@
                   <p (click)="active(product)">Active</p>
                 </td>
               </tr>
-
+            
             </tbody>
           </table>
         </div>
-        
-
       </div>
     </div>
   </div>

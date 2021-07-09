@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
 import { CallDetailsPage } from "../call-details/call-details";
@@ -121,6 +121,7 @@ export class LeadsDetailsPage {
   Follow_Up;
   Status;
   Remark;
+  showAssign;
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -382,39 +383,34 @@ export class LeadsDetailsPage {
 
   checkMaster() {
     setTimeout(() => {
-      this.hide();
       this.productsss.forEach((obj) => {
         obj.isChecked = this.masterCheck;
         // console.log(obj.isChecked);
 
         if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
           this.array.push(obj.uid);
-          // console.log(this.array);
+          console.log(this.array);
           this.checkedCount = this.array.length;
-          // console.log("count", this.checkedCount);
-          // if(this.checkedCount == 0){
-          //   this.hideMe = false
-
-          // }else{
-          //   this.hideMe = true
-          // }
-          console.log("HideMe", this.hideMe);
+          console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
         if (obj.isChecked == false) {
           var index = this.array.indexOf(obj.uid);
           if (index !== -1) {
             this.array.splice(index, 1);
           }
-          // console.log(this.array);
-          // console.log(this.array.length);
-          // console.log("count", this.checkedCount);
-          // if(this.checkedCount == 0){
-          //   this.hideMe = false
-
-          // }else{
-          //   this.hideMe = true
-          // }
-          console.log("HideMe", this.hideMe);
+          console.log(this.array);
+          console.log(this.array.length);
+          console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
       });
     });
@@ -431,11 +427,21 @@ export class LeadsDetailsPage {
         this.array.push(obj.uid);
         // console.log(this.array);
         this.checkedCount = this.array.length;
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
+        }
       }
       if (obj.isChecked == false) {
         var index = this.array.indexOf(obj.uid);
         if (index !== -1) {
           this.array.splice(index, 1);
+        }
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
         }
         // console.log(this.array);
         this.checkedCount = this.array.length;
@@ -492,11 +498,29 @@ export class LeadsDetailsPage {
   }
 
   ionViewDidLoad() {
-
-
     function closeForm() {
       $(".form-popup-bg").removeClass("is-visible");
     }
+
+    $(document).ready(function ($) {
+      /* Contact Form Interactions */
+      $("#btnOpenForm").on("click", function (event) {
+        event.preventDefault();
+
+        $(".form-popup-bg").addClass("is-visible");
+      });
+
+      //close popup when clicking x or off popup
+      $(".form-popup-bg").on("click", function (event) {
+        if (
+          $(event.target).is(".form-popup-bg") ||
+          $(event.target).is("#btnCloseForm")
+        ) {
+          event.preventDefault();
+          $(this).removeClass("is-visible");
+        }
+      });
+    });
 
     $(document).ready(function ($) {
       /* Contact Form Interactions */

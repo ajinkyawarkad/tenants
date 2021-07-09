@@ -5,7 +5,6 @@ page-user-details {
 		font-size: 14px;	
 	}
 	
-	
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
 	
@@ -34,9 +33,7 @@ page-user-details {
 	  th, td {
 		   padding: 8px 4px;
 		   border: 1px solid #ddd;
-		   text-align: center;
-		   
-		   
+		   text-align: center;	   
 	 }
 	  th 
 	  { background:#eee; }
@@ -60,6 +57,7 @@ page-user-details {
 		margin-top: -2px;
 		margin-right: -7px;
 	}
+	
 	
 	 }
 
@@ -119,6 +117,9 @@ page-user-details {
 		margin-right: -7px;
 	}
 
+
+
+
 	 }
 
 	 /* Extra small devices (phones, 600px and down) */
@@ -140,6 +141,7 @@ page-user-details {
 		  position: sticky; 
 		  top: 0; 
 		  z-index: 1; 
+		  background: #f4f4f4;
 		 // overflow-x: scroll;
 		 // width: 100%;
 	  }
@@ -175,6 +177,8 @@ page-user-details {
     margin-top: -2px;
     margin-right: -17px
 	}
+
+
 	
 	 }
 
@@ -187,22 +191,24 @@ page-user-details {
 			width: 100%;
 		}
 		.tableFixHead  { 
-			overflow-x: scroll;
-			 height: 50%; 
-			 width: 100%;
-			//margin-top :20px
+			position: relative;
+		width:100%;
+		z-index: 1;
+		margin: auto;
+		overflow: auto;
+		height: 490px;
 		  }
   
 	  .tableFixHead thead th { 
 		  position: sticky; 
 		  top: 0; 
 		  z-index: 1; 
-		  //overflow-x: scroll;
-		  //width: 100%;
+		 
 	  }
   
-	  table  { border-collapse: collapse; 
-		width: 100%; 
+	  table  { 
+		width: 100%;
+		border-spacing: 0;
 	}
 	  th, td {
 		   padding: 8px 4px;
@@ -211,8 +217,7 @@ page-user-details {
 		   
 		   
 	 }
-	  th 
-	  { background:#eee; }
+	 
 	
 	 p{
 		display: inline-block;
@@ -224,13 +229,14 @@ page-user-details {
 
 	  th 
 	  { 
-		border-bottom: 3px solid #ddd;
-		border-top: 3px solid #ddd;
+		background: #f4f4f4;
+		border-bottom: 1px solid #ddd;
+		border-top: 1px solid #ddd;
 	}
 
 	.seg{
 		float: left;
-		width: 100%;
+		width: 50%;
 		margin-top: 2px;
 	}
 	.Sbar{
@@ -240,7 +246,13 @@ page-user-details {
 		margin-right: -7px;
 	}
 	
-	
+	p{
+		display: inline-block;
+		color: red;
+		height: 1px;
+		margin-top: 2px;
+		margin-left: 8px;
+	}
 
 	}
 	

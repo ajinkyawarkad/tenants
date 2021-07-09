@@ -31,9 +31,9 @@
         <td>{{produ.indicator}}</td>
       </tr>
 
-      <tr *ngFor="let att of arr; let idx = index">
-        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>
-        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].indicator"></ion-input> </td>
+      <tr *ngFor="let att of moreDetails; let idx = index">
+        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="moreDetails[idx].value"></ion-input> </td>
+        <td> <ion-input type="text" placeholder="Enter value " [(ngModel)]="moreDetails[idx].action"></ion-input> </td>
         <td><ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
       </tr>
 

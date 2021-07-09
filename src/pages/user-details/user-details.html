@@ -50,13 +50,13 @@
          
            <tbody>
               <tr *ngFor="let product of productss | search1 :term">
-                <td style="text-decoration: underline;color: cornflowerblue;" (click)="edit(product)">{{product.name}}
-                </td>
+                <th style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}
+                </th>
                 <td>{{product.role}}</td>
                 <td>{{product.email}}</td>
                 
                 <td>
-                  <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id)"></ion-icon>
+                  <ion-icon name="trash" class="deleteicon" (click)=" showPopup(product.id,product.role)"></ion-icon>
                 </td>
                 <!-- <td>
                   
@@ -94,7 +94,7 @@
          
             <tbody>
               <tr *ngFor="let product of products | async | search1 :term ">
-                <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+                <th style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</th>
                 <td>{{product.role}}</td>
                 <td>{{product.email}}</td>
 

@@ -26,13 +26,15 @@ export class RemainingLeadDeatilsPage {
   productss: Observable<any[]>;
   products:any;
   comments:any;
+  moreDetails = []
   prod:any
   pend:any=[]
   complete:any=[]
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
    
     this.data = navParams.get("data");
-    console.log("Data", this.data);
+    console.log("Data", this.data.leads);
+    this.arr=this.data.leads
 
     this.campid = navParams.get("cid");
     console.log("camp id", this.campid);
@@ -41,11 +43,11 @@ export class RemainingLeadDeatilsPage {
   }
   Add(){
    
-    if (this.arr.length < 5) {
-      this.arr.push({ value: "", indicator: "" });
-    } else {
-      alert("you reached to limit.. ");
-    }
+  
+      this.moreDetails.push({ value: "", indicator: "Custome" ,action:""});
+   
+      
+  
     this.Hide()
     }
 
@@ -81,12 +83,12 @@ export class RemainingLeadDeatilsPage {
     })
 
   for(var x in this.arr){
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    .update({
-      CSVfield:firebase.firestore.FieldValue.arrayUnion(
-        this.arr[x]
-      )
-    })
+    // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
+    // .update({
+    //   CSVfield:firebase.firestore.FieldValue.arrayUnion(
+    //     this.arr[x]
+    //   )
+    // })
 
   }
 
@@ -174,6 +176,9 @@ export class RemainingLeadDeatilsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RemainingLeadDeatilsPage');
+    for(var i in this.arr){
+      this.moreDetails.push(this.arr[i])
+    }
 
     let k = Object.keys(this.data);
     let v = Object.values(this.data);
