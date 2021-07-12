@@ -260,7 +260,7 @@ export class TrackCampaignPage {
     });
   }
 
-  showPopup(value, Sr_id) {
+  showPopup(value, Sr_id,manager) {
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
       subTitle: "Do you really want to delete?",
@@ -275,7 +275,7 @@ export class TrackCampaignPage {
 
           handler: (data) => {
             console.log(value);
-            this.deleteItem1(value, Sr_id);
+            this.deleteItem1(value, Sr_id,manager);
           },
         },
       ],
@@ -368,7 +368,7 @@ export class TrackCampaignPage {
       });
   }
 
-  deleteItem1(value, Sr_id) {
+  deleteItem1(value, Sr_id,manager) {
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
@@ -386,6 +386,20 @@ export class TrackCampaignPage {
         .doc(value)
         .delete();
     }
+
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc(currentuser.photoURL)
+    .collection("Users")
+    .doc(manager)
+    .collection("CampsAsso")
+    .doc(value)
+    .delete();
+
+
+
+
 
     console.log("dsfsdfs", value,"dsfs", Sr_id);
   }

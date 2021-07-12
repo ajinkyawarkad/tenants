@@ -174,11 +174,134 @@ export class ManagerTaskDetailsPage {
     this.act = action;
     console.log("TEMO", this.act);
     if (this.act === "Remove client from profile") {
-      alert("this will remove this lead profile permently");
+      let currentuser = firebase.auth().currentUser
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc(
+        currentuser.photoURL +
+          "/" +
+          "Campaigns" +
+          "/" +
+          this.cid +
+          "/" +
+          "leads" +
+          "/" +
+          this.data.uid
+      )
+      .delete();
+    console.log("DELETED", this.data.uid);
     }
   }
 
   Task(task: Task) {
+    var b = new Date().getMonth() + 1;
+
+    var c = new Date().getFullYear();
+    var a = new Date().getDate();
+
+    let date = a + "-" + b + "-" + c;
+    let dat = "";
+    dat = date;
+    console.log("Dateee", date);
+   if(task.action == "None"){
+     
+     let currentuser =firebase.auth().currentUser
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc(
+      currentuser.photoURL +
+        "/" +
+        "Campaigns" +
+        "/" +
+        this.cid +
+        "/" +
+        "leads" +
+        "/" +
+        this.data.uid
+    )
+    .update(
+      Object.assign(
+        {
+          //id: uid,
+          action: this.task.action,
+          datetime: "",
+          status:  this.task.status,
+          remark: this.task.remark,
+         
+        },
+        { merge: true }
+      )
+    );
+    firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.cid)
+        .collection("leads")
+        .doc(this.data.uid)
+        .collection("History")
+        .doc("Activity1")
+        .set(
+          {
+            data: firebase.firestore.FieldValue.arrayUnion({
+              Time: new Date(),
+              Action:"None",
+              FollowUp: "NA",
+              Remark: "NA",
+              name: this.data.uid,
+              Handler: this.data.SR_name,
+              Completed: true,
+              pending:false
+            }),
+          },
+          { merge: true }
+
+        );
+
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Users")
+        .doc(currentuser.uid)
+        .collection("Report")
+        .doc(dat)
+        .set(
+          {
+            data: firebase.firestore.FieldValue.arrayUnion({
+              Time: new Date(),
+              Action: task.action,
+              FollowUp: task.datetime,
+              Remark: task.remark,
+              name: this.data.uid,
+            }),
+          },
+          { merge: true }
+        );
+
+
+        let alert = this.alertCtrl.create({
+          title: "Success",
+          subTitle: "Saved Successfully",
+          //scope: id,
+          buttons: [
+            {
+              text: "OK",
+              handler: (data) => {
+                this.navCtrl.pop();
+              },
+            },
+          ],
+        });
+        alert.present();
+    
+
+
+   }else{
+
     console.log("SR name", this.data.SR_name);
     if (task.action && task.remark != null) {
       this.storage.get("cuid").then((val) => {
@@ -289,21 +412,13 @@ export class ManagerTaskDetailsPage {
             },
             { merge: true }
           );
-        var b = new Date().getMonth() + 1;
-
-        var c = new Date().getFullYear();
-        var a = new Date().getDate();
-
-        let date = a + "-" + b + "-" + c;
-        let dat = "";
-        dat = date;
-        console.log("Dateee", date);
+       
 
         firebase
           .firestore()
           .collection("Company")
           .doc(currentuser.photoURL)
-          .collection("Admin")
+          .collection("Users")
           .doc(currentuser.uid)
           .collection("Report")
           .doc(dat)
@@ -351,6 +466,9 @@ export class ManagerTaskDetailsPage {
       });
       alert.present();
     }
+
+   }
+   
   }
 
   Save(leadref: Leadref) {
@@ -424,8 +542,15 @@ export class ManagerTaskDetailsPage {
     }
   }
 
-  hide() {
-    this.hideMe = true;
+  hide(value) {
+ 
+    if(value == 'None'){
+      this.hideMe = false;
+    }else{
+      this.hideMe = true
+    }
+    
+   
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;

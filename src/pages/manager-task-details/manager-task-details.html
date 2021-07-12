@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Task Details</ion-title>
+    <ion-title>Manager Task Details</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -32,7 +32,7 @@
        
        <label >Action</label> 
         <ion-item class="itemselect"> 
-          <ion-select (ionChange)="hide()"  [(ngModel)]="data.action" disabled> 
+          <ion-select  [(ngModel)]="data.action" (ionChange)="hide(data.action)"  disabled> 
             <ion-option value="Callback">Callback</ion-option>
             <ion-option value="Schedule Meet">Schedule Meet</ion-option>
             <ion-option value="Send Mail">Send Mail</ion-option>
@@ -74,7 +74,7 @@
        
        <label >Action</label> 
         <ion-item class="itemselect" > 
-          <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="task.action" > 
+          <ion-select placeholder="Select Action" (ionChange)="hide(task.action)"  [(ngModel)]="task.action" > 
             <ion-option value="None">None</ion-option>
             <ion-option value="Callback">Callback</ion-option>
             <ion-option value="Schedule Meet">Schedule Meet</ion-option>

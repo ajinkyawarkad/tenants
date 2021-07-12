@@ -517,6 +517,68 @@ export class ManagerCreateLeadProfilePage {
           },
           { merge: true }
         )
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentUser.photoURL)
+        .collection("Campaigns").doc(currentUser.uid).collection("CampsAsso")
+        .doc(this.campid)
+        .collection("Fields")
+        .doc("records")
+        .set(
+          {
+            Action: false,
+            Address: false,
+            Apartment: false,
+            City: false,
+            Company_Name: false,
+            Corporate_Website: false,
+            Country: false,
+            Currency: false,
+            Date_of_Birth: false,
+            Email: false,
+            Facebook: false,
+            Facebook_Page: false,
+            Fax: false,
+            first_name: false,
+            Follow_up: false,
+            Full_Name: false,
+            Gender: false,
+            Handler: false,
+            Home: false,
+            Home_Phone: false,
+            Id: false,
+            last_name: false,
+            Live_Chat: false,
+            LiveJournal: false,
+            middle_name: false,
+            Mobile: false,
+            Newsletter_Email: false,
+            Opportunity: false,
+            Other_Contact: false,
+            Personal_Page: false,
+            Phone: false,
+            Position: false,
+            Price: false,
+            Profile_URL: false,
+            Quality: false,
+            Responsible_Person: false,
+            Salutation: false,
+            Skype: false,
+            Source: false,
+            Stage: false,
+            State: false,
+            Telegram_Account: false,
+            Twitter: false,
+            Vibe_Contact: false,
+            VK_Page: false,
+            Website: false,
+            Work_Email: false,
+            Work_Phone: false,
+            Zip: false,
+          },
+          { merge: true }
+        )
         .then((res) => {
           let i;
 

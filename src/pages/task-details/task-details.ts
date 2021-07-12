@@ -487,6 +487,15 @@ export class TaskDetailsPage {
 
   hide(action) {
     let currentuser = firebase.auth().currentUser;
+    var b = new Date().getMonth() + 1;
+
+    var c = new Date().getFullYear();
+    var a = new Date().getDate();
+
+    let date = a + "-" + b + "-" + c;
+    let dat = "";
+    dat = date;
+    console.log("Dateee", date);
     
    
     if(action == "None"){
@@ -543,6 +552,26 @@ export class TaskDetailsPage {
             { merge: true }
 
           );
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Admin")
+          .doc(currentuser.uid)
+          .collection("Report")
+          .doc(dat)
+          .set(
+            {
+              data: firebase.firestore.FieldValue.arrayUnion({
+                Time: new Date(),
+                Action: "None",
+                FollowUp: "",
+                Remark: this.task.remark,
+                name: this.data.uid,
+              }),
+            },
+            { merge: true }
+          );
 
           let alert = this.alertCtrl.create({
             title: "Success",
@@ -559,7 +588,7 @@ export class TaskDetailsPage {
           });
           alert.present();
       
-    }else{
+    }else{                //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       this.hideMe = true;
       
     }
