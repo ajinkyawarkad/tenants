@@ -137,11 +137,7 @@ page-leads-details {
 		  }
 
 	  }
-	  .filter{
-		float: right;
-		margin-right: 20%;
-		margin-top: -7px;
-	  }
+	 
 
 
 	/* Extra small devices (phones, 600px and down) */
@@ -153,17 +149,13 @@ page-leads-details {
 			width: 100%;
 		}
 
-	.seg{
-		float: left;
-		width: 100%;
-		margin-top: -7px;
-	}
-	.Sbar{
-		float: right;
-		width: 105%;
-		margin-top: -2px;
-		margin-right: -7px;
-	}
+
+	// .Sbar{
+	// 	float: right;
+	// 	width: 35%;
+	// 	margin-top: -2px;
+	// 	margin-right: -7px;
+	// }
 
 	.form-popup-bg {
 		position:absolute;
@@ -298,6 +290,34 @@ page-leads-details {
 			margin-left: 5px;
 			margin-right: 6px;
 		}
+		.Filter{
+			float: left;
+			margin-left: 5px;
+			margin-top: -10px;
+		}
+		.addbutton{
+			float: left;
+			margin-left: 10px;
+			margin-top: 7px;
+		}
+		.AssHan{
+			float: left;
+			margin-left: 6%;
+			margin-top: 14px;
+		
+		}
+		// .SR{
+			
+		// }
+		.Selected{
+			float: left;margin-left: -50%;
+			margin-top: 36px;
+		}
+		// .filter{
+		// 	float: right;
+		// 	//margin-right: 10%;
+		// 	margin-top: -7px;
+		//   }
 		
 	 }
 
@@ -446,22 +466,43 @@ page-leads-details {
 	margin-left: 8px;
 }
 
-.seg{
-	float: left;
-	width: 100%;
-	margin-top: -7px;
-}
+
 .Sbar{
 	float: right;
-	width: 105%;
+	width: 35%;
 	margin-top: -2px;
 	margin-right: -7px;
 }
 
+.Filter{
+	float: left;
+	margin-left: 5px;
+	margin-top: -10px;
+}
+.addbutton{
+	float: left;
+	margin-left: 10px;
+	margin-top: 7px;
+}
+.AssHan{
+	float: left;
+	margin-left: 1%;
+	margin-top: 8px;
+}
+.Selected{
+	float: left;margin-left: -18%;margin-top: 36px;
+}
+// .filter{
+// 	float: right;
+// 	//margin-right: 10%;
+// 	margin-top: -7px;
+//   }
+
+
  }
 
  /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 992px) {
+@media (min-width:768px) and (max-width: 992px) {
 
 	.form-popup-bg {
 		position:absolute;
@@ -606,23 +647,51 @@ page-leads-details {
 	margin-left: 8px;
 }
 
-.seg{
-	float: left;
-	width: 100%;
-	margin-top: -7px;
+.card-md {
+	margin: -43px;
+	height: 79px;
+	border-radius: 2px;
+	width: calc(100% - 20px);
+	font-size: 0px;
+	background: #fff;
+
 }
+
 .Sbar{
 	float: right;
-width: 68%;
-margin-top: -2px;
-margin-right: -17px
+	width: 36%;
+	margin-top: -2px;
+	margin-right: -3px
 }
+
+.Filter{
+	float: left;
+	margin-left: 5px;
+	margin-top: -10px;
+}
+.addbutton{
+	float: left;
+	margin-left: 10px;
+	margin-top: 7px;
+}
+.AssHan{
+	float: left;
+	margin-left: 4%;
+	margin-top: 8px;
+}
+.Selected{
+	float: left;margin-left: -18%;margin-top: 36px;
+}
+.filter{
+	float: right;
+	margin-right: 6%;
+	margin-top: -7px;
+  }
 
  }
 
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
 
 	
 	.form-popup-bg {
@@ -764,8 +833,7 @@ margin-right: -17px
 		width: calc(100% - 20px);
 		font-size: 0px;
 		background: #fff;
-	//	-webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-	//	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+
 	}
 
 
@@ -778,22 +846,37 @@ margin-right: -17px
 	margin-left: 8px;
 }
 
- 
-.seg{
-	float: left;
-	width: 100%;
-	margin-top: 2px;
-}
+
 .Sbar{
 	float: right;
-	width: 50%;
+	width: 25%;
 	margin-top: -2px;
 	margin-right: -7px;
 }
-cardCheckbox{
-	margin-left: 20px;
-}
 
+.Filter{
+	float: left;
+	margin-left: 10px;
+	margin-top: -10px;
+}
+.addbutton{
+	float: left;
+	margin-left: 10px;
+	margin-top: 7px;
+}
+.AssHan{
+	float: left;
+	margin-left: 14%;
+	margin-top: 8px;
+}
+.Selected{
+	float: left;margin-left: -16%;margin-top: 36px;
+}
+.filter{
+	float: right;
+	margin-right: 20%;
+	margin-top: -7px;
+  }
 
 }
 

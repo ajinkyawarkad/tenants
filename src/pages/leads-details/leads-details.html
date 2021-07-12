@@ -13,7 +13,7 @@
 	
 		<div>
 
-			<div style="float: right;margin-top: 1px; width: 20%;">
+			<div class="Sbar">
 
 				<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"
 					showCancelButton="always"></ion-searchbar>
@@ -53,12 +53,12 @@
 			</div>
 
 			&nbsp;
-			<div style="float: left;margin-left: 10px;margin-top: 7px;">
+			<div class="addbutton" >
 				<button ion-button color="success" (click)="add()"> Add</button>
 			</div>
 
 			<div>
-				<div style="float: left;margin-left: 10px;margin-top: -10px;">
+				<div class="Filter" >
 					<button ion-button color="success" (click)="hide3()">Filter</button>
 				</div>
 
@@ -102,11 +102,11 @@
 		<div>
 
 			<div class="scrollbar">
-				<div *ngIf="showAssign" style="float: left;margin-left: -16%;margin-top: 36px;">
+				<div *ngIf="showAssign" class="Selected" >
 					<p style="margin-left: 10px;" >Selected : {{checkedCount}} </p>
 				</div>
 
-				<div *ngIf="showAssign" style="float: left;margin-left: 14%;margin-top: 8px;">
+				<div *ngIf="showAssign" class="AssHan" >
 					<!-- <button ion-button color="secondary" (click)="hide1()"> Assign Handler</button> -->
 					<ion-label >Assign Handler</ion-label>
 				</div>
@@ -115,7 +115,7 @@
 
 					<!-- <ion-item style="width: 30%;border: none;"> -->
 						<!-- <ion-label>Sale Representative</ion-label> -->
-						<ion-select style="width: 20%;" placeholder="Sales Representative" [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+						<ion-select class="SR" style="width: 20%;" placeholder="Sales Representative" [(ngModel)]="prod" (ionChange)="insertsr(prod)">
 							<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
 						</ion-select>
 					<!-- </ion-item> -->

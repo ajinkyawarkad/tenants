@@ -13,7 +13,7 @@ import { Storage } from "@ionic/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { Observable } from "rxjs";
 import * as $ from "jquery";
 import { Slides } from "ionic-angular";
@@ -98,14 +98,40 @@ export class TaskDetailsPage {
       this.count = doc.data().pendings
       
     })
-    if (this.data.action == null) {
-      console.log("action=Null");
-      this.showSlide = false;
-    } else {
-      console.log("action= ", this.data.action);
-      this.showSlide = true;
-    }
-    this.slides.onlyExternal = true;
+    // if (this.data.action == null) {
+    //   console.log("action=Null");
+    //   this.showSlide = false;
+    // } else {
+    //   console.log("action= ", this.data.action);
+    //   this.showSlide = true;
+    // }
+    // this.slides.onlyExternal = true;
+
+   
+
+
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc(currentuser.photoURL)
+    .collection("Campaigns")
+    .doc(this.cid)
+    .collection("leads")
+    .doc(this.data.uid)
+    .collection("History")
+    .doc("Activity1").get().then(doc =>{
+      if(doc.exists){
+        console.log("docExists");
+      }else{
+        doc.ref.set({
+          taskIds:[]
+        })
+
+      }
+    })
+
+
+
   }
   slideToSlide() {
     if (this.slides.getActiveIndex() + 1 === this.slides.length()) {
@@ -126,36 +152,7 @@ export class TaskDetailsPage {
   }
 
   completeTask(val) {
-    console.log("Val", val);
-    let currentuser = firebase.auth().currentUser;
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc(
-        currentuser.photoURL+
-          "/" +
-          "Campaigns" +
-          "/" +
-          this.cid +
-          "/" +
-          "leads" +
-          "/" +
-          val.uid
-      )
-      .collection("History")
-      .doc("Activity1")
-      .update({
-        data: firestore.FieldValue.arrayUnion({
-          Time: new Date(),
-          Action: this.data.action,
-          FollowUp: this.data.datetime,
-          Remark: this.data.remark,
-          name: val.uid,
-          Handler: this.data.SR_name,
-          Completed: true,
-        }),
-      });
-
+   
     // firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
     //   .doc(this.data.uid).collection('History')
     //   .doc('Activity1')
@@ -221,15 +218,98 @@ export class TaskDetailsPage {
     }
   }
 
+
+  Reference()
+  {
+    let uid = uuid();
+        console.log(uid);
+    let alert = this.alertCtrl.create({
+      title: "Add Reference",
+      inputs: [{ name: "first_name", placeholder: "First Name" },
+               { name: "last_name", placeholder: "Last Name" },
+               { name: "email", placeholder: "Email" },
+               { name: "phone", placeholder: "Phone" }],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: (data) => {
+            console.log("Cancel clicked");
+          },
+        },
+        {
+          text: "Save",
+          handler: (reff) => {
+            if (reff.first_name) {
+              
+              let currentuser = firebase.auth().currentUser;
+              const result =  firebase
+          .firestore()
+          .collection("Company")
+          .doc(
+            currentuser.photoURL +
+              "/" +
+              "Campaigns" +
+              "/" +
+              this.cid +
+              "/" +
+              "Lead references" +
+              "/" +
+              uid
+          )
+          .set(
+            Object.assign({
+              id: uid,
+              first_name: reff.first_name,
+              last_name: reff.last_name,
+              email: reff.email,
+              phone: reff.phone,
+              refId: this.data.uid,
+            })
+          );
+
+              if (result) {
+                let alert = this.alertCtrl.create({
+                  title: "Success",
+                  subTitle: "Reference Added",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        //this.navCtrl.setRoot(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+              }
+            } else {
+              return false;
+            }
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+  
+  
+
   Task(task: Task) {
     console.log("SR name", this.data.SR_name);
+    let taskI = uuid()
+    let idArr = taskI.split("-")
+    let taskId = idArr[0]
+    
+
+    let currentuser = firebase.auth().currentUser;
+
     if (task.action && task.remark != null) {
       this.storage.get("cuid").then((val) => {
         console.log("id is", val);
         let uid = uuid();
         console.log(uid);
-        let currentuser = firebase.auth().currentUser;
-
+       
         firebase
           .firestore()
           .collection("Company")
@@ -254,6 +334,27 @@ export class TaskDetailsPage {
                 remark: task.remark,
               }
             )
+          );
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(
+            currentuser.photoURL +
+              "/" +
+              "Campaigns" +
+              "/" +
+              this.cid +
+              "/" +
+              "leads" +
+              "/" +
+              this.data.uid
+          )
+          .set(
+            
+              {
+                taskId:taskId
+              },{merge:true}
+            
           );
         console.log("ACT IS ", this.act);
         console.log("SELECT", this.select);
@@ -338,7 +439,7 @@ export class TaskDetailsPage {
           .doc("Activity1")
           .set(
             {
-              data: firebase.firestore.FieldValue.arrayUnion({
+              [taskId]: {
                 Time: new Date(),
                 Action: task.action,
                 FollowUp: task.datetime,
@@ -346,10 +447,16 @@ export class TaskDetailsPage {
                 name: this.data.uid,
                 Handler: this.data.SR_name,
                 Completed: false,
-              }),
+                taskId:taskId
+              },
+              taskIds:firestore.FieldValue.arrayUnion(
+                taskId
+              )
             },
             { merge: true }
           );
+
+
         var b = new Date().getMonth() + 1;
 
         var c = new Date().getFullYear();
@@ -414,76 +521,6 @@ export class TaskDetailsPage {
     }
   }
 
-  Save(leadref: Leadref) {
-    if (
-      leadref.email &&
-      leadref.first_name &&
-      leadref.last_name &&
-      leadref.phone != null
-    ) {
-      this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
-        let uid = uuid();
-        console.log(uid);
-        let currentuser = firebase.auth().currentUser;
-
-        firebase
-          .firestore()
-          .collection("Company")
-          .doc(
-            currentuser.photoURL +
-              "/" +
-              "Campaigns" +
-              "/" +
-              this.cid +
-              "/" +
-              "Lead references" +
-              "/" +
-              uid
-          )
-          .set(
-            Object.assign({
-              id: uid,
-              first_name: leadref.first_name,
-              last_name: leadref.last_name,
-              email: leadref.email,
-              phone: leadref.phone,
-              refId: this.data.uid,
-            })
-          );
-
-        let alert = this.alertCtrl.create({
-          title: "Success",
-          subTitle: "Saved Successfully",
-          //scope: id,
-          buttons: [
-            {
-              text: "OK",
-              handler: (data) => {
-                //this.navCtrl.push(UserDetailsPage);
-              },
-            },
-          ],
-        });
-        alert.present();
-      });
-    } else {
-      let alert = this.alertCtrl.create({
-        title: "Warning",
-        subTitle: "Please Insert Data",
-        //scope: id,
-        buttons: [
-          {
-            text: "OK",
-            handler: (data) => {
-              //this.navCtrl.push(LoginPage);
-            },
-          },
-        ],
-      });
-      alert.present();
-    }
-  }
 
   hide(action) {
     let currentuser = firebase.auth().currentUser;

@@ -132,7 +132,7 @@ export class TrackCampaignPage {
                             action //Switching Action For Specific counts
                           ) {
                             case "Callback":
-                              if (t < d1) {
+                              if (t <=d1) {
                                 call.push(t);
                                
                                 firebase
@@ -150,7 +150,7 @@ export class TrackCampaignPage {
                               }
                               break;
                             case "Schedule Meet":
-                              if (t < d1) {
+                              if (t <= d1) {
                                 meet.push(t);
                                 
                                 firebase
@@ -169,7 +169,7 @@ export class TrackCampaignPage {
                               break;
 
                               case "Send Mail":
-                              if (t < d1) {
+                              if (t <= d1) {
                                 meet.push(t);
                                 
                                 firebase

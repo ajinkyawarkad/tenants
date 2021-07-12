@@ -11,7 +11,7 @@
 <ion-content padding>
   <div class="container">
    
-    <ion-segment class=seg [(ngModel)]="Segments" value="1" mode="ios">
+    <ion-segment class="seg" [(ngModel)]="Segments" value="1" mode="ios">
       <ion-segment-button (ionSelect)="Segments = 1" value="1">
         Active Users
       </ion-segment-button>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="addbutton">
-          <button ion-button color="secondary" (click)="add()"> Add User</button>
+          <button ion-button color="primary" (click)="add()"> Add User</button>
         </div>
 
         <div class="tableFixHead">
