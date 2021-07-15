@@ -6,15 +6,8 @@ import { Observable } from 'rxjs';
 import { Lead } from '../../models/user';
 import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';
-import { updateIdentifier } from 'typescript';
+
 import { HomePage } from '../home/home';
-import { LeadsDetailsPage } from '../leads-details/leads-details';
-
-
-interface Camps {
-  name:string;
-    
-}
 
 @Component({
   selector: 'page-lead-in-track-camp',
@@ -27,24 +20,24 @@ export class LeadInTrackCampPage {
   public det:any=[];
   public hed:any=[];
   value:any;
-  products: Observable<Camps[]>;
-  productss: Observable<Camps[]>;
+  products: Observable<any[]>;
+  productss: Observable<any[]>;
   lead = {} as Lead;
+ currentuser=firebase.auth().currentUser;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
     private storage: Storage) {
     this.value = navParams.get('product');
-    console.log("cid",this.value.cid);
+    
   }
 
   ionViewDidLoad() {
-    let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
+   
+    firebase.firestore().collection('Company').doc(this.currentuser.photoURL).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      console.log(source, " data: "); 
+     
       this.products =  doc.data().CSVfield ; 
-      
-      console.log("csv ",this.products) ;
+    
       let test:any=[];
       test = this.products ;
       for(var a in test){
@@ -59,7 +52,7 @@ export class LeadInTrackCampPage {
      
   });
 
-  firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Admin').doc(currentuser.uid)
+  firebase.firestore().collection('Company').doc(this.currentuser.photoURL).collection('Admin').doc(this.currentuser.uid)
 .onSnapshot((doc) => {
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 console.log(source, " data: ");
@@ -67,19 +60,15 @@ this.productss = doc.data().Users ;
 console.log("SR",this.productss) ;
 });
  
-    console.log('ionViewDidLoad LeadInTrackCampPage');
   }
 
   insertLead(data){
   
    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
      this.storage.get('cuid').then((val) => {
-       console.log('id is', val);
+    
        let uuid1 = uuid()
-       console.log("uuid",uuid);
-       console.log("camp id",this.value.cid);
-       console.log("data",data)
-
+     
       for (var a in this.anArray) {     
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
@@ -115,7 +104,7 @@ console.log("SR",this.productss) ;
     
   
      }).catch((err) => {
-       console.log(err); 
+    
        let alert = this.alertCtrl.create({
          //title: 'Error',
          subTitle:  'Problem in adding Lead' ,

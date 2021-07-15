@@ -17,6 +17,7 @@ import { Observable } from "rxjs";
 export class PendingLeadsPage {
   mainData = [];
   arr = [];
+ currentuser = firebase.auth().currentUser;
   products: Observable<any[]>;
   productss: Observable<any[]>;
   userInfo: any;
@@ -113,16 +114,16 @@ export class PendingLeadsPage {
     public afs: AngularFirestore
   ) {
     this.value = this.navParams.get("cid");
-    console.log("camp id in pendimg", this.value);
+    
   }
 
   ionViewDidLoad() {
-    let currentuser = firebase.auth().currentUser;
+   
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .onSnapshot((doc) => {
@@ -135,13 +136,12 @@ export class PendingLeadsPage {
           }
         }
 
-        // console.log("active headers",this.active)
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("Fields")
@@ -168,9 +168,6 @@ export class PendingLeadsPage {
             }
           }
         }
-
-        console.log("True at : ", this.tru);
-        console.log("false at : ", this.fal);
       });
 
     function closeForm() {
@@ -178,7 +175,7 @@ export class PendingLeadsPage {
     }
 
     $(document).ready(function ($) {
-      / Contact Form Interactions /
+      
       $("#btnOpenForm").on("click", function (event) {
         event.preventDefault();
 
@@ -203,11 +200,9 @@ export class PendingLeadsPage {
       $(this).toggleClass("expanded");
     });
 
-    //this.filter.status = "Select"
     $(document).on("change", "table thead input", function () {
       var checked = $(this).is(":checked");
-      //var checkedValue = $('.messageCheckbox:checked').eq(index);
-      // console.log("checkedValue", checked);
+     
       var index = $(this).parent().index();
       $("table tr").each(function () {
         if (checked) {
@@ -221,13 +216,10 @@ export class PendingLeadsPage {
     });
 
     this.arr = this.mainData;
-
-    console.log(this.value);
-
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("leads")
@@ -249,7 +241,7 @@ export class PendingLeadsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("Fields")
@@ -312,25 +304,24 @@ export class PendingLeadsPage {
       });
     this.userInfo = this.afs
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid);
+      .doc(this.currentuser.uid);
     this.productss = this.userInfo.valueChanges().Users;
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        // console.log(source, " data: ");
+      
         this.productss = doc.data().Users;
-        // console.log(this.productss);
+        
       });
 
-    console.log("ionViewDidLoad PendingLeadsPage", this.mainData);
   }
   hide() {
     this.hideMe = true;
@@ -345,31 +336,26 @@ export class PendingLeadsPage {
   hide3() {
     this.hideMe3 = !this.hideMe3;
   }
-  // hide4() {
-  //   this.hideMe4 = true;
-  // }
+  
 
   checkMaster() {
     setTimeout(() => {
       this.hide();
       this.mainData.forEach((obj) => {
         obj.isChecked = this.masterCheck;
-        // console.log(obj.isChecked);
+       
 
         if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
           this.array.push(obj.uid);
-          // console.log(this.array);
           this.checkedCount = this.array.length;
-          // console.log("count", this.checkedCount);
+          
         }
         if (obj.isChecked == false) {
           var index = this.array.indexOf(obj.uid);
           if (index !== -1) {
             this.array.splice(index, 1);
           }
-          // console.log(this.array);
-          // console.log(this.array.length);
-          // console.log("count", this.checkedCount);
+         
         }
       });
     });
@@ -380,7 +366,7 @@ export class PendingLeadsPage {
     let checked = 0;
 
     this.mainData.map((obj) => {
-      // console.log(obj.isChecked);
+     
       checked++;
       if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
         this.array.push(obj.uid);
@@ -397,15 +383,15 @@ export class PendingLeadsPage {
   }
 
   insertsr(dataa) {
-    console.log("iasa", dataa);
-    let currentuser = firebase.auth().currentUser;
-    console.log("AAAAA", this.array);
+  
+  
+   
     let i, j;
     for (i = 0; i < this.array.length; i++) {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.value)
         .collection("leads")
@@ -436,7 +422,7 @@ export class PendingLeadsPage {
           text: "OK",
 
           handler: (data) => {
-            // console.log(value);
+           
             this.deleteItem1(value);
           },
         },
@@ -446,11 +432,11 @@ export class PendingLeadsPage {
   }
 
   deleteItem1(value1) {
-    let currentuser = firebase.auth().currentUser;
+   
     this.afs
       .collection("Company")
       .doc(
-        currentuser.photoURL +
+        this.currentuser.photoURL +
           "/" +
           "Campaigns" +
           "/" +
@@ -465,8 +451,7 @@ export class PendingLeadsPage {
 
   setField(field) {
     this.pro = [];
-    let currentuser = firebase.auth().currentUser;
-
+   
     this.mainField = field;
     switch (this.mainField) {
       case "Status":
@@ -474,7 +459,7 @@ export class PendingLeadsPage {
         firebase
           .firestore()
           .collection("Company")
-          .doc(currentuser.photoURL)
+          .doc(this.currentuser.photoURL)
           .collection("Campaigns")
           .doc(this.value)
           .get()
@@ -483,7 +468,7 @@ export class PendingLeadsPage {
             for (var i in test1) {
               this.pro.push(test1[i].status);
             }
-            console.log(this.pro);
+           
           });
         break;
 
@@ -492,9 +477,9 @@ export class PendingLeadsPage {
         firebase
           .firestore()
           .collection("Company")
-          .doc(currentuser.photoURL)
+          .doc(this.currentuser.photoURL)
           .collection("Admin")
-          .doc(currentuser.uid)
+          .doc(this.currentuser.uid)
           .get()
           .then((doc) => {
             test = doc.data().Users;
@@ -503,7 +488,7 @@ export class PendingLeadsPage {
               let name = nam;
               this.pro.push(name);
             }
-            console.log(this.pro);
+            
           });
         break;
 
@@ -517,11 +502,11 @@ export class PendingLeadsPage {
   }
 
   showhide(name, ev) {
-    let currentUser = firebase.auth().currentUser;
+   
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentUser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("Fields")
@@ -538,21 +523,21 @@ export class PendingLeadsPage {
     this.filled = [];
     this.filtered = [];
 
-    let currentuser = firebase.auth().currentUser;
+   
     this.selectedStatus = status;
 
     if (status == "All") {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.value)
         .collection("leads")
         .limit(this.pageSize)
         .onSnapshot((snaps) => {
           if (!snaps.docs.length) {
-            // console.log("No Data Available");
+          
             alert("No Data Available");
             return false;
           }
@@ -571,7 +556,7 @@ export class PendingLeadsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentuser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.value)
             .collection("leads")
@@ -589,7 +574,7 @@ export class PendingLeadsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentuser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.value)
             .collection("leads")
@@ -607,7 +592,7 @@ export class PendingLeadsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentuser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.value)
             .collection("leads")
@@ -626,68 +611,10 @@ export class PendingLeadsPage {
     this.exelShow = true;
   }
 
-  // downloadCsv() {
-  //   if ((this.filtered = [])) {
-  //     let currentuser = firebase.auth().currentUser;
-  //     this.selectedStatus = status;
-
-  //     if (this.selSts == "All") {
-  //       firebase
-  //         .firestore()
-  //         .collection("Company")
-  //         .doc(currentuser.photoURL)
-  //         .collection("Campaigns")
-  //         .doc(this.cid)
-  //         .collection("leads")
-  //         .get()
-  //         .then((data) => {
-  //           data.docs.forEach((snap) => {
-  //             this.filtered.push(snap.data());
-  //           });
-  //         });
-  //       console.log("filtered00", this.filtered);
-  //     } else {
-  //       firebase
-  //         .firestore()
-  //         .collection("Company")
-  //         .doc(currentuser.photoURL)
-  //         .collection("Campaigns")
-  //         .doc(this.campid)
-  //         .collection("leads")
-  //         .where("status", "==", this.selSts)
-  //         .get()
-  //         .then((data) => {
-  //           data.docs.forEach((snap) => {
-  //             this.filtered.push(snap.data());
-  //           });
-  //         });
-  //       console.log("filtered00", this.filtered);
-  //     }
-  //   } else {
-  //     console.log("blanks0");
-  //   }
-
-  //   this.fileName = this.value.name + ".csv";
-
-  //   let element = document.getElementById("details");
-  //   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-
-  //   XLSX.writeFile(wb, this.fileName);
-
-  //   console.log("filtered", this.filtered);
-  // }
-
+ 
   //==================================>Table v/s Export<============================
   showDownload() {
-    // if( this.hideMe3 == false){
-    // this.hideMe3 = true
-    // }else{
-    // this.hideMe3 = false
-    // }
-    // ;
+  
     this.navCtrl.push(ExportPage, {
       campd: this.value,
     });
@@ -712,7 +639,7 @@ export class PendingLeadsPage {
 
   edit(data) {
     let cid = this.value;
-    console.log("edit pagee", cid);
+  
     this.navCtrl.push(EditLeadDetailsPage, {
       cid,
       data,

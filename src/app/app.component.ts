@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Nav, NavController, Platform, MenuController } from "ionic-angular";
+import { Nav, Platform, MenuController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
@@ -11,17 +11,13 @@ import { TrackCampaignPage } from "../pages/track-campaign/track-campaign";
 import { AccountPage } from "../pages/account/account";
 import { LoginPage } from "../pages/login/login";
 import { UserDetailsPage } from "../pages/user-details/user-details";
-import { TaskDetailsPage } from "../pages/task-details/task-details";
+
 
 import { AngularFireAuth } from "@angular/fire/auth";
 import firebase from "firebase";
 import { Storage } from "@ionic/storage";
-import { ProfilePage } from "../pages/profile/profile";
+
 import {} from "ionic-angular";
-import { CreateCampaignsLeadPage } from "../pages/create-campaigns-lead/create-campaigns-lead";
-import { CreateLeadProfilePage } from "../pages/create-lead-profile/create-lead-profile";
-import { CreateNewCampleadPage } from "../pages/create-new-camplead/create-new-camplead";
-import { UserlistPage } from "../pages/userlist/userlist";
 import { HomeManagerPage } from "../pages/home-manager/home-manager";
 import { HomeUserPage } from "../pages/home-user/home-user";
 import { ManagerReportPage } from "../pages/manager-report/manager-report";

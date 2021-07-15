@@ -1,26 +1,16 @@
 import { Component } from "@angular/core";
-import {
-  NavController,
-  NavParams,
-  AlertController,
-  LoadingController,
-} from "ionic-angular";
+import {NavController,NavParams,AlertController,LoadingController,} from "ionic-angular";
 import { EditTeamDetailsPage } from "../edit-team-details/edit-team-details";
 import { UserLicensesPage } from "../user-licenses/user-licenses";
-
 import { UserlistPage } from "../userlist/userlist";
 import { AngularFireAuth } from "@angular/fire/auth";
 import "firebase/firestore";
 import { Employee, User } from "../../models/user";
 import firebase, { firestore } from "firebase";
 import { Storage } from "@ionic/storage";
-
 import { AngularFirestore } from "@angular/fire/firestore";
-
 import { Observable } from "rxjs";
-// import { merge } from 'jquery';
-import { uuid } from "uuidv4";
-import { identifierModuleUrl } from "@angular/compiler";
+
 
 interface Users {
   first_name: string;
@@ -40,10 +30,10 @@ export class UserDetailsPage {
   products: Observable<Users[]>;
   productss: any = [];
   Segments: string;
-  // isAdmin = true
   userIds = [];
   users: any = [];
   managers: any = [];
+ currentuser = firebase.auth().currentUser;
 
   constructor(
     public navCtrl: NavController,
@@ -58,23 +48,17 @@ export class UserDetailsPage {
   }
 
   ionViewWillLoad() {
-    let currentuser = firebase.auth().currentUser;
+    
     this.userInfo = this.afs
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("non-active");
     this.products = this.userInfo.valueChanges();
 
-    // this.userInfo = this.afs
-    //   .collection("Company")
-    //   .doc(currentuser.photoURL)
-    //   .collection("Users");
-    // this.productss = this.userInfo.valueChanges();
-    // console.log(this.productss)
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Users")
       .onSnapshot((snap) => {
         this.productss = [];
@@ -87,76 +71,36 @@ export class UserDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+       
         this.managers = doc.data().Managers;
-        console.log("Usersfrom Firebase", this.managers);
+       
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.users = doc.data().Users;
-        console.log("Usersfrom Firebase", this.users);
+        
       });
   }
 
-  // makeAdmin(id){
-  //   let currentuser = firebase.auth().currentUser;
-  //   let a = this.userIds.indexOf(id);
-  //   console.log("data",a, this.productss[a].isAdmin )
-  //   let f = this.productss[a].isAdmin
-
-  //   if(f){
-  //     firebase
-  //     .firestore()
-  //     .collection("Company")
-  //     .doc(currentuser.photoURL)
-  //     .collection("Users").doc(id).update({
-  //       isAdmin:false
-
-  //     })
-  //   }else{
-  //     firebase
-  //     .firestore()
-  //     .collection("Company")
-  //     .doc(currentuser.photoURL)
-  //     .collection("Users").doc(id).update({
-  //       isAdmin:true
-
-  //     })
-
-  //   }
-
-  //   console.log("For Admin",id)
-  //   firebase
-  //   .firestore()
-  //   .collection("Company")
-  //   .doc(currentuser.photoURL)
-  //   .collection("secAdmins").doc("userIds").update({
-  //     ids:firestore.FieldValue.arrayUnion(
-  //       id
-  //     )
-  //   })
-
-  // }
 
   add() {
     this.navCtrl.push(UserlistPage);
   }
 
   showPopup(value, role) {
-    console.log("value", value, role);
+    
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
       subTitle: "Do you really want to delete?",
@@ -170,7 +114,7 @@ export class UserDetailsPage {
           text: "OK",
 
           handler: (data) => {
-            console.log(value);
+           
             this.deleteItem1(value, role);
             this.deleteItem2(value);
           },
@@ -181,10 +125,10 @@ export class UserDetailsPage {
   }
   
   deleteItem1(value, role) {
-    let currentuser = firebase.auth().currentUser;
+    
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Users" + "/" + value)
+      .doc(this.currentuser.photoURL + "/" + "Users" + "/" + value)
       .delete();
     switch (role) {
       case "Sale Representative":
@@ -194,7 +138,7 @@ export class UserDetailsPage {
             this.users.splice(i, 1);
           }
         }
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Users:this.users
         })
         break;
@@ -204,7 +148,7 @@ export class UserDetailsPage {
             this.managers.splice(i, 1);
           }
         }
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Managers:this.managers
         })
         
@@ -213,11 +157,10 @@ export class UserDetailsPage {
   }
 
   deleteItem2(value1) {
-    console.log("id", value1);
-    let currentuser = firebase.auth().currentUser;
+    
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "non-active" + "/" + value1)
+      .doc(this.currentuser.photoURL + "/" + "non-active" + "/" + value1)
       .delete();
   }
 
@@ -232,31 +175,26 @@ export class UserDetailsPage {
   }
 
   async showActive(user: User) {
-    let currentuser = firebase.auth().currentUser;
+   
     const events = await firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid);
+      .doc(this.currentuser.uid);
     const dat = await events.get();
-    if (!dat.exists) {
-      console.log("No such document!");
-    } else {
-      console.log("Document data:", dat.data());
-    }
+    
   }
 
   dummy() {
     this.storage.get("cuid").then((val) => {
-      //console.log('id is', val);
-      let currentUser = firebase.auth().currentUser;
+      
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Admin")
-        .doc(currentUser.uid)
+        .doc(this.currentuser.uid)
         .update({
           users: {
             [this.employee.name]: {

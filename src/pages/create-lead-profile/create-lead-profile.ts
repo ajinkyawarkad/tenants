@@ -1,13 +1,6 @@
 import { Component } from "@angular/core";
 import { AlertController, NavController, NavParams } from "ionic-angular";
-import { CreateCampaignsLeadPage } from "../create-campaigns-lead/create-campaigns-lead";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArray,
-} from "@angular/forms";
+
 import { Http } from "@angular/http";
 
 import * as $ from "jquery";
@@ -16,20 +9,14 @@ import { HomePage } from "../home/home";
 import { Observable } from "rxjs";
 import { CreateNewCampleadPage } from "../create-new-camplead/create-new-camplead";
 import firebase from "firebase";
-import { Camp } from "../../models/user";
-
 import { v4 as uuid } from "uuid";
-import { TrackCampaignPage } from "../track-campaign/track-campaign";
 
-interface Camps {
-  name: string;
-}
 @Component({
   selector: "page-create-lead-profile",
   templateUrl: "create-lead-profile.html",
 })
 export class CreateLeadProfilePage {
-  public form: FormGroup;
+ 
 
   public headerRow: any;
   csvContent: any;
@@ -39,7 +26,7 @@ export class CreateLeadProfilePage {
   srIds = [];
   public anArray: any = [];
   public anArray1: any = [];
-  products: Observable<Camps[]>;
+  products: Observable<any[]>;
   FireHead: any = [];
   data: any;
   index: any;
@@ -57,6 +44,7 @@ export class CreateLeadProfilePage {
   dummy = [];
   dummy2 = [];
 
+  currentUser = firebase.auth().currentUser;
   selectedFiel = [];
 
   arrFilelds = [
@@ -124,7 +112,7 @@ export class CreateLeadProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _FB: FormBuilder,
+   
     private http: Http,
     private alertCtrl: AlertController,
     public navParam: NavParams
@@ -134,7 +122,7 @@ export class CreateLeadProfilePage {
     this.campid = this.navParams.get("item");
     this.manId = this.navParams.get("manId");
     this.srIds = this.navParams.get("Srs");
-    console.log("Camp idd", this.campid);
+  
   }
 
   add(){
@@ -160,7 +148,7 @@ export class CreateLeadProfilePage {
         $(this).show();
       }
     });
-    console.log("ionViewDidLoad CreateLeadProfilePage");
+   
   }
 
   removeField(valuee, att) {
@@ -177,7 +165,7 @@ export class CreateLeadProfilePage {
             let f;
             let a;
 
-            // let f = this.dummy.includes({indicator:att});
+           
             for (var t in this.dummy) {
               if (this.dummy[t].indicator == att) {
                 f = true;
@@ -188,16 +176,13 @@ export class CreateLeadProfilePage {
               }
             }
 
-            //a = match found index
-            //value
-            console.log("fa", f);
+           
+          
             switch (f) {
               case false:
-                // this.dummy.push(att)
-                console.log(valuee, att);
+              
                 this.dummy[valuee].indicator = att;
-                // console.log("false Dummy", this.dummy);
-                // console.log("False Anarray", this.anArray);
+               
                 break;
               case true:
                 let alert = this.alertCtrl.create({
@@ -213,20 +198,13 @@ export class CreateLeadProfilePage {
                   ],
                 });
                 alert.present();
-                console.log(valuee, att);
-
-                console.log("indessss", a);
-
+               
                 this.anArray[valuee].indicator = "Select";
                 this.dummy[valuee].indicator = "Select";
 
                 this.anArray[a].indicator = att;
                 this.dummy[a].indicator = att;
 
-                console.log("true Dummy", this.dummy);
-                console.log("true anArray", this.anArray);
-
-              // let a = this.dummy.indexOf(att);
             }
 
             break;
@@ -236,7 +214,7 @@ export class CreateLeadProfilePage {
             break;
         }
       } else {
-        console.log("Bllank");
+        
       }
     }
   }
@@ -249,13 +227,9 @@ export class CreateLeadProfilePage {
       let b = field;
       if (b) {
         let s = this.arrFilelds.includes(field);
-
-       
-     
             let f;
             let a;
 
-            // let f = this.dummy.includes({indicator:att});
             for (var t in this.dummy2) {
               if (this.dummy2[t].indicator == field) {
                 f = true;
@@ -266,16 +240,12 @@ export class CreateLeadProfilePage {
               }
             }
 
-            //a = match found index
-            //value
-            console.log("fa", f);
+           
             switch (f) {
               case false:
-                // this.dummy.push(att)
-                console.log(index, field);
+               
                 this.dummy2[index].indicator = field;
-                // console.log("false Dummy", this.dummy);
-                // console.log("False Anarray", this.anArray);
+               
                 break;
               case true:
                 let alert = this.alertCtrl.create({
@@ -291,37 +261,19 @@ export class CreateLeadProfilePage {
                   ],
                 });
                 alert.present();
-                console.log(index, field);
-
-                console.log("indessss", a);
-
                 this.anArray1[index].indicator = "Select";
                 this.dummy2[index].indicator = "Select";
 
                 this.anArray1[a].indicator = field;
                 this.dummy2[a].indicator = field;
-
-                console.log("true Dummy", this.dummy2);
-                console.log("true anArray", this.anArray1);
-
-              // let a = this.dummy.indexOf(att);
             }
-
-            
-
-          
         
       } else {
-        console.log("Bllank");
+        
       }
-
-
-
-
     }
 
-    console.log("Anarray2",this.anArray1)
-
+   
   }
 
   onFileSelect(input: HTMLInputElement) {
@@ -329,7 +281,7 @@ export class CreateLeadProfilePage {
     this.arr = [];
     this.anArray = [];
     this.arrDummy = [];
-    console.log("HeaderRow", this.arr, " ", " Arr", this.arr);
+   
     const files = input.files;
     var content = this.csvContent;
 
@@ -340,7 +292,6 @@ export class CreateLeadProfilePage {
 
       fileReader.onload = () => {
         fileReader.result; // This is valid
-        //console.log(fileReader.result)
         this.extractData(fileReader.result);
       };
       fileReader.readAsText(fileToRead, "UTF-8");
@@ -353,26 +304,24 @@ export class CreateLeadProfilePage {
     this.headerRow = null;
     this.anArray = [];
     this.arrDummy = [];
-    console.log("HeaderRow2", this.arr, " ", " Arr2", this.arr);
+
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0]; //Headers
     this.arr = parsedData; //DATA Except headers
-    console.log("Length = : ", this.arr.length);
-    console.log("DATA IS = : ", this.arr);
+  
 
     var match = this.headerRow.toString().split(",");
 
-    console.log(match);
-
+ 
     for (var a in match) {
       var variable = match[a];
-      // console.log(variable)
+     
       this.anArray.push({ value: variable, indicator: "None" }); //Creating CsvFields Structure
       this.arrDummy.push({ value: variable, indicator: "" });
       this.dummy.push({ indicator: "None" });
     }
-    console.log("aaaaaaaa", this.dummy);
+    
   }
 
   savefield1() {
@@ -386,7 +335,7 @@ export class CreateLeadProfilePage {
         this.anArray1[i].indicator = "Select";
         check = true;
       } else {
-        console.log("pass");
+        
       }
     }
 
@@ -394,32 +343,31 @@ export class CreateLeadProfilePage {
       alert("Select Filelds ");
     } else {
       let Mainheader = this.anArray1;
-      console.log("MAIN HEADERS", Mainheader);
+  
 
-      let currentUser = firebase.auth().currentUser;
+    
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentUser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .update({
           CSVfield: Mainheader,
         })
         .then((res) => {
-          //execute function
-          let currentUser = firebase.auth().currentUser;
+         
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
+            .doc(this.currentUser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+            
               this.FireHead = doc.data().CSVfield;
-              console.log("Headers from firebase", this.FireHead);
+            
               this.uploadFlag = true;
             });
         });
@@ -441,7 +389,7 @@ export class CreateLeadProfilePage {
               text: "Cancel",
               role: "cancel",
               handler: () => {
-                console.log("Cancel clicked");
+             
                 this.navCtrl.push(HomePage);
               },
             },
@@ -455,7 +403,7 @@ export class CreateLeadProfilePage {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentUser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .collection("Fields")
@@ -519,7 +467,7 @@ export class CreateLeadProfilePage {
             firebase
               .firestore()
               .collection("Company")
-              .doc(currentUser.photoURL)
+              .doc(this.currentUser.photoURL)
               .collection("Campaigns")
               .doc(this.campid)
               .collection("Fields")
@@ -535,7 +483,7 @@ export class CreateLeadProfilePage {
          firebase
          .firestore()
          .collection("Company")
-         .doc(currentUser.photoURL)
+         .doc(this.currentUser.photoURL)
          .collection("Users").doc(this.manId).collection("CampsAsso")
          .doc(this.campid)
          .collection("Fields")
@@ -600,7 +548,7 @@ export class CreateLeadProfilePage {
              firebase
                .firestore()
                .collection("Company")
-               .doc(currentUser.photoURL)
+               .doc(this.currentUser.photoURL)
                .collection("Users").doc(this.manId).collection("CampsAsso")
                .doc(this.campid)
                .collection("Fields")
@@ -615,7 +563,7 @@ export class CreateLeadProfilePage {
                firebase
                  .firestore()
                  .collection("Company")
-                 .doc(currentUser.photoURL)
+                 .doc(this.currentUser.photoURL)
                  .collection("Users").doc(this.manId).collection("CampsAsso")
                  .doc(this.campid)
                  .collection("Fields")
@@ -633,7 +581,7 @@ export class CreateLeadProfilePage {
            firebase
            .firestore()
            .collection("Company")
-           .doc(currentUser.photoURL)
+           .doc(this.currentUser.photoURL)
            .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
            .doc(this.campid)
            .collection("Fields")
@@ -698,7 +646,7 @@ export class CreateLeadProfilePage {
                firebase
                  .firestore()
                  .collection("Company")
-                 .doc(currentUser.photoURL)
+                 .doc(this.currentUser.photoURL)
                  .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
                  .doc(this.campid)
                  .collection("Fields")
@@ -713,7 +661,7 @@ export class CreateLeadProfilePage {
                  firebase
                    .firestore()
                    .collection("Company")
-                   .doc(currentUser.photoURL)
+                   .doc(this.currentUser.photoURL)
                    .collection("Users").doc().collection("CampsAsso")
                    .doc(this.campid)
                    .collection("Fields")
@@ -734,7 +682,7 @@ export class CreateLeadProfilePage {
 
 
   upload() {
-    let currentUser = firebase.auth().currentUser;
+  
     let i;
     for (i = 1; i < this.arr.length; i++) {
       let x = [];
@@ -748,8 +696,7 @@ export class CreateLeadProfilePage {
           action: x[j],
         });
       }
-      console.log("SUBMAIN", i, subMain);
-
+   
       let cust = [];
       let uid = uuid();
 
@@ -761,7 +708,7 @@ export class CreateLeadProfilePage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
+            .doc(this.currentUser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -776,7 +723,7 @@ export class CreateLeadProfilePage {
         firebase
           .firestore()
           .collection("Company")
-          .doc(currentUser.photoURL)
+          .doc(this.currentUser.photoURL)
           .collection("Campaigns")
           .doc(this.campid)
           .collection("leads")
@@ -813,7 +760,7 @@ export class CreateLeadProfilePage {
           text: "Cancel",
           role: "cancel",
           handler: () => {
-            console.log("Cancel clicked");
+           
             this.navCtrl.push(HomePage);
           },
         },
@@ -833,7 +780,7 @@ export class CreateLeadProfilePage {
         this.anArray[i].indicator = "Select";
         check = true;
       } else {
-        console.log("pass");
+        
       }
     }
 
@@ -841,7 +788,7 @@ export class CreateLeadProfilePage {
       alert("Select Filelds ");
     } else {
       let Mainheader = this.anArray;
-      console.log("MAIN HEADERS", Mainheader);
+     
 
       let currentUser = firebase.auth().currentUser;
       firebase
@@ -864,9 +811,9 @@ export class CreateLeadProfilePage {
             .doc(this.campid)
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+            
               this.FireHead = doc.data().CSVfield;
-              console.log("Headers from firebase", this.FireHead);
+           
               this.uploadFlag = true;
             });
         });

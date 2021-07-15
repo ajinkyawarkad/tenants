@@ -30,22 +30,21 @@ export class ProfilePage {
     private alertCtrl: AlertController
   ) {
     this.storage.get("name").then((name) => {
-      console.log("name", name);
+     
       this.name = name;
     });
     this.storage.get("email").then((email) => {
-      console.log("email", email);
+     
       this.email = email;
     });
     this.storage.get("cuid").then((cuid) => {
-      console.log("cuid", cuid);
+     
       this.cuid = cuid;
     });
   }
 
   ionViewDidEnter() {
-    console.log("ionViewDidLoad LoginPage");
-    // this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+   
   }
 
   updateprofile(user: User) {
@@ -58,7 +57,7 @@ export class ProfilePage {
           photoURL: currentuser.photoURL,
         })
         .then(() => {
-          console.log("updated..");
+          
           let alert = this.alertCtrl.create({
             title: "Sucess",
             subTitle: "Updated Sucessfully",
@@ -74,7 +73,7 @@ export class ProfilePage {
           alert.present();
         })
         .catch((err) => {
-          console.log(err);
+         
           let alert = this.alertCtrl.create({
             title: "Error",
             subTitle: err,
@@ -110,45 +109,6 @@ export class ProfilePage {
     });
   }
 
-  // updatephone(phoneNumber:number)
-  // {
-  //   let currentuser=firebase.auth().currentUser;
-  //   const appVerifier = this.recaptchaVerifier;
-  //   const phoneNumberString = "+" + phoneNumber;
-  //   const provider = new firebase.auth.PhoneAuthProvider();
-  //   provider.verifyPhoneNumber(phoneNumberString, appVerifier)
-  //   .then( confirmationResult => {
-
-  //     let prompt = this.alertCtrl.create({
-  //     title: 'Enter the Confirmation code',
-  //     inputs: [{ name: 'confirmationCode', placeholder: 'Confirmation Code' }],
-  //     buttons: [
-  //       { text: 'Cancel',
-  //         handler: data => { console.log('Cancel clicked'); }
-  //       },
-  //       { text: 'Send',
-  //         handler: data => {
-  //           currentuser.updatePhoneNumber(this.phoneNumber)
-  //           console.log(phoneNumber);
-  //         //  confirmationResult.confirm(data.confirmationCode)
-  //         //   .then((result) => {
-  //         //     console.log(result);
-  //         //   //  return this.currentuser.updatePhoneNumber(this.phone);
-  //         //   })
-  //         //   .catch((e) => {
-  //         //     console.log(e);
-  //         //   });
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   prompt.present();
-  // })
-  // .catch(function (error) {
-  //   console.error("SMS not sent", error);
-  // });
-
-  // }
 
   logout() {
     this.storage.remove("name").then((name) => {
@@ -164,18 +124,16 @@ export class ProfilePage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: (data) => {
-            console.log("Cancel clicked");
-          },
+         
         },
         {
           text: "Reset Password",
           handler: (data) => {
             if (data.email) {
-              console.log(data.email);
+             
               const result = this.auth.auth.sendPasswordResetEmail(data.email);
               if (result) {
-                console.log("Check Your Email For Reset Link");
+                
                 let alert = this.alertCtrl.create({
                   title: "Success",
                   subTitle:
@@ -191,7 +149,7 @@ export class ProfilePage {
                 });
                 alert.present();
               } else {
-                console.log("Error  in Sending Reset Link");
+               
                 let alert = this.alertCtrl.create({
                   title: "Error",
                   subTitle:

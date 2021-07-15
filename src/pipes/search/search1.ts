@@ -11,7 +11,6 @@ export class SearchPipe1 implements PipeTransform {
     term = term.toLowerCase();
     return item.filter( it => {
       return it.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-             it.last.toLowerCase().indexOf(term.toLowerCase()) > -1  ||
              it.role.toLowerCase().indexOf(term.toLowerCase()) > -1  ||
              it.email.toLowerCase().indexOf(term.toLowerCase()) > -1
             

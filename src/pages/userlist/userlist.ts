@@ -2,21 +2,14 @@ import { Component } from '@angular/core';
 import { NavController, NavParams ,AlertController} from 'ionic-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import 'firebase/firestore';
-import { Employee, User } from '../../models/user';
+import { Employee } from '../../models/user';
 import firebase from 'firebase';
 import { Storage } from '@ionic/storage';
 import { AngularFirestore} from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-// import { merge } from 'jquery';
-import { uuid } from 'uuidv4';
-import { HomePage } from '../home/home';
 
-interface Users {
-  first_name: string,
-  last_name:string;
-  email:string;
-  role:string;
-  }
+import { uuid } from 'uuidv4';
+
+
 
 
 @Component({
@@ -25,12 +18,14 @@ interface Users {
 })
 export class UserlistPage {
   employee = {} as Employee;
+  currentUser = firebase.auth().currentUser;
+
   constructor(public navCtrl: NavController,public afs: AngularFirestore,
     private storage: Storage, public navParams: NavParams,private auth:AngularFireAuth,public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserlistPage');
+    
   }
 
 
@@ -41,28 +36,9 @@ export class UserlistPage {
       employee.name != null
     ) {
       this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
+       
         let uid = uuid();
-        console.log(uid);
-        let currentUser = firebase.auth().currentUser;
 
-        uid= uuid()
-
-        // firebase
-        //   .firestore()
-        //   .collection("Company")
-        //   .doc(val)
-        //   .collection("Users")
-        //   .doc(uid)
-        //   .set(
-        //     Object.assign({
-        //       id: uid,
-        //       name: employee.name,
-        //       last: employee.last,
-        //       email: employee.email,
-        //       role: employee.role,
-        //     })
-        //   );
         if (employee.role == "Manager") {
           firebase
             .firestore()
@@ -72,7 +48,7 @@ export class UserlistPage {
             .doc(uid)
             .set(
               {
-                ref:'M#'+currentUser.photoURL,
+                ref:'M#'+this.currentUser.photoURL,
                  name: this.employee.name,
                  email:employee.email,
                 // last: this.employee.last,
@@ -91,7 +67,7 @@ export class UserlistPage {
           .doc(uid)
           .set(
             {
-               ref:'U#'+currentUser.photoURL,
+               ref:'U#'+this.currentUser.photoURL,
                name: this.employee.name,
               // last: this.employee.last,
                email:employee.email,

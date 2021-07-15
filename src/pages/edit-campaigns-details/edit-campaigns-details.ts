@@ -12,10 +12,6 @@ interface Camps {
   role: string;
 }
 
-interface Status {
-  status: string;
-  action: string;
-}
 
 @Component({
   selector: "page-edit-campaigns-details",
@@ -41,6 +37,7 @@ export class EditCampaignsDetailsPage {
   product: { cid: ""; name: ""; goals: ""; manager: ""; sr: "" };
   value: any;
   public statuss: any;
+ currentuser = firebase.auth().currentUser;
 
   constructor(
     private _FB: FormBuilder,
@@ -50,45 +47,38 @@ export class EditCampaignsDetailsPage {
     public afs: AngularFirestore
   ) {
     this.value = navParams.get("product");
-    console.log("prod", this.value);
+   
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad EditCampaignsDetailsPage");
-    let currentuser = firebase.auth().currentUser;
-
+   
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.productss = doc.data().Managers;
-        console.log(this.productss);
+       
       });
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.products = doc.data().status;
         this.sts = this.products;
-
-        console.log("sts", this.products);
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.prod = doc.data().SR_name;
 
         for (var c in this.prod) {
@@ -100,13 +90,12 @@ export class EditCampaignsDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
-        this.productsss = doc.data().Users;
+       this.productsss = doc.data().Users;
         for (var i in this.productsss) {
           let n = this.productsss[i].name;
           for (var x in this.anArray) {
@@ -117,7 +106,6 @@ export class EditCampaignsDetailsPage {
           }
         }
 
-        console.log("productssss", this.anArray2);
       });
   }
 
@@ -164,53 +152,45 @@ export class EditCampaignsDetailsPage {
 
   update(data) {
     let uiArr = [];
-    console.log("Sr selected", data);
-    let currentuser = firebase.auth().currentUser;
-
     uiArr=data
-    console.log("UI Arr",uiArr)
-
+  
     //========================== IDS For selected SRs ================
 
     for (var a in uiArr) {
       let x,y = [];
       x = uiArr[a].split(" ")[0];
-      // y = uiArr[a].split(" ")[1];
-      console.log("first names",x)
-      // console.log("last names",y)
+   
 
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Users")
         .where("name", "==", x)
         // .where("last", "==", y)
         .get()
         .then((dat) => {
           dat.docs.forEach((snap) => {
-            console.log("IDS ARE FINL", snap.data().id);
             this.idArr.push(snap.data().id)
-            console.log("IDS ARE FINLll", this.idArr);
           });
         }).then(()=>{
 
            firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+        
         this.pro = doc.data().status[0].status;
         this.proo = doc.data().status[0].action;
-        console.log(this.products);
+      
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .update(
         Object.assign({
           name: this.value.name,
@@ -222,7 +202,7 @@ export class EditCampaignsDetailsPage {
         })
       )
       .then(() => {
-        console.log("updated..");
+     
         let alert = this.alertCtrl.create({
           title: "Sucess",
           subTitle: "Campaign Updated Sucessfully ..Now you can update fields",
@@ -239,7 +219,7 @@ export class EditCampaignsDetailsPage {
         alert.present();
       })
       .catch((err) => {
-        console.log(err);
+       
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -256,8 +236,6 @@ export class EditCampaignsDetailsPage {
 
         })
     }
-   
-
-   
+ 
   }
 }

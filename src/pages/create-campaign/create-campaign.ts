@@ -1,30 +1,14 @@
 import { Component, ViewChild } from "@angular/core";
 import { NavController, NavParams, AlertController } from "ionic-angular";
-
 import { Slides } from "ionic-angular";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArray,
-} from "@angular/forms";
-
 import { CreateLeadProfilePage } from "../create-lead-profile/create-lead-profile";
 import { Camp, Sts } from "../../models/user";
 import { AngularFirestore } from "@angular/fire/firestore";
-import firebase, { firestore } from "firebase/app";
+import firebase from "firebase/app";
 import { Storage } from "@ionic/storage";
 import { v4 as uuid } from "uuid";
-
 import { Observable } from "rxjs";
-import * as $ from "jquery";
-import { merge } from "jquery";
 
-interface Camps {
-  name: string;
-  role: string;
-}
 
 @Component({
   selector: "page-create-campaign",
@@ -33,22 +17,21 @@ interface Camps {
 export class CreateCampaignPage {
   @ViewChild(Slides) slides: Slides;
   slideOpts;
-  public form: FormGroup;
-  createSuccess = false;
 
+  createSuccess = false;
   camp = {} as Camp;
   sts = {} as Sts;
   uuid1 = uuid();
-  products: Observable<Camps[]>;
-  productss: Observable<Camps[]>;
-
+  products: Observable<any[]>;
+  productss: Observable<any[]>;
   userInfo: any;
   public anArray: any = [];
   public acArr: any = [];
   formSlide = true;
+  currentuser = firebase.auth().currentUser;
 
   constructor(
-    private _FB: FormBuilder,
+  
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -69,9 +52,7 @@ export class CreateCampaignPage {
       alert("this will remove client profile permently");
     }
   }
-  goTo() {
-    console.log(this.anArray);
-  }
+ 
 
   Add() {
     if (this.anArray.length < 8) {
@@ -89,39 +70,36 @@ export class CreateCampaignPage {
     this.sts.sts2 = "Not-Interested";
     this.sts.action1 = "None"
     this.sts.action2 ="None"
-    console.log("ionViewDidLoad CreateCampaignPage");
-    let currentuser = firebase.auth().currentUser;
+   
+   
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.products = doc.data().Managers;
-        console.log(this.products);
+       
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.productss = doc.data().Users;
-        console.log(this.productss);
+       
       });
   }
 
   insertUser(camp: Camp, data, data2) {
-    console.log("DAta", data);
-    console.log("DAta2", data2);
+   
     let ids: any = [];
     ids = data;
     let x = [];
@@ -130,7 +108,6 @@ export class CreateCampaignPage {
       x.push(ids[z].id);
       y.push(ids[z].name);
     }
-    console.log("DAta", y);
 
     var obj = [
       {
@@ -147,15 +124,11 @@ export class CreateCampaignPage {
     for (i = 0; i < n; i++) {
       obj.push(this.anArray[i]);
     }
-    console.log("obj is ", obj);
-    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
+    
     this.storage
       .get("cuid")
       .then((val) => {
-        // console.log('id is', val);
-
-        console.log(this.uuid1);
-
+     
         this.storage.set("campId", this.uuid1);
 
         firebase
@@ -243,30 +216,16 @@ export class CreateCampaignPage {
         alert.present();
       })
       .catch((err) => {
-        console.log(err);
+       
         let alert = this.alertCtrl.create({
-          //title: 'Error',
+        
           subTitle: err,
           buttons: [{ text: "OK", handler: (data) => {} }],
         });
         alert.present();
       });
 
-    // }
-    // else{
-
-    // let alert = this.alertCtrl.create({
-    // title: 'Error',
-    // subTitle: 'Failed to add',
-    // //scope: id,
-    // buttons: [{text: 'OK',
-    // handler: data => {
-    // //this.navCtrl.push(crea);
-    // }
-    // }]
-    // });
-    // alert.present();
-    // }
+   
   }
 
   save() {
@@ -307,14 +266,10 @@ export class CreateCampaignPage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: () => {
-            console.log("Cancel clicked");
-          },
         },
         {
           text: "Add",
-          handler: () => {
-            console.log("Add clicked");
+          handler: () => { 
             this.navCtrl.push(CreateLeadProfilePage);
           },
         },

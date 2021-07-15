@@ -1,31 +1,7 @@
-import { Component, ViewChild } from "@angular/core";
-import {
-  AlertController,
-  IonicPage,
-  NavController,
-  NavParams,
-} from "ionic-angular";
-import { Leadd, Leadref } from "../../models/user";
-
-import firebase, { database } from "firebase/app";
-import { Storage } from "@ionic/storage";
-
-import { AngularFirestore } from "@angular/fire/firestore";
-import { AngularFireAuth } from "@angular/fire/auth";
-
-import { uuid } from "uuidv4";
+import { Component } from "@angular/core";
+import {AlertController,NavController,NavParams} from "ionic-angular";
+import firebase from "firebase/app";
 import { Observable } from "rxjs";
-import * as $ from "jquery";
-
-interface Lead {
-  status: string;
-  action: string;
-}
-
-interface Lead {
-  status: string;
-  action: string;
-}
 
 @Component({
   selector: "page-edit-lead-details",
@@ -49,6 +25,7 @@ export class EditLeadDetailsPage {
   public products: Observable<any[]>;
   public productss: Observable<any[]>;
   public non: any = [];
+  currentuser = firebase.auth().currentUser;
 
   constructor(
     public navCtrl: NavController,
@@ -56,51 +33,39 @@ export class EditLeadDetailsPage {
     private alertCtrl: AlertController
   ) {
     this.value = navParams.get("cid");
-    console.log(this.value);
-
     this.data = navParams.get("data");
-    console.log("Data", this.data);
-
-    let currentuser = firebase.auth().currentUser;
+  
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.productss = doc.data().status;
         this.arr = this.productss;
-        console.log(this.productss);
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.products = doc.data().CSVfield;
-
-        console.log("csv ", this.products);
         let test: any = [];
         test = this.products;
         for (var a in test) {
           if (test[a].indicator !== "None") {
             this.anArray.push(test[a]);
-          } else {
-            // this.anArray2.push(test[a]);
-          }
+          } 
         }
       });
   }
 
   Getselected(selected_value) {
     let temp = [];
-    console.log("SELECT", selected_value);
     this.select = selected_value;
     let action;
     for (var s in this.arr) {
@@ -109,21 +74,18 @@ export class EditLeadDetailsPage {
         action = this.arr[s].action;
       }
     }
-
     this.act = action;
-    console.log("TEMO", this.act);
+  
   }
   hide() {
     this.hideMe = !this.hideMe;
   }
   ionViewDidLoad() {
-    console.log("ionViewDidLoad EditLeadDetailsPage");
-
-    let currentuser = firebase.auth().currentUser;
+  
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("leads")
@@ -140,8 +102,6 @@ export class EditLeadDetailsPage {
         let k = Object.keys(a);
         let v = Object.values(a);
         this.non = b;
-
-        console.log("TEMO", this.non);
 
         for (var i in k) {
           let r = k[i];
@@ -161,28 +121,21 @@ export class EditLeadDetailsPage {
             ) {
               this.field.push({ action: r, value: val });
             }
-          } else {
-            console.log("fiegggggggggggld", k[i]);
-          } //"SR_id" || "SR_name" || "uid" || "leads"
+          } 
         }
-        console.log("field", this.field);
+      
       });
   }
 
   update() {
-    console.log(this.value);
+   
 
-    for (var a in this.field) {
-      console.log({ [this.field[a].action]: this.field[a].value });
-    }
-
-    let currentuser = firebase.auth().currentUser;
     //===================================Basic details update ==========================================
     for (var a in this.field) {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.value)
         .collection("leads")
@@ -195,7 +148,7 @@ export class EditLeadDetailsPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.value)
       .collection("leads")
@@ -207,25 +160,8 @@ export class EditLeadDetailsPage {
         { merge: true }
       )
 
-      // firebase
-      // .firestore()
-      // .collection("Company")
-      // .doc(currentuser.photoURL)
-      // .collection("Campaigns")
-      // .doc(this.value.cid)
-      // .collection("leads")
-      // .doc(this.data.uid)
-
-      // .update(
-      // Object.assign({
-      // action: this.data.action,
-      // remark: this.data.remark,
-      // status: this.data.status,
-      // datetime: this.data.datetime,
-      // })
-      // )
       .then(() => {
-        console.log("updated..");
+
         let alert = this.alertCtrl.create({
           title: "Sucess",
           subTitle: "Updated Sucessfully",
@@ -241,7 +177,7 @@ export class EditLeadDetailsPage {
         alert.present();
       })
       .catch((err) => {
-        console.log(err);
+    
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -249,7 +185,6 @@ export class EditLeadDetailsPage {
             {
               text: "OK",
               handler: (data) => {
-                // this.navCtrl.setRoot(ProfilePage);
               },
             },
           ],

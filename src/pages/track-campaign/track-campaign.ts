@@ -1,27 +1,14 @@
 import { Component } from "@angular/core";
-import {
-  AlertController,
-  LoadingController,
-  MenuController,
-} from "ionic-angular";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {AlertController,LoadingController,MenuController,} from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 
 import { EditCampaignsDetailsPage } from "../edit-campaigns-details/edit-campaigns-details";
 import { LeadsDetailsPage } from "../leads-details/leads-details";
-
-import { LoginPage } from "../login/login";
 import { AngularFirestore } from "@angular/fire/firestore";
-
-import { Observable } from "rxjs";
 import firebase from "firebase";
 import { Counts } from "../../models/user";
 import { ToastController } from "ionic-angular";
 import { PendingLeadsPage } from "../pending-leads/pending-leads";
-
-interface Users {
-  name: string;
-  manager: string;
-}
 
 @Component({
   selector: "page-track-campaign",
@@ -41,6 +28,7 @@ export class TrackCampaignPage {
   userInfo: any;
   products: any;
   pc = [];
+ currentuser = firebase.auth().currentUser;
 
   constructor(
     public navCtrl: NavController,
@@ -62,8 +50,8 @@ export class TrackCampaignPage {
 
   //=======================================Count===================
   ionViewDidLoad() {
-    let currentuser = firebase.auth().currentUser;
-    let cu = currentuser.uid;
+    
+    let cu = this.currentuser.uid;
     let b = [];
     let d = new Date().getDate();
     let m = new Date().getMonth() + 1;
@@ -76,7 +64,7 @@ export class TrackCampaignPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
       .doc(cu)
       .get()
@@ -87,7 +75,7 @@ export class TrackCampaignPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
       .doc(cu)
       .get()
@@ -96,7 +84,7 @@ export class TrackCampaignPage {
         firebase
           .firestore()
           .collection("Company")
-          .doc(currentuser.photoURL)
+          .doc(this.currentuser.photoURL)
           .collection("Campaigns")
           .get()
           .then((doc) => {
@@ -108,7 +96,7 @@ export class TrackCampaignPage {
               firebase
                 .firestore()
                 .collection("Company")
-                .doc(currentuser.photoURL)
+                .doc(this.currentuser.photoURL)
                 .collection("Campaigns")
                 .doc(snap.data().cid)
                 .collection("leads")
@@ -118,13 +106,13 @@ export class TrackCampaignPage {
                     firebase
                       .firestore()
                       .collection("Company")
-                      .doc(currentuser.photoURL)
+                      .doc(this.currentuser.photoURL)
                       .collection("Campaigns")
                       .doc(snap.data().cid)
                       .collection("leads")
                       .get()
                       .then((docu) => {
-                        console.log(docu.docs.length); // ==========ALL LEAD COUNT IN CAMP
+                      
                         data.docs.forEach((snap2) => {
                           let action = snap2.data().action;
                           let t = Date.parse(snap2.data().datetime);
@@ -138,7 +126,7 @@ export class TrackCampaignPage {
                                 firebase
                                 .firestore()
                                 .collection("Company")
-                                .doc(currentuser.photoURL)
+                                .doc(this.currentuser.photoURL)
                                 .collection("Campaigns")
                                 .doc(snap.data().cid)
                                 .collection("leads").doc(snap2.data().uid).set({
@@ -156,7 +144,7 @@ export class TrackCampaignPage {
                                 firebase
                                 .firestore()
                                 .collection("Company")
-                                .doc(currentuser.photoURL)
+                                .doc(this.currentuser.photoURL)
                                 .collection("Campaigns")
                                 .doc(snap.data().cid)
                                 .collection("leads").doc(snap2.data().uid).set({
@@ -175,7 +163,7 @@ export class TrackCampaignPage {
                                 firebase
                                 .firestore()
                                 .collection("Company")
-                                .doc(currentuser.photoURL)
+                                .doc(this.currentuser.photoURL)
                                 .collection("Campaigns")
                                 .doc(snap.data().cid)
                                 .collection("leads").doc(snap2.data().uid).set({
@@ -192,7 +180,7 @@ export class TrackCampaignPage {
                         firebase //===============Writing Counts back to DB================
                           .firestore()
                           .collection("Company")
-                          .doc(currentuser.photoURL)
+                          .doc(this.currentuser.photoURL)
                           .collection("Campaigns")
                           .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
                           .update({
@@ -202,13 +190,11 @@ export class TrackCampaignPage {
                           });
                       });
                   }
-                  // console.log("Inserted",snap.data().cid,meet,call);
-
-                  // console.log("Toal lead counts", snap.data().cid, data.size);
+                  
                   firebase
                     .firestore()
                     .collection("Company")
-                    .doc(currentuser.photoURL)
+                    .doc(this.currentuser.photoURL)
                     .collection("Campaigns")
                     .doc(snap.data().cid)
                     .update({
@@ -232,18 +218,13 @@ export class TrackCampaignPage {
     loading.present();
     this.userInfo = this.afs
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns");
     this.products = this.userInfo.valueChanges();
     this.pc = this.products;
-    console.log("PC", this.products);
-
-    for (var z in this.pc) {
-      // console.log("PC", this.pc[z]);
-    }
+   
     loading.dismiss();
 
-    console.log("ionViewDidLoad TrackCampaignPage");
   }
 
   //==================
@@ -268,13 +249,13 @@ export class TrackCampaignPage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: () => {},
+          
         },
         {
           text: "OK",
 
           handler: (data) => {
-            console.log(value);
+           
             this.deleteItem1(value, Sr_id,manager);
           },
         },
@@ -284,11 +265,10 @@ export class TrackCampaignPage {
   }
 
   archive(value) {
-    console.log(value);
-    let currentuser = firebase.auth().currentUser;
+  
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(
         Object.assign({
           active: false,
@@ -304,7 +284,7 @@ export class TrackCampaignPage {
           .present();
       })
       .catch((err) => {
-        console.log(err);
+       
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -321,11 +301,11 @@ export class TrackCampaignPage {
   }
 
   active(value) {
-    console.log(value);
-    let currentuser = firebase.auth().currentUser;
+  
+    
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(
         Object.assign({
           active: true,
@@ -339,20 +319,9 @@ export class TrackCampaignPage {
             position: "top",
           })
           .present();
-
-        // let alert = this.alertCtrl.create({
-        //   title: 'Sucess',
-        //   subTitle: value.name + ' ' + 'is back to Active now',
-        //   buttons: [{text: 'OK',
-        //             handler: data => {
-        //            // this.navCtrl.setRoot(ProfilePage);
-        //             }
-        //           }]
-        //         });
-        // alert.present();
       })
       .catch((err) => {
-        console.log(err);
+       
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -369,17 +338,17 @@ export class TrackCampaignPage {
   }
 
   deleteItem1(value, Sr_id,manager) {
-    let currentuser = firebase.auth().currentUser;
+    
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value)
       .delete();
 
     for (var i in Sr_id) {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Users")
         .doc(Sr_id[i])
         .collection("CampsAsso")
@@ -390,18 +359,13 @@ export class TrackCampaignPage {
     firebase
     .firestore()
     .collection("Company")
-    .doc(currentuser.photoURL)
+    .doc(this.currentuser.photoURL)
     .collection("Users")
     .doc(manager)
     .collection("CampsAsso")
     .doc(value)
     .delete();
 
-
-
-
-
-    console.log("dsfsdfs", value,"dsfs", Sr_id);
   }
 
   leads(product) {

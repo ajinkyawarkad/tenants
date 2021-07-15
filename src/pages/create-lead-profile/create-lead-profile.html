@@ -5,7 +5,6 @@
 </ion-header>
 
   <ion-content padding>
-  <!-- Item Dividers in a List -->
 
   <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
     <ion-segment-button (ionSelect)="Segments = 1" value="1">
@@ -25,8 +24,6 @@
     <input type="file"  (change)="onFileSelect($event.target)" id="myfile" accept=".csv">  
   </div>
  
-  <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
-  
   <table>
   
   <tbody>
@@ -93,7 +90,7 @@
 
   
       </td>
-      <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
+     
       </tr >
       </tbody> 
       </table>

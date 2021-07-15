@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
-import { CallDetailsPage } from "../call-details/call-details";
+
 import { EditLeadDetailsPage } from "../edit-lead-details/edit-lead-details";
 import { ExportPage } from "../export/export";
 import { TaskDetailsPage } from "../task-details/task-details";
@@ -1056,14 +1056,7 @@ export class ManagerLeadDetailsPage {
     this.navCtrl.push(ManagerRemainingLeadDeatilsPage, { data, cid });
   }
 
-  calldetails(uid) {
-    // console.log("campid", this.campid);
-    let campid = this.campid;
-    this.navCtrl.push(CallDetailsPage, {
-      uid,
-      campid,
-    });
-  }
+ 
 
   showPopup(value) {
     let alert = this.alertCtrl.create({

@@ -13,12 +13,10 @@ import { Storage } from "@ionic/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 
-import { v4 as uuid } from "uuid";
+import { uuid } from "uuidv4";
 import { Observable } from "rxjs";
 import * as $ from "jquery";
 import { Slides } from "ionic-angular";
-import { LeadsDetailsPage } from "../leads-details/leads-details";
-import { TrackCampaignPage } from "../track-campaign/track-campaign";
 
 interface Lead {
   status: string;
@@ -47,15 +45,19 @@ export class TaskDetailsPage {
   data: any;
   data1: any;
   arr: any = [];
+  leadId;
   act;
   select;
+  count;
   //refid:any;
+  pendings: any = [];
   leadref = {} as Leadref;
   task = {} as Task;
   leadd = {} as Leadd;
+  showTasks;
   showSlide = false;
-  count;
   public products: Observable<Lead[]>;
+  currentuser = firebase.auth().currentUser;
 
   constructor(
     public navCtrl: NavController,
@@ -73,6 +75,7 @@ export class TaskDetailsPage {
 
     this.data = navParams.get("data");
     console.log("Data", this.data);
+    this.leadId=this.data.uid
 
     this.slideOpts = {
       effect: "flip",
@@ -93,45 +96,54 @@ export class TaskDetailsPage {
   }
 
   ionViewDidLoad() {
-    let currentuser = firebase.auth().currentUser;
-    firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).get().then(doc =>{
+    let allTasks = [];
+    let t = [];
+    let f = [];
+    firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Campaigns").doc(this.cid).get().then(doc =>{
       this.count = doc.data().pendings
       
     })
-    // if (this.data.action == null) {
-    //   console.log("action=Null");
-    //   this.showSlide = false;
-    // } else {
-    //   console.log("action= ", this.data.action);
-    //   this.showSlide = true;
-    // }
-    // this.slides.onlyExternal = true;
-
-   
-
 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc(currentuser.photoURL)
-    .collection("Campaigns")
-    .doc(this.cid)
-    .collection("leads")
-    .doc(this.data.uid)
-    .collection("History")
-    .doc("Activity1").get().then(doc =>{
-      if(doc.exists){
-        console.log("docExists");
-      }else{
-        doc.ref.set({
-          taskIds:[]
-        })
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.cid)
+      .collection("leads")
+      .doc(this.data.uid)
+      .collection("History")
+      .doc("Activity1")
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.showTasks = true;
+          allTasks = doc.data().data;
+          for (var i in allTasks) {
+            if (allTasks[i].Completed == true) {
+              t.push(allTasks[i].id);
+            } else {
+              f.push(allTasks[i]);
+            }
+          }
+          for (var c in f) {
+            let is = t.includes(f[c].id);
+            switch (is) {
+              case true:
+                break;
+              case false:
+                this.pendings.push(f[c]);
+               
+                break;
+            }
+          }
+          console.log("ALL",this.pendings)
+        } else {
+          this.showTasks = false;
+        }
+      });
 
-      }
-    })
-
-
-
+    
   }
   slideToSlide() {
     if (this.slides.getActiveIndex() + 1 === this.slides.length()) {
@@ -152,19 +164,73 @@ export class TaskDetailsPage {
   }
 
   completeTask(val) {
-   
-    // firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
-    //   .doc(this.data.uid).collection('History')
-    //   .doc('Activity1')
-    //   .set({
-    //    data:firebase.firestore.FieldValue.arrayUnion({
-    //     complete:true
-    //    })
-    //   },{merge:true}
-    //   )
+    console.log("Val", val);
+    let currentuser = firebase.auth().currentUser;
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(
+        currentuser.photoURL +
+          "/" +
+          "Campaigns" +
+          "/" +
+          this.cid +
+          "/" +
+          "leads" +
+          "/" +
+          this.leadId
+      )
+      .collection("History")
+      .doc("Activity1")
+      .update({
+        data: firestore.FieldValue.arrayUnion({
+          Time: new Date(),
+          Action: val.Action,
+          FollowUp: val.FollowUp,
+          Remark: val.Remark,
+          Status:val.Status,
+          Handler: val.Handler,
+          id: val.id,
+          Completed: true,
+        }),
+      });
+
+      var b = new Date().getMonth() + 1;
+
+      var c = new Date().getFullYear();
+      var a = new Date().getDate();
+
+      let date = a + "-" + b + "-" + c;
+      let dat = "";
+      dat = date;
+      console.log("Dateee", date);
+
+
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid)
+      .collection("Report")
+      .doc(dat)
+      .set(
+        {
+          data: firebase.firestore.FieldValue.arrayUnion({
+            Time: new Date(),
+            Action: val.Action,
+            FollowUp: val.FollowUp,
+            Remark: val.Remark,
+            name:this.leadId,
+            id:val.id
+          }),
+        },
+        { merge: true }
+      );
+
   }
 
-  Getselected(selected_value) { 
+  Getselected(selected_value) {
     let temp = [];
 
     console.log("SELECT", selected_value);
@@ -179,137 +245,22 @@ export class TaskDetailsPage {
     this.act = action;
     console.log("TEMO", this.act);
     if (this.act === "Remove client from profile") {
-      let currentuser = firebase.auth().currentUser
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc(
-        currentuser.photoURL +
-          "/" +
-          "Campaigns" +
-          "/" +
-          this.cid +
-          "/" +
-          "leads" +
-          "/" +
-          this.data.uid
-      )
-      .delete().then(res => {
-        
-        let alert = this.alertCtrl.create({
-          title: "Success",
-          subTitle: "Deleted",
-          //scope: id,
-          buttons: [
-            {
-              text: "OK",
-              handler: (data) => {
-                this.navCtrl.pop();
-              },
-            },
-          ],
-        });
-        alert.present();
-       
-      });
-    console.log("DELETED", this.data.uid);
-    
-      
+      alert("this will remove this lead profile permently");
     }
   }
 
-
-  Reference()
-  {
-    let uid = uuid();
-        console.log(uid);
-    let alert = this.alertCtrl.create({
-      title: "Add Reference",
-      inputs: [{ name: "first_name", placeholder: "First Name" },
-               { name: "last_name", placeholder: "Last Name" },
-               { name: "email", placeholder: "Email" },
-               { name: "phone", placeholder: "Phone" }],
-      buttons: [
-        {
-          text: "Cancel",
-          role: "cancel",
-          handler: (data) => {
-            console.log("Cancel clicked");
-          },
-        },
-        {
-          text: "Save",
-          handler: (reff) => {
-            if (reff.first_name) {
-              
-              let currentuser = firebase.auth().currentUser;
-              const result =  firebase
-          .firestore()
-          .collection("Company")
-          .doc(
-            currentuser.photoURL +
-              "/" +
-              "Campaigns" +
-              "/" +
-              this.cid +
-              "/" +
-              "Lead references" +
-              "/" +
-              uid
-          )
-          .set(
-            Object.assign({
-              id: uid,
-              first_name: reff.first_name,
-              last_name: reff.last_name,
-              email: reff.email,
-              phone: reff.phone,
-              refId: this.data.uid,
-            })
-          );
-
-              if (result) {
-                let alert = this.alertCtrl.create({
-                  title: "Success",
-                  subTitle: "Reference Added",
-                  buttons: [
-                    {
-                      text: "OK",
-                      handler: (data) => {
-                        //this.navCtrl.setRoot(HomePage);
-                      },
-                    },
-                  ],
-                });
-                alert.present();
-              }
-            } else {
-              return false;
-            }
-          },
-        },
-      ],
-    });
-    alert.present();
-  }
-  
-  
-
   Task(task: Task) {
     console.log("SR name", this.data.SR_name);
-    let taskI = uuid()
-    let idArr = taskI.split("-")
-    let taskId = idArr[0]
-    
-
-    let currentuser = firebase.auth().currentUser;
-
+    let s = uuid();
+    let u = s.split("-");
+    let id = u[0];
     if (task.action && task.remark != null) {
       this.storage.get("cuid").then((val) => {
         console.log("id is", val);
         let uid = uuid();
         console.log(uid);
-       
+        let currentuser = firebase.auth().currentUser;
+
         firebase
           .firestore()
           .collection("Company")
@@ -332,36 +283,15 @@ export class TaskDetailsPage {
                 datetime: task.datetime,
                 status: task.status,
                 remark: task.remark,
-              }
+              },
+              { merge: true }
             )
           );
-          firebase
-          .firestore()
-          .collection("Company")
-          .doc(
-            currentuser.photoURL +
-              "/" +
-              "Campaigns" +
-              "/" +
-              this.cid +
-              "/" +
-              "leads" +
-              "/" +
-              this.data.uid
-          )
-          .set(
-            
-              {
-                taskId:taskId
-              },{merge:true}
-            
-          );
         console.log("ACT IS ", this.act);
-        console.log("SELECT", this.select);
+        console.log("SELECT", this.select);7
+        
 
-
-
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).collection("leads").doc(this.data.uid).get().then(doc => {
+        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Campaigns").doc(this.cid).collection("leads").doc(this.leadId).get().then(doc => {
           if(doc.data().pending = true){
             doc.ref.update({
               pending:false
@@ -377,6 +307,7 @@ export class TaskDetailsPage {
 
           }
         })
+
 
         switch (this.act) {
           case "Inform Manager":
@@ -439,24 +370,19 @@ export class TaskDetailsPage {
           .doc("Activity1")
           .set(
             {
-              [taskId]: {
+              data: firebase.firestore.FieldValue.arrayUnion({
                 Time: new Date(),
                 Action: task.action,
                 FollowUp: task.datetime,
                 Remark: task.remark,
-                name: this.data.uid,
+                Status:task.status,
                 Handler: this.data.SR_name,
                 Completed: false,
-                taskId:taskId
-              },
-              taskIds:firestore.FieldValue.arrayUnion(
-                taskId
-              )
+                id: id,
+              }),
             },
             { merge: true }
           );
-
-
         var b = new Date().getMonth() + 1;
 
         var c = new Date().getFullYear();
@@ -482,7 +408,8 @@ export class TaskDetailsPage {
                 Action: task.action,
                 FollowUp: task.datetime,
                 Remark: task.remark,
-                name: this.data.uid,
+                name: this.leadId,
+                 id: id,
               }),
             },
             { merge: true }
@@ -521,115 +448,79 @@ export class TaskDetailsPage {
     }
   }
 
+  Save(leadref: Leadref) {
+    if (
+      leadref.email &&
+      leadref.first_name &&
+      leadref.last_name &&
+      leadref.phone != null
+    ) {
+      this.storage.get("cuid").then((val) => {
+        console.log("id is", val);
+        let uid = uuid();
+        console.log(uid);
+        let currentuser = firebase.auth().currentUser;
 
-  hide(action) {
-    let currentuser = firebase.auth().currentUser;
-    var b = new Date().getMonth() + 1;
-
-    var c = new Date().getFullYear();
-    var a = new Date().getDate();
-
-    let date = a + "-" + b + "-" + c;
-    let dat = "";
-    dat = date;
-    console.log("Dateee", date);
-    
-   
-    if(action == "None"){
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc(
-        currentuser.photoURL +
-          "/" +
-          "Campaigns" +
-          "/" +
-          this.cid +
-          "/" +
-          "leads" +
-          "/" +
-          this.data.uid
-      )
-      .update(
-        Object.assign(
-          {
-            //id: uid,
-            action: this.task.action,
-            datetime: "",
-            status:  this.task.status,
-            remark: this.task.remark,
-           
-          },
-          { merge: true }
-        )
-      );
-      firebase
+        firebase
           .firestore()
           .collection("Company")
-          .doc(currentuser.photoURL)
-          .collection("Campaigns")
-          .doc(this.cid)
-          .collection("leads")
-          .doc(this.data.uid)
-          .collection("History")
-          .doc("Activity1")
+          .doc(
+            currentuser.photoURL +
+              "/" +
+              "Campaigns" +
+              "/" +
+              this.cid +
+              "/" +
+              "Lead references" +
+              "/" +
+              uid
+          )
           .set(
-            {
-              data: firebase.firestore.FieldValue.arrayUnion({
-                Time: new Date(),
-                Action:"None",
-                FollowUp: "NA",
-                Remark: "NA",
-                name: this.data.uid,
-                Handler: this.data.SR_name,
-                Completed: true,
-                pending:false
-              }),
-            },
-            { merge: true }
-
-          );
-          firebase
-          .firestore()
-          .collection("Company")
-          .doc(currentuser.photoURL)
-          .collection("Admin")
-          .doc(currentuser.uid)
-          .collection("Report")
-          .doc(dat)
-          .set(
-            {
-              data: firebase.firestore.FieldValue.arrayUnion({
-                Time: new Date(),
-                Action: "None",
-                FollowUp: "",
-                Remark: this.task.remark,
-                name: this.data.uid,
-              }),
-            },
-            { merge: true }
+            Object.assign({
+              id: uid,
+              first_name: leadref.first_name,
+              last_name: leadref.last_name,
+              email: leadref.email,
+              phone: leadref.phone,
+              refId: this.data.uid,
+            })
           );
 
-          let alert = this.alertCtrl.create({
-            title: "Success",
-            subTitle: "Saved Successfully",
-            //scope: id,
-            buttons: [
-              {
-                text: "OK",
-                handler: (data) => {
-                  this.navCtrl.pop();
-                },
+        let alert = this.alertCtrl.create({
+          title: "Success",
+          subTitle: "Saved Successfully",
+          //scope: id,
+          buttons: [
+            {
+              text: "OK",
+              handler: (data) => {
+                //this.navCtrl.push(UserDetailsPage);
               },
-            ],
-          });
-          alert.present();
-      
-    }else{                //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      this.hideMe = true;
-      
+            },
+          ],
+        });
+        alert.present();
+      });
+    } else {
+      let alert = this.alertCtrl.create({
+        title: "Warning",
+        subTitle: "Please Insert Data",
+        //scope: id,
+        buttons: [
+          {
+            text: "OK",
+            handler: (data) => {
+              //this.navCtrl.push(LoginPage);
+            },
+          },
+        ],
+      });
+      alert.present();
     }
+  }
 
+  hide() {
+    this.hideMe = true;
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;

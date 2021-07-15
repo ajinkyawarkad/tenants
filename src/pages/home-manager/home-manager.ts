@@ -19,18 +19,18 @@ export class HomeManagerPage {
   constructor(private toast: ToastController,private auth:AngularFireAuth,public menuCtrl:MenuController,private storage: Storage,public navCtrl: NavController, public navParams: NavParams) {
     this.menuCtrl.enable(true, 'menu');
     this.storage.get('name').then((name) => {
-      console.log('name', name);
+      
       this.name=name;
-      //this.isLoggedIn = true;
+      
    });
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomeManagerPage');
+   
     this.auth.authState.subscribe(data => {
       if(data.email && data.uid){
-        console.log(data.email);
+      
           this.toast.create({
         message : "Welcome"+ " " + data.email,
         duration:3000,

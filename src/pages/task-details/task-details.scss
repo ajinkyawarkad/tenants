@@ -274,6 +274,7 @@ page-task-details {
 			width: 209%;
     		margin-left: 0px;
 		}
+	
 
 	}
 
@@ -289,6 +290,14 @@ page-task-details {
 			margin-left: 8px;
 		}
 
+		.wrap {
+			text-align: center;
+		}
+		
+		.button {
+			position: absolute;
+			top: 65%;
+		}
 		input[type=text],input[type=email],input[type=date] ,select
 		{
 			width: 94%; 

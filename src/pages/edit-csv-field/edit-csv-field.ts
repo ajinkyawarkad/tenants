@@ -13,6 +13,7 @@ export class EditCsvFieldPage {
   campid: any;
   anArray: any = [];
   arr: any = [];
+  currentuser = firebase.auth().currentUser;
 
   arrFilelds = [
     "Select",
@@ -82,12 +83,7 @@ export class EditCsvFieldPage {
     this.campid = navParams.get("campid");
   }
   Add() {
-    //this.arr.push({'value':'','action':' '});
-    // if (this.arr.length < 5) {
-    //   this.arr.push({ value: "", action: "" });
-    // } else {
-    //   alert("you reached to limit.. ");
-    // }
+  
     this.anArray.push({ value: "", indicator: "None" });
     this.dummy.push({indicator: "None" });
     this.newFields.push({field:"none"})
@@ -101,11 +97,11 @@ export class EditCsvFieldPage {
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad EditCsvFieldPage");
-    let currentuser = firebase.auth().currentUser;
+   
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .onSnapshot((doc) => {
@@ -245,29 +241,11 @@ export class EditCsvFieldPage {
 
     console.log("EDITED/Added",this.arr);
 
-    let currentUser = firebase.auth().currentUser;
-    // firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    // .collection('leads').get().then(dat =>{
-    //   dat.docs.forEach(snap =>
-    //     {
-    //       for(var z in this.anArray){
-    //         firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-    //         .collection('leads').doc(snap.data().uid).update({
-    //           leads:firebase.firestore.FieldValue.arrayUnion(
-    //             this.anArray[z]
-    //           )
-    //         })
-
-    //       }
-
-    //     })
-    // })
-
     for (var x in this.anArray) {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .update({

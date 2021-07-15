@@ -3,7 +3,6 @@ import firebase from "firebase";
 import { AlertController, HideWhen } from "ionic-angular";
 import { NavController, NavParams } from "ionic-angular";
 import { Observable } from "rxjs";
-import { HomePage } from "../home/home";
 import { TaskDetailsPage } from "../task-details/task-details";
 
 @Component({
@@ -30,34 +29,30 @@ export class RemainingLeadDeatilsPage {
   prod: any;
   pend: any = [];
   complete: any = [];
+  currentUser = firebase.auth().currentUser;
+ cu = firebase.auth().currentUser.uid;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController
   ) {
     this.data = navParams.get("data");
-    console.log("Data", this.data);
     this.arr = this.data.leads;
 
     this.campid = navParams.get("cid");
-    console.log("camp id", this.campid);
     this.Segments = "1";
   }
   Add() {
     if(this.moreDetails.length < 0){
       this.hideMe1 = false
-      console.log("hide true")
-
+     
     }else{
       this.hideMe1 =true
-      console.log("hide false")
-
+     
     }
     this.moreDetails.push({ value: "", indicator: "Custome", action: "" });
 
-   
-
- 
   }
 
   remove(idx) {
@@ -67,15 +62,15 @@ export class RemainingLeadDeatilsPage {
 
 
   savefield() {
-    let currentUser = firebase.auth().currentUser;
+  
     for (var i in this.moreDetails) {
       this.arr.push(this.moreDetails[i]);
     }
-    console.log("arr",this.arr)
+  
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentUser.photoURL)
+      .doc(this.currentUser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -117,20 +112,18 @@ export class RemainingLeadDeatilsPage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: (data) => {
-            console.log("Cancel clicked");
-          },
+         
         },
         {
           text: "Save",
           handler: (data) => {
             if (data.comment) {
-              console.log(data.comment);
-              let currentuser = firebase.auth().currentUser;
+            
+             
               const result = firebase
                 .firestore()
                 .collection("Company")
-                .doc(currentuser.photoURL)
+                .doc(this.currentUser.photoURL)
                 .collection("Campaigns")
                 .doc(this.campid)
                 .collection("leads")
@@ -172,14 +165,10 @@ export class RemainingLeadDeatilsPage {
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad RemainingLeadDeatilsPage");
-    
-
+  
     let k = Object.keys(this.data);
     let v = Object.values(this.data);
-    // console.log("TEMO", k);
-    // console.log("TEMO", v);
-
+  
     for (var i in k) {
       let r = k[i];
       let rr = v[i];
@@ -201,21 +190,18 @@ export class RemainingLeadDeatilsPage {
           this.field.push({ action: r, val: rr });
         }
       }
-      // console.log("field", this.field);
+      
     }
     let as = this.data;
     let s;
-    // for(s=0;s<1;s++){
-    //   this.t.push({"action":"Created At","val":as.createdAt.toDate()})
-    // }
-
-    let cu = firebase.auth().currentUser.uid;
-    let current = firebase.auth().currentUser;
+   
+  
+  
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(current.photoURL)
+      .doc(this.currentUser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -229,7 +215,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(current.photoURL)
+            .doc(this.currentUser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -238,9 +224,9 @@ export class RemainingLeadDeatilsPage {
             .doc("Activity1")
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+              
               this.prod = doc.data().data;
-              console.log("pendings", this.prod);
+             
               for (var i in this.prod) {
                 if (this.prod[i].Completed == false) {
                   this.pend.push(this.prod[i]);
@@ -248,17 +234,15 @@ export class RemainingLeadDeatilsPage {
                   this.complete.push(this.prod[i]);
                 }
               }
-              console.log("pendings", this.pend);
+              
             });
-        } else {
-          console.log("DATA EMPTY");
-        }
+        } 
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(current.photoURL)
+      .doc(this.currentUser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("leads")
@@ -271,7 +255,7 @@ export class RemainingLeadDeatilsPage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(current.photoURL)
+            .doc(this.currentUser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -280,12 +264,10 @@ export class RemainingLeadDeatilsPage {
             .doc("Activity1")
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+             
               this.comments = doc.data().comment;
             });
-        } else {
-          console.log("DATA EMPTY");
-        }
+        } 
       });
   }
 }

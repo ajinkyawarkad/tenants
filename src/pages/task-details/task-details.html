@@ -10,35 +10,50 @@
 <ion-content padding>
   <!-- <div class="container"> -->
 
-
     <div class="container left">
       <ion-item-divider class="divider">
         <ion-label>
-          Previous Task
+          Current/Previous Task
         </ion-label>
       </ion-item-divider>
 
-      <table>
-        <tr>
-          <td>  Name </td>
-          <td>  {{data.first_name}} {{data.last_name}} </td>
-         <tr> 
+      <table *ngFor="let pro of pendings">
+      
 
           <tr>
           <td>  Status </td>
-          <td>  {{data.status}}  </td>
+          <td style="font-weight: bold;">  {{pro.Status}}  </td>
          </tr>
 
          <tr> 
           <td>  Remark </td>
-          <td>  {{data.remark}}  </td>
+          <td style="font-weight: bold;">  {{pro.Remark}}  </td>
           </tr>
 
           <tr>
           <td>  Action </td>
-          <td>  {{data.action}} </td>
+          <td style="font-weight: bold;">  {{pro.Action}} </td>
           </tr>
           
+          <tr>
+            <td>  Follow up </td>
+            <td style="font-weight: bold;">  {{pro.FollowUp}} </td>
+            </tr>
+
+            <tr>
+              <td>   Handler </td>
+              <td style="font-weight: bold;">  {{pro.Handler}} </td>
+              </tr>
+
+              <tr>
+                <td>   Activity Time </td>
+                <td style="font-weight: bold;">  {{pro.Time}} </td>
+                </tr>
+
+            <tr>
+              <td>  Mark to Complete Task </td>
+              <td >   <ion-checkbox slot="start"  (ionChange)="completeTask(pro);"></ion-checkbox> </td>
+              </tr>
       </table>
      </div>
 
@@ -49,14 +64,16 @@
           New Task 
         </ion-label>
 
-        <ion-label style="float:left;color: blue;text-decoration: underline;" name="dta" (click)="Reference()">
-          Add Reference
-         </ion-label>
       </ion-item-divider>
 
     
         <ion-item class="nameLabel">
+          <ion-label style="float:left;color: black;font-weight: bold;" >
           {{data.first_name}} {{data.last_name}}
+          </ion-label>
+          <ion-label style="float:right;color: blue;text-decoration: underline;margin-left: 50%;" name="dta" (click)="Reference()">
+            Add Reference
+           </ion-label>
         </ion-item>
 
         <label style="margin-top: 10px;">Status</label>
@@ -88,7 +105,9 @@
               </ion-item>
             </div>
 
-            <button ion-button color="primary" text-center (click)="Task(task)">Save </button>
+            <div class="wrap">
+            <button  class="button" ion-button color="primary" text-center (click)="Task(task)">Save </button>
+            </div>
     
           </div>
     

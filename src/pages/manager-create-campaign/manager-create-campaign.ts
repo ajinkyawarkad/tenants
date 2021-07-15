@@ -1,26 +1,14 @@
 import { Component, ViewChild } from "@angular/core";
 import {NavController,NavParams,AlertController} from "ionic-angular";
-
 import { Slides } from "ionic-angular";
-import {FormGroup,FormBuilder,FormControl,Validators,FormArray,} from "@angular/forms";
-
 import { CreateLeadProfilePage } from "../create-lead-profile/create-lead-profile";
 import { Camp, Sts } from "../../models/user";
 import { AngularFirestore } from "@angular/fire/firestore";
 import firebase, { firestore } from "firebase/app";
 import { Storage } from "@ionic/storage";
 import { v4 as uuid } from "uuid";
-
 import { Observable } from "rxjs";
-import * as $ from "jquery";
-import { merge } from "jquery";
 import { ManagerCreateLeadProfilePage } from "../manager-create-lead-profile/manager-create-lead-profile";
-
-interface Camps {
-  name: string;
-  role: string;
-}
-
 
 @Component({
   selector: 'page-manager-create-campaign',
@@ -29,22 +17,21 @@ interface Camps {
 export class ManagerCreateCampaignPage {
   @ViewChild(Slides) slides: Slides;
   slideOpts;
-  public form: FormGroup;
   createSuccess = false;
 
   camp = {} as Camp;
   sts = {} as Sts;
   uuid1 = uuid();
-  products: Observable<Camps[]>;
-  productss: Observable<Camps[]>;
+  products: Observable<any[]>;
+  productss: Observable<any[]>;
   admin;
 
   userInfo: any;
   public anArray: any = [];
   public acArr: any = [];
+  currentuser = firebase.auth().currentUser;
 
   constructor(
-    private _FB: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -65,10 +52,7 @@ export class ManagerCreateCampaignPage {
       alert("this will remove client profile permently");
     }
   }
-  goTo() {
-    console.log(this.anArray);
-  }
-
+ 
   Add() {
     if (this.anArray.length < 8) {
       this.anArray.push({ status: "", action: "None" });
@@ -87,53 +71,41 @@ export class ManagerCreateCampaignPage {
     this.sts.sts2 = "Not-Interested";
     this.sts.action1 = "None"
     this.sts.action2 ="None"
-    console.log("ionViewDidLoad CreateCampaignPage");
-    let currentuser = firebase.auth().currentUser;
-    
+      
     firebase
     .firestore()
-    .collection("Company").doc(currentuser.photoURL).get().then(doc => {
+    .collection("Company").doc(this.currentuser.photoURL).get().then(doc => {
       this.admin = doc.data().adminId
-      console.log("Admin",this.admin)
       firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
       .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+       
         this.products = doc.data().Managers;
-        console.log(this.products);
+        
       });
 
       firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Admin")
       .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+       
         this.productss = doc.data().Users;
-        console.log(this.productss);
+       
       });
-
-
-
-    })
-
-
-    
-
-   
+    })  
   }
 
   insertUser(camp: Camp, data, data2) {
-    console.log("DAta", data);
-    console.log("DAta2", data2);
+   
     let ids: any = [];
     ids = data;
     let x = [];
@@ -142,8 +114,7 @@ export class ManagerCreateCampaignPage {
       x.push(ids[z].id);
       y.push(ids[z].name);
     }
-    console.log("DAta", y);
-
+   
     var obj = [
       {
         status: this.sts.sts1,
@@ -159,15 +130,10 @@ export class ManagerCreateCampaignPage {
     for (i = 0; i < n; i++) {
       obj.push(this.anArray[i]);
     }
-    console.log("obj is ", obj);
-    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
+    
     this.storage
       .get("cuid")
       .then((val) => {
-        // console.log('id is', val);
-
-        console.log(this.uuid1);
-
         this.storage.set("campId", this.uuid1);
 
         firebase
@@ -254,7 +220,7 @@ export class ManagerCreateCampaignPage {
         alert.present();
       })
       .catch((err) => {
-        console.log(err);
+      
         let alert = this.alertCtrl.create({
           //title: 'Error',
           subTitle: err,
@@ -262,22 +228,6 @@ export class ManagerCreateCampaignPage {
         });
         alert.present();
       });
-
-    // }
-    // else{
-
-    // let alert = this.alertCtrl.create({
-    // title: 'Error',
-    // subTitle: 'Failed to add',
-    // //scope: id,
-    // buttons: [{text: 'OK',
-    // handler: data => {
-    // //this.navCtrl.push(crea);
-    // }
-    // }]
-    // });
-    // alert.present();
-    // }
   }
 
   save() {
@@ -315,14 +265,12 @@ export class ManagerCreateCampaignPage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: () => {
-            console.log("Cancel clicked");
-          },
+        
         },
         {
           text: "Add",
           handler: () => {
-            console.log("Add clicked");
+           
             this.navCtrl.push(ManagerCreateLeadProfilePage);
           },
         },

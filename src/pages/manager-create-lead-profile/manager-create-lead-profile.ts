@@ -1,31 +1,13 @@
 import { Component } from "@angular/core";
 import { AlertController, NavController, NavParams } from "ionic-angular";
-import { CreateCampaignsLeadPage } from "../create-campaigns-lead/create-campaigns-lead";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArray,
-} from "@angular/forms";
 import { Http } from "@angular/http";
-
 import * as $ from "jquery";
 import * as papa from "papaparse";
-
 import { Observable } from "rxjs";
-import { CreateNewCampleadPage } from "../create-new-camplead/create-new-camplead";
 import firebase from "firebase";
-import { Camp } from "../../models/user";
-
 import { v4 as uuid } from "uuid";
-import { TrackCampaignPage } from "../track-campaign/track-campaign";
 import { HomeManagerPage } from "../home-manager/home-manager";
 import { ManagerLeadInTrackCampPage } from "../manager-lead-in-track-camp/manager-lead-in-track-camp";
-
-interface Camps {
-  name: string;
-}
 
 @Component({
   selector: 'page-manager-create-lead-profile',
@@ -33,15 +15,14 @@ interface Camps {
 })
 export class ManagerCreateLeadProfilePage {
 
-  public form: FormGroup;
-
+ currentuser = firebase.auth().currentUser;
   public headerRow: any;
   csvContent: any;
   csvData: any;
   campid: any;
   public anArray: any = [];
   public anArray1: any = [];
-  products: Observable<Camps[]>;
+  products: Observable<any[]>;
   FireHead: any = [];
   data: any;
   index: any;
@@ -65,7 +46,6 @@ export class ManagerCreateLeadProfilePage {
     "Select",
     "None",
     "Custome",
-  
     "Address",
     "Apartment",
     "City",
@@ -82,7 +62,6 @@ export class ManagerCreateLeadProfilePage {
     "Follow_up",
     "Full_Name",
     "Gender",
-
     "Home",
     "Home_Phone",
     "Id",
@@ -126,7 +105,6 @@ export class ManagerCreateLeadProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _FB: FormBuilder,
     private http: Http,
     private alertCtrl: AlertController,
     public navParam: NavParams
@@ -134,7 +112,7 @@ export class ManagerCreateLeadProfilePage {
     this.Segments = "1";
 
     this.campid = this.navParams.get("item");
-    console.log("Camp idd", this.campid);
+    
   }
 
   add(){
@@ -160,7 +138,7 @@ export class ManagerCreateLeadProfilePage {
         $(this).show();
       }
     });
-    console.log("ionViewDidLoad CreateLeadProfilePage");
+  
   }
 
   removeField(valuee, att) {
@@ -188,16 +166,12 @@ export class ManagerCreateLeadProfilePage {
               }
             }
 
-            //a = match found index
-            //value
-            console.log("fa", f);
+          
             switch (f) {
               case false:
-                // this.dummy.push(att)
-                console.log(valuee, att);
+             
                 this.dummy[valuee].indicator = att;
-                // console.log("false Dummy", this.dummy);
-                // console.log("False Anarray", this.anArray);
+                
                 break;
               case true:
                 let alert = this.alertCtrl.create({
@@ -213,9 +187,7 @@ export class ManagerCreateLeadProfilePage {
                   ],
                 });
                 alert.present();
-                console.log(valuee, att);
-
-                console.log("indessss", a);
+              
 
                 this.anArray[valuee].indicator = "Select";
                 this.dummy[valuee].indicator = "Select";
@@ -223,10 +195,7 @@ export class ManagerCreateLeadProfilePage {
                 this.anArray[a].indicator = att;
                 this.dummy[a].indicator = att;
 
-                console.log("true Dummy", this.dummy);
-                console.log("true anArray", this.anArray);
-
-              // let a = this.dummy.indexOf(att);
+              
             }
 
             break;
@@ -235,9 +204,7 @@ export class ManagerCreateLeadProfilePage {
             alert("Something went  Wrong");
             break;
         }
-      } else {
-        console.log("Bllank");
-      }
+      } 
     }
   }
 
@@ -248,18 +215,16 @@ export class ManagerCreateLeadProfilePage {
     this.arr = [];
     this.anArray = [];
     this.arrDummy = [];
-    console.log("HeaderRow", this.arr, " ", " Arr", this.arr);
+  
     const files = input.files;
     var content = this.csvContent;
 
     if (files && files.length) {
       const fileToRead = files[0];
       const fileReader = new FileReader();
-      //fileReader.onload = this.onFileLoad;
-
+   
       fileReader.onload = () => {
         fileReader.result; // This is valid
-        //console.log(fileReader.result)
         this.extractData(fileReader.result);
       };
       fileReader.readAsText(fileToRead, "UTF-8");
@@ -272,26 +237,22 @@ export class ManagerCreateLeadProfilePage {
     this.headerRow = null;
     this.anArray = [];
     this.arrDummy = [];
-    console.log("HeaderRow2", this.arr, " ", " Arr2", this.arr);
+  
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0]; //Headers
     this.arr = parsedData; //DATA Except headers
-    console.log("Length = : ", this.arr.length);
-    console.log("DATA IS = : ", this.arr);
-
+  
     var match = this.headerRow.toString().split(",");
-
-    console.log(match);
 
     for (var a in match) {
       var variable = match[a];
-      // console.log(variable)
+    
       this.anArray.push({ value: variable, indicator: "None" }); //Creating CsvFields Structure
       this.arrDummy.push({ value: variable, indicator: "" });
       this.dummy.push({ indicator: "None" });
     }
-    console.log("aaaaaaaa", this.dummy);
+    
   }
 
 
@@ -303,13 +264,9 @@ export class ManagerCreateLeadProfilePage {
       let b = field;
       if (b) {
         let s = this.arrFilelds.includes(field);
-
-       
-     
             let f;
             let a;
 
-            // let f = this.dummy.includes({indicator:att});
             for (var t in this.dummy2) {
               if (this.dummy2[t].indicator == field) {
                 f = true;
@@ -320,16 +277,10 @@ export class ManagerCreateLeadProfilePage {
               }
             }
 
-            //a = match found index
-            //value
-            console.log("fa", f);
             switch (f) {
               case false:
-                // this.dummy.push(att)
-                console.log(index, field);
+                
                 this.dummy2[index].indicator = field;
-                // console.log("false Dummy", this.dummy);
-                // console.log("False Anarray", this.anArray);
                 break;
               case true:
                 let alert = this.alertCtrl.create({
@@ -345,36 +296,17 @@ export class ManagerCreateLeadProfilePage {
                   ],
                 });
                 alert.present();
-                console.log(index, field);
-
-                console.log("indessss", a);
-
+              
                 this.anArray1[index].indicator = "Select";
                 this.dummy2[index].indicator = "Select";
 
                 this.anArray1[a].indicator = field;
                 this.dummy2[a].indicator = field;
 
-                console.log("true Dummy", this.dummy2);
-                console.log("true anArray", this.anArray1);
-
-              // let a = this.dummy.indexOf(att);
             }
 
-            
-
-          
-        
-      } else {
-        console.log("Bllank");
-      }
-
-
-
-
+      } 
     }
-
-    console.log("Anarray2",this.anArray1)
 
   }
 
@@ -388,22 +320,18 @@ export class ManagerCreateLeadProfilePage {
       ) {
         this.anArray1[i].indicator = "Select";
         check = true;
-      } else {
-        console.log("pass");
-      }
+      } 
     }
 
     if (check) {
       alert("Select Filelds ");
     } else {
       let Mainheader = this.anArray1;
-      console.log("MAIN HEADERS", Mainheader);
-
-      let currentUser = firebase.auth().currentUser;
+    
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .update({
@@ -411,18 +339,17 @@ export class ManagerCreateLeadProfilePage {
         })
         .then((res) => {
           //execute function
-          let currentUser = firebase.auth().currentUser;
+         
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+            
               this.FireHead = doc.data().CSVfield;
-              console.log("Headers from firebase", this.FireHead);
               this.uploadFlag = true;
             });
         });
@@ -444,7 +371,7 @@ export class ManagerCreateLeadProfilePage {
               text: "Cancel",
               role: "cancel",
               handler: () => {
-                console.log("Cancel clicked");
+               
                 this.navCtrl.push(HomeManagerPage);
               },
             },
@@ -458,8 +385,8 @@ export class ManagerCreateLeadProfilePage {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
-        .collection("Users").doc(currentUser.uid).collection("CampsAsso")
+        .doc(this.currentuser.photoURL)
+        .collection("Users").doc(this.currentuser.uid).collection("CampsAsso")
         .doc(this.campid)
         .collection("Fields")
         .doc("records")
@@ -520,8 +447,8 @@ export class ManagerCreateLeadProfilePage {
         firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
-        .collection("Campaigns").doc(currentUser.uid).collection("CampsAsso")
+        .doc(this.currentuser.photoURL)
+        .collection("Campaigns").doc(this.currentuser.uid).collection("CampsAsso")
         .doc(this.campid)
         .collection("Fields")
         .doc("records")
@@ -586,8 +513,8 @@ export class ManagerCreateLeadProfilePage {
             firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
-            .collection("Users").doc(currentUser.uid).collection("CampsAsso")
+            .doc(this.currentuser.photoURL)
+            .collection("Users").doc(this.currentuser.uid).collection("CampsAsso")
             .doc(this.campid)
             .collection("Fields")
             .doc("records")
@@ -603,7 +530,7 @@ export class ManagerCreateLeadProfilePage {
 
 
   upload() {
-    let currentUser = firebase.auth().currentUser;
+   
     let i;
     for (i = 1; i < this.arr.length; i++) {
       let x = [];
@@ -617,7 +544,7 @@ export class ManagerCreateLeadProfilePage {
           action: x[j],
         });
       }
-      console.log("SUBMAIN", i, subMain);
+    
 
       let cust = [];
       let uid = uuid();
@@ -630,7 +557,7 @@ export class ManagerCreateLeadProfilePage {
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .collection("leads")
@@ -645,7 +572,7 @@ export class ManagerCreateLeadProfilePage {
         firebase
           .firestore()
           .collection("Company")
-          .doc(currentUser.photoURL)
+          .doc(this.currentuser.photoURL)
           .collection("Campaigns")
           .doc(this.campid)
           .collection("leads")
@@ -682,7 +609,7 @@ export class ManagerCreateLeadProfilePage {
           text: "Cancel",
           role: "cancel",
           handler: () => {
-            console.log("Cancel clicked");
+           
             this.navCtrl.push(HomeManagerPage);
           },
         },
@@ -701,22 +628,18 @@ export class ManagerCreateLeadProfilePage {
       ) {
         this.anArray[i].indicator = "Select";
         check = true;
-      } else {
-        console.log("pass");
-      }
+      } 
     }
 
     if (check) {
       alert("Select Filelds ");
     } else {
       let Mainheader = this.anArray;
-      console.log("MAIN HEADERS", Mainheader);
-
-      let currentUser = firebase.auth().currentUser;
+     
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .update({
@@ -724,18 +647,18 @@ export class ManagerCreateLeadProfilePage {
         })
         .then((res) => {
           //execute function
-          let currentUser = firebase.auth().currentUser;
+        
           firebase
             .firestore()
             .collection("Company")
-            .doc(currentUser.photoURL)
+            .doc(this.currentuser.photoURL)
             .collection("Campaigns")
             .doc(this.campid)
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              console.log(source, " data: ");
+            
               this.FireHead = doc.data().CSVfield;
-              console.log("Headers from firebase", this.FireHead);
+            
               this.uploadFlag = true;
             });
         });
@@ -745,8 +668,8 @@ export class ManagerCreateLeadProfilePage {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
-        .collection("Users").doc(currentUser.uid).collection("CampsAsso")
+        .doc(this.currentuser.photoURL)
+        .collection("Users").doc(this.currentuser.uid).collection("CampsAsso")
         .doc(this.campid)
         .collection("Fields")
         .doc("records")
@@ -811,8 +734,8 @@ export class ManagerCreateLeadProfilePage {
             firebase
         .firestore()
         .collection("Company")
-        .doc(currentUser.photoURL)
-        .collection("Users").doc(currentUser.uid).collection("CampsAsso")
+        .doc(this.currentuser.photoURL)
+        .collection("Users").doc(this.currentuser.uid).collection("CampsAsso")
         .doc(this.campid)
         .collection("Fields")
         .doc("records")

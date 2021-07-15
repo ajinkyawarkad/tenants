@@ -38,31 +38,11 @@
             </select>
         
           </div>
-
-
-
         </td>
-        <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
-        <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td> -->
-
+       
         <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
 
       </tr>
-
-      <!-- <tbody>
-     
-  
-        <tr *ngFor="let att of anArray; let idx = index"> 
-          <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx].value"></ion-input></td> 
-        </tr >
-        
-        <tr *ngFor="let att of arr; let idx = index">
-          <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>
-          <td><ion-icon name="trash"  (click)="remove(idx);"></ion-icon></td>
-        </tr>
-       
-        </tbody> -->
-
     </table>
     <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
     <button ion-button type="submit" (click)="savefield()"> Save</button>

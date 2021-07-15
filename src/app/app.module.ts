@@ -18,7 +18,7 @@ import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-
 import { EditCampaignsDetailsPage } from '../pages/edit-campaigns-details/edit-campaigns-details';
 import { LeadsDetailsPage } from '../pages/leads-details/leads-details';
 import { TaskDetailsPage } from '../pages/task-details/task-details';
-import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
+
 import { UserDetailsPage } from '../pages/user-details/user-details';
 import { UserlistPage } from '../pages/userlist/userlist';
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
@@ -35,8 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
-import { CallDetailsPage } from '../pages/call-details/call-details';
-
 import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-camp';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
@@ -89,14 +87,14 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
-    CreateCampaignsLeadPage,
+
     UserDetailsPage,
     UserlistPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
     ProfilePage,
-    CallDetailsPage,
+ 
     LeadInTrackCampPage,
     EditCsvFieldPage,
     RemainingLeadDeatilsPage,
@@ -151,7 +149,7 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
-    CreateCampaignsLeadPage,
+  
     UserDetailsPage,
     UserlistPage,
     PendingLeadsPage,
@@ -159,7 +157,6 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     EditLeadDetailsPage,
     EditTeamDetailsPage,
     ProfilePage,
-    CallDetailsPage,
     LeadInTrackCampPage,
     EditCsvFieldPage,
     ExportPage

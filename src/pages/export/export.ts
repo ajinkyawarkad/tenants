@@ -1,17 +1,8 @@
 import { Component } from "@angular/core";
 import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
-import { CallDetailsPage } from "../call-details/call-details";
-import { EditLeadDetailsPage } from "../edit-lead-details/edit-lead-details";
-
-import { TaskDetailsPage } from "../task-details/task-details";
-import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
 import { Lead } from "../../models/user";
-import * as $ from "jquery";
-import { LoadingController } from "ionic-angular";
-import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
 import * as XLSX from "xlsx";
 
 interface Users {
@@ -32,6 +23,8 @@ export class ExportPage {
   public hideMe4 = true;
   public csvShow = false;
   public exelShow = false;
+  currentuser = firebase.auth().currentUser;
+
 
   fileName;
   show = false; //table flag ExelTable
@@ -109,18 +102,16 @@ export class ExportPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.value = navParams.get("campd");
-    console.log(this.value);
     this.campid = this.value.cid;
-    console.log(this.value);
+   
   }
 
   ionViewDidLoad() {
-    let currentuser = firebase.auth().currentUser;
-
+    
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .get()
@@ -131,7 +122,7 @@ export class ExportPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .onSnapshot((doc) => {
@@ -143,13 +134,13 @@ export class ExportPage {
             this.active.push(this.products[a].indicator);
           }
         }
-        // console.log("active headers",this.active)
+        
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("Fields")
@@ -176,14 +167,13 @@ export class ExportPage {
             }
           }
         }
-        console.log("True at : ", this.tru);
-        console.log("false at : ", this.fal);
+       
       });
 
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentuser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("Fields")
@@ -217,15 +207,15 @@ export class ExportPage {
           (this.middle_name = res.data().middle_name);
       });
 
-    console.log("ionViewDidLoad ExportPage");
+   
   }
 
   showhide(name, ev) {
-    let currentUser = firebase.auth().currentUser;
+   
     firebase
       .firestore()
       .collection("Company")
-      .doc(currentUser.photoURL)
+      .doc(this.currentuser.photoURL)
       .collection("Campaigns")
       .doc(this.campid)
       .collection("Fields")
@@ -237,15 +227,13 @@ export class ExportPage {
 
   showOptions(status) {
     this.filled = [];
-
-    let currentuser = firebase.auth().currentUser;
     this.selectedStatus = status;
 
     if (status == "All") {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .collection("leads")
@@ -259,7 +247,7 @@ export class ExportPage {
       firebase
         .firestore()
         .collection("Company")
-        .doc(currentuser.photoURL)
+        .doc(this.currentuser.photoURL)
         .collection("Campaigns")
         .doc(this.campid)
         .collection("leads")
@@ -274,7 +262,6 @@ export class ExportPage {
     this.csvShow = true;
     this.exelShow = true;
 
-    console.log("filtered", this.filled);
   }
 
   downloadCsv() {

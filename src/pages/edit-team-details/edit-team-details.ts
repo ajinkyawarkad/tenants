@@ -15,45 +15,35 @@ product:{id:'',name:'',email:'',role:''};
 role;
 manager;
 users;
-
+currentuser=firebase.auth().currentUser;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
     private alertCtrl:AlertController) {
-    this.value = navParams.get('product');
-    console.log("id",this.value.id);
-    
+    this.value = navParams.get('product');      
   }
 
   ionViewDidLoad() {
-    let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).get().then(doc =>{
+   
+    firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).get().then(doc =>{
       this.manager = doc.data().Managers
       this.users = doc.data().Users
     })
 
-    console.log("else",this.value.role)
-    this.role = this.value.role
-
-    console.log('ionViewDidLoad EditTeamDetailsPage');
+       this.role = this.value.role
   }
 
   update(newRole){
-    let currentuser=firebase.auth().currentUser;
-    
-    console.log("elseyu",this.role)
-    
+   
     switch(this.role){               //removing existing
       case "Manager":
         for(var i in this.manager){
           if(this.manager[i].id == this.value.id){
             this.manager.splice(i, 1)
 
-          }else{
-            console.log("else")
           }
 
         }
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Managers:this.manager
         })
         
@@ -63,12 +53,10 @@ users;
           if(this.users[i].id == this.value.id){
             this.users.splice(i, 1)
 
-          }else{
-            console.log("else")
           }
 
         }
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Users:this.users
         })
 
@@ -78,7 +66,7 @@ users;
 
     switch(newRole){               
       case "Manager":
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Managers:firestore.FieldValue.arrayUnion({
             name: this.value.name,
               id:this.value.id,
@@ -89,7 +77,7 @@ users;
         
         break;
       case "Sale Representative":
-        firebase.firestore().collection("Company").doc(currentuser.photoURL).collection("Admin").doc(currentuser.uid).update({
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin").doc(this.currentuser.uid).update({
           Users:firestore.FieldValue.arrayUnion({
             name: this.value.name,
               id:this.value.id,
@@ -97,38 +85,35 @@ users;
 
           })
         })
-
-
         break;
     }
 
-
-    firebase.firestore().collection('Company').doc(currentuser.photoURL+'/' +'Users' +'/'+this.value.id)
+    firebase.firestore().collection('Company').doc(this.currentuser.photoURL+'/' +'Users' +'/'+this.value.id)
             .update(Object.assign({
               name: this.value.name,
               email:this.value.email,
               role:this.value.role
               } 
             )).then(() => {
-              console.log("updated..");
+             
               let alert = this.alertCtrl.create({
                 title: 'Sucess',
                 subTitle: 'Updated Sucessfully',
                 buttons: [{text: 'OK',
                           handler: data => {
-                         // this.navCtrl.setRoot(ProfilePage);
+                        
                           } 
                         }]
                       });
               alert.present();
             }).catch((err) => {
-              console.log(err);
+            
               let alert = this.alertCtrl.create({
                 title: 'Error',
                 subTitle: err,
                 buttons: [{text: 'OK',
                           handler: data => {
-                          // this.navCtrl.setRoot(ProfilePage);
+                        
                           } 
                         }]
                       });
@@ -137,15 +122,15 @@ users;
   }
 
   update1(value){
-    let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentuser.photoURL+'/' +'non-active' +'/'+this.value.id)
+   
+    firebase.firestore().collection('Company').doc(this.currentuser.photoURL+'/' +'non-active' +'/'+this.value.id)
             .update(Object.assign({
               name: this.value.name,
               email:this.value.email,
               role:this.value.role
               } 
             )).then(() => {
-              console.log("updated..");
+             
               let alert = this.alertCtrl.create({
                 title: 'Sucess',
                 subTitle: 'Updated Sucessfully',
@@ -157,7 +142,7 @@ users;
                       });
               alert.present();
             }).catch((err) => {
-              console.log(err);
+            
               let alert = this.alertCtrl.create({
                 title: 'Error',
                 subTitle: err,

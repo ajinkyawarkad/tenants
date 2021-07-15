@@ -113,12 +113,11 @@
 
 				<div *ngIf="showAssign">
 
-					<!-- <ion-item style="width: 30%;border: none;"> -->
-						<!-- <ion-label>Sale Representative</ion-label> -->
+					
 						<ion-select class="SR" style="width: 20%;" placeholder="Sales Representative" [(ngModel)]="prod" (ionChange)="insertsr(prod)">
 							<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
 						</ion-select>
-					<!-- </ion-item> -->
+					
 				</div>
 
 				<br>
@@ -226,8 +225,7 @@
 								<td *ngIf="State">{{product.State}}</td>
 								<td *ngIf="Country">{{product.Country}}</td>
 								<td *ngIf="Gender">{{product.Gender}}</td>
-								<td style="color: cornflowerblue;text-decoration: underline;"
-									(click)="remaining(product)" *ngIf="Company_Name">{{product.Company_Name}}</td>
+								<td *ngIf="Company_Name">{{product.Company_Name}}</td>
 								<td *ngIf="Position">{{product.Position}}</td>
 								<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
 								<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
@@ -301,8 +299,7 @@
 								<td *ngIf="Full_Name">{{product.Full_Name}}</td>
 								<td *ngIf="middle_name">{{product.middle_name}}</td>
 								<td *ngIf="last_name">{{product.last_name}}</td>
-								<!-- <td style="color: cornflowerblue;" >
-				{{product.Email}}</td> -->
+							
 								<td *ngIf="Phone">{{product.Phone}}
 									<div *ngIf="product.Phone"
 										style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
@@ -322,8 +319,7 @@
 								<td *ngIf="State">{{product.State}}</td>
 								<td *ngIf="Country">{{product.Country}}</td>
 								<td *ngIf="Gender">{{product.Gender}}</td>
-								<td style="color: cornflowerblue;text-decoration: underline;"
-									(click)="remaining(product)" *ngIf="Company_Name">{{product.Company_Name}}</td>
+								<td *ngIf="Company_Name">{{product.Company_Name}}</td>
 								<td *ngIf="Position">{{product.Position}}</td>
 								<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
 								<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
@@ -391,7 +387,7 @@
 			</div>
 		</div>
 
-		<!-- <pagination-controls style="float:right" (pageChange)="p = $event"></pagination-controls> -->
+		
 		<br>
 		<div style="float:left;">
 

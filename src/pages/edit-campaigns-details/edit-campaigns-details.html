@@ -45,7 +45,7 @@
         <label >Sales Representative</label>
         <ion-item style="width: 218%;margin-left: -6px;">
           <ion-select multiple  [(ngModel)]="prod" >
-            <!-- <ion-option *ngFor="let product of prod">{{product}}</ion-option> -->
+        
             <ion-option *ngFor="let product of anArray2">{{product}}</ion-option>
             </ion-select> 
         </ion-item>
@@ -69,7 +69,7 @@
 
       <div class="upper">
       <p>Edit your sale status</p>
-      <!-- <p style="color: darkred;">This is final step </p> -->
+ 
       </div>
   
     <table >
@@ -105,7 +105,7 @@
         <div style="float:right;">
           <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
           <button ion-button  id="nextBtn" (click)="update(prod)">Save</button>
-          <!-- <button ion-button id="nextBtn" (click)= "temp()" >Temp</button> -->
+         
         </div>   
      </div>
    

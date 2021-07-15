@@ -27,7 +27,7 @@ export class RegisterPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+    
   }
    
 signup(user:User){
@@ -45,7 +45,7 @@ signup(user:User){
     
     
     axios.post(url,).then(res => {
-      console.log("cvcs",res.data)
+     
       tenantId = res.data
       firebase.auth().tenantId = tenantId
 
@@ -53,7 +53,7 @@ signup(user:User){
      
     firebase.auth().createUserWithEmailAndPassword(user.email,user.password).then((data) => {
       let currentuser=firebase.auth().currentUser;
-     // console.log(data);
+     
      
        if(currentuser && data.user.emailVerified === false)
        {
@@ -87,8 +87,7 @@ signup(user:User){
                  Users:[]
                } 
              ))
-             // this.storage.set('data', data );
-             //   console.log("dmcj",data);
+           
 
              firebase.firestore().collection("Tenants").doc(user.email).set({
                details:firestore.FieldValue.arrayUnion({
@@ -114,7 +113,7 @@ signup(user:User){
        
        
      }).catch((err) => {
-       console.log(err); 
+     
        let alert = this.alertCtrl.create({
          title: 'Error',
          subTitle: 'Error in Creating Account ' + err ,
