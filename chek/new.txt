@@ -1,0 +1,125 @@
+
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(this.currentuser.photoURL)
+        .collection("Campaigns")
+        .get()
+        .then((doc) => {
+          doc.docs.forEach((snap) => {
+            let call = [];
+            let meet = [];
+            this.arr.push(snap.data().cid); //All Campaigns IDs
+
+            firebase
+              .firestore()
+              .collection("Company")
+              .doc(this.currentuser.photoURL)
+              .collection("Campaigns")
+              .doc(snap.data().cid)
+              .collection("leads")
+              .get()
+              .then((data) => {
+                if (this.a) {
+                  firebase
+                    .firestore()
+                    .collection("Company")
+                    .doc(this.currentuser.photoURL)
+                    .collection("Campaigns")
+                    .doc(snap.data().cid)
+                    .collection("leads")
+                    .get()
+                    .then((docu) => {
+                    
+                      data.docs.forEach((snap2) => {
+                        let action = snap2.data().action;
+                        let t = Date.parse(snap2.data().datetime);
+                        switch (
+                          action //Switching Action For Specific counts
+                        ) {
+                          case "Callback":
+                            if (t <=d1) {
+                              call.push(t);
+                             
+                              firebase
+                              .firestore()
+                              .collection("Company")
+                              .doc(this.currentuser.photoURL)
+                              .collection("Campaigns")
+                              .doc(snap.data().cid)
+                              .collection("leads").doc(snap2.data().uid).set({
+                                pending:true
+                              },{merge:true})
+                              // this.AllPendings.push(snap2.data());
+                            } else {
+                              break;
+                            }
+                            break;
+                          case "Schedule Meet":
+                            if (t <= d1) {
+                              meet.push(t);
+                              
+                              firebase
+                              .firestore()
+                              .collection("Company")
+                              .doc(this.currentuser.photoURL)
+                              .collection("Campaigns")
+                              .doc(snap.data().cid)
+                              .collection("leads").doc(snap2.data().uid).set({
+                                pending:true
+                              },{merge:true})
+                              // this.AllPendings.push(snap2.data());
+                            } else {
+                              break;
+                            }
+                            break;
+
+                            case "Send Mail":
+                            if (t <= d1) {
+                              meet.push(t);
+                              
+                              firebase
+                              .firestore()
+                              .collection("Company")
+                              .doc(this.currentuser.photoURL)
+                              .collection("Campaigns")
+                              .doc(snap.data().cid)
+                              .collection("leads").doc(snap2.data().uid).set({
+                                pending:true
+                              },{merge:true})
+                              // this.AllPendings.push(snap2.data());
+                            } else {
+                              break;
+                            }
+                            break;
+                        }
+                      });
+
+                      firebase //===============Writing Counts back to DB================
+                        .firestore()
+                        .collection("Company")
+                        .doc(this.currentuser.photoURL)
+                        .collection("Campaigns")
+                        .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
+                        .update({
+                          // pendingCalls: call.length,
+                          // pendingMeets: meet.length,
+                          pendings: call.length + meet.length,
+                        });
+                    });
+                }
+                
+                firebase
+                  .firestore()
+                  .collection("Company")
+                  .doc(this.currentuser.photoURL)
+                  .collection("Campaigns")
+                  .doc(snap.data().cid)
+                  .update({
+                    totalLeads: data.size,
+                  });
+              });
+          });
+        });
+
+        [1,2,3,4,5]= 5 , 4

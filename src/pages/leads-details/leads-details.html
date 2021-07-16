@@ -182,6 +182,7 @@
 							<th scope="col" *ngIf="Work_Email">Work Email</th>
 							<th scope="col" *ngIf="Work_Phone">Work Phone</th>
 							<th scope="col">Handler</th>
+							<th scope="col">Pending Tasks</th>
 							<th scope="col">Activity</th>
 							<th scope="col">Status</th>
 							<th scope="col">Remarks</th>
@@ -259,6 +260,7 @@
 								<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
 
 								<td>{{product.SR_name}}</td>
+								<td>{{product.allTasks}}</td>
 
 								<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)">
 									{{product.action}} <br> {{product.datetime}}
