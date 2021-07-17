@@ -9,11 +9,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReportPage } from '../pages/report/report';
 import { CreateCampaignPage } from '../pages/create-campaign/create-campaign';
 import { TrackCampaignPage } from '../pages/track-campaign/track-campaign';
-import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
-import { SettingsPage } from '../pages/settings/settings';
-import { UserLicensesPage } from '../pages/user-licenses/user-licenses';
+
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 import { EditCampaignsDetailsPage } from '../pages/edit-campaigns-details/edit-campaigns-details';
 import { LeadsDetailsPage } from '../pages/leads-details/leads-details';
@@ -78,9 +76,8 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     ManagerTaskDetailsPage,
     ManagerTrackCampaignPage,
     TrackCampaignPage,
-    AccountPage,
-    SettingsPage,
-    UserLicensesPage,
+
+   
     CreateLeadProfilePage,
     PendingLeadsPage, 
     ExportPage,
@@ -141,9 +138,7 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     ManagerTrackCampaignPage,
     TrackCampaignPage,
     UserregPage,
-    AccountPage,
-    SettingsPage,
-    UserLicensesPage,
+    
     CreateLeadProfilePage,  
     RemainingLeadDeatilsPage,
     EditCampaignsDetailsPage,

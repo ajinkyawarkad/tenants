@@ -765,7 +765,5 @@ export class TaskDetailsPage {
     console.log("datePicker", datePicker);
     datePicker.open();
   }
-  ab() {
-    console.log("date");
-  }
+ 
 }

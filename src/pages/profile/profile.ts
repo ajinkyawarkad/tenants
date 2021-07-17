@@ -5,6 +5,7 @@ import { Storage } from "@ionic/storage";
 
 import { User } from "../../models/user";
 import { LoginPage } from "../login/login";
+import { Observable } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
 import firebase from "firebase";
 
@@ -18,9 +19,12 @@ export class ProfilePage {
   public phoneno: any;
   company_name: any;
   cuid: any;
+  currentuser=firebase.auth().currentUser;
 
   //public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   user = {} as User;
+  userInfo: any;
+  products: any;
 
   constructor(
     public auth: AngularFireAuth,
@@ -45,6 +49,11 @@ export class ProfilePage {
 
   ionViewDidEnter() {
    
+    firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Admin")
+    .doc(this.currentuser.uid).get().then(doc =>{   
+     this.phoneno= doc.data().phoneno
+    })
+
   }
 
   updateprofile(user: User) {
@@ -54,7 +63,7 @@ export class ProfilePage {
       currentuser
         .updateProfile({
           displayName: this.name,
-          photoURL: currentuser.photoURL,
+          //photoURL: currentuser.photoURL,
         })
         .then(() => {
           
@@ -99,23 +108,17 @@ export class ProfilePage {
           Object.assign({
             name: this.name,
             email: this.email,
-            uid: currentuser.uid,
-            company_id: currentuser.photoURL,
+           // uid: currentuser.uid,
+           // company_id: currentuser.photoURL,
             phoneno: this.phoneno,
-            company_name: this.company_name,
-            role: "Admin",
+            //company_name: this.company_name,
+           // role: "Admin",
           })
         );
     });
   }
 
 
-  logout() {
-    this.storage.remove("name").then((name) => {
-      this.name = null;
-      this.navCtrl.setRoot(LoginPage);
-    });
-  }
   ResetPassword() {
     let alert = this.alertCtrl.create({
       title: "Reset Password",

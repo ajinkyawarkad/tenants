@@ -49,7 +49,7 @@ export class LeadsDetailsPage {
   value: any;
   userInfo: any;
   products: Observable<Users[]>;
-  productss :any=[];
+  productss: any = [];
   productsss: any;
   prod = [];
   public anArray: any = [];
@@ -65,6 +65,8 @@ export class LeadsDetailsPage {
   isItemAvailable = false;
   active = [];
   filled = [];
+  sersfield;
+  sorted;
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   Id;
@@ -114,6 +116,7 @@ export class LeadsDetailsPage {
   Website;
   Work_Email;
   Work_Phone;
+  term;
 
   //=============
   Handler;
@@ -122,7 +125,7 @@ export class LeadsDetailsPage {
   Status;
   Remark;
   showAssign;
-  srIds=[];
+  srIds = [];
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -144,10 +147,10 @@ export class LeadsDetailsPage {
   ) {
     this.value = navParams.get("product");
     // this.srIds =this.value.SR_id
-    
+
     this.campid = this.value.cid;
-    for(var i in this.value.SR_id){
-      this.srIds.push({"id":this.value.SR_id[i],"name":this.value.SR_name[i]})
+    for (var i in this.value.SR_id) {
+      this.srIds.push({ id: this.value.SR_id[i], name: this.value.SR_name[i] });
     }
   }
 
@@ -174,7 +177,6 @@ export class LeadsDetailsPage {
 
   setField(field) {
     this.pro = [];
- 
 
     this.mainField = field;
     switch (this.mainField) {
@@ -192,7 +194,6 @@ export class LeadsDetailsPage {
             for (var i in test1) {
               this.pro.push(test1[i].status);
             }
-            
           });
         break;
 
@@ -212,7 +213,6 @@ export class LeadsDetailsPage {
               let name = nam;
               this.pro.push(name);
             }
-           
           });
         break;
 
@@ -245,7 +245,6 @@ export class LeadsDetailsPage {
         .limit(this.pageSize)
         .onSnapshot((snaps) => {
           if (!snaps.docs.length) {
-           
             alert("No Data Available");
             return false;
           }
@@ -321,7 +320,6 @@ export class LeadsDetailsPage {
 
   downloadCsv() {
     if ((this.filtered = [])) {
-    
       this.selectedStatus = status;
 
       if (this.selSts == "All") {
@@ -338,7 +336,6 @@ export class LeadsDetailsPage {
               this.filtered.push(snap.data());
             });
           });
-       
       } else {
         firebase
           .firestore()
@@ -354,7 +351,6 @@ export class LeadsDetailsPage {
               this.filtered.push(snap.data());
             });
           });
-       
       }
     }
 
@@ -367,13 +363,10 @@ export class LeadsDetailsPage {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
     XLSX.writeFile(wb, this.fileName);
-
-   
   }
 
   //==================================>Table v/s Export<============================
   showDownload() {
-   
     this.navCtrl.push(ExportPage, {
       campd: this.value,
     });
@@ -383,12 +376,12 @@ export class LeadsDetailsPage {
     setTimeout(() => {
       this.productsss.forEach((obj) => {
         obj.isChecked = this.masterCheck;
-       
+
         if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
           this.array.push(obj.uid);
-         
+
           this.checkedCount = this.array.length;
-        
+
           if (this.checkedCount == 0) {
             this.showAssign = false;
           } else {
@@ -400,7 +393,7 @@ export class LeadsDetailsPage {
           if (index !== -1) {
             this.array.splice(index, 1);
           }
-        
+
           if (this.checkedCount == 0) {
             this.showAssign = false;
           } else {
@@ -414,43 +407,36 @@ export class LeadsDetailsPage {
   checkEvent(lead: Lead) {
     this.hide();
     let checked = 0;
-    
 
     this.productsss.map((obj) => {
-   
       checked++;
       if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
         this.array.push(obj.uid);
-      
+
         this.checkedCount = this.array.length;
         if (this.checkedCount == 0) {
           this.showAssign = false;
         } else {
           this.showAssign = true;
         }
-       
       }
       if (obj.isChecked == false) {
         var index = this.array.indexOf(obj.uid);
         if (index !== -1) {
           this.array.splice(index, 1);
         }
-       
-       
+
         this.checkedCount = this.array.length;
         if (this.checkedCount == 0) {
           this.showAssign = false;
         } else {
           this.showAssign = true;
         }
-        
       }
     });
   }
 
   insertsr(dataa) {
-
- 
     let i, j;
     for (i = 0; i < this.array.length; i++) {
       firebase
@@ -481,13 +467,11 @@ export class LeadsDetailsPage {
     var val = ev.target.value;
     if (val && val.trim() != "") {
       this.prod = this.prod.filter((item) => {
-       
         return (
           item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.last_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.Phone.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
-       
       });
     }
   }
@@ -545,7 +529,7 @@ export class LeadsDetailsPage {
 
     $(document).on("change", "table thead input", function () {
       var checked = $(this).is(":checked");
-     
+
       var index = $(this).parent().index();
       $("table tr").each(function () {
         if (checked) {
@@ -558,8 +542,7 @@ export class LeadsDetailsPage {
       });
     });
 
-  
-  
+
 
     firebase
       .firestore()
@@ -576,7 +559,6 @@ export class LeadsDetailsPage {
             this.active.push(this.products[a].indicator);
           }
         }
-
       });
 
     firebase
@@ -609,7 +591,6 @@ export class LeadsDetailsPage {
             }
           }
         }
-
       });
 
     firebase
@@ -672,8 +653,7 @@ export class LeadsDetailsPage {
         //==========
       });
 
-    this.productss=this.srIds
-   
+    this.productss = this.srIds;
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<?????????????????????????????????????????????????????????????????????????????
 
@@ -686,7 +666,6 @@ export class LeadsDetailsPage {
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         this.productss = doc.data().Users;
-      
       });
 
     firebase
@@ -698,7 +677,6 @@ export class LeadsDetailsPage {
       .collection("leads")
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-          
           alert("No Data Available");
           return false;
         }
@@ -746,15 +724,13 @@ export class LeadsDetailsPage {
                 this.hed.push(doc.data());
 
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              
+
                 this.productsss = this.hed;
-               
+
                 this.last = doc;
                 this.first = doc;
-                
               });
             });
-        
 
           return false;
         }
@@ -765,10 +741,9 @@ export class LeadsDetailsPage {
           this.hed.push(doc.data());
 
           var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        this.productsss = this.hed;
+          this.productsss = this.hed;
           this.last = doc;
           this.first = doc;
-         
         });
       });
     this.prev_strt_at = [];
@@ -776,7 +751,6 @@ export class LeadsDetailsPage {
     this.disable_next = false;
     this.disable_prev = false;
     this.itemnumberbypage = 1;
-
 
     firebase
       .firestore()
@@ -805,13 +779,11 @@ export class LeadsDetailsPage {
 
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
                 this.productsss = this.hed;
-               
+
                 this.last = doc;
                 this.first = doc;
-               
               });
             });
-        
 
           return false;
         }
@@ -821,7 +793,7 @@ export class LeadsDetailsPage {
         snaps.docs.forEach((doc) => {
           this.hed.push(doc.data());
 
-          var source = doc.metadata.hasPendingWrites ? "Local" : "Server";      
+          var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
           this.productsss = this.hed;
           this.last = doc;
           this.first = doc;
@@ -832,11 +804,9 @@ export class LeadsDetailsPage {
     this.disable_next = false;
     this.disable_prev = false;
     this.itemnumberbypage = 1;
-
   }
 
   showhide(name, ev) {
-  
     firebase
       .firestore()
       .collection("Company")
@@ -854,7 +824,6 @@ export class LeadsDetailsPage {
     this.page = parseInt(<string>data);
     //alert(typeof(page));
 
-   
     firebase
       .firestore()
       .collection("Company")
@@ -884,10 +853,8 @@ export class LeadsDetailsPage {
                 this.productsss = this.hed;
                 this.last = doc;
                 this.first = doc;
-               
               });
             });
-        
 
           return false;
         }
@@ -901,7 +868,6 @@ export class LeadsDetailsPage {
           this.productsss = this.hed;
           this.last = doc;
           this.first = doc;
-         
         });
       });
     this.prev_strt_at = [];
@@ -913,7 +879,7 @@ export class LeadsDetailsPage {
 
   nextPage(last) {
     this.disable_next = true;
-  
+
     let loading = this.loadingCtrl.create({
       spinner: "bubbles",
       content: "Loading...",
@@ -933,7 +899,6 @@ export class LeadsDetailsPage {
       .limit(this.page)
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-         
           alert("No More Data");
           return false;
         }
@@ -944,9 +909,9 @@ export class LeadsDetailsPage {
           (doc) => {
             this.hed.push(doc.data());
             var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      
+
             this.productsss = this.hed;
-        
+
             this.last = doc;
             this.first = doc;
 
@@ -970,7 +935,7 @@ export class LeadsDetailsPage {
       duration: 2000,
     });
     loading.present();
-  
+
     firebase
       .firestore()
       .collection("Company")
@@ -982,7 +947,6 @@ export class LeadsDetailsPage {
       .limit(this.page)
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-        
           alert("No More Data");
           return false;
         }
@@ -994,10 +958,9 @@ export class LeadsDetailsPage {
             this.hed.push(doc.data());
 
             var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-          
 
             this.productsss = this.hed;
-          
+
             this.last = doc;
             this.first = doc;
 
@@ -1011,6 +974,20 @@ export class LeadsDetailsPage {
         this.pagination_clicked_count--;
         this.itemnumberbypage / this.pagination_clicked_count;
       });
+  }
+
+  
+  checkBlank(){
+    if(this.term == null)
+    {
+      this.productsss = this.filled
+      console.log("Blank")
+
+
+    }else{
+      console.log("notBlank")
+    }
+
   }
 
   edit(data) {
@@ -1038,8 +1015,6 @@ export class LeadsDetailsPage {
     this.navCtrl.push(RemainingLeadDeatilsPage, { data, cid });
   }
 
-  
-
   showPopup(value) {
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
@@ -1054,7 +1029,6 @@ export class LeadsDetailsPage {
           text: "OK",
 
           handler: (data) => {
-           
             this.deleteItem1(value);
           },
         },
@@ -1064,7 +1038,6 @@ export class LeadsDetailsPage {
   }
 
   deleteItem1(value1) {
-   
     this.afs
       .collection("Company")
       .doc(
@@ -1080,4 +1053,46 @@ export class LeadsDetailsPage {
       )
       .delete();
   }
+
+  setSearchField(field){
+    this.sersfield = field
+  }
+
+  getLeads(){
+    this.productsss =[]
+    let test =[]
+   
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc(this.currentuser.photoURL)
+    .collection("Campaigns")
+    .doc(this.value.cid)
+    .collection("leads").where(this.sersfield ,"==",this.term).get().then(leads => {
+      leads.docs.forEach(leadDoc => {
+       
+        if(leadDoc.exists){
+          console.log("leadDoc",leadDoc.data())
+          test.push(leadDoc.data())
+          this.productsss = test
+          
+        }else{
+          alert("No data")
+        }
+        
+      
+      })
+    })
+
+    this.csvShow = true
+
+   
+    
+
+
+
+
+  }
+
+
 }

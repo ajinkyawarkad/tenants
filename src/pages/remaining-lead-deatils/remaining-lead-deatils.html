@@ -49,13 +49,6 @@
   
 
     <ion-item-divider class="divider">
-      <!-- <ion-label left>
-        Activity History
-      </ion-label>
-
-      <ion-label left>
-        Pending Activity 
-      </ion-label> -->
      
         <ion-label style="width: 300%;">
         <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
@@ -68,15 +61,11 @@
         </ion-segment>
         </ion-label>
      
-
-    
-
-    
       <ion-label class="activity" (click)="activity()">
        Add Activity
       </ion-label>
 
-      <ion-label style="float:left;color: blue;text-decoration: underline;" name="dta" (click)="comment()">
+      <ion-label class="comment"  name="dta" (click)="comment()">
         Add comment
        </ion-label>
        

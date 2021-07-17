@@ -178,7 +178,8 @@ export class RemainingLeadDeatilsPage {
         r !== "complete" &&
         r !== "uid" &&
         r !== "leads" &&
-        r !== "merge"
+        r !== "merge" &&
+        r !=="pending"
       ) {
         if (
           r !== "action" &&

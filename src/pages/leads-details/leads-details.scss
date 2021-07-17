@@ -19,7 +19,7 @@ page-leads-details {
 		z-index: 1;
 		margin: auto;
 		overflow: auto;
-		//overflow-x: scroll;
+		////overflow-x: scroll;
 		height: 425px;
 	  }
 	  .table-scroll table {
@@ -43,8 +43,8 @@ page-leads-details {
 		
 	  }
 	  .table-scroll thead th {
-		//background: #ccc;
-		//color: #ff;
+		////background: #ccc;
+		////color: #ff;
 		background: #f4f4f4;
 		position: -webkit-sticky;
 		position: sticky;
@@ -54,7 +54,7 @@ page-leads-details {
 	  
 	  a:focus {
 		background: red;
-	  } /* testing links*/
+	  } //* testing links*//
 	  
 	  th:first-child {
 		position: -webkit-sticky;
@@ -73,7 +73,7 @@ page-leads-details {
 		width: 100%;
 		padding: 8px 14px;
 		color: #333;
-	//	background-color: #fff;
+	////	background-color: #fff;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
@@ -128,7 +128,7 @@ page-leads-details {
 		  margin-top: 6px; 
 		  margin-bottom: 16px; 
 		  resize: vertical ;
-		  //margin-left: 2px;
+		  ////margin-left: 2px;
 		  font-size: 15px;
 
 		  &:focus {
@@ -140,7 +140,7 @@ page-leads-details {
 	 
 
 
-	/* Extra small devices (phones, 600px and down) */
+	// Extra small devices (phones, 600px and down) //
 	@media only screen and (max-width: 600px) {
 
 		.container {
@@ -150,12 +150,20 @@ page-leads-details {
 		}
 
 
-	// .Sbar{
-	// 	float: right;
-	// 	width: 35%;
-	// 	margin-top: -2px;
-	// 	margin-right: -7px;
-	// }
+	//// .Sbar{
+	//// 	float: right;
+	//// 	width: 35%;
+	//// 	margin-top: -2px;
+	//// 	margin-right: -7px;
+	//// }
+
+	th:first-child {
+		position: sticky;
+		width: 0%;
+		left: 0px;
+		z-index: 2;
+		background: rgb(244, 244, 244);
+	}
 
 	.form-popup-bg {
 		position:absolute;
@@ -206,7 +214,7 @@ page-leads-details {
 		}
 		.close-button {
 		background:none;
-		//color: #fff;
+		////color: #fff;
 		width: 40px;
 		height: 40px;
 		position: absolute;
@@ -217,7 +225,7 @@ page-leads-details {
 		
 		.form-popup-bg:before{
 		  content:'';
-		 // background-color: #fff;
+		 //// background-color: #fff;
 		opacity: 1;
 		position:absolute;
 		top: 0;
@@ -229,15 +237,15 @@ page-leads-details {
 		.container {
 			border-radius: 5px;
 			background-color:#fafafa;
-			//height: 100%;
-			//border: 1px solid #ccc; 
-			//padding: 7% 26% 9% 31%;		
+			////height: 100%;
+			////border: 1px solid #ccc; 
+			////padding: 7% 26% 9% 31%;		
 		}	
 		#fixed-form-container{
-			//position: fixed;
+			////position: fixed;
 			bottom: 0px;
 			left: 3%;
-			//width: 94%;
+			////width: 94%;
 			text-align: center;
 			margin: 0;
 		
@@ -252,7 +260,7 @@ page-leads-details {
 		}
 		
 		#fixed-form-container .button { 
-		  //font-size:1.1em; 
+		  ////font-size:1.1em; 
 			cursor: pointer;
 			margin-left: auto;
 			  margin-right: auto;
@@ -276,7 +284,7 @@ page-leads-details {
 			border-radius: 5px;
 		
 			  border: 2px solid #488aff;
-			//margin-bottom: 16px;
+			////margin-bottom: 16px;
 			padding: 10px; 
 			-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			-moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
@@ -285,7 +293,7 @@ page-leads-details {
 		
 		.settingicon{
 			display: inline-block;
-			//font-size: 1.6em;
+			////font-size: 1.6em;
 			margin-top: 0px;
 			margin-left: 5px;
 			margin-right: 6px;
@@ -303,25 +311,23 @@ page-leads-details {
 		.AssHan{
 			float: left;
 			margin-left: 6%;
-			margin-top: 14px;
+			margin-top: 10px;
 		
 		}
-		// .SR{
-			
-		// }
+		 .SR{
+			width: 57%;
+    		margin-top: 39px;
+		 }
 		.Selected{
-			float: left;margin-left: -50%;
-			margin-top: 36px;
+			float: left;
+			//// margin-left: -50%;
+			//// margin-top: 36px;
 		}
-		// .filter{
-		// 	float: right;
-		// 	//margin-right: 10%;
-		// 	margin-top: -7px;
-		//   }
+		
 		
 	 }
 
- /* Small devices (portrait tablets and large phones, 600px and up) */
+ // Small devices (portrait tablets and large phones, 600px and up) //
  @media (min-width: 600px)  and (max-width: 768px) {
 
 	.form-popup-bg {
@@ -373,7 +379,7 @@ page-leads-details {
 		}
 		.close-button {
 		background:none;
-		//color: #fff;
+		////color: #fff;
 		width: 40px;
 		height: 40px;
 		position: absolute;
@@ -384,7 +390,7 @@ page-leads-details {
 		
 		.form-popup-bg:before{
 		  content:'';
-		 // background-color: #fff;
+		 //// background-color: #fff;
 		opacity: 1;
 		position:absolute;
 		top: 0;
@@ -396,15 +402,15 @@ page-leads-details {
 		.container {
 			border-radius: 5px;
 			background-color:#fafafa;
-			//height: 100%;
-			//border: 1px solid #ccc; 
-			//padding: 7% 26% 9% 31%;		
+			////height: 100%;
+			////border: 1px solid #ccc; 
+			////padding: 7% 26% 9% 31%;		
 		}	
 		#fixed-form-container{
-			//position: fixed;
+			////position: fixed;
 			bottom: 0px;
 			left: 3%;
-			//width: 94%;
+			////width: 94%;
 			text-align: center;
 			margin: 0;
 		
@@ -419,7 +425,7 @@ page-leads-details {
 		}
 		
 		#fixed-form-container .button { 
-		  //font-size:1.1em; 
+		  ////font-size:1.1em; 
 			cursor: pointer;
 			margin-left: auto;
 			  margin-right: auto;
@@ -443,7 +449,7 @@ page-leads-details {
 			border-radius: 5px;
 		
 			  border: 2px solid #488aff;
-			//margin-bottom: 16px;
+			////margin-bottom: 16px;
 			padding: 10px; 
 			-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			-moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
@@ -492,16 +498,16 @@ page-leads-details {
 .Selected{
 	float: left;margin-left: -18%;margin-top: 36px;
 }
-// .filter{
-// 	float: right;
-// 	//margin-right: 10%;
-// 	margin-top: -7px;
-//   }
+//// .filter{
+//// 	float: right;
+//// 	////margin-right: 10%;
+//// 	margin-top: -7px;
+////   }
 
 
  }
 
- /* Extra small devices (phones, 600px and down) */
+ // Extra small devices (phones, 600px and down) //
 @media (min-width:768px) and (max-width: 992px) {
 
 	.form-popup-bg {
@@ -553,7 +559,7 @@ page-leads-details {
 		}
 		.close-button {
 		background:none;
-		//color: #fff;
+		////color: #fff;
 		width: 40px;
 		height: 40px;
 		position: absolute;
@@ -564,7 +570,7 @@ page-leads-details {
 		
 		.form-popup-bg:before{
 		  content:'';
-		 // background-color: #fff;
+		 //// background-color: #fff;
 		opacity: 1;
 		position:absolute;
 		top: 0;
@@ -576,15 +582,15 @@ page-leads-details {
 		.container {
 			border-radius: 5px;
 			background-color:#fafafa;
-			//height: 100%;
-			//border: 1px solid #ccc; 
-			//padding: 7% 26% 9% 31%;		
+			////height: 100%;
+			////border: 1px solid #ccc; 
+			////padding: 7% 26% 9% 31%;		
 		}	
 		#fixed-form-container{
-			//position: fixed;
+			////position: fixed;
 			bottom: 0px;
 			left: 3%;
-			//width: 94%;
+			////width: 94%;
 			text-align: center;
 			margin: 0;
 		
@@ -599,7 +605,7 @@ page-leads-details {
 		}
 		
 		#fixed-form-container .button { 
-		  //font-size:1.1em; 
+		  ////font-size:1.1em; 
 			cursor: pointer;
 			margin-left: auto;
 			  margin-right: auto;
@@ -623,7 +629,7 @@ page-leads-details {
 			border-radius: 5px;
 		
 			  border: 2px solid #488aff;
-			//margin-bottom: 16px;
+			////margin-bottom: 16px;
 			padding: 10px; 
 			-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			-moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
@@ -744,7 +750,7 @@ page-leads-details {
 		}
 		.close-button {
 		background:none;
-		//color: #fff;
+		////color: #fff;
 		width: 40px;
 		height: 40px;
 		position: absolute;
@@ -755,7 +761,7 @@ page-leads-details {
 		
 		.form-popup-bg:before{
 		  content:'';
-		 // background-color: #fff;
+		 //// background-color: #fff;
 		opacity: 1;
 		position:absolute;
 		top: 0;
@@ -766,16 +772,16 @@ page-leads-details {
 		
 		.container {
 			border-radius: 5px;
-		//	background-color:#fafafa;
-			//height: 100%;
-			//border: 1px solid #ccc; 
-			//padding: 7% 26% 9% 31%;		
+		////	background-color:#fafafa;
+			////height: 100%;
+			////border: 1px solid #ccc; 
+			////padding: 7% 26% 9% 31%;		
 		}	
 		#fixed-form-container{
-			//position: fixed;
+			////position: fixed;
 			bottom: 0px;
 			left: 3%;
-			//width: 94%;
+			////width: 94%;
 			text-align: center;
 			margin: 0;
 		
@@ -790,7 +796,7 @@ page-leads-details {
 		}
 		
 		#fixed-form-container .button { 
-		  //font-size:1.1em; 
+		  ////font-size:1.1em; 
 			cursor: pointer;
 			margin-left: auto;
 			  margin-right: auto;
@@ -814,7 +820,7 @@ page-leads-details {
 			border-radius: 5px;
 		
 			  border: 2px solid #488aff;
-			//margin-bottom: 16px;
+			////margin-bottom: 16px;
 			padding: 2px; 
 			-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
 			-moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);

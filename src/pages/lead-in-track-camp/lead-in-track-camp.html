@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<span class="inline">
+
 
 <ion-content padding>
 
@@ -23,17 +23,26 @@
       <div class="field-wrapper" *ngFor="let product of anArray2; let idx = index; ">
             <label class="sr-only">{{anArray2[idx].value}}</label>
             <input class="form-element" [(ngModel)]="anArray2[idx].action" type="text" >
+
+            
     </div>
+
+    <div class="field-wrapper">
+      <label >Sales Representative</label>
+    <select class="form-element" [(ngModel)]="prod" >
+      <option  *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</option>
+      </select>
+    </div>
+   
+
   </fieldset>  
   
+  <!-- <label class="SrLabel">Sale Representative</label>
+  <ion-item class="sr"> -->
+  
+   <!-- </ion-item> -->
 
-
- <label class="SrLabel">Sale Representative</label>
- <ion-item class="sr">
-  <ion-select [(ngModel)]="prod" >
-  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
-  </ion-select>
-  </ion-item>
+ 
   
 <br>
 

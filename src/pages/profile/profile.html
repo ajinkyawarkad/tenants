@@ -10,60 +10,31 @@
 
 <ion-content padding>
 
-  <div class="contaier-login" >
-    <!-- <div id="recaptcha-container"></div> -->
-  <ion-grid>
-   <ion-row>
-      <ion-col>
-
-        <ion-item>
-          <ion-input type="text" readonly placeholder="Email" [(ngModel)]="email"></ion-input>
-      </ion-item> 
-      <br />
-
-        <ion-item>
-          <ion-input type="text" required placeholder="Full Name" [(ngModel)]="name"> </ion-input>
-      </ion-item>
-      <br />
+  <div class="container">
    
+    <fieldset>
+      <!-- <legend>Contact</legend> -->
+      <div class="field-wrapper">
+        <label>Full Name</label>
+        <input type="text" class="form-element" [(ngModel)]="name" required>
+       
+        <label >Email</label>
+        <input type="text" class="form-element" [(ngModel)]="email" required>
 
-       <ion-item >
-        <ion-input type="number" [(ngModel)]="phoneno" placeholder="Phone No"></ion-input>
-      </ion-item>
-       <br />
+        <label >Phone No</label>
+        <input type="text"  class="form-element" [(ngModel)]="this.phoneno" required>
+
+
+      </div>
+    </fieldset>
+
    
-       <ion-item>
-        <ion-input type="text"  [(ngModel)]="company_name"  placeholder="Company Name"></ion-input>
-       </ion-item>        
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <button ion-button round full color="primary" (click)="updateprofile()">
-         Change Profile
-      </button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <button (click)="ResetPassword()" ion-button round full color="primary" >
-        Reset Password
-      </button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <button (click)="logout()"ion-button round full color="primary" >
-        Logout
-      </button>
-      </ion-col>
-    </ion-row>
-
-  </ion-grid>
-  </div>
+    <div style="text-align: center;">
+      <button ion-button  (click)="updateprofile()" color="primary" type="submit">Save Changes</button>
+      <button (click)="ResetPassword()" ion-button  color="primary" >Reset Password</button>
+    </div>
+ 
+</div>  
 
 
 </ion-content>

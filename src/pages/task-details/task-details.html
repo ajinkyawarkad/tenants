@@ -45,10 +45,10 @@
               <td style="font-weight: bold;">  {{pro.Handler}} </td>
               </tr>
 
-              <tr>
+              <!-- <tr>
                 <td>   Activity Time </td>
                 <td style="font-weight: bold;">  {{pro.Time}} </td>
-                </tr>
+                </tr> -->
 
             <tr>
               <td>  Mark to Complete Task </td>
@@ -71,7 +71,7 @@
           <ion-label style="float:left;color: black;font-weight: bold;" >
           {{data.first_name}} {{data.last_name}}
           </ion-label>
-          <ion-label style="float:right;color: blue;text-decoration: underline;margin-left: 50%;" name="dta" (click)="Reference()">
+          <ion-label class="ref" name="dta" (click)="Reference()">
             Add Reference
            </ion-label>
         </ion-item>
@@ -105,10 +105,9 @@
               </ion-item>
             </div>
 
-            <div class="wrap">
+           
             <button  class="button" ion-button color="primary" text-center (click)="Task(task)">Save </button>
-            </div>
-    
+            
           </div>
     
     <br>

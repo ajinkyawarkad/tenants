@@ -400,6 +400,9 @@ export class LoginPage {
                     this.storage.set("password",this.user.password)
                     console.log("Email is verified");
 
+
+                    
+
                     this.navCtrl.setRoot(HomePage);
 
 

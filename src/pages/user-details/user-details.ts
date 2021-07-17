@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import {NavController,NavParams,AlertController,LoadingController,} from "ionic-angular";
 import { EditTeamDetailsPage } from "../edit-team-details/edit-team-details";
-import { UserLicensesPage } from "../user-licenses/user-licenses";
+
 import { UserlistPage } from "../userlist/userlist";
 import { AngularFireAuth } from "@angular/fire/auth";
 import "firebase/firestore";
@@ -130,6 +130,7 @@ export class UserDetailsPage {
       .collection("Company")
       .doc(this.currentuser.photoURL + "/" + "Users" + "/" + value)
       .delete();
+      
     switch (role) {
       case "Sale Representative":
      
@@ -164,9 +165,7 @@ export class UserDetailsPage {
       .delete();
   }
 
-  userlicense() {
-    this.navCtrl.push(UserLicensesPage);
-  }
+ 
 
   edit(product) {
     this.navCtrl.push(EditTeamDetailsPage, {
